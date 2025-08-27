@@ -23,8 +23,23 @@ Homestead.json
 .phpunit.result.cache
 
 /public/build
+/public/hot
+/public/storage
+/storage/*.key
 /storage/pail
 .env.backup
 .env.production
 .phpactor.json
 auth.json
+
+*.log
+.DS_Store
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+Thumbs.db
