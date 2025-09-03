@@ -1,21 +1,17 @@
 <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
     <div class="sidebar-header border-bottom">
-        <div class="sidebar-brand">
-            <svg class="sidebar-brand-full" width="88" height="32" alt="CoreUI Logo">
-{{--                <use xlink:href="assets/brand/coreui.svg#full"></use>--}}
-            </svg>
-            <svg class="sidebar-brand-narrow" width="32" height="32" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#signet"></use>
-            </svg>
-        </div>
-        <button class="btn-close d-lg-none" type="button" data-coreui-theme="dark" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector(&quot;#sidebar&quot;)).toggle()"></button>
+        <h4 class="sidebar-brand" style="width: 100%;text-align: center; margin-bottom: 0">ZGS</h4>
+        <button class="btn-close d-lg-none" type="button" data-coreui-theme="dark" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()"></button>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
-        <li class="nav-item"><a class="nav-link" href="index.html">
+        <li class="nav-item"><a class="nav-link" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="assets/icons/sprites/free.svg#cil-speedometer"></use>
                 </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-        <li class="nav-title">Theme</li>
+        <li class="nav-title">Settings</li>
+        <li class="nav-title">Family Data</li>
+        <li class="nav-title">Config</li>
+        <li class="nav-title">Config</li>
         <li class="nav-item"><a class="nav-link" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="assets/icons/sprites/free.svg#cil-drop"></use>
@@ -32,7 +28,7 @@
 {{--            <ul class="nav-group-items compact">--}}
 {{--                <li class="nav-item"><a class="nav-link" href="base/accordion.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Accordion</a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="base/breadcrumb.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Breadcrumb</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/components/calendar/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Calendar--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/components/calendar/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Calendar--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
@@ -58,7 +54,7 @@
 {{--                <li class="nav-item"><a class="nav-link" href="buttons/buttons.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Buttons</a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Buttons Group</a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="buttons/dropdowns.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Dropdowns</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/components/loading-buttons/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Loading Buttons--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/components/loading-buttons/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Loading Buttons--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
@@ -73,34 +69,34 @@
 {{--                    <use xlink:href="assets/icons/sprites/free.svg#cil-notes"></use>--}}
 {{--                </svg> Forms</a>--}}
 {{--            <ul class="nav-group-items compact">--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/autocomplete/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Autocomplete--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/autocomplete/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Autocomplete--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/checks-radios.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Checks and radios</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/date-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Date Picker--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/date-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Date Picker--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/date-range-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Date Range Picker<span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/date-range-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Date Range Picker<span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/floating-labels.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Floating labels</a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/form-control.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Form Control</a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/input-group.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Input group</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/multi-select/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Multi Select--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/multi-select/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Multi Select--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/range.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Range</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/range-slider/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Range Slider--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/range-slider/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Range Slider--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/rating/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Rating--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/rating/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Rating--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
 {{--                <li class="nav-item"><a class="nav-link" href="forms/select.html"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Select</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="https://coreui.io/bootstrap/docs/forms/time-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Time Picker--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#/docs/forms/time-picker/" target="_blank"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Time Picker--}}
 {{--                        <svg class="icon icon-sm ms-2">--}}
 {{--                            <use xlink:href="assets/icons/sprites/free.svg#cil-external-link"></use>--}}
 {{--                        </svg><span class="badge badge-sm bg-danger ms-auto">PRO</span></a></li>--}}
@@ -158,14 +154,14 @@
 {{--                        </svg> Error 500</a></li>--}}
 {{--            </ul>--}}
 {{--        </li>--}}
-{{--        <li class="nav-item mt-auto"><a class="nav-link" href="https://coreui.io/bootstrap/docs/templates/installation/" target="_blank">--}}
+{{--        <li class="nav-item mt-auto"><a class="nav-link" href="#/docs/templates/installation/" target="_blank">--}}
 {{--                <svg class="nav-icon">--}}
 {{--                    <use xlink:href="assets/icons/sprites/free.svg#cil-description"></use>--}}
 {{--                </svg> Docs</a></li>--}}
-{{--        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="https://coreui.io/product/bootstrap-dashboard-template/" target="_top">--}}
-{{--                <svg class="nav-icon text-primary">--}}
-{{--                    <use xlink:href="assets/icons/sprites/free.svg#cil-layers"></use>--}}
-{{--                </svg> Try CoreUI PRO</a></li>--}}
+        <li class="nav-item"><a class="nav-link text-primary fw-semibold" href="#" target="_top">
+                <svg class="nav-icon text-primary">
+                    <use xlink:href="assets/icons/sprites/free.svg#cil-layers"></use>
+                </svg> Family Data</a></li>
     </ul>
     <div class="sidebar-footer border-top d-none d-md-flex">
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
