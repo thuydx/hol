@@ -7,6 +7,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import '@coreui/utils/dist/umd/index'
 import 'simplebar';
 import './color-modes';
+import './locale-modes';
 import './colors';
 import './config';
 import './popovers';

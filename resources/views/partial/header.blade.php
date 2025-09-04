@@ -11,23 +11,41 @@
             <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
         </ul>
         <ul class="header-nav ms-auto">
-{{--            <li class="nav-item"><a class="nav-link" href="#">--}}
-{{--                    <svg class="icon icon-lg">--}}
-{{--                        <use xlink:href="assets/icons/sprites/free.svg#cil-bell"></use>--}}
-{{--                    </svg></a></li>--}}
-{{--            <li class="nav-item"><a class="nav-link" href="#">--}}
-{{--                    <svg class="icon icon-lg">--}}
-{{--                        <use xlink:href="assets/icons/sprites/free.svg#cil-list-rich"></use>--}}
-{{--                    </svg></a></li>--}}
-{{--            <li class="nav-item"><a class="nav-link" href="#">--}}
-{{--                    <svg class="icon icon-lg">--}}
-{{--                        <use xlink:href="assets/icons/sprites/free.svg#cil-envelope-open"></use>--}}
-{{--                    </svg></a></li>--}}
+            <li class="nav-item dropdown">
+                <button class="btn btn-link nav-link py-2 px-2 d-flex align-items-center" type="button" aria-expanded="false" data-coreui-toggle="dropdown">
+                    <svg class="icon icon-lg locale-icon-active">
+                        <use xlink:href="assets/icons/sprites/free.svg#cil-language"></use>
+                    </svg>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center" type="button" data-locale-value="en">
+                            <svg class="icon icon-lg me-3">
+                                <use xlink:href="assets/icons/sprites/flag.svg#cif-us"></use>
+                            </svg>{{ __('messages.english') }}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center" type="button" data-locale-value="vi">
+                            <svg class="icon icon-lg me-3">
+                                <use xlink:href="assets/icons/sprites/flag.svg#cif-vn"></use>
+                            </svg>{{ __('messages.vietnamese') }}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="dropdown-item d-flex align-items-center" type="button" data-locale-value="cn">
+                            <svg class="icon icon-lg me-3">
+                                <use xlink:href="assets/icons/sprites/flag.svg#cif-cn"></use>
+                            </svg>{{ __('messages.chinese') }}
+                        </button>
+                    </li>
+                </ul>
+            </li>
         </ul>
         <ul class="header-nav">
-{{--            <li class="nav-item py-1">--}}
-{{--                <div class="vr h-100 mx-2 text-body text-opacity-75"></div>--}}
-{{--            </li>--}}
+            <li class="nav-item py-1">
+                <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+            </li>
             <li class="nav-item dropdown">
                 <button class="btn btn-link nav-link py-2 px-2 d-flex align-items-center" type="button" aria-expanded="false" data-coreui-toggle="dropdown">
                     <svg class="icon icon-lg theme-icon-active">
@@ -36,21 +54,21 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
                     <li>
-                        <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="light">
+                        <button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="light">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-sun"></use>
                             </svg>Light
                         </button>
                     </li>
                     <li>
-                        <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="dark">
+                        <button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="dark">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-moon"></use>
                             </svg>Dark
                         </button>
                     </li>
                     <li>
-                        <button class="dropdown-item d-flex align-items-center active" type="button" data-coreui-theme-value="auto">
+                        <button class="dropdown-item d-flex align-items-center active" type="button" data-theme-value="auto">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-contrast"></use>
                             </svg>Auto

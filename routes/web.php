@@ -15,7 +15,7 @@ Route::get('/update', [IndexController::class, 'update'])->name('update');
 
 Route::get('/locale/{lang}', function ($lang) {
     // Validate locale is supported
-    if (in_array($lang, ['en', 'fr', 'de', 'vi'])) {
+    if (in_array($lang, ['en', 'vi', 'vn', 'cn', 'zh_CN'])) {
         Session::put('locale', $lang);
     }
 

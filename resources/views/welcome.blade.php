@@ -15,7 +15,7 @@
     <div class="main-content">
         <div class="top-page">
             <!-- this is content -->
-            Site is under construction
+            <p>{{ __('messages.under-construction') }}</p>
         </div>
     </div>
 @stop
