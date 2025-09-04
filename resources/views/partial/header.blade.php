@@ -57,21 +57,21 @@
                         <button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="light">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-sun"></use>
-                            </svg>Light
+                            </svg>{{__('messages.light-mode') }}
                         </button>
                     </li>
                     <li>
                         <button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="dark">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-moon"></use>
-                            </svg>Dark
+                            </svg>{{__('messages.dark-mode') }}
                         </button>
                     </li>
                     <li>
                         <button class="dropdown-item d-flex align-items-center active" type="button" data-theme-value="auto">
                             <svg class="icon icon-lg me-3">
                                 <use xlink:href="assets/icons/sprites/free.svg#cil-contrast"></use>
-                            </svg>Auto
+                            </svg>{{__('messages.auto-mode') }}
                         </button>
                     </li>
                 </ul>

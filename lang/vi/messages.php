@@ -8,4 +8,7 @@ return [
     'vietnamese' => 'Tiếng Việt',
     'english' => 'Tiếng Anh',
     'chinese' => 'Tiếng Trung',
+    'light-mode' => 'Sáng',
+    'dark-mode' => 'Tối',
+    'auto-mode' => 'Tự động',
 ];

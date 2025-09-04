@@ -8,4 +8,7 @@ return [
     'vietnamese' => 'Vietnamese',
     'english' => 'English',
     'chinese' => 'Chinese',
+    'light-mode' => 'Light',
+    'dark-mode' => 'Dark',
+    'auto-mode' => 'Auto',
 ];

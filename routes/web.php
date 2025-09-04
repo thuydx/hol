@@ -18,6 +18,5 @@ Route::get('/locale/{lang}', function ($lang) {
     if (in_array($lang, ['en', 'vi', 'vn', 'cn', 'zh_CN'])) {
         Session::put('locale', $lang);
     }
-
     return Redirect::back();
 });

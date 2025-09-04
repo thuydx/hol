@@ -33,7 +33,7 @@
     <div class="wrapper d-flex flex-column min-vh-100">
         @include('partial.header')
         <div class="body flex-grow-1">
-            <div class="container-lg px-4">
+            <div class="container-fluid px-4">
                 @yield('content')
             </div>
         </div>
