@@ -13,3 +13,4 @@ import './config';
 import './popovers';
 import './toasts';
 import './tooltips';
+import '@coreui/icons-pro'

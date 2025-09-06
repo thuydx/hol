@@ -3,6 +3,16 @@
 );
 @use "@coreui/coreui-pro/scss/mixins/breakpoints" as *;
 @use "@coreui/coreui-pro/scss/mixins/color-mode" as *;
+@use "@coreui/icons-pro" as *;
+@use "@coreui/chartjs/scss/coreui-chartjs" as *;
+@use "sass:math";
+@use "sass:color";
+@use "sass:string";
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:selector";
+
 $prefix: 'zgs-';
 $toast-max-width:                   350px;
 $toast-padding-x:                   .75rem;
