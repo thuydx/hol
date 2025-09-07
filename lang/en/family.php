@@ -7,6 +7,7 @@ return [
     'commerce' => 'Commerce',
     'info' => 'Information',
     'members' => 'Members',
+    'family-members' => 'Family Members',
     'other-members' => 'Other Members',
     'guests' => 'Guests',
     'army' => 'Army',

@@ -8,4 +8,4 @@ return [
     'members' => 'Member',
     'other-members' => 'Other Member',
     'capital' => 'Capital',
- ];
+];

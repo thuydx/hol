@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 return [
     'title' => 'Other Data',
-    'doctor' => 'Doctor',
-    'hanmen' => 'Hanmen',
+    'doctor' => 'Đại Phu',
+    'hanmen' => 'Hàn Môn',
     'qinglou' => 'Qinglou',
-    'version' => 'Version',
+    'version' => 'Phiên Bản',
 ];

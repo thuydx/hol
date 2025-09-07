@@ -1,22 +1,23 @@
 @extends('layouts.app')
+@section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/jquery.json-viewer@1.4.0/json-viewer/jquery.json-viewer.css" rel="stylesheet">
+@endsection
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.json-viewer@1.4.0/json-viewer/jquery.json-viewer.js"></script>
+    <script>
+        $(function() {
+            let jsonData = @json(json_decode($dataFile));
+            $('#jsonTree').jsonViewer(jsonData, { collapsed: true, withQuotes: true });
+        });
+    </script>
+@endsection
 @section('content')
-    <div class="main-content">
-{{--@if(session('success'))--}}
-{{--<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">--}}
 
-<div aria-live="polite" aria-atomic="true" class="position-relative">
-    <div class="toast-container top-0 end-0 p-3">
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Info</strong>
-                <button type="button" class="btn-close" data-coreui-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ $successMessage }}
-            </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="jsonTree"></div>
         </div>
     </div>
-</div>
-{{--@endif--}}
-</div>
 @endsection
+

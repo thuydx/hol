@@ -17,9 +17,9 @@
 
   const setTheme = theme => {
     if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-coreui-theme', 'dark')
+      document.documentElement.setAttribute('data-theme', 'dark')
     } else {
-      document.documentElement.setAttribute('data-coreui-theme', theme)
+      document.documentElement.setAttribute('data-theme', theme)
     }
 
     const event = new Event('ColorSchemeChange')
