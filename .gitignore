@@ -43,3 +43,4 @@ auth.json
 /auth.json
 /node_modules
 Thumbs.db
+/build/reports

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6452e75d65409975f00174902cdb68f6",
+    "content-hash": "31798e379c0b0707a92fdce74810c2a9",
     "packages": [
         {
             "name": "brick/math",
@@ -5839,6 +5839,51 @@
                 }
             ],
             "time": "2025-08-13T11:49:31+00:00"
+        },
+        {
+            "name": "thuydx/sessiondb",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/SessionDb",
+                "reference": "48399b94d9454e9fae9f70049664abab09a79ca5"
+            },
+            "require": {
+                "illuminate/support": "^12.0",
+                "php": "^8.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ThuyDX\\SessionDb\\Providers\\SessionDbServiceProvider"
+                    ],
+                    "aliases": {
+                        "SessionDb": "ThuyDX\\SessionDb\\Facades\\SessionDb"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ThuyDX\\SessionDb\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/helpers.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ThuyDX",
+                    "email": "me@thuydx.pro"
+                }
+            ],
+            "description": "A fake database for Laravel using session or JSON storage.",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
