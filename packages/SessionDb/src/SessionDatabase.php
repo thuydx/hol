@@ -10,9 +10,19 @@ class SessionDatabase
 {
     /** @var 'json'|'memory' */
     protected string $driver;
+
     protected string $basePath;
+
     protected string $cookieName;
-    protected string $uuid;
+
+    protected string $uuid {
+        get {
+            return $this->uuid;
+        }
+        set {
+            $this->uuid = $value;
+        }
+    }
 
     /**
      * In-memory store (only used when driver === 'memory'):
@@ -28,8 +38,8 @@ class SessionDatabase
     public function __construct(?string $driver = null, ?string $uuid = null)
     {
         $driverFromConfig = (string) config('sessiondb.driver', 'json');
-        $this->driver     = $this->normalizeDriver($driver ?? $driverFromConfig);
-        $this->basePath   = (string) config('sessiondb.path', '');
+        $this->driver = $this->normalizeDriver($driver ?? $driverFromConfig);
+        $this->basePath = (string) config('sessiondb.path', '');
         $this->cookieName = (string) config('sessiondb.cookie', 'guest_uuid');
 
         // prefer explicit uuid, otherwise use helper
@@ -53,7 +63,8 @@ class SessionDatabase
      */
     protected function filePathFor(string $segment, string $table): string
     {
-        $prefix = $this->basePath !== '' ? rtrim($this->basePath, '/') . '/' : '';
+        $prefix = $this->basePath !== '' ? rtrim($this->basePath, '/').'/' : '';
+
         return "sessiondb/{$prefix}{$this->uuid}/{$segment}/{$table}.json";
     }
 
@@ -77,6 +88,7 @@ class SessionDatabase
         if (! $this->disk()->exists($path)) {
             return null;
         }
+
         return json_decode($this->disk()->get($path), true);
     }
 
@@ -87,6 +99,7 @@ class SessionDatabase
     {
         if ($this->driver === 'memory') {
             self::$memoryStore[$this->uuid]['keys'][$table] = $type;
+
             return;
         }
 
@@ -114,6 +127,7 @@ class SessionDatabase
         }
 
         $decoded = json_decode($this->disk()->get($path), true);
+
         return is_array($decoded) ? $decoded : [];
     }
 
@@ -124,6 +138,7 @@ class SessionDatabase
     {
         if ($this->driver === 'memory') {
             self::$memoryStore[$this->uuid]['values'][$table] = $rows;
+
             return;
         }
 
@@ -158,7 +173,7 @@ class SessionDatabase
                 continue;
             }
 
-            $type  = $obj['__type'] ?? null;
+            $type = $obj['__type'] ?? null;
             $value = $obj['value'] ?? null;
             if ($type !== null) {
                 // store type (may be string or array)
@@ -188,13 +203,16 @@ class SessionDatabase
             return array_keys(self::$memoryStore[$this->uuid]['values'] ?? []);
         }
 
-        $dir = $this->basePath !== '' ? rtrim($this->basePath, '/') . '/' . $this->uuid . '/values' : $this->uuid . '/values';
+        $dir = $this->basePath !== ''
+            ? rtrim($this->basePath, '/').'/'.$this->uuid.'/values'
+            : $this->uuid.'/values';
         $files = $this->disk()->files($dir) ?: [];
         $tables = [];
         foreach ($files as $f) {
             $tables[] = pathinfo($f, PATHINFO_FILENAME);
         }
         sort($tables);
+
         return $tables;
     }
 
@@ -207,27 +225,17 @@ class SessionDatabase
             return array_keys(self::$memoryStore[$this->uuid]['keys'] ?? []);
         }
 
-        $dir = $this->basePath !== '' ? rtrim($this->basePath, '/') . '/' . $this->uuid . '/keys' : $this->uuid . '/keys';
+        $dir = $this->basePath !== ''
+            ? rtrim($this->basePath, '/').'/'.$this->uuid.'/keys'
+            : $this->uuid.'/keys';
         $files = $this->disk()->files($dir) ?: [];
         $tables = [];
         foreach ($files as $f) {
             $tables[] = pathinfo($f, PATHINFO_FILENAME);
         }
         sort($tables);
+
         return $tables;
-    }
-
-    /**
-     * Set active uuid at runtime (used by importer/controller).
-     */
-    public function setUuid(string $uuid): void
-    {
-        $this->uuid = $uuid;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
     }
 
     public function uuid(): string
@@ -242,19 +250,22 @@ class SessionDatabase
     {
         if ($this->driver === 'memory') {
             unset(self::$memoryStore[$this->uuid]);
+
             return;
         }
 
-        $prefix = $this->basePath !== '' ? rtrim($this->basePath, '/') . '/' : '';
-        $this->disk()->deleteDirectory($prefix . $this->uuid);
+        $prefix = $this->basePath !== ''
+            ? rtrim($this->basePath, '/').'/'
+            : '';
+        $this->disk()->deleteDirectory($prefix.$this->uuid);
     }
 
     /**
      * Create a SessionTable instance injected with $this DB.
-     * SessionTable will call getTableData / setTableData which now map to 'values' segment.
+     * SessionTable will call getTableData / setTableData which now maps to the 'values' segment.
      */
     public function table(string $table): SessionTable
     {
-        return new SessionTable($table, $this->uuid, $this->basePath);
+        return new SessionTable($this->uuid, $this->driver, $this->basePath);
     }
 }

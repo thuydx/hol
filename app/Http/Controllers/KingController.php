@@ -13,10 +13,12 @@ class KingController extends Controller
     {
         return view('pages.king.members');
     }
+
     public function otherMembers()
     {
         return view('pages.king.other-members');
     }
+
     public function capital()
     {
         return view('pages.king.capital');

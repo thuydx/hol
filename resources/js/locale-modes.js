@@ -15,7 +15,7 @@
       return storedLocale;
     }
 
-    const browserLanguage = navigator.language || navigator.userLanguage;
+    const browserLanguage = navigator.language;
 
     if (browserLanguage.startsWith('vi') || browserLanguage.startsWith('vn')) {
       return 'vi'; // Vietnamese

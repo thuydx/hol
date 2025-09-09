@@ -102,7 +102,7 @@ class FlushSessionDb extends Command
         // memory driver
         $ref = new \ReflectionClass(SessionDatabase::class);
         $prop = $ref->getProperty('memoryStore');
-        $prop->setAccessible(true);
+        //        $prop->setAccessible(true);
         $store = $prop->getValue();
 
         $uuids = array_keys($store ?: []);
@@ -120,7 +120,7 @@ class FlushSessionDb extends Command
         if ($driver === 'memory') {
             $ref = new \ReflectionClass(SessionDatabase::class);
             $prop = $ref->getProperty('memoryStore');
-            $prop->setAccessible(true);
+            //            $prop->setAccessible(true);
             $store = $prop->getValue();
             unset($store[$uuid]);
             $prop->setValue(null, $store);
@@ -137,7 +137,7 @@ class FlushSessionDb extends Command
         if ($driver === 'memory') {
             $ref = new \ReflectionClass(SessionDatabase::class);
             $prop = $ref->getProperty('memoryStore');
-            $prop->setAccessible(true);
+            //            $prop->setAccessible(true);
             $prop->setValue(null, []); // clear all
         } else {
             $prefix = $basePath ? rtrim($basePath, '/') : '';

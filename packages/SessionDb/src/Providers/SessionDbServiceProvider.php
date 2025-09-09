@@ -6,6 +6,7 @@ namespace ThuyDX\SessionDb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use ThuyDX\SessionDb\Console\Commands\FlushSessionDb;
+use ThuyDX\SessionDb\SessionDatabase;
 
 class SessionDbServiceProvider extends ServiceProvider
 {

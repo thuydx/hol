@@ -8,8 +8,10 @@
     <script>
         $(function() {
             let jsonData = @json(json_decode($dataFile));
-            $('#jsonTree').jsonViewer(jsonData, { collapsed: true, withQuotes: true });
-        });
+            if (jsonData) {
+                $('#jsonTree').jsonViewer(jsonData, {collapsed: true, withQuotes: true});
+            }
+        })
     </script>
 @endsection
 @section('content')

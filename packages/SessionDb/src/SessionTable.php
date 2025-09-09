@@ -6,14 +6,14 @@ use RuntimeException;
 
 class SessionTable
 {
-    private string $uuid;
     private string $driver; // 'json' or 'memory'
+
     private array $memory = []; // for memory driver only
+
     private string $basePath;
 
     public function __construct(string $uuid, string $driver = 'json', string $basePath = '')
     {
-        $this->uuid = $uuid;
         $this->driver = $driver;
         $this->basePath = $basePath ?? storage_path("app/sessiondb/{$uuid}");
     }
@@ -23,7 +23,7 @@ class SessionTable
      */
     public function upsert(string $table, array $data): void
     {
-        if (!isset($data['__type'], $data['value'])) {
+        if (! isset($data['__type'], $data['value'])) {
             throw new RuntimeException("Invalid data for table {$table}. Missing __type or value.");
         }
 
@@ -71,8 +71,8 @@ class SessionTable
     public function truncate(): void
     {
         if ($this->driver === 'json') {
-            $this->deleteFolder("keys");
-            $this->deleteFolder("values");
+            $this->deleteFolder('keys');
+            $this->deleteFolder('values');
         } else {
             $this->memory = [];
         }
@@ -90,9 +90,10 @@ class SessionTable
     private function readJson(string $path): array
     {
         $fullPath = "{$this->basePath}/{$path}";
-        if (!file_exists($fullPath)) {
+        if (! file_exists($fullPath)) {
             return [];
         }
+
         return json_decode(file_get_contents($fullPath), true) ?? [];
     }
 
@@ -107,7 +108,7 @@ class SessionTable
     private function deleteFolder(string $folder): void
     {
         $fullPath = "{$this->basePath}/{$folder}";
-        if (!is_dir($fullPath)) {
+        if (! is_dir($fullPath)) {
             return;
         }
         foreach (glob("{$fullPath}/*.json") as $file) {
