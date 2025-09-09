@@ -10,17 +10,21 @@ use ThuyDX\SessionDb\Drivers\MemoryDriver;
 class SessionDatabase
 {
     protected string $driverName;
+
     protected string $uuid;
+
     protected string $basePath;
+
     protected string $cookieName;
+
     protected JsonDriver|MemoryDriver $driver;
 
-    public function __construct(string $driverName = null)
+    public function __construct(?string $driverName = null)
     {
         $this->driverName = $driverName ?? config('sessiondb.driver', 'json');
-        $this->basePath   = config('sessiondb.path', '');
+        $this->basePath = config('sessiondb.path', '');
         $this->cookieName = config('sessiondb.cookie', 'guest_uuid');
-        $this->uuid       = guest_uuid();
+        $this->uuid = guest_uuid();
 
         $this->driver = $this->driverName === 'memory'
             ? new MemoryDriver($this->uuid)

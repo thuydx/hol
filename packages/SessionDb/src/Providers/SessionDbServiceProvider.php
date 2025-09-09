@@ -6,11 +6,12 @@ namespace ThuyDX\SessionDb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use ThuyDX\SessionDb\Console\Commands\FlushSessionDb;
+
 class SessionDbServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/sessiondb.php', 'sessiondb');
+        $this->mergeConfigFrom(__DIR__.'/../../config/sessiondb.php', 'sessiondb');
 
         $this->app->singleton('sessiondb', function ($app) {
             return new SessionDatabase(config('sessiondb.driver', 'json'));
@@ -25,7 +26,7 @@ class SessionDbServiceProvider extends ServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__ . '/../../config/sessiondb.php' => config_path('sessiondb.php'),
+                __DIR__.'/../../config/sessiondb.php' => config_path('sessiondb.php'),
             ], 'sessiondb-config');
 
             $this->publishes([

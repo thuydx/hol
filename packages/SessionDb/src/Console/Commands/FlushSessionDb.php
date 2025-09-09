@@ -11,6 +11,7 @@ use ThuyDX\SessionDb\SessionDatabase;
 class FlushSessionDb extends Command
 {
     protected $signature = 'sessiondb:flush {--uuid=} {--all} {--force}';
+
     protected $description = 'Flush guest session database(s) stored by ThuyDX/SessionDb';
 
     public function handle(): int
@@ -21,6 +22,7 @@ class FlushSessionDb extends Command
 
         if ($uuid && $all) {
             $this->error('You cannot use --uuid and --all together.');
+
             return self::FAILURE;
         }
 
@@ -32,38 +34,45 @@ class FlushSessionDb extends Command
         $targets = $this->listDatabases($driver, $disk, $basePath);
 
         if ($uuid) {
-            if (!in_array($uuid, $targets, true)) {
+            if (! in_array($uuid, $targets, true)) {
                 $this->warn("UUID {$uuid} not found.");
+
                 return self::FAILURE;
             }
 
-            if (!$force && !$this->confirm("Do you really want to flush guest DB for UUID: {$uuid}?")) {
+            if (! $force && ! $this->confirm("Do you really want to flush guest DB for UUID: {$uuid}?")) {
                 $this->info('Aborted.');
+
                 return self::SUCCESS;
             }
 
             $this->flushSingle($uuid, $driver, $disk, $basePath);
+
             return self::SUCCESS;
         }
 
         if ($all) {
             if (empty($targets)) {
                 $this->warn('No guest session databases found to flush.');
+
                 return self::SUCCESS;
             }
 
-            $this->table(['UUID'], array_map(fn($id) => [$id], $targets));
+            $this->table(['UUID'], array_map(fn ($id) => [$id], $targets));
 
-            if (!$force && !$this->confirm('Do you really want to flush ALL listed guest DBs?')) {
+            if (! $force && ! $this->confirm('Do you really want to flush ALL listed guest DBs?')) {
                 $this->info('Aborted.');
+
                 return self::SUCCESS;
             }
 
             $this->flushAll($driver, $disk, $basePath);
+
             return self::SUCCESS;
         }
 
         $this->warn('Nothing done. Use --uuid=<uuid> or --all.');
+
         return self::INVALID;
     }
 
@@ -100,7 +109,7 @@ class FlushSessionDb extends Command
         if (empty($uuids)) {
             $this->warn('No in-memory guest databases found.');
         } else {
-            $this->info('In-memory guest UUIDs: ' . implode(', ', $uuids));
+            $this->info('In-memory guest UUIDs: '.implode(', ', $uuids));
         }
 
         return $uuids;
@@ -116,7 +125,7 @@ class FlushSessionDb extends Command
             unset($store[$uuid]);
             $prop->setValue(null, $store);
         } else {
-            $prefix = $basePath ? rtrim($basePath, '/') . '/' : '';
+            $prefix = $basePath ? rtrim($basePath, '/').'/' : '';
             $disk->deleteDirectory("{$prefix}{$uuid}");
         }
 
@@ -141,6 +150,6 @@ class FlushSessionDb extends Command
             }
         }
 
-        $this->info("✅ Flushed ALL guest session databases.");
+        $this->info('✅ Flushed ALL guest session databases.');
     }
 }

@@ -7,6 +7,7 @@ namespace ThuyDX\SessionDb\Drivers;
 class MemoryDriver
 {
     protected static array $storage = [];
+
     protected string $uuid;
 
     public function __construct(string $uuid)

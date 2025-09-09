@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class JsonDriver
 {
     protected string $uuid;
+
     protected string $basePath;
 
     public function __construct(string $uuid, string $basePath = '')
@@ -19,16 +20,18 @@ class JsonDriver
 
     protected function tableFile(string $table): string
     {
-        $prefix = $this->basePath ? rtrim($this->basePath, '/') . '/' : '';
+        $prefix = $this->basePath ? rtrim($this->basePath, '/').'/' : '';
+
         return "{$prefix}{$this->uuid}/{$table}.json";
     }
 
     public function load(string $table): array
     {
         $file = $this->tableFile($table);
-        if (!Storage::disk('public')->exists($file)) {
+        if (! Storage::disk('public')->exists($file)) {
             return [];
         }
+
         return json_decode(Storage::disk('public')->get($file), true) ?: [];
     }
 
