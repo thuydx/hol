@@ -24,5 +24,5 @@ return [
     |--------------------------------------------------------------------------
     | Each guest has a UUID stored in this cookie.
     */
-    'cookie' => 'guest_uuid',
+    'cookie' => 'uuid',
 ];

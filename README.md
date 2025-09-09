@@ -24,28 +24,56 @@ $users = sessiondb()->table('users')->all();
 sessiondb()->table('users')->insert(['name' => 'Alice']);
 ```
 
+#### SessionDatabase
+```php
+use ThuyDX\SessionDb\SessionDatabase;
+
+// after you validated and read JSON file into $payload (assoc array)
+$payload = json_decode($fileContents, true);
+
+// create db instance for the uploaded uuid (use explicit uuid so we don't rely on cookie)
+$db = new SessionDatabase('json', $safeUuid);
+
+// import: this will write keys/<table>.json and values/<table>.json
+$db->importFromArray($payload);
+
+// verify
+$typeForXun = $db->getTableType('XunXing_King'); // string or array
+$valuesForXun = $db->getTableData('XunXing_King'); // array of strings
+// stored files (json driver):
+// storage/app/public/<basePath?>/<uuid>/keys/XunXing_King.json
+// storage/app/public/<basePath?>/<uuid>/values/XunXing_King.json
+
+```
+
 #### SessionTable
 ```php
-// Insert
-sessiondb()->table('users')->insert(['name' => 'Alice']);
+$db = new SessionDatabase('json', $uuid);
 
-// Get all
-$users = sessiondb()->table('users')->all();
+// Table wrapper
+$table = $db->table('XunXing_King');
 
-// Find by id
-$user = sessiondb()->table('users')->find(1);
+// Set type
+$table->setType("System.Collections.Generic.List`1[[System.String, ...]]");
 
-// Update
-sessiondb()->table('users')->update(1, ['name' => 'Alice Updated']);
+// Insert values
+$table->insert(['name' => 'Hero', 'id' => 1]);
+$table->insert(['name' => 'Mage']); // auto-id 2
 
-// Delete
-sessiondb()->table('users')->delete(1);
+// Update row
+$table->update(1, ['name' => 'Hero Updated']);
 
-// Where chain
-$filtered = sessiondb()
-->table('users')
-->where(fn($row) => $row['name'] === 'Alice Updated')
-->get();
+// Delete row
+$table->delete(2);
+
+// Truncate
+$table->truncate();
+
+// Read type + values
+$type  = $table->getType();
+$rows  = $table->all();
+$first = $table->first();
+
 ```
 #### Commands
 ```bash

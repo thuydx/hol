@@ -7,7 +7,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use ThuyDX\SessionDb\SessionDatabase;
 
 class ConfigController extends Controller
 {
@@ -17,12 +19,12 @@ class ConfigController extends Controller
 
     private const string COOKIE_PATH = '/';
 
-    private const bool COOKIE_SECURE = true; // Set false for HTTP, true for HTTPS
+    private const bool COOKIE_SECURE = false; // Set false for HTTP, true for HTTPS
 
     public function config(Request $request): Response
     {
         $uuid = $this->getOrCreateUuid($request);
-        $files = storage_path("app/private/uploads/json/$uuid.json");
+        $files = Storage::disk('local')->path("uploads/json/$uuid.json");
         if (file_exists($files)) {
             $message = 'File already exists.';
         }
@@ -32,7 +34,7 @@ class ConfigController extends Controller
                 $uuid,
                 self::COOKIE_MINUTES,
                 self::COOKIE_PATH,
-                null, // domain
+                $request->getHttpHost(), // domain
                 self::COOKIE_SECURE,
                 true, // httpOnly
                 false, // raw
@@ -58,13 +60,18 @@ class ConfigController extends Controller
         $file = $request->file('json_file');
         $file->storeAs('uploads/json', $safeUuid.'.json');
 
+        $db = new SessionDatabase(config('sessiondb.driver', 'json'), $safeUuid);
+        $fileContents = file_get_contents($file->getRealPath());
+        $payload = json_decode($fileContents, true);
+        $db->importFromArray($payload);
+
         return redirect()->route('update')->with('success', 'File uploaded successfully!');
     }
 
     public function update(Request $request): Factory|View
     {
         $uuid = $this->getOrCreateUuid($request);
-        $files = storage_path("app/private/uploads/json/$uuid.json");
+        $files = Storage::disk('local')->path("uploads/json/$uuid.json");
 
         return view('pages/update', [
             'successMessage' => session('success'),
@@ -77,7 +84,7 @@ class ConfigController extends Controller
      */
     private function getOrCreateUuid(Request $request): string
     {
-        return $request->cookie(self::COOKIE_NAME) ?: (string) Str::uuid();
+        return $request->cookie(self::COOKIE_NAME) ?: $this->sanitizeUuid(Str::uuid());
     }
 
     /**

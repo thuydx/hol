@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 if (! function_exists('guest_uuid')) {
     function guest_uuid(): string
     {
-        $cookieName = config('sessiondb.cookie', 'guest_uuid');
+        $cookieName = config('sessiondb.cookie', 'uuid');
         $uuid = request()->cookie($cookieName);
 
         if (! $uuid) {

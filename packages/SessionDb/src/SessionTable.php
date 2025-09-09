@@ -1,100 +1,118 @@
 <?php
 
-declare(strict_types=1);
-
 namespace ThuyDX\SessionDb;
 
-use Illuminate\Support\Collection;
+use RuntimeException;
 
 class SessionTable
 {
-    protected string $table;
+    private string $uuid;
+    private string $driver; // 'json' or 'memory'
+    private array $memory = []; // for memory driver only
+    private string $basePath;
 
-    protected string $uuid;
-
-    protected $driver;
-
-    public function __construct(string $table, string $uuid, $driver)
+    public function __construct(string $uuid, string $driver = 'json', string $basePath = '')
     {
-        $this->table = $table;
         $this->uuid = $uuid;
         $this->driver = $driver;
+        $this->basePath = $basePath ?? storage_path("app/sessiondb/{$uuid}");
     }
 
-    protected function allRows(): array
+    /**
+     * Insert or update data into keys and values storage
+     */
+    public function upsert(string $table, array $data): void
     {
-        return $this->driver->load($this->table);
-    }
-
-    protected function saveRows(array $rows): void
-    {
-        $this->driver->save($this->table, $rows);
-    }
-
-    public function all(): array
-    {
-        return $this->allRows();
-    }
-
-    public function find(int|string $id): ?array
-    {
-        foreach ($this->allRows() as $row) {
-            if (($row['id'] ?? null) == $id) {
-                return $row;
-            }
+        if (!isset($data['__type'], $data['value'])) {
+            throw new RuntimeException("Invalid data for table {$table}. Missing __type or value.");
         }
 
-        return null;
-    }
-
-    public function insert(array $data): array
-    {
-        $rows = $this->allRows();
-        if (! isset($data['id'])) {
-            $ids = array_column($rows, 'id');
-            $data['id'] = $ids ? max($ids) + 1 : 1;
+        if ($this->driver === 'json') {
+            $this->writeJson("keys/{$table}.json", ['__type' => $data['__type']]);
+            $this->writeJson("values/{$table}.json", ['value' => $data['value']]);
+        } else {
+            $this->memory[$table]['keys'] = ['__type' => $data['__type']];
+            $this->memory[$table]['values'] = ['value' => $data['value']];
         }
-        $rows[] = $data;
-        $this->saveRows($rows);
-
-        return $data;
     }
 
-    public function update(int|string $id, array $data): ?array
+    /**
+     * Get table data
+     */
+    public function get(string $table): array
     {
-        $rows = $this->allRows();
-        foreach ($rows as &$row) {
-            if (($row['id'] ?? null) == $id) {
-                $row = array_merge($row, $data);
-                $this->saveRows($rows);
-
-                return $row;
-            }
+        if ($this->driver === 'json') {
+            $type = $this->readJson("keys/{$table}.json");
+            $value = $this->readJson("values/{$table}.json");
+        } else {
+            $type = $this->memory[$table]['keys'] ?? [];
+            $value = $this->memory[$table]['values'] ?? [];
         }
 
-        return null;
+        return array_merge($type, $value);
     }
 
-    public function delete(int|string $id): bool
+    /**
+     * Delete a table
+     */
+    public function delete(string $table): void
     {
-        $rows = $this->allRows();
-        $newRows = array_filter($rows, fn ($row) => ($row['id'] ?? null) != $id);
-
-        if (count($rows) === count($newRows)) {
-            return false;
+        if ($this->driver === 'json') {
+            $this->deleteFile("keys/{$table}.json");
+            $this->deleteFile("values/{$table}.json");
+        } else {
+            unset($this->memory[$table]);
         }
-        $this->saveRows(array_values($newRows));
-
-        return true;
     }
 
-    public function get(): Collection
+    /**
+     * Truncate all tables
+     */
+    public function truncate(): void
     {
-        return collect($this->allRows());
+        if ($this->driver === 'json') {
+            $this->deleteFolder("keys");
+            $this->deleteFolder("values");
+        } else {
+            $this->memory = [];
+        }
     }
 
-    public function first(): ?array
+    /* ======================== INTERNAL HELPERS ======================== */
+
+    private function writeJson(string $path, array $data): void
     {
-        return $this->get()->first();
+        $fullPath = "{$this->basePath}/{$path}";
+        @mkdir(dirname($fullPath), 0777, true);
+        file_put_contents($fullPath, json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+    private function readJson(string $path): array
+    {
+        $fullPath = "{$this->basePath}/{$path}";
+        if (!file_exists($fullPath)) {
+            return [];
+        }
+        return json_decode(file_get_contents($fullPath), true) ?? [];
+    }
+
+    private function deleteFile(string $path): void
+    {
+        $fullPath = "{$this->basePath}/{$path}";
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+    }
+
+    private function deleteFolder(string $folder): void
+    {
+        $fullPath = "{$this->basePath}/{$folder}";
+        if (!is_dir($fullPath)) {
+            return;
+        }
+        foreach (glob("{$fullPath}/*.json") as $file) {
+            unlink($file);
+        }
+        @rmdir($fullPath);
     }
 }
