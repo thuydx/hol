@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\ArmyController;
-use App\Http\Controllers\AssetController;
-use App\Http\Controllers\CommerceController;
+use App\Http\Controllers\FamilyArmyController;
+use App\Http\Controllers\FamilyAssetController;
+use App\Http\Controllers\FamilyCommerceController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\FamilyMembersController;
 use App\Http\Controllers\KingController;
 use App\Http\Controllers\OtherDataController;
-use App\Http\Controllers\RelationshipController;
+use App\Http\Controllers\FamilyRelationshipController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -37,22 +37,22 @@ Route::group(['prefix' => 'family'], function () {
     Route::get('/death', [FamilyMembersController::class, 'Death'])->name('family.death');
 });
 Route::group(['prefix' => 'commerce'], function () {
-    Route::get('/currency',[CommerceController::class, 'Currency'])->name('commerce.currency');
-    Route::get('/food',[CommerceController::class, 'Food'])->name('commerce.food');
+    Route::get('/currency',[FamilyCommerceController::class, 'Currency'])->name('commerce.currency');
+    Route::get('/food',[FamilyCommerceController::class, 'Food'])->name('commerce.food');
 });
 Route::group(['prefix' => 'army'], function () {
-    Route::get('/barracks',[ArmyController::class, 'Barracks'])->name('army.barracks');
-    Route::get('/prisoner',[ArmyController::class, 'Prisoner'])->name('army.prisoner');
-    Route::get('/horse',[ArmyController::class, 'Horse'])->name('army.horse');
+    Route::get('/barracks',[FamilyArmyController::class, 'Barracks'])->name('army.barracks');
+    Route::get('/prisoner',[FamilyArmyController::class, 'Prisoner'])->name('army.prisoner');
+    Route::get('/horse',[FamilyArmyController::class, 'Horse'])->name('army.horse');
 });
 Route::group(['prefix' => 'relationship'], function () {
-    Route::get('/king',[RelationshipController::class, 'King'])->name('relationship.king');
-    Route::get('/family',[RelationshipController::class, 'Family'])->name('relationship.family');
+    Route::get('/king',[FamilyRelationshipController::class, 'King'])->name('relationship.king');
+    Route::get('/family',[FamilyRelationshipController::class, 'Family'])->name('relationship.family');
 });
 Route::group(['prefix' => 'asset'], function () {
-    Route::get('/trade-shop',[AssetController::class, 'TradeShop'])->name('asset.trade-shop');
-    Route::get('/farm',[AssetController::class, 'Farm'])->name('asset.farm');
-    Route::get('/palace',[AssetController::class, 'Palace'])->name('asset.palace');
+    Route::get('/trade-shop',[FamilyAssetController::class, 'TradeShop'])->name('asset.trade-shop');
+    Route::get('/farm',[FamilyAssetController::class, 'Farm'])->name('asset.farm');
+    Route::get('/palace',[FamilyAssetController::class, 'Palace'])->name('asset.palace');
 });
 
 Route::group(['prefix' => 'king'], function () {
