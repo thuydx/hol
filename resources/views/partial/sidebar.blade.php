@@ -15,7 +15,7 @@
         <li class="nav-item"><a class="nav-link" href="{{route('family.info')}}">
             <svg class="nav-icon">
                 <use xlink:href="{{ Vite::asset('resources/icons/free.svg') }}#cil-info"></use>
-            </svg> {{ __('family.info') }}</a> {{-- ZiBei_Now, Member_First, FamilyData --}}
+            </svg> {{ __('family.info.title') }}</a> {{-- ZiBei_Now, Member_First, FamilyData --}}
         </li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">

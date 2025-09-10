@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', __('family.info'))
+@section('title', __('family.info.title'))
 
 @section('content')
     <div class="row">
         <div class="col-sm-8">
             <div class="card mb-4">
-                <div class="card-header"><strong>{{ __('family.info') }}</strong></div>
+                <div class="card-header"><strong>{{ __('family.info.title') }}</strong></div>
                 <div class="card-body">
                     <table class="table table-striped table-hover">
                         <thead class="">
@@ -31,14 +31,14 @@
             <div class="row">
                 <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header"><strong>{{ __('family.info.name') }}</strong></div>
+                        <div class="card-header"><strong>{{ __('family.info.family-subname') }}</strong></div>
                         <div class="card-body">
                             <table class="table table-striped table-hover">
                                 <thead class="">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">level</th>
+                                    <th scope="col">{{ __('family.info.subname') }}</th>
+                                    <th scope="col">{{ __('family.info.level') }}</th>
+                                    <th scope="col">{{ __('family.info.position') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,8 +48,8 @@
                                     @endphp
                                 <tr>
                                     <th scope="row">{{ $name[0] }}</th>
-                                    <td>{{ $name[1] }}</td>
-                                    <td>{{ $name[2] }}</td>
+                                    <td>{{ __('family.info.level') }} {{ $name[1] }}</td>
+                                    <td>{{ __('family.info.position-num') }} {{ $name[2] + 1 }}</td>
                                 </tr>
                                 @endforeach
 

@@ -5,7 +5,16 @@ declare(strict_types=1);
 return [
     'title' => 'Family',
     'commerce' => 'Commerce',
-    'info' => 'Information',
+    'info' => [
+        'title' => 'Family Info',
+        'family-subname' => 'Family Subname',
+        'subname' => 'Subname',
+        'name' => 'Name',
+        'level' => 'Level',
+        'position' => 'Position',
+        'position-num' => 'No.',
+        'master' => 'Master',
+    ],
     'members' => 'Members',
     'family-members' => 'Family Members',
     'other-members' => 'Other Members',

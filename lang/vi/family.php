@@ -5,7 +5,16 @@ declare(strict_types=1);
 return [
     'title' => 'Gia Tộc',
     'commerce' => 'Thương Mại',
-    'info' => 'Thông Tin',
+    'info' => [
+        'title' => 'Thông tin gia tộc',
+        'family-subname' => 'Gia tộc bối tự',
+        'subname' => 'Bối Tự',
+        'name' => 'Tự',
+        'level' => 'Đời',
+        'position' => 'Vị trí bối tự',
+        'position-num' => 'Chữ thứ',
+        'master' => 'Tộc trưởng',
+    ],
     'members' => 'Thành Viên',
     'family-members' => 'Tộc Nhân',
     'other-members' => 'Thê thiếp - Tế Tử',

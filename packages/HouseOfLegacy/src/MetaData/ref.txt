@@ -1,0 +1,361 @@
+City indexes and Level for Fiefs
+
+0 Nan
+1 Sanchuan
+2 Shu
+3 Danyang
+4 Chenliu
+5 Changsha
+6 Kuaiji
+7 Guangling
+8 Taiyuan
+9 Yizhou
+10 Nanhai
+11 Yunnan|
+
+Fief level
+0 None
+1 Earl
+2 Marquis
+3 Duke
+4 King
+
+
+Chỉ số và cấp độ thành phố cho Fiefs
+
+0 Nam
+1 Tam Xuyên
+2 Thục
+3 Đan Dương
+4 Thần Lưu
+5 Trường Sa
+6 Kuaiji
+7 Quảng Lĩnh
+8 Thái Nguyên
+9 Ích Châu
+10 Nam Hải
+11 Vân Nam
+
+cấp độ thái ấp
+0 Không có
+1 Bá tước
+2 Hầu tước
+3 công tước
+4 vua
+
+
+"Fengdi_now": {
+"__type": "",
+"value": [
+[
+"1", -- Leave this first one alone, do not edit it. Index is -1 here
+"null",
+"0|0|0",
+"null"
+],
+[
+"0", -- Ownership 1 yes, 0 no
+"null",
+"19|16|16", -- Tax Sliders; Property|Poll|Commerce
+"null" -- Laws added, separated by pipes. For example "0|4|5"
+],
+
+
+
+
+ The full list for Biography entries for line 36. These do not actually change anything for the character, but if you "appointed" someone or forced a marriage, you can update the biography to reflect it.
+
+Biography entries:
+Age@-1@null@null - before the age of 15, the experience is unknown
+Age@0@null@null - At the age of #, High Treason
+Age@1@null@null - At the age of #, Deceiving Sovereign
+Age@2@null@null - At the age of #, Foreign Collusion
+Age@3@null@null - At the age of #, Usurping Authority
+Age@4@null@null - At the age of #, Forming Cliques
+Age@5@null@null - At the age of #, Abusing Power
+Age@6@null@null - At the age of #, Corruption
+poorwyatt 5 Jun @ 9:47am
+Age@7@null@null - At the age of #, Neglecting Duties
+Age@8@null@null - At the age of #, Embezzlement
+Age@9@null@null - At the age of #, Accepting Bribery
+Age@10@null@null - At the age of #, Inhumane Interrogation
+Age@11@null@null - At the age of #, Prostituting
+Age@12@null@null - At the age of #, Forgery
+Age@13@null@null - At the age of #, Counterfeiting
+Age@14@null@null - At the age of #, Harboring Criminal
+Age@15@null@null - At the age of #, Collusion
+Age@16@null@null - At the age of #, Subversion
+Age@17@null@null - At the age of #, Sabotage Peace
+Age@18@null@null - At the age of #, Delirium
+Age@19@null@null - At the age of #, Daze
+Age@20@null@null - At the age of #, Cold Exposure
+Age@21@null@null - At the age of #, Dry Cough
+Age@22@null@null - At the age of #, Fever Rash
+Age@23@null@null - At the age of #, Dyspepsia
+Age@24@null@null - At the age of #, Jaundice
+Age@25@null@null - At the age of #, Palpitations
+Age@26@null@null - At the age of #, Rheumatic Pain
+poorwyatt 5 Jun @ 9:47am
+Age@27@null@null - At the age of #, Diarrhea
+Age@28@null@null - At the age of #, Dysentery
+Age@29@null@null - At the age of #, Fainting
+Age@30@null@null - At the age of #, Fatigue
+Age@31@null@null - At the age of #, Anemia
+Age@32@null@null - At the age of #, Anorexia
+Age@33@null@null - At the age of #, Stroke
+Age@34@null@null - At the age of #, Insomnia
+Age@35@null@null - At the age of #, Giving Bribery
+Age@36@null@null - At the age of #, Theft
+Age@37@null@null - At the age of #, Illegal Gambling
+Age@38@null@[Name] - At the age of #, impeached by [Name] on account of High Treason
+Age@39@null@[Name] - At the age of #, impeached by [Name] on account of Deceiving Sovereign
+Age@40@null@[Name] - At the age of #, impeached by [Name] on account of Foreign Collusion
+Age@41@null@[Name] - At the age of #, impeached by [Name] on account of Usurping Authority
+Age@42@null@[Name] - At the age of #, impeached by [Name] on account of Forming Cliques
+poorwyatt 5 Jun @ 9:47am
+Age@43@null@[Name] - At the age of #, impeached by [Name] on account of Abusing Power
+Age@44@null@[Name] - At the age of #, impeached by [Name] on account of Corruption
+Age@45@null@[Name] - At the age of #, impeached by [Name] on account of Neglecting Duties
+Age@46@null@[Name] - At the age of #, impeached by [Name] on account of Embezzelment
+Age@47@null@[Name] - At the age of #, beaten up by [Name]
+Age@48@null@[Name] - At the age of #, poisoned by [Name]
+Age@49@null@[Name] - At the age of #, impeached by [Name] on account of Accepting Bribery
+Age@50@null@[Name] - At the age of #, impeached by [Name] on account of Inhumane Interrogation
+Age@51@null@[Name] - At the age of #, impeached by [Name] on account of Prostituting
+Age@52@null@[Name] - At the age of #, land embezzeled by [Name]
+Age@53@null@[Name] - At the age of #, abducted by [Name]
+Age@54@null@[Name] - Not used - N/A
+Age@55@null@[Name] - At the age of #, extorted by [Name]
+poorwyatt 5 Jun @ 9:46am
+Age@56@null@[Name] - Not used - N/A
+Age@57@null@[Name] - Not used - N/A
+Age@58@null@[Name] - Not used - N/A
+Age@59@null@[Name] - Not used - N/A
+Age@60@null@[Name] - At the age of #, cursed by [Name]
+Age@61@null@[Name] - At the age of #, beaten to a pulp by the henchman of [Name]
+Age@62@null@[Name] - At the age of #, owed [Name] money for gambling. (Coin x~) ?? Unsure how to get coin amount
+Age@63@null@[Name] - At the age of #, misled by rumors spread by [Name]
+Age@64@null@[Name] - Not used - N/A
+Age@65@null@[Name] - Not used - N/A
+Age@66@null@[Name] - At the age of #, can't collect debt from [Name]
+Age@67@null@[Name] - At the age of #, humiliated by [Name]
+Age@68@null@[Name] - At the age of #, harassed by [Name]
+Age@69@null@[Name] - At the age of #, have an affair with [Name]
+Age@70@null@[Name] - Not used - N/A
+Age@71@null@[Name] - At the age of #, have contract voided by [Name]
+Age@72@null@[Name] - At the age of #, swindled by [Name]
+poorwyatt 5 Jun @ 9:46am
+Age@73@null@[Name] - At the age of #, slandered by [Name]
+Age@74@null@[Name] - Not used - N/A
+Age@75@null@[Name] - Not used - N/A
+Age@76@null@[Name] - At the age of #, ancestors' graves exhumed by [Name]
+Age@77@null@[Name] - At the age of #, kin slain by [Name]
+Age@78@[Name of Exam]@[Name] - At the age of #, participated in the [Name of Exam] and won the title of [Name]
+Age@79@null@[Name] - At the age of #, recruited [Name] as in-law
+Age@80@[Clan of name]@[Name] - At the age of #, married to [Name] (Male version)
+Age@81@null@[Name] - At the age of #, marry [Name] off
+Age@82@[Clan of name]@[Name] - At the age of #, married to [Name] (Female version)
+Age@83@null@[Name] - At the age of #, terminated engagement with [Name]
+Age@84@null@[Name] - At the age of #, engagement termintated by [Name]
+Age@85@[Name]@null - At the age of #, gave birth to a son named [Name]
+Age@86@[Name]@null - At the age of #, gave birth to a daughter named [Name]
+
+poorwyatt 5 Jun @ 9:46am
+Age@87@[Name]@null - At the age of #, heading to [Name] to see the world
+Age@88@[Name]@null - At the age of #, heading to [Name] on a study tour
+Age@89@[Name]@null - At the age of #, appointed to [Name] ;ex. General of Zuoxiao or Provincial Governor of Nan Province
+Age@90@[Name]@null - At the age of #, received the title of [Name] ;ex Earl of Fief
+Age@91@[Name]@null - At the age of #, leading an army to conquer [Name] ; ex. Nan ProvinceYiling
+Age@92@[Name]@null - At the age of #, serving in an army to conquer [Name] ; ex. Nan ProvinceYiling
+Age@93@[Name]@null - At the age of #, inherited the title of [Name]
+Age@94@[Name]@null - At the age of #, inherited the throne
+Age@95@[Name]@[Text2] - At the age of #, accused by [Name] of [Text2] ; ex. for Text2: having affair with Yu Tong
+Age@96@[Name]@null - At the age of #, deposed from the position of [Name]
+Age@97@[Name]@null - At the age of #, found guilty of [Name]
+Age@98@[Name]@null - At the age of #, visiting family
+
+
+
+Availability Status - Set the character as unavailable (unclickable)
+0 Available/None
+1 Demoted
+2 Study Tour
+3 Caning
+4 Imprisonment
+5 Exile
+6 Exile
+7 Exile
+8 Exile
+9 Beheading
+10 Military Mission
+11 Travelling
+12 Visit
+13 Runaway
+14 N/A Not Used
+15 Commerce
+16 Official
+17 Doing Gigs
+18 Street Trading
+19 Collecting Intel
+20 Spreading Rumors
+21 Private Teacher
+22 Stage Actor
+23 Clan Teacher
+24 Training Coach
+
+Marriage Status (Member_now)
+0 Single
+1 Married
+2 Widowed
+3 Remarried
+4 Separated
+5 Discarded
+6 Divorced
+
+Marriage Status (Member_qu)
+0 Married
+1 Concubine
+2 Widowed
+3 Wife (remarried)
+4 Separated
+5 Discarded
+6 Divorced
+
+
+
+Nhân vật Gia tộc
+1. Bạn có thể thay đổi chân dung: tóc sau | thân | hình dạng khuôn mặt | tóc trước (so sánh với hình dạng khuôn mặt ban đầu)
+4. Tên theo sau: Thế hệ | Loại Tài năng | Điểm Tài năng | Giới tính (0 Nữ, 1 Nam) | Tuổi thọ | Loại Kỹ năng 1: Phù thủy 2: Trị liệu sư 3: Tướng số 4: Bói toán 5: Bùa mê 6: Thợ thủ công | May mắn | Không rõ | Sở thích
+5. Tính cách: 1: Kiêu hãnh 2: Chính trực 3: Hoạt bát 4: Tốt bụng 5: Chân thành 6: Tự do thoải mái 7: Lãnh đạm 8: Tự ti 9: Hèn nhát 10: Nhút nhát 11: Dữ dội 12: Hay thay đổi 13: U sầu 14: Đa nghi
+23. Thẻ đặc biệt: 0@-1: Yêu Long Dương 1@-1: Yêu Đánh Bóng Gương 2@-1: Tham Sắc 3@-1: Yêu Tiền 4@-1: Một Xương Kỳ Lạ Xuyên Qua Đầu 5@-1: Dấu Hiệu Của Một Người Cao Quý 6@-1: Sinh Ra Với Bản Tính Nổi Loạn 7@-1: Hương Thơm Kỳ Lạ Trên Cơ Thể 8@-1: Hùng biện 9@-1: Giọng Nói Như Chim Họa Mi 10@-1: Một Cuộc Đời Lãng Mạn 11@-1: Chiến Thắng Và Say Mê
+Thẻ đặc biệt 12-15: Tan Vỡ, Thất Vọng, Quá Tự Tin, Giác Ngộ. Các thẻ từ 11 trở lên có thể là thẻ được tích lũy. Con số theo sau @ biểu thị thời gian (tính bằng tháng). -1 biểu thị vĩnh viễn.
+Các thẻ đặc biệt tiếp theo:
+16 và 17: Giác Ngộ và Sung Sướng. 18: Quên Ăn Ngủ. 19: Ngu Ngốc và Đần độn. Dường như không còn thẻ nào sau đó nữa.
+Con số theo sau @ biểu thị thời gian. Ví dụ: 12@24 biểu thị trạng thái đau khổ kéo dài 24 tháng, và 8@-1 biểu thị hùng biện (vĩnh viễn).
+Nhiều thẻ có thể được phân cách bằng dấu "|", ví dụ: 7@-1|8@-1|9@-1. Nhân tiện, khả năng ăn nói lưu loát của 8@-1 khá hữu ích trong việc tăng mức độ yêu thích, tăng 2-10 điểm cho mỗi cuộc trò chuyện.
+
+Vị trí sửa đổi thẻ đặc biệt:
+
+Nhân vật Clan Member hiện tại là 24, nhân vật đã kết hôn Member_qu là 27, và nhân vật không phải người chơi trong gia đình Member_other là 29.
+
+Nhân tiện, thuộc tính Menke_now là 15 là thuộc tính Chiến lược.
+
+CityData_now►value►County number►Specific city number (0 là quận lỵ, các quận còn lại là cấp dưới). Có thể xác định thành phố tương ứng bằng cách tìm kiếm giá trị cụ thể.
+
+ShiJia_Now: Gia đình không phải người chơi:
+
+1: Họ
+
+2: Cấp bậc gia đình
+
+3: Mối quan hệ với gia đình người chơi
+
+5: Có thể là tọa độ, có thể khớp với CityData_now, chẳng hạn như 1|5. 1 là số quận tương ứng, 5 là số thành phố cấp dưới tương ứng - 1 (tương ứng với số thành phố 6).
+
+6: Loại gia đình: 1: Gia đình Học giả 2: Gia đình Võ thuật 3: Gia đình Thương gia 4. Gia đình Nghệ thuật (Chữ số cuối bị kẹt khi tôi thử, có thể bị thiếu)
+7: Ảnh hưởng
+8: Mối quan hệ với các Gia đình khác: Số hiệu Gia đình (-2 đối với Gia đình Hoàng gia) @ Giá trị Mối quan hệ. Ví dụ: -2 @ 14.2 có mối quan hệ với Gia đình Hoàng gia là 14.2.
+
+Member_other: Các nhân vật gia đình không phải người chơi khác:
+1: Chân dung: Tóc sau | Thân | Mặt | Tóc trước (So sánh với thiết lập khuôn mặt ban đầu)
+2: Tên | ? | 1 | Loại Tài năng | Điểm Tài năng | Giới tính (0 Nữ, 1 Nam) | Tuổi thọ | Loại Kỹ năng | May mắn | Tính cách: 1. Kiêu hãnh 2. Chính trực 3. Sôi nổi 4. Tốt bụng 5. Chân thành 6. Dễ tính 7. Xa cách 8. Tự ti 9. Hèn nhát 10. Nhút nhát 11. Dữ dội 12. Tài giỏi 13. U sầu 14. Đa nghi | ?
+3: Độ tuổi
+4-7: Dân sự, Quân sự, Kinh doanh và Nghệ thuật
+8: Tâm trạng
+15: Được yêu thích
+17: Danh tiếng
+19: Sức hút
+20: Sức khỏe
+22: Chiến lược
+25: Giá trị kỹ năng
+29: Thẻ đặc biệt
+
+Điều chỉnh Hoàng tộc
+ShiJia_king Hoàng tộc:
+2: Mối quan hệ với gia đình của người chơi
+5: Mối quan hệ với các gia đình khác - Số hiệu gia đình @ giá trị mối quan hệ, ví dụ: 1 @ 14.2
+
+Member_king Thành viên Hoàng tộc:
+1: Chân dung (Tóc, Cơ thể, Mặt, Trán)
+2: Tên, Sở thích, Loại Tài năng, Điểm Tài năng, Giới tính, Tuổi thọ, Loại Kỹ năng, May mắn, Tính cách, Số hiệu của Cha hoặc Mẹ (không phải vợ hoặc con rể)
+3: Tuổi
+4-7: Dân sự, Quân sự, Kinh doanh và Nghệ thuật
+8: Tâm trạng
+9: Địa vị
+13: Số lượng con cái
+14: Mức độ được yêu thích
+16: Danh tiếng
+18: Sự quyến rũ
+19: Sức khỏe
+21: Chiến lược
+22: Mức tăng thuộc tính hàng tháng ước tính
+23: Giá trị Kỹ năng
+26: Thẻ Đặc biệt
+
+ShiJia_Now: Gia đình không phải người chơi:
+1: Họ
+2: Hạng gia đình
+3: Mối quan hệ với gia đình người chơi
+5: Có thể là tọa độ, có thể khớp với CityData_now, ví dụ: 1|5. 1 là số quận tương ứng, 5 là số thành phố tương ứng -1 (tương ứng với số thành phố 6).
+6: Loại gia đình: 1: Gia đình học thức 2: Gia đình võ thuật 3: Gia đình thương gia 4: Gia đình nghệ sĩ (Các số sau bị kẹt khi tôi thử, có thể bị thiếu)
+7: Ảnh hưởng
+8: Mối quan hệ với các gia đình khác: Số gia đình (-2 đối với hoàng tộc) @ giá trị mối quan hệ. Ví dụ: -2 @ 14.2 có mối quan hệ là 14.2 với hoàng tộc.
+
+Member_other: Các nhân vật gia đình không phải người chơi khác:
+1: Chân dung Tóc sau | Cơ thể | Hình dạng khuôn mặt | Tóc trước (So sánh với thiết lập khuôn mặt ban đầu)
+2: Tên | Sở thích | Loại tài năng | Điểm tài năng | Giới tính (0 Nữ, 1 Nam) | Tuổi thọ | Loại Kỹ Năng | May Mắn | Tính Cách | Số của Cha hoặc Mẹ (không phải vợ, thiếp hoặc con rể)
+3: Tuổi
+4-7: Dân sự, Quân sự, Kinh doanh và Nghệ thuật
+8: Tâm trạng
+9: Địa vị (xem bảng tương ứng để biết chi tiết)
+15: Mức độ thiện cảm
+17: Danh tiếng
+19: Sức hút
+20: Sức khỏe
+22: Chiến lược
+24: Tăng thuộc tính hàng tháng
+25: Giá trị Kỹ năng
+29: Thẻ Đặc biệt
+
+CityData_now►value►Số Quận►Số Thành phố Cụ thể (0 là thủ phủ quận, các thành phố còn lại là thành phố trực thuộc)
+
+Chỉnh sửa Thủ phủ Quận:
+
+0: -1 | Quy mô Quân đội | Tinh thần | 100
+
+7: Dân số
+
+8: Sự Bất bình của Công chúng
+
+9: Tài chính
+
+10: Thịnh vượng
+
+11: Sinh kế của Người dân
+
+13: Giáo dục
+
+14: Môi trường
+
+Thành phố Trực thuộc:
+
+3: Dân số
+
+4: Sự Bất bình của Công chúng
+
+5: 1 cho quân nổi dậy, -1 cho quân đã được phục hồi | Quy mô Quân đội | Tinh thần | Giá trị Mối quan hệ
+
+7: Tài chính
+
+
+
+Trang trại nằm trong NongZ_now.
+Bạn có thể tìm thấy nó bằng cách tìm kiếm tên trang trại ở góc trên bên phải của trình soạn thảo.
+
+Số 5 đại diện cho diện tích trang trại. Tôi thấy việc đổi thành 16 hoạt động tốt, nhưng các giá trị khác dường như khiến quá trình lưu không tải được (cần nghiên cứu thêm).
+
+Con số sau số 2 đại diện cho độ phì nhiêu của từng lô đất. Bạn có thể tăng diện tích. Sau khi lưu, con số sau số 2 sẽ tạo ra số lô đất tương ứng dựa trên diện tích trang trại của bạn. Chỉ cần thay đổi độ phì nhiêu của từng lô đất theo mức mong muốn.
+
+Số 7 đại diện cho số lượng nông dân tối đa. Đổi thành 1000 sẽ phá hủy tất cả nhà cửa và đưa toàn bộ đất vào sản xuất (giống như Chu Bảo Bì, hahahaha).
+
+Ba con số sau số 24 đại diện cho số lượng nông dân tham gia vào hoạt động nông nghiệp, chăn nuôi và thủ công mỹ nghệ.
