@@ -3,10 +3,92 @@
 @section('title', __('family.info'))
 
 @section('content')
-    <div class="main-content">
-        <div class="top-page">
-            <!-- this is content -->
-            <p>{{ __('family.info') }}</p>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card mb-4">
+                <div class="card-header"><strong>{{ __('family.info') }}</strong></div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead class="">
+                        <tr>
+                            <th scope="col">key</th>
+                            <th scope="col">values</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($familyInfo as $key => $value)
+                        <tr>
+                            <td>{{ $key }}</td>
+                            <td>{{ $value }}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>{{ __('family.info.name') }}</strong></div>
+                        <div class="card-body">
+                            <table class="table table-striped table-hover">
+                                <thead class="">
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Position</th>
+                                    <th scope="col">level</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($firstName as $name)
+                                    @php
+                                        $name = explode('|', $name);
+                                    @endphp
+                                <tr>
+                                    <th scope="row">{{ $name[0] }}</th>
+                                    <td>{{ $name[1] }}</td>
+                                    <td>{{ $name[2] }}</td>
+                                </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Force next columns to break to new line at md breakpoint and up -->
+                <div class="w-100 d-none d-md-block"></div>
+
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>{{ __('family.info.master') }}</strong></div>
+                        <div class="card-body">
+                            <table class="table table-striped table-hover">
+                                <thead class="">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Attribute</th>
+                                    <th scope="col">level</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">{{ $master[0] }}</th>
+                                    <td>{{ $master[1] }}</td>
+                                    <td>{{ $master[2] }}</td>
+                                    <td>{{ $master[3] }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 @stop

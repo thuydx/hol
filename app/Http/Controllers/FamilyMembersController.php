@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use ThuyDX\SessionDb\SessionDatabase;
+
 class FamilyMembersController extends Controller
 {
     public function info()
     {
-        return view('pages.family.info');
+        $safeUuid = guest_uuid();
+        $db = new SessionDatabase('json', $safeUuid);
+        $firstName = $db->getTableData('ZiBei_Now');
+        $master = $db->getTableData('Member_First');
+        $familyInfo = $db->getTableData('FamilyData');
+        return view('pages.family.info', [
+            'firstName' => $firstName,
+            'master' => $master,
+            'familyInfo' => $familyInfo,
+        ]);
     }
 
     public function members()

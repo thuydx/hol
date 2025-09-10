@@ -6,7 +6,8 @@
     <div class="main-content">
         <div class="top-page">
             <!-- this is content -->
-            <p>{{ __('other.version') }}</p>
+            <h3>{{ __('other.version') }}</h3>
+            <p>{{ $version }}</p>
         </div>
     </div>
 @stop

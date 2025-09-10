@@ -115,7 +115,7 @@ class SessionDatabase
     /**
      * Return the rows (array) for the given table (values).
      */
-    public function getTableData(string $table): array
+    public function getTableData(string $table): mixed
     {
         if ($this->driver === 'memory') {
             return self::$memoryStore[$this->uuid]['values'][$table] ?? [];
@@ -125,10 +125,7 @@ class SessionDatabase
         if (! $this->disk()->exists($path)) {
             return [];
         }
-
-        $decoded = json_decode($this->disk()->get($path), true);
-
-        return is_array($decoded) ? $decoded : [];
+        return json_decode($this->disk()->get($path), true);
     }
 
     /**

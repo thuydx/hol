@@ -1,5 +1,8 @@
 @use "@coreui/coreui-pro/scss/coreui" as * with (
-  $enable-deprecation-messages: false
+  $enable-deprecation-messages: false,
+  $prefix: 'zgs-',
+  $data-infix: '-'
+
 );
 @use "@coreui/coreui-pro/scss/mixins/breakpoints" as *;
 @use "@coreui/coreui-pro/scss/mixins/color-mode" as *;
@@ -33,12 +36,12 @@ $toast-header-border-color:         $toast-border-color;
 @use 'themes';
 
 body {
-    background-color: var(--cui-tertiary-bg);
+    background-color: var(--zgs-tertiary-bg);
 }
 
 .wrapper {
     width: 100%;
-    padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+    padding-inline: var(--zgs-sidebar-occupy-start, 0) var(--zgs-sidebar-occupy-end, 0);
     will-change: auto;
     @include transition(padding .15s);
 }
@@ -54,8 +57,8 @@ body {
 
 .sidebar-header {
     .nav-underline-border {
-        --cui-nav-underline-border-link-padding-x: 1rem;
-        --cui-nav-underline-border-gap: 0;
+        --zgs-nav-underline-border-link-padding-x: 1rem;
+        --zgs-nav-underline-border-gap: 0;
     }
 
     .nav-link {
@@ -86,10 +89,10 @@ body {
 
 @include color-mode(dark) {
     body {
-        background-color: var(--cui-dark-bg-subtle);
+        background-color: var(--zgs-dark-bg-subtle);
     }
 
     .footer {
-        --cui-footer-bg: var(--cui-body-bg);
+        --zgs-footer-bg: var(--zgs-body-bg);
     }
 }

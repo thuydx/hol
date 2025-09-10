@@ -3,7 +3,7 @@
         <h4 class="sidebar-brand" style="width: 100%;text-align: center; margin-bottom: 0">ZGS</h4>
         <button class="btn-close d-lg-none" type="button" data-theme="dark" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()"></button>
     </div>
-    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+    <ul class="sidebar-nav" data-coreui="navigation">
         <li class="nav-title">{{ __('app.sidebar.config') }}</li>
         <li class="nav-item"><a class="nav-link" href="{{route('config')}}">
             <svg class="nav-icon">

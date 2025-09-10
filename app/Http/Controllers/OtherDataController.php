@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use ThuyDX\SessionDb\SessionDatabase;
+
 class OtherDataController extends Controller
 {
     public function doctor()
@@ -21,6 +23,9 @@ class OtherDataController extends Controller
 
     public function version()
     {
-        return view('pages.other-data.version');
+        $safeUuid = guest_uuid();
+        $db = new SessionDatabase('json', $safeUuid);
+        $version = $db->getTableData('VersionID');
+        return view('pages.other-data.version', compact('version'));
     }
 }

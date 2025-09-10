@@ -17,7 +17,7 @@
                         <use xlink:href="{{ Vite::asset('resources/icons/free.svg') }}#cil-language"></use>
                     </svg>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
+                <ul class="dropdown-menu dropdown-menu-end" style="--zgs-dropdown-min-width: 8rem;">
                     <li>
                         <button class="dropdown-item d-flex align-items-center" type="button" data-locale-value="en">
                             <svg class="icon icon-lg me-3">
@@ -52,7 +52,7 @@
                         <use xlink:href="{{ Vite::asset('resources/icons/free.svg') }}#cil-contrast"></use>
                     </svg>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
+                <ul class="dropdown-menu dropdown-menu-end" style="--zgs-dropdown-min-width: 8rem;">
                     <li>
                         <button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="light">
                             <svg class="icon icon-lg me-3">
@@ -81,7 +81,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/2.jpg" alt="user@email.com"></div>
+                    <div class="avatar avatar-md"><img class="avatar-img" src="/assets/img/avatars/2.jpg" alt="user@email.com"></div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
