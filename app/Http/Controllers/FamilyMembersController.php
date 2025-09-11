@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use ThuyDX\SessionDb\SessionDatabase;
-
+use ThuyDX\HouseOfLegacy\MetaData\Member_now\Member;
 class FamilyMembersController extends Controller
 {
-    public function info()
+
+    protected $safeUuid;
+    protected SessionDatabase $sessionDb;
+    public function __construct()
     {
         $safeUuid = guest_uuid();
-        $db = new SessionDatabase('json', $safeUuid);
-        $firstName = $db->getTableData('ZiBei_Now');
-        $master = $db->getTableData('Member_First');
-        $familyInfo = $db->getTableData('FamilyData');
+        $this->sessionDb = new SessionDatabase('json', $safeUuid);
+    }
+    public function info()
+    {
+        $firstName = $this->sessionDb->getTableData('ZiBei_Now');
+        $master = $this->sessionDb->getTableData('Member_First');
+        $familyInfo = $this->sessionDb->getTableData('FamilyData');
         return view('pages.family.info', [
             'firstName' => $firstName,
             'master' => $master,
@@ -22,7 +28,14 @@ class FamilyMembersController extends Controller
 
     public function members()
     {
-        return view('pages.family.members');
+        $membersTable = $this->sessionDb->getTableData('Member_now');
+        $members = [];
+        foreach ($membersTable as $memberData) {
+            $members[$memberData[0]] = $memberData;
+        }
+        $memberCount = count($members);
+
+        return view('pages.family.members' ,compact('members', 'memberCount'));
     }
 
     public function otherMembers()

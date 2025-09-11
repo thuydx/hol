@@ -9,10 +9,14 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "path",
-            "url": "packages/SessionDb"
-        }
+      {
+        "type": "path",
+        "url": "packages/SessionDb"
+      },
+      {
+        "type": "path",
+        "url": "packages/HouseOfLegacy"
+      }
     ],
 
     "require": {
@@ -20,6 +24,7 @@
         "laravel/framework": "^12.26",
         "laravel/nightwatch": "^1.13",
         "laravel/tinker": "^2.10",
+        "thuydx/house-of-legacy": "^1.0",
         "thuydx/sessiondb": "^1.0"
     },
     "require-dev": {
