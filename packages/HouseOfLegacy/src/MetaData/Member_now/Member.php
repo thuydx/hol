@@ -34,16 +34,16 @@ class Member
     {
         $personalInfoData = explode("|", $personalInfoString);
         return [
-            0 => $personalInfoData[0],
-            1 => (int)$personalInfoData[1],
-            2 => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None",
-            3 => (int)$personalInfoData[3],
-            4 => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown",
-            5 => (int)$personalInfoData[5],
-            6 => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown",
-            7 => (int)$personalInfoData[7],
-            8 => (int)$personalInfoData[8],
-            9 => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown",
+            0 => $personalInfoData[0],  // character_name
+            1 => (int)$personalInfoData[1], // generation
+            2 => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None", // talent
+            3 => (int)$personalInfoData[3], // talent_potential
+            4 => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown", // gender
+            5 => (int)$personalInfoData[5], // life_span
+            6 => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown", // skill
+            7 => (int)$personalInfoData[7], // luck
+            8 => (int)$personalInfoData[8], // Marry to
+            9 => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown", // hobby
         ];
     }
 
@@ -142,43 +142,44 @@ class Member
             $memberRow[2], // children (Children #) separated by |
             $memberRow[3], // unknown_3
             $memberRow[4], // personal_info (Character Name|Generation|Talent|Talent Potential|Gender|Life Span|Skill|Luck|Hobby)
-            // parsed personal_info
-            // "character_name" => $personalInfoData[0],
-            // "generation" => (int)$personalInfoData[1],
-            // "talent" => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None",
-            // "talent_potential" => (int)$personalInfoData[3],
-            // "gender" => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown",
-            // "life_span" => (int)$personalInfoData[5],
-            // "skill" => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown",
-            // "luck" => (int)$personalInfoData[7],
-            // "unknown" => (int)$personalInfoData[8],
-            // "hobby" => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown",
-            $memberRow[5], // trait (References::getTraitOptions()[(int)$memberRow[5]] ?? "None")
-            $memberRow[6], // age
-            $memberRow[7], // literature
-            $memberRow[8], // martial-arts
-            $memberRow[9], // business
-            $memberRow[10], // art
-            $memberRow[11], // mood
-            $memberRow[12], // rank_position (5@4@6@-1@-1|8233) separated by |
-            $getExamTitleOptions, // exam_titles (parsed from $memberRow[13])
-            $memberRow[14], // fief_ownership (Feif Ownership Lvl|County #) separated by |
+            // parsed personal_info "Ðinh Xuân Thủy|1|2|77|1|79|3|88|81|4"
+            // "character_name" => $personalInfoData[0], Ðinh Xuân Thủy
+            // "generation" => (int)$personalInfoData[1], 1 - đời - thế hệ 1
+            // "talent" => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None", 2  Thiên phú
+            // "talent_potential" => (int)$personalInfoData[3], 77  điểm thiên phú
+            // "gender" => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown", 1 giới tính
+            // "life_span" => (int)$personalInfoData[5], 79 thọ nguyên
+            // "skill" => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown", 3 kỹ năng
+            // "luck" => (int)$personalInfoData[7], 88 - Khí vận - may mắn
+            // "unknown" => (int)$personalInfoData[8], 81
+            // "hobby" => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown", 4 - sở thích
+
+            $memberRow[5], // trait (References::getTraitOptions()[(int)$memberRow[5]] ?? "None") - Tính Cách
+            $memberRow[6], // age 20
+            $memberRow[7], // literature  - văn tài 76
+            $memberRow[8], // martial-arts - võ tài 75
+            $memberRow[9], // business - thương tài 74
+            $memberRow[10], // art - nghệ tài 73
+            $memberRow[11], // mood - tâm trạng 72
+            $memberRow[12], // rank_position (5@4@6@-1@-1|8233 - binh bộ thượng thư - tam phẩm) separated by | Chức tước
+            $memberRow[13], // $getExamTitleOptions, // exam_titles (parsed from $memberRow[13])
+            $memberRow[14], // fief_ownership (Feif Ownership Lvl|County #) separated by | - Tư Dinh
             $memberRow[15], // availability_status
-            $memberRow[16], // renown
-            $memberRow[17], // unknown_17
-            $memberRow[18], // availability_duration
-            $memberRow[19], // book_read (Book Read) separated by @
-            $memberRow[20], // charisma
-            $memberRow[21], // unknown_21
-            $memberRow[22], // is_clan_elder (1 = True, 0 = False)
+            $memberRow[16], // renown  - Danh tiếng  22.26852
+            $memberRow[17], // unknown_17 0
+            $memberRow[18], // availability_duration 1
+            $memberRow[19], // book_read (Book Read) separated by @ "0@0@null~221",  nghệ(+1) thông thạo 0%
+            $memberRow[20], // charisma  - Mị 71
+            $memberRow[21], // healthy - sức khỏe 70
+            $memberRow[22], // is_clan_elder (1 = True, 0 = False) 1
             $memberRow[23], // traits (Additional Traits) separated by |
             $memberRow[24], // recent_events (Recent Events) separated by |
-            $memberRow[25], // pregnancy_months
-            $memberRow[26], // marriage_status
-            $memberRow[27], // cunning
+            $memberRow[25], // pregnancy_months - thời gian khả dụng - du học, du lịch .....
+            $memberRow[26], // marriage_status 1 = đã kết hôn
+            $memberRow[27], // cunning - mưu lược 60
             $memberRow[28], // unknown_28
-            $memberRow[29], // unknown_29 (null|null|null) separated by |
-            $memberRow[30], // stamina
+            $memberRow[29], // Trang bị (Vũ Khí, Trang Sức, Bùa Chú) separated by |
+            $memberRow[30], // stamina - Thể lực
             $memberRow[31], // stat_growth_bonus (0|0|0|Writing|Might|Business|Art) separated by |
             // parsed stat_growth_bonus
             // "Intelligence" => (float)$statGrowthBonusData[0],
@@ -196,16 +197,16 @@ class Member
             // "Writing" => (int)$intelligenceData[3],
             // "Might" => (int)$intelligenceData[4],
             // "Business" => (int)$intelligenceData[5],
-            $memberRow[33], // unknown_33
+            $memberRow[33], // Điểm Kỹ Năng - skill points
             $memberRow[34], // school_type
             $memberRow[35], // unknown_35
-            $memberRow[36], // identity; location; title; (null if not an official) eg "8@78@Đồng thi (Văn)@Tu Tài" separated by |
+            $memberRow[36], // Ký sự - event log identity; location; title; (null if not an official) eg "8@78@Đồng thi (Văn)@Tu Tài" separated by |
             $memberRow[37], // father_character # (null if unknown)
-            $memberRow[38], // mother_character # (null if unknown)
+            $memberRow[38], // đồ ăn phụ
             $memberRow[39], // amount_of_times_been_married
-            $memberRow[40], // school_training; only location matters
-            $memberRow[41], // unknown_41 (Unknown | Unknown | Unknown) separated by |
-            $memberRow[42], // unknown_42 (Unknown | Unknown) separated by |
+            $memberRow[40], // school_training; học phái (1 or 2 or 3)
+            $memberRow[41], // phân công nhiệm vụ (task ID | money | Unknown) separated by |
+            $memberRow[42], // Du lịch
 //            // Parsed fields
 
 //            "character_number" => $memberRow[0],  //0
