@@ -23,9 +23,13 @@ class HouseOfLegacyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Load translations from all language folders
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'hol');
+
+        // Allow publishing of all language files
         $this->publishes([
-            __DIR__.'/../../lang' => base_path('lang/vendor/house-of-legacy'),
-        ], 'house-of-legacy-translations');
+            __DIR__.'/../../lang' => resource_path('lang/vendor/hol'),
+        ], 'hol-translations');
 
         $this->publishes([
             __DIR__.'/../../config/house-of-legacy.php' => config_path('house-of-legacy.php'),

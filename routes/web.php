@@ -32,6 +32,7 @@ Route::get('/locale/{lang}', function ($lang) {
 Route::group(['prefix' => 'family'], function () {
     Route::get('/', [FamilyMembersController::class, 'info'])->name('family.info');
     Route::get('/members', [FamilyMembersController::class, 'members'])->name('family.members');
+    Route::post('/members/update', [FamilyMembersController::class, 'members'])->name('family.members.update');
     Route::get('/other-members', [FamilyMembersController::class, 'otherMembers'])->name('family.other-members');
     Route::get('/guests', [FamilyMembersController::class, 'guests'])->name('family.guests');
     Route::get('/death', [FamilyMembersController::class, 'death'])->name('family.death');

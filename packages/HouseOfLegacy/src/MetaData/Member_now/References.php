@@ -6,17 +6,17 @@ namespace ThuyDX\HouseOfLegacy\MetaData\Member_now;
 
 class References
 {
-
     public static function getAppearanceOptions(): array
     {
-//        appearance (Back Hair|Body|Face Shape|Front Hair)
+        //        appearance (Back Hair|Body|Face Shape|Front Hair)
         return [
-            0 => "Back Hair",
-            1 => "Body",
-            2 => "Face Shape",
-            3 => "Front Hair",
+            0 => __('options.appearance.black_hair'),
+            1 => __('options.appearance.body'),
+            2 => __('options.appearance.face_shape'),
+            3 => __('options.appearance.front_hair'),
         ];
     }
+
     /**
      * Skill: Row #4
      *
@@ -32,12 +32,12 @@ class References
         // 5. Bùa mê
         // 6. Kỹ thuật
         return [
-            1 => "Sorcery",
-            2 => "Medicine",
-            3 => "Daoism",
-            4 => "Divination",
-            5 => "Charisma",
-            6 => "Technology",
+            1 => __('hol::options.skill.sorcery'),
+            2 => __('hol::options.skill.medicine'),
+            3 => __('hol::options.skill.daoism'),
+            4 => __('hol::options.skill.divination'),
+            5 => __('hol::options.skill.charisma'),
+            6 => __('hol::options.skill.technology'),
         ];
     }
 
@@ -54,10 +54,10 @@ class References
         // 3. Kinh doanh
         // 4. Nghệ thuật
         return [
-            1 => "Writing",
-            2 => "Might",
-            3 => "Business",
-            4 => "Art",
+            1 => __('hol::options.talent.writing'),
+            2 => __('hol::options.talent.might'),
+            3 => __('hol::options.talent.business'),
+            4 => __('hol::options.talent.art'),
         ];
     }
 
@@ -69,8 +69,8 @@ class References
     public static function getGenderOptions(): array
     {
         return [
-            0 => "Female",
-            1 => "Male",
+            0 => __('hol::options.gender.female'),
+            1 => __('hol::options.gender.male'),
         ];
     }
 
@@ -93,16 +93,16 @@ class References
         // 8. Nhạc cụ
         // 9. Da thú
         return [
-            0 => "Rogue",
-            1 => "Ink",
-            2 => "Art",
-            3 => "Antique",
-            4 => "Tea set",
-            5 => "Incense",
-            6 => "Vase",
-            7 => "Wine",
-            8 => "Music",
-            9 => "Pelt",
+            0 => __('hol::options.hobby.rogue'),
+            1 => __('hol::options.hobby.ink'),
+            2 => __('hol::options.hobby.art'),
+            3 => __('hol::options.hobby.antique'),
+            4 => __('hol::options.hobby.tea_set'),
+            5 => __('hol::options.hobby.incense'),
+            6 => __('hol::options.hobby.vase'),
+            7 => __('hol::options.hobby.wine'),
+            8 => __('hol::options.hobby.music'),
+            9 => __('hol::options.hobby.pelt'),
         ];
     }
 
@@ -128,20 +128,20 @@ class References
         //        12 => "Hay thay đổi",
         //        13 => "U ám",
         return [
-            0 => "Paranoid",
-            1 => "Proud",
-            2 => "Righteous",
-            3 => "Lively",
-            4 => "Kind",
-            5 => "Honest",
-            6 => "Carefree",
-            7 => "Cold",
-            8 => "Insecure",
-            9 => "Timid",
-            10 => "Shy",
-            11 => "Mean",
-            12 => "Fickle",
-            13 => "Gloomy",
+            0 => __('hol::options.trait.paranoid'),
+            1 => __('hol::options.trait.proud'),
+            2 => __('hol::options.trait.righteous'),
+            3 => __('hol::options.trait.lively'),
+            4 => __('hol::options.trait.kind'),
+            5 => __('hol::options.trait.honest'),
+            6 => __('hol::options.trait.carefree'),
+            7 => __('hol::options.trait.cold'),
+            8 => __('hol::options.trait.insecure'),
+            9 => __('hol::options.trait.timid'),
+            10 => __('hol::options.trait.shy'),
+            11 => __('hol::options.trait.mean'),
+            12 => __('hol::options.trait.fickle'),
+            13 => __('hol::options.trait.gloomy'),
         ];
     }
 
@@ -153,16 +153,16 @@ class References
     public static function getExamTitleOptions(): array
     {
         return [
-            0 => "None",
-            1 => "Xiucai",
-            2 => "Juren",
-            3 => "Xieyuan",
-            4 => "Gongshi",
-            5 => "Huiyuan",
-            6 => "Jinshi",
-            7 => "Tanhua", // Thám Hoa
-            8 => "Bangyan",  // Bảng Nhãn
-            9 => "Zhuangyuan", // Trạng Nguyên
+            0 => __('hol::options.exam_title.none'),
+            1 => __('hol::options.exam_title.xiucai'),
+            2 => __('hol::options.exam_title.juren'),
+            3 => __('hol::options.exam_title.xieyuan'),
+            4 => __('hol::options.exam_title.gongshi'),
+            5 => __('hol::options.exam_title.huiyuan'),
+            6 => __('hol::options.exam_title.jinshi'),
+            7 => __('hol::options.exam_title.tanhua'), // Thám Hoa
+            8 => __('hol::options.exam_title.bangyan'),  // Bảng Nhãn
+            9 => __('hol::options.exam_title.zhuangyuan'), // Trạng Nguyên
         ];
     }
 
@@ -174,17 +174,17 @@ class References
     public static function getAdditionalTraitsOptions(): array
     {
         return [
-            "1@-1" => "Homosexual",
-            "2@-1" => "Lustful",
-            "3@-1" => "Greedy",
-            "4@-1" => "Prodigy",
-            "5@-1" => "Noble",
-            "6@-1" => "Rebellious",
-            "7@-1" => "Fragrant",
-            "8@-1" => "Eloquent",
-            "9@-1" => "Melodious",
-            "10@-1" => "Flirtatious",
-            "11@-1" => "Triumphant",
+            '1@-1' => __('options.additional_traits.homosexual'),
+            '2@-1' => __('options.additional_traits.lustful'),
+            '3@-1' => __('options.additional_traits.greedy'),
+            '4@-1' => __('options.additional_traits.prodigy'),
+            '5@-1' => __('options.additional_traits.noble'),
+            '6@-1' => __('options.additional_traits.rebellious'),
+            '7@-1' => __('options.additional_traits.fragrant'),
+            '8@-1' => __('options.additional_traits.eloquent'),
+            '9@-1' => __('options.additional_traits.melodious'),
+            '10@-1' => __('options.additional_traits.flirtatious'),
+            '11@-1' => __('options.additional_traits.triumphant'),
         ];
     }
 
@@ -196,22 +196,22 @@ class References
     public static function getSchoolOptions(): array
     {
         return [
-            0 => "None",
-            1 => "Mingli",
-            2 => "Jiuyuan",
-            3 => "Jinwen",
+            0 => __('hol::options.school_options.none'),
+            1 => __('hol::options.school_options.mingly'),
+            2 => __('hol::options.school_options.jiuyuan'),
+            3 => __('hol::options.school_options.jinwen'),
         ];
     }
 
     public static function getAvailabilityStatusOptions(): array
     {
         return [
-            0 => "Available",
-            1 => "Married",
-            2 => "In Service",
-            3 => "Deceased",
-            4 => "Missing",
-            5 => "Imprisoned",
+            0 => __('hol::options.availability_status.available'),
+            1 => __('hol::options.availability_status.married'),
+            2 => __('hol::options.availability_status.in_service'),
+            3 => __('hol::options.availability_status.deceased'),
+            4 => __('hol::options.availability_status.missing'),
+            5 => __('hol::options.availability_status.imprisoned'),
         ];
     }
 }

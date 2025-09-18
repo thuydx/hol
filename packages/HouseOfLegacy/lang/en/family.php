@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'none' => 'None',
+    'unknown' => 'Unknown',
+    'id' => 'ID',
+    'name' => 'Name',
+    'level' => 'Level',
+    'age' => 'Age',
+    'trait' => 'Trait',
+    'literature' => 'Literature',
+    'martial_arts' => 'Martial Arts',
+    'business' => 'Business',
+    'art' => 'Art',
+    'mood' => 'Mood',
+    'rank_position' => 'Rank Position',
+    'exam_titles' => 'Exam Titles',
+    'fief_ownership' => 'Fief Ownership',
+    'availability_status' => 'Availability Status',
+    'renown' => 'Renown',
+    'availability_duration' => 'Availability Duration',
+    'book_read' => 'Book Read',
+    'charisma' => 'Charisma',
+    'technology' => 'Technology',
+    'is_clan_elder' => 'Is Clan Elder',
+    'recent_events' => 'Recent Events',
+    'pregnancy_months' => 'Pregnancy Months',
+    'marriage_status' => 'Marriage Status',
+    'cunning' => 'Cunning',
+    'stamina' => 'Stamina',
+    'stat_growth_bonus' => 'Stat Growth Bonus',
+    'school_type' => 'School Type',
+];

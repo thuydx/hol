@@ -125,6 +125,7 @@ class SessionDatabase
         if (! $this->disk()->exists($path)) {
             return [];
         }
+
         return json_decode($this->disk()->get($path), true);
     }
 

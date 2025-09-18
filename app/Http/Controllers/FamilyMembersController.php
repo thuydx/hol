@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use ThuyDX\SessionDb\SessionDatabase;
-use ThuyDX\HouseOfLegacy\MetaData\Member_now\Member;
+
 class FamilyMembersController extends Controller
 {
-
     protected $safeUuid;
+
     protected SessionDatabase $sessionDb;
+
     public function __construct()
     {
         $safeUuid = guest_uuid();
         $this->sessionDb = new SessionDatabase('json', $safeUuid);
     }
+
     public function info()
     {
         $firstName = $this->sessionDb->getTableData('ZiBei_Now');
@@ -30,6 +32,7 @@ class FamilyMembersController extends Controller
         // $master[6] Age
 
         $familyInfo = $this->sessionDb->getTableData('FamilyData');
+
         // $familyInfo[0]    "5|5",
         // $familyInfo[1] Name   "Ðinh",
         // $familyInfo[2] Level   "44",
@@ -56,7 +59,7 @@ class FamilyMembersController extends Controller
         }
         $memberCount = count($members);
 
-        return view('pages.family.members' ,compact('members', 'memberCount'));
+        return view('pages.family.members', compact('members', 'memberCount'));
     }
 
     public function otherMembers()

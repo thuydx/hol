@@ -26,6 +26,7 @@ class OtherDataController extends Controller
         $safeUuid = guest_uuid();
         $db = new SessionDatabase('json', $safeUuid);
         $version = $db->getTableData('VersionID');
+
         return view('pages.other-data.version', compact('version'));
     }
 }

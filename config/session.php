@@ -10,7 +10,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option determines the default session driver that is utilized for
-    | incoming requests. Laravel supports a variety of storage options to
+    | incoming requests. Laravel supports a variety of storage options.php to
     | persist session data. Database storage is a great default choice.
     |
     | Supported: "file", "cookie", "database", "memcached",
@@ -69,7 +69,7 @@ return [
     |
     | When using the "database" or "redis" session drivers, you may specify a
     | connection that should be used to manage these sessions. This should
-    | correspond to a connection in your database configuration options.
+    | correspond to a connection in your database configuration options.php.
     |
     */
 

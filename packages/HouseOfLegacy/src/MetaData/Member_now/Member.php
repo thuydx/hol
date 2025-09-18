@@ -2,137 +2,97 @@
 
 declare(strict_types=1);
 
-
 namespace ThuyDX\HouseOfLegacy\MetaData\Member_now;
 
+/**
+ * Class Member
+ */
 class Member
 {
-
     public static function extractAppearance($appearanceString): array
     {
-        $appearanceData = explode("|", $appearanceString);
+        $appearanceData = explode('|', $appearanceString);
+
         return [
-            "Back Hair" => $appearanceData[0],
-            "Body" => $appearanceData[1],
-            "Face Shape" => $appearanceData[2],
-            "Front Hair" => $appearanceData[3],
+            __('hol::options.appearance.black_hair') => $appearanceData[0],
+            __('hol::options.appearance.body') => $appearanceData[1],
+            __('hol::options.appearance.face_shape') => $appearanceData[2],
+            __('hol::options.appearance.front_hair') => $appearanceData[3],
         ];
     }
 
     public static function extractChildren($childrenString, $listMember): array
     {
-        $children = explode("|", $childrenString);
+        $children = explode('|', $childrenString);
         foreach ($children as $childId) {
             if (isset($listMember[$childId])) {
                 $childrenInfo[$childId] = self::extractPersonalInfo($listMember[$childId][4])[0]; // character_name
             }
         }
+
         return $childrenInfo ?? [];
     }
 
     public static function extractPersonalInfo($personalInfoString): array
     {
-        $personalInfoData = explode("|", $personalInfoString);
+        $personalInfoData = explode('|', $personalInfoString);
+
         return [
             0 => $personalInfoData[0],  // character_name
-            1 => (int)$personalInfoData[1], // generation
-            2 => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None", // talent
-            3 => (int)$personalInfoData[3], // talent_potential
-            4 => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown", // gender
-            5 => (int)$personalInfoData[5], // life_span
-            6 => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown", // skill
-            7 => (int)$personalInfoData[7], // luck
-            8 => (int)$personalInfoData[8], // Marry to
-            9 => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown", // hobby
+            1 => (int) $personalInfoData[1], // generation
+            2 => References::getTalentOptions()[(int) $personalInfoData[2]] ?? __('hol::family.none'), // talent
+            3 => (int) $personalInfoData[3], // talent_potential
+            4 => References::getGenderOptions()[(int) $personalInfoData[4]] ?? __('hol::family.unknown'), // gender
+            5 => (int) $personalInfoData[5], // life_span
+            6 => References::getSkillOptions()[(int) $personalInfoData[6]] ?? __('hol::family.unknown'), // skill
+            7 => (int) $personalInfoData[7], // luck
+            8 => (int) $personalInfoData[8], // Marry to
+            9 => References::getHobbyOptions()[(int) $personalInfoData[9]] ?? __('hol::family.unknown'), // hobby
         ];
     }
 
     public static function extractMemberInfo($memberRow): array
     {
-//        dd($memberRow);
+        //        dd($memberRow);
 
-
-        $appearanceData = explode("|", $memberRow[1]);
+        $appearanceData = explode('|', $memberRow[1]);
         $appearance = [
-            "Back Hair" => $appearanceData[0],
-            "Body" => $appearanceData[1],
-            "Face Shape" => $appearanceData[2],
-            "Front Hair" => $appearanceData[3],
+            'Back Hair' => $appearanceData[0],
+            'Body' => $appearanceData[1],
+            'Face Shape' => $appearanceData[2],
+            'Front Hair' => $appearanceData[3],
         ];
-        $children = explode("|", $memberRow[2]);
+        $children = explode('|', $memberRow[2]);
 
-        $personalInfoData = explode("|", $memberRow[4]);
-        //"Ðinh Xuân Thủy|1|0|100|1|66|3|100|110|5"
+        $personalInfoData = explode('|', $memberRow[4]);
+        // "Ðinh Xuân Thủy|1|0|100|1|66|3|100|110|5"
         $personalInfo = [
-            "character_name" => $personalInfoData[0],
-            "generation" => (int)$personalInfoData[1],
-            "talent" => References::getTalentOptions()[(int)$personalInfoData[2]] ?? "None",
-            "talent_potential" => (int)$personalInfoData[3],
-            "gender" => References::getGenderOptions()[(int)$personalInfoData[4]] ?? "Unknown",
-            "life_span" => (int)$personalInfoData[5],
-            "skill" => References::getSkillOptions()[(int)$personalInfoData[6]] ?? "Unknown",
-            "luck" => (int)$personalInfoData[7],
-            "unknown" => (int)$personalInfoData[8],
-            "hobby" => References::getHobbyOptions()[(int)$personalInfoData[9]] ?? "Unknown",
+            'character_name' => $personalInfoData[0],
+            'generation' => (int) $personalInfoData[1],
+            'talent' => References::getTalentOptions()[(int) $personalInfoData[2]] ?? 'None',
+            'talent_potential' => (int) $personalInfoData[3],
+            'gender' => References::getGenderOptions()[(int) $personalInfoData[4]] ?? 'Unknown',
+            'life_span' => (int) $personalInfoData[5],
+            'skill' => References::getSkillOptions()[(int) $personalInfoData[6]] ?? 'Unknown',
+            'luck' => (int) $personalInfoData[7],
+            'unknown' => (int) $personalInfoData[8],
+            'hobby' => References::getHobbyOptions()[(int) $personalInfoData[9]] ?? 'Unknown',
         ];
-        $statGrowthBonusData = explode("|", $memberRow[31]);
+        $statGrowthBonusData = explode('|', $memberRow[31]);
         $statGrowthBonus = [
-            "Intelligence" => (float)$statGrowthBonusData[0],
-            "Charisma" => (float)$statGrowthBonusData[1],
-            "Cunning" => (float)$statGrowthBonusData[2],
-            "Writing" => (float)$statGrowthBonusData[3],
-            "Might" => (float)$statGrowthBonusData[4],
-            "Business" => (float)$statGrowthBonusData[5],
-            "Art" => (float)$statGrowthBonusData[6],
+            'Intelligence' => (float) $statGrowthBonusData[0],
+            'Charisma' => (float) $statGrowthBonusData[1],
+            'Cunning' => (float) $statGrowthBonusData[2],
+            'Writing' => (float) $statGrowthBonusData[3],
+            'Might' => (float) $statGrowthBonusData[4],
+            'Business' => (float) $statGrowthBonusData[5],
+            'Art' => (float) $statGrowthBonusData[6],
         ];
-//            0 => "M0"
-//    1 => "11|17|0|9"
-//    2 => "M830|M1536|M1550|M1551"
-//    3 => "1|LTB22656|null|5"
-//    4 => "Ðinh Xuân Thủy|1|0|100|1|66|3|100|110|5"
-//    5 => "4"
-//    6 => "49"
-//    7 => "100"
-//    8 => "100"
-//    9 => "100"
-//    10 => "100"
-//    11 => "100"
-//    12 => "5@6@1@-1@-1|36916"
-//    13 => "0"
-//    14 => "0|0"
-//    15 => "16"
-//    16 => "100"
-//    17 => "0"
-//    18 => "1"
-//    19 => "0@100@null"
-//    20 => "87"
-//    21 => "90"
-//    22 => "1"
-//    23 => "18@2"
-//    24 => "null"
-//    25 => "-1"
-//    26 => "1"
-//    27 => "100"
-//    28 => "0"
-//    29 => "null|null|null"
-//    30 => "11"
-//    31 => "0|0|0|0.99|0.99|0.99|0.99"
-//    32 => "5|9|0|0|0|0"
-//    33 => "100"
-//    34 => "2"
-//    35 => "0"
-//    36 => "19@92@Nam QuậnGiang Lăng@null|19@89@Hiệu Úy Dực Hỗ (Thất Phẩm)@null|19@92@Nam QuậnNghi Thành@null|20@89@Ty Tư Quy Đức (Lục Phẩm)@null|20@92@Nam QuậnDoanh Đình@n ▶"
-//    37 => "null"
-//    38 => "null"
-//    39 => "2"
-//    40 => "0"
-//    41 => "-1|0|0"
-//    42 => "0|0"
         $getExamTitleOptions = [];
         if ($memberRow[13]) {
-            $example = explode("|", $memberRow[13]);
+            $example = explode('|', $memberRow[13]);
             foreach ($example as $title) {
-                $getExamTitleOptions[] = References::getExamTitleOptions()[(int)$title] ?? $title;
+                $getExamTitleOptions[] = References::getExamTitleOptions()[(int) $title] ?? $title;
             }
         }
 
@@ -169,12 +129,24 @@ class Member
             $memberRow[17], // unknown_17 0
             $memberRow[18], // availability_duration 1
             $memberRow[19], // book_read (Book Read) separated by @ "0@0@null~221",  nghệ(+1) thông thạo 0%
+            // parsed book_read (Separated by @ if multiple)
+            // 0 = None,
+            // 1 = Confucian Analects,
+            // 2 = Mencius,
+            // 3 = The Art of War,
+            // 4 = Tao Te Ching,
+            // 5 = Zhuangzi,
+            // 6 = The Book of Songs,
+            // 7 = The Book of Documents,
+            // 8 = The Book of Rites,
+            // 9 = Classic of Filial Piety,
+            // 10 = Classic of Poetry
             $memberRow[20], // charisma  - Mị 71
             $memberRow[21], // healthy - sức khỏe 70
             $memberRow[22], // is_clan_elder (1 = True, 0 = False) 1
             $memberRow[23], // traits (Additional Traits) separated by |
             $memberRow[24], // recent_events (Recent Events) separated by |
-            $memberRow[25], // pregnancy_months - thời gian khả dụng - du học, du lịch .....
+            $memberRow[25], // Pregnancy Months (10 Being just Pregant, must change the # on Row 35 also) - thời gian khả dụng - du học, du lịch .....
             $memberRow[26], // marriage_status 1 = đã kết hôn
             $memberRow[27], // cunning - mưu lược 60
             $memberRow[28], // unknown_28
@@ -199,97 +171,18 @@ class Member
             // "Business" => (int)$intelligenceData[5],
             $memberRow[33], // Điểm Kỹ Năng - skill points
             $memberRow[34], // school_type
-            $memberRow[35], // unknown_35
+            $memberRow[35], // row 25 reference - placement when travel/study abroad
             $memberRow[36], // Ký sự - event log identity; location; title; (null if not an official) eg "8@78@Đồng thi (Văn)@Tu Tài" separated by |
-            $memberRow[37], // father_character # (null if unknown)
+            $memberRow[37], // unknown
             $memberRow[38], // đồ ăn phụ
             $memberRow[39], // amount_of_times_been_married
             $memberRow[40], // school_training; học phái (1 or 2 or 3)
             $memberRow[41], // phân công nhiệm vụ (task ID | money | Unknown) separated by |
             $memberRow[42], // Du lịch
-//            // Parsed fields
-
-//            "character_number" => $memberRow[0],  //0
-//            "appearance" => $appearance, // 1
-//            "children" => array_combine($children, $children), // 2
-//            "unknown_3" => $memberRow[3], // 3
-//            "personal_info" => $personalInfo, // 4
-//            "trait" => References::getTraitOptions()[(int)$memberRow[5]] ?? "None", // 5
-//            "age" => (int)$memberRow[6],
-//            "literature" => (int)$memberRow[7],
-//            "martial-arts" => (int)$memberRow[8],
-//            "business" => (int)$memberRow[9],
-//            "art" => (int)$memberRow[10],
-//            "mood" => $memberRow[11],
-//            "rank_position" => explode("|", $memberRow[12]),
-//            "exam_titles" => $getExamTitleOptions,
-//            "fief_ownership" => explode("|", $memberRow[14]),
-//            "availability_status" => (int)$memberRow[15],
-//            "renown" => (int)$memberRow[16],
-//            "unknown_17" => $memberRow[17],
-//            "availability_duration" => (int)$memberRow[18],
-//            "book_read" => explode("@", $memberRow[19]),
-//            "charisma" => (int)$memberRow[20],
-//            "unknown_21" => $memberRow[21],
-//            "is_clan_elder" => $memberRow[22] == 1,
-//            "traits" => References::getAdditionalTraitsOptions()[$memberRow[23]] ?? $memberRow[23],
-//            "recent_events" => $memberRow[24] ? explode("|", $memberRow[24]) : [],
-//            "pregnancy_months" => (int)$memberRow[25],
-//            "marriage_status" => References::getAvailabilityStatusOptions()[(int)$memberRow[26]] ?? "Single",
-//            "cunning" => (int)$memberRow[27],
-//            "unknown_28" => $memberRow[28],
-//            "unknown_29" => explode("|", $memberRow[29]),
-//            "stamina" => (int)$memberRow[30],
-//            "stat_growth_bonus" => $statGrowthBonus,
-            // Add more fields as necessary]
         ];
+
         return $memberInfo;
     }
-
-    // 0 : Character #
-    // 1 : Back Hair|Body|Face Shape|Front Hair
-    // 2 : Children #
-    // 3 : ?
-    // 4 : Character Name|Generation|Talent|Talent Potential|Gender|Life Span|Skill|Luck|Hobby
-    // 5 : Trait
-    // 6 : Age
-    // 7 : Writing
-    // 8 : Might
-    // 9 : Business
-    // 10 : Art
-    // 11 : Mood
-    // 12 : 5@4@6@-1@-1|8233
-    // 13 : Exam Titles
-    // 14 : Feif Ownership Lvl|County #
-    // 15 : Availability Status
-    // 16 : Renown
-    // 17 : 0
-    // 18 : Availability Status Duration. (Set it to 60 and they are unavailable for 60 month)
-    // 19 : Book Read (0 = None, 1 = Confucian Analects, 2 = Mencius, 3 = The Art of War, 4 = Tao Te Ching, 5 = Zhuangzi, 6 = The Book of Songs, 7 = The Book of Documents, 8 = The Book of Rites, 9 = Classic of Filial Piety, 10 = Classic of Poetry) (Separated by @ if multiple)
-    // 20 : Charisma
-    // 21 : 0
-    // 22 : Clan Elder (1 = True, 0 = False)
-    // 23 : Additional Traits (Separated by | if multiple)
-    // 24 : Recent Events (Separated by | if multiple)
-    // 25 : Pregnancy Months (10 Being just Pregant, must change the # on Row 35 also)
-    // 26 : Marriage Status (1 Married)
-    // 27 : Cunning
-    // 28 : 0
-    // 29 : null|null|null
-    // 30 : stamina
-    // 31 : 0|0|0|Writing|Might|Business|Art (Stats Growth Bonus)
-    // 32 : Intelligence|Charisma|Cunning|Writing|Might|Business
-    // 33 : stat_growth_bonus
-    // 34 : School Type
-    // 35 : Unknown
-    // 36 : -- Identity; Location; Title; (null if not an official) eg "8@78@Đồng thi (Văn)@Tu Tài"
-    // 37 : -- Father Character # (null if unknown)
-    // 38 : -- Mother Character # (null if unknown)
-    // 39 : -- Amount of times been married
-    // 40 : -- School Training; Only location matters
-    // 41 : -- Unknown | Unknown | Unknown
-    // 42 : -- Unknown | Unknown
-    // 43 : -- Reserved for future use
 
     // Bảng tương ứng
     // Loại tài năng: 1. Văn chương 2. Võ thuật 3. Kinh doanh 4. Nghệ thuật

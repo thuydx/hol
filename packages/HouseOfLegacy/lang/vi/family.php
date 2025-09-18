@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'none' => 'Không có',
+    'unknown' => 'không biết',
+    'id' => 'ID',
+    'name' => 'Tên',
+    'level' => 'Cấp độ',
+    'age' => 'Tuổi',
+    'trait' => 'Đăc điểm',
+    'literature' => 'Văn',
+    'martial_arts' => 'Võ',
+    'business' => 'Thương',
+    'art' => 'Nghệ',
+    'mood' => 'Tâm trạng',
+    'rank_position' => 'Rank Position',
+    'exam_titles' => 'Exam Titles',
+    'fief_ownership' => 'Lãnh địa',
+    'availability_status' => 'Availability Status',
+    'renown' => 'Danh Tiếng',
+    'availability_duration' => 'Availability Duration',
+    'book_read' => 'Sách đã đọc',
+    'charisma' => 'Mị',
+    'technology' => 'Công',
+    'is_clan_elder' => 'Là trưởng tộc',
+    'recent_events' => 'Sự kiện gần đây',
+    'pregnancy_months' => 'Mang thai (tháng)',
+    'marriage_status' => 'Kết hôn',
+    'cunning' => 'Mưu trí',
+    'stamina' => 'Thể lực',
+    'stat_growth_bonus' => 'Stat Growth Bonus',
+    'school_type' => 'School Type',
+];
