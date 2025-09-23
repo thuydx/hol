@@ -129,6 +129,32 @@ class SessionDatabase
         return json_decode($this->disk()->get($path), true);
     }
 
+    public function getMemberTableData(string $table): array
+    {
+        $memberTableName = [
+            'Member_First',
+            'Member_Hanmen',
+            'Member_King',
+            'Member_King_qu',
+            'Member_now',
+            'Member_other',
+            'Member_Other_qu',
+            'Member_Qinglou',
+            'Member_qu',
+            'MenKe_Now',
+            'Doctor_Now',
+        ];
+        $convertedData = [];
+        if (in_array($table, $memberTableName, true)) {
+
+            $data = $this->getTableData($table);
+            foreach($data as $value) {
+                $convertedData[$value[0]] = $value;
+            }
+        }
+        return $convertedData;
+    }
+
     /**
      * Persist the rows for a given table (values).
      */

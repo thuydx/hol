@@ -3,10 +3,35 @@
 @section('title', __('family.members'))
 
 @section('content')
+    <row class="row mb-3">
+        <div class="col-sm-12">
+            <panel class="panel panel-default">
+                <div class="panel-body">
+                    <h1>{{ __('family.members') }}</h1>
+                </div>
+            </panel>
+        </div>
+    </row>
     <div class="row">
         <div class="col-sm-12">
             <div class="card mb-4">
-                <div class="card-header"><strong>{{ __('family.members') }}</strong></div>
+                <div class="card-header">
+                    <panel class="panel panel-default">
+                        <div class="panel-body">
+                            <form id="filterForm" action="{{ route('family.members') }}" method="GET" class="row g-3">
+                                <div class="col-auto">
+                                   <button type="button" class="btn btn-primary">{{ __('app.common.max_attributes') }}</button>
+                                </div>
+                                <div class="col-auto">
+                                   <button type="button" class="btn btn-primary">{{ __('app.common.max_reputation') }}</button>
+                                </div>
+                                <div class="col-auto">
+                                   <button type="button" class="btn btn-primary">{{ __('app.common.set_age_to_18') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </panel>
+                </div>
                 <div class="card-body">
                     <form id="updateMemberForm" action="{{ route('family.members.update') }}" method="POST" enctype="multipart/form-data">
                     <table class="table table-sm table-striped table-hover">
@@ -132,7 +157,7 @@
                                 <th scope="row">
                                     <input class="form-check-input  memberCheckbox" type="checkbox" value="{{ $member[0] }}" />
                                 </th>
-                                <th scope="row">{{ $member[0] }}</th>
+                                <th scope="row"><a href="{{ route('family.members.detail', ['id' => $member[0]]) }}">{{ $member[0] }}</a></th>
 {{--                                <td>--}}
 {{--                                    <select class="form-select">--}}
 {{--                                        @foreach(\ThuyDX\HouseOfLegacy\MetaData\Member_now\Member::extractAppearance($member[1]) as $key => $value)--}}
@@ -152,7 +177,7 @@
                                     @php
                                      $persionalInfo = \ThuyDX\HouseOfLegacy\MetaData\Member_now\Member::extractPersonalInfo($member[4]);
                                     @endphp
-                                    {{ $persionalInfo[0] }}
+                                    <a href="{{ route('family.members.detail', ['id' => $member[0]]) }}">{{ $persionalInfo[0] }}</a>
 {{--                                    <table class="table table-sm table-striped table-hover">--}}
 {{--                                        <tbody>--}}
 {{--                                            <tr>--}}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Client\Request;
 use ThuyDX\SessionDb\SessionDatabase;
 
 class FamilyMembersController extends Controller
@@ -60,6 +61,42 @@ class FamilyMembersController extends Controller
         $memberCount = count($members);
 
         return view('pages.family.members', compact('members', 'memberCount'));
+    }
+
+    public function memberDetail($id)
+    {
+        $membersTable = $this->sessionDb->getMemberTableData('Member_now');
+        $member = $membersTable[$id] ?? null;
+        if (!$member) {
+            abort(404, 'Member not found');
+        }
+//        dd($member);
+//        $personalInfo = [];
+        $personalInfo = explode('|', $member[4]);
+        return view('pages.family.members-detail', compact('member', 'personalInfo'));
+    }
+
+    public function memberUpdate(Request $request)
+    {
+        $memberId = request()->query('id');
+        if (!$memberId) {
+
+        }
+        $memberData = request()->all();
+
+        $membersTable = $this->sessionDb->getTableData('Member_now');
+        $member = null;
+        foreach ($membersTable as $memberData) {
+            if ($memberData[0] === $memberId) {
+                $member = $memberData;
+                break;
+            }
+        }
+        if (!$member) {
+            abort(404, 'Member not found');
+        }
+
+//        return view('pages.family.member-update', compact('member'));
     }
 
     public function otherMembers()
