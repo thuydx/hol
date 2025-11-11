@@ -8,6 +8,7 @@ return [
         'upload' => 'Upload',
     ],
     'common' => [
+        'home' => 'Home',
         'back' => 'Back',
         'save' => 'Save',
         'save_changes' => 'Save Changes',

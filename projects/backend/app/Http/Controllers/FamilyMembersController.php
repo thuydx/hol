@@ -67,19 +67,20 @@ class FamilyMembersController extends Controller
     {
         $membersTable = $this->sessionDb->getMemberTableData('Member_now');
         $member = $membersTable[$id] ?? null;
-        if (!$member) {
+        if (! $member) {
             abort(404, 'Member not found');
         }
-//        dd($member);
-//        $personalInfo = [];
+        //        dd($member);
+        //        $personalInfo = [];
         $personalInfo = explode('|', $member[4]);
+
         return view('pages.family.members-detail', compact('member', 'personalInfo'));
     }
 
     public function memberUpdate(Request $request)
     {
         $memberId = request()->query('id');
-        if (!$memberId) {
+        if (! $memberId) {
 
         }
         $memberData = request()->all();
@@ -92,11 +93,11 @@ class FamilyMembersController extends Controller
                 break;
             }
         }
-        if (!$member) {
+        if (! $member) {
             abort(404, 'Member not found');
         }
 
-//        return view('pages.family.member-update', compact('member'));
+        //        return view('pages.family.member-update', compact('member'));
     }
 
     public function otherMembers()

@@ -148,10 +148,11 @@ class SessionDatabase
         if (in_array($table, $memberTableName, true)) {
 
             $data = $this->getTableData($table);
-            foreach($data as $value) {
+            foreach ($data as $value) {
                 $convertedData[$value[0]] = $value;
             }
         }
+
         return $convertedData;
     }
 

@@ -1,92 +1,62 @@
-# hol
+# workload
 
+The workload template for the dev environment.
 
-### Development
+1. run prepare-data-folder.sh
 
-#### Coverage
-```bash
-php artisan test --coverage --coverage-clover=build/reports/coverage.xml
+2. clone project to data/app folder.
+
+Login to docker
 ```
-#### Helper functionss
-Get the current guest uuid
-```php
-$uuid = guest_uuid();
+docker login -u <username>
 ```
 
-Get the JSON file path for a table
-```php
-$filePath = table_file_path('users');
+Build and run the containers
+```
+docker-compose up -d --build
 ```
 
-Work with tables via SessionDatabase
-```php
-$users = sessiondb()->table('users')->all();
-sessiondb()->table('users')->insert(['name' => 'Alice']);
+Remove the containers
+```
+docker-compose down -v
 ```
 
-#### SessionDatabase
-```php
-use ThuyDX\SessionDb\SessionDatabase;
-
-// after you validated and read JSON file into $payload (assoc array)
-$payload = json_decode($fileContents, true);
-
-// create db instance for the uploaded uuid (use explicit uuid so we don't rely on cookie)
-$db = new SessionDatabase('json', $safeUuid);
-
-// import: this will write keys/<table>.json and values/<table>.json
-$db->importFromArray($payload);
-
-// verify
-$typeForXun = $db->getTableType('XunXing_King'); // string or array
-$valuesForXun = $db->getTableData('XunXing_King'); // array of strings
-// stored files (json driver):
-// storage/app/public/<basePath?>/<uuid>/keys/XunXing_King.json
-// storage/app/public/<basePath?>/<uuid>/values/XunXing_King.json
-
+Remove the images
+```
+docker image prune -af
 ```
 
-#### SessionTable
-```php
-$db = new SessionDatabase('json', $uuid);
+List all images
+```
+docker image ls
+```
 
-// Table wrapper
-$table = $db->table('XunXing_King');
+List all containers (running + stopped)
+```
+docker ps -a
+```
 
-// Set type
-$table->setType("System.Collections.Generic.List`1[[System.String, ...]]");
+Show only container names:
+```
+docker ps --format "{{.Names}}"
+```
 
-// Insert values
-$table->insert(['name' => 'Hero', 'id' => 1]);
-$table->insert(['name' => 'Mage']); // auto-id 2
+Show only image IDs:
+```
+docker images -q
+```
 
-// Update row
-$table->update(1, ['name' => 'Hero Updated']);
-
-// Delete row
-$table->delete(2);
-
-// Truncate
-$table->truncate();
-
-// Read type + values
-$type  = $table->getType();
-$rows  = $table->all();
-$first = $table->first();
+Inspect a specific container:
+```
+docker inspect <container_name_or_id>
+```
 
 ```
-#### Commands
-```bash
-# Flush single UUID (with confirmation)
-php artisan sessiondb:flush --uuid=123e4567-e89b-12d3-a456-426614174000
+docker stop <container_name_or_id>
+```
 
-# Flush single UUID (no confirmation)
-php artisan sessiondb:flush --uuid=123e4567-e89b-12d3-a456-426614174000 --force
-
-# Flush all guest DBs (with confirmation)
-php artisan sessiondb:flush --all
-
-# Flush all guest DBs (no confirmation)
-php artisan sessiondb:flush --all --force
-
+```
+docker rm <container_name_or_id>
+docker rmi <image_name_or_id>
+docker rmi -f <image_name_or_id>
 ```

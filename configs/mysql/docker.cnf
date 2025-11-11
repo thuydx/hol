@@ -1,0 +1,15 @@
+[mysqld]
+# Disable binary logging (not needed for local/dev)
+disable-log-bin
+
+# Skip reverse DNS lookups (prevents IP warning)
+skip-name-resolve
+
+# Disable host cache
+skip-host-cache
+
+# Authentication plugin (for compatibility)
+default-authentication-plugin=mysql_native_password
+
+# Reduce noisy logging
+log_error_verbosity=2
