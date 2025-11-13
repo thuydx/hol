@@ -10,17 +10,17 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
     volumes:
       - ${MYSQL_DATA_PATH}:/var/lib/mysql
       - ./configs/mysql/my.cnf:/etc/mysql/my.cnf
       - ./configs/mysql/docker.cnf:/etc/mysql/conf.d/docker.cnf
       - ./data/logs/mysql:/var/log/mysql
-    ports:
-      - "${MYSQL_PORT}:3306"
     networks:
       - workload
     restart: unless-stopped
-    command: ["sh", "-c", "chmod 0644 /etc/mysql/conf.d/docker.cnf && exec mysqld"]
+    command: ["mysqld", "--user=mysql"]
 
   # =========================
   # NGINX + PHP-FPM + REDIS + SUPERVISOR
@@ -42,10 +42,10 @@ services:
       DB_USERNAME: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      # Laravel application code
+      # ✅ Laravel source
       - ${BACKEND_PATH}:/var/www/html:delegated
 
-      # Nginx configuration
+      # ✅ Nginx configuration
       - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./configs/nginx/conf.d:/etc/nginx/conf.d:ro
 
@@ -54,7 +54,7 @@ services:
       - ./configs/php/conf.d/app-xdebug.ini:/etc/php/${PHP_VERSION}/fpm/conf.d/app-xdebug.ini:ro
       - ./configs/php/php-fpm.d/www.conf:/etc/php/${PHP_VERSION}/fpm/pool.d/www.conf:ro
 
-      # Supervisor config
+      # ✅ Supervisor configs
       - ./configs/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf:ro
       - ./configs/supervisor/conf.d:/etc/supervisor/conf.d:ro
 
@@ -92,8 +92,8 @@ services:
       # ✅ Proxy logs
       - ./data/logs/nginx-proxy:/var/log/nginx
     environment:
-      - BACKEND_HOST=${BACKEND_HOST}
-      - BACKEND_PORT=${BACKEND_PORT}
+      BACKEND_HOST: ${BACKEND_HOST}
+      BACKEND_PORT: ${BACKEND_PORT}
     networks:
       - workload
     restart: unless-stopped

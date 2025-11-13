@@ -40,7 +40,7 @@ class Member
         return [
             0 => $personalInfoData[0],  // character_name
             1 => (int) $personalInfoData[1], // generation
-            2 => References::getTalentOptions()[(int) $personalInfoData[2]] ?? __('hol::family.none'), // talent
+                2 => References::getTalentOptions()[(int) $personalInfoData[2]] ?? __('hol::family.none'), // talent
             3 => (int) $personalInfoData[3], // talent_potential
             4 => References::getGenderOptions()[(int) $personalInfoData[4]] ?? __('hol::family.unknown'), // gender
             5 => (int) $personalInfoData[5], // life_span
