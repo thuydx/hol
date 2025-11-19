@@ -39,32 +39,32 @@ import {
 } from './header/'
 
 const AppHeader = (): JSX.Element => {
-  // const headerRef = useRef<HTMLDivElement>(null)
-  // const { colorMode, setColorMode } = useColorModes('zgs-theme-modern')
-  //
-  // const dispatch = useDispatch()
-  // const sidebarShow = useTypedSelector((state) => state.sidebarShow)
-  // const asideShow = useTypedSelector((state) => state.asideShow)
-  //
-  // useEffect(() => {
-  //   document.addEventListener('scroll', () => {
-  //     headerRef.current &&
-  //       headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
-  //   })
-  // }, [])
+  const headerRef = useRef<HTMLDivElement>(null)
+  const { colorMode, setColorMode } = useColorModes('zgs-theme-modern')
+
+  const dispatch = useDispatch()
+  const sidebarShow = useTypedSelector((state) => state.sidebarShow)
+  const asideShow = useTypedSelector((state) => state.asideShow)
+
+  useEffect(() => {
+    document.addEventListener('scroll', () => {
+      headerRef.current &&
+        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
+    })
+  }, [])
 
   return (
     <CHeader position="sticky" className="mb-4 p-0">
       <CContainer className="px-4" fluid>
-        {/*<CHeaderToggler*/}
-        {/*  className={classNames('d-lg-none', {*/}
-        {/*    'prevent-hide': !sidebarShow,*/}
-        {/*  })}*/}
-        {/*  onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}*/}
-        {/*  style={{ marginInlineStart: '-14px' }}*/}
-        {/*>*/}
-        {/*  <CIcon icon={cilMenu} size="lg" />*/}
-        {/*</CHeaderToggler>*/}
+        <CHeaderToggler
+          className={classNames('d-lg-none', {
+            'prevent-hide': !sidebarShow,
+          })}
+          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
+          style={{ marginInlineStart: '-14px' }}
+        >
+          <CIcon icon={cilMenu} size="lg" />
+        </CHeaderToggler>
         {/*<CForm className="d-none d-sm-flex">*/}
         {/*  <CInputGroup>*/}
         {/*    <CInputGroupText id="search-addon" className="bg-body-secondary border-0 px-1">*/}

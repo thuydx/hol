@@ -1,4 +1,4 @@
-import React, { ElementType } from 'react'
+import React, { JSX, ElementType } from 'react'
 import {
   cilBell,
   cilCalculator,

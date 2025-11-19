@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
     <head>
-      <title>CoreUI PRO Next.js Admin Template</title>
+      <title>House of Legacy</title>
       <Script
         id="get-color-scheme"
         strategy="beforeInteractive"
