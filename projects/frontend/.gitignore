@@ -9,8 +9,6 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-package-lock.json
-yarn.lock
 
 # testing
 /coverage
@@ -21,10 +19,6 @@ yarn.lock
 
 # production
 /build
-.demos
-.sh
-.zip
-*.zip
 
 # misc
 .DS_Store
@@ -38,8 +32,6 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-# local env files
-.env*.local
 
 # vercel
 .vercel
@@ -47,7 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-.idea/*
-build/
-.scannerwork/
