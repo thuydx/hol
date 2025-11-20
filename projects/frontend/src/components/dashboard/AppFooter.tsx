@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { CFooter } from '@coreui/react-pro'
+import {CContainer, CFooter} from '@coreui/react-pro'
 
 const AppFooter = () => {
   return (
+      <CContainer lg className="px-4">
     <CFooter>
       <div>
         <a href="https://thuydx.pro" target="_blank" rel="noopener noreferrer">
@@ -22,6 +23,7 @@ const AppFooter = () => {
         </a>
       </div>
     </CFooter>
+      </CContainer>
   )
 }
 

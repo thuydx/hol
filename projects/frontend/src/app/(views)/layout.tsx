@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react-pro'
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AppSidebar />
+      {/*<AppSidebar />*/}
       <div className="wrapper d-flex flex-column min-vh-100">
         <AppHeader />
         <div className="body flex-grow-1">
@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
         <AppFooter />
       </div>
-      <AppAside />
+      {/*<AppAside />*/}
     </>
   )
 }

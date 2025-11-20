@@ -24,6 +24,7 @@ $success-gradient-dark-color: gradient($success-dark-color) !default;
 $info-gradient-dark-color: gradient($info-dark-color) !default;
 
 @use "@coreui/coreui-pro/scss/coreui" as * with (
+  $prefix: 'zgs-',
   $enable-deprecation-messages: false,
   $primary: $primary-color,
   $success: $success-color,
@@ -73,7 +74,7 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
   $danger-border-subtle-dark: tint-color($danger-dark-color, 60%),
   $font-size-base: .9375rem,
   $border-color-translucent: rgba(#080a0c, .0875),
-  $footer-bg: var(--cui-body-bg),
+  $footer-bg: var(--zgs-body-bg),
   $table-cell-padding-y: .75rem,
   $table-cell-padding-x: .75rem,
 );
