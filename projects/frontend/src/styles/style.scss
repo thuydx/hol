@@ -1,7 +1,7 @@
 @use "sass:color";
 @use "@coreui/coreui-pro/scss/functions/color" as *;
 @use "functions" as *;
-//@use "@coreui/coreui-pro/scss/variables" as *;
+
 //@use "@coreui/coreui-pro/scss/mixins/breakpoints" as *;
 //@use "@coreui/coreui-pro/scss/mixins/color-mode" as *;
 
@@ -22,9 +22,10 @@ $danger-gradient-dark-color: gradient($danger-dark-color) !default;
 $warning-gradient-dark-color: gradient($warning-dark-color) !default;
 $success-gradient-dark-color: gradient($success-dark-color) !default;
 $info-gradient-dark-color: gradient($info-dark-color) !default;
-
 @use "@coreui/coreui-pro/scss/coreui" as * with (
   $prefix: 'zgs-',
+  $data-infix: '-zgs-',
+  $enable-dark-mode: true,
   $enable-deprecation-messages: false,
   $primary: $primary-color,
   $success: $success-color,
@@ -79,8 +80,22 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
   $table-cell-padding-x: .75rem,
 );
 
-@use "@coreui/chartjs/scss/coreui-chartjs";
+/**
+ * Reset to default dark theme
+ */
+$prefix: 'zgs-' !default;
+$data-infix: '-zgs-' !default;
+@use "variables";
+@use "variables-dark";
+@use "root";
+
+
+//@use "@coreui/chartjs/scss/coreui-chartjs";
 @use "vendors/simplebar";
+
+/**
+ * Overwrite the style
+ */
 
 body {
   background-color: var(--#{$prefix}tertiary-bg);
@@ -90,7 +105,7 @@ body {
   width: 100%;
   padding-inline: var(--#{$prefix}sidebar-occupy-start, 0) var(--#{$prefix}sidebar-occupy-end, 0);
   will-change: auto;
-  @include transition(padding .15s);
+  //@include transition(padding .15s);
 }
 .header {
   min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
@@ -139,13 +154,14 @@ body {
   --#{$prefix}sidebar-nav-link-active-bg: rgba(255, 255, 255, .0375);
 }
 
-@include color-mode(dark) {
+@include color-mode('dark', true) {
   body {
-    background-color: var(--#{$prefix}dark-bg-subtle);
+    background-color: var(--#zgs-dark-bg-subtle);
   }
 
   .sidebar {
-    background-color: var(--#{$prefix}body-bg) !important; // stylelint-disable-line
+    background-color: var(--#zgs-body-bg) !important; // stylelint-disable-line
     background-image: none !important; // stylelint-disable-line
   }
 }
+

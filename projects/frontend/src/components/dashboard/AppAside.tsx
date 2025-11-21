@@ -45,7 +45,7 @@ const AppAside = () => {
 
   return (
     <CSidebar
-      colorScheme="light"
+      colorScheme="dark"
       size="lg"
       overlaid
       placement="end"
@@ -94,8 +94,9 @@ const AppAside = () => {
           </CNavItem>
         </CNav>
         <CCloseButton
-          className="position-absolute top-50 end-0 translate-middle my-0"
+          className="position-absolute top-50 end-0 translate-middle my-0 btn-close-white"
           onClick={() => dispatch({ type: 'set', asideShow: false })}
+          data-zgs-theme="dark"
         />
       </CSidebarHeader>
       <CTabContent>

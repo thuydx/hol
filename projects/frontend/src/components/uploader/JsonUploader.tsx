@@ -1,5 +1,14 @@
 import React, { useState, useRef, FormEvent } from 'react'
-import {CButton, CForm, CFormInput, CInputGroup, CToast, CToastBody, CToastHeader} from '@coreui/react-pro'
+import {
+  CButton,
+  CCloseButton,
+  CForm,
+  CFormInput,
+  CInputGroup,
+  CToast,
+  CToastBody,
+  CToastHeader
+} from '@coreui/react-pro'
 
 type Props = {
   storageKey?: string
@@ -55,16 +64,28 @@ export default function JsonUploader({ storageKey = 'uploadedJson', onUpload }: 
             aria-label="Upload"
             accept="application/json,.es3"
           />
-          <CButton type="submit" color="secondary" variant="outline" id="uploadSaveFileBtn">
+          <CButton type="submit" color="" variant="outline" id="uploadSaveFileBtn">
             Upload
           </CButton>
         </CInputGroup>
       </CForm>
       {showToast && (
         <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 9999 }}>
-          <CToast animation={false} autohide={false} visible={true} color={ 'success'}>
+          <CToast animation={true} autohide={false} visible={true} color={ 'success'}>
             <CToastHeader closeButton>
-              Upload Status
+              <svg
+                className="rounded me-2"
+                width="20"
+                height="20"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+              >
+                <rect width="100%" height="100%" fill="#007aff"></rect>
+              </svg>
+              <div className="fw-bold me-auto">Upload Status</div>
+
             </CToastHeader>
             <CToastBody>{message}</CToastBody>
 

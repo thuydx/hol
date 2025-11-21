@@ -27,22 +27,127 @@ import CIcon from '@coreui/icons-react'
 import {cifUs, cilArrowBottom, cilArrowTop, cilOptions, cilPeople, cilUserPlus,} from '@coreui/icons'
 
 import avatar1 from '@/public/images/avatars/1.jpg'
+import { useTypedSelector } from '@/store'
+
+const STORAGE_KEY = 'uploadedJson'
+const TS_KEY = `${STORAGE_KEY}_ts`
+const TEN_HOURS = 10 * 60 * 60 * 1000
+const CHECK_INTERVAL = 5 * 60 * 1000 // 5 minutes
 
 const Dashboard = () => {
   const [data, setData] = useState<any | null>(null)
+  const resetData = useTypedSelector((state) => state.resetData)
   // const raw = localStorage.getItem('myAppData')
   // const data = raw ? JSON.parse(raw) : null
+  // useEffect(() => {
+  //   // run only on the client
+  //   if (typeof window === 'undefined') return
+  //   try {
+  //     const raw = window.localStorage.getItem('myAppData')
+  //     setData(raw ? JSON.parse(raw) : null)
+  //   } catch (e) {
+  //     // parsing failed or localStorage not available — keep data as null
+  //     setData(null)
+  //   }
+  // }, []);
   useEffect(() => {
-    // run only on the client
     if (typeof window === 'undefined') return
-    try {
-      const raw = window.localStorage.getItem('myAppData')
-      setData(raw ? JSON.parse(raw) : null)
-    } catch (e) {
-      // parsing failed or localStorage not available — keep data as null
-      setData(null)
+
+    const checkExpiryAndLoad = () => {
+      try {
+        const tsRaw = window.localStorage.getItem(TS_KEY)
+        const raw = window.localStorage.getItem(STORAGE_KEY)
+        if (tsRaw && raw) {
+          const ts = Number(tsRaw)
+          if (Number.isFinite(ts) && Date.now() - ts > TEN_HOURS) {
+            // expired
+            window.localStorage.removeItem(STORAGE_KEY)
+            window.localStorage.removeItem(TS_KEY)
+            setData(null)
+            return
+          }
+          setData(JSON.parse(raw))
+        } else {
+          setData(null)
+        }
+      } catch (e) {
+        setData(null)
+      }
+    }
+
+    checkExpiryAndLoad()
+
+    // periodic check to auto-expire
+    const interval = window.setInterval(() => {
+      try {
+        const tsRaw = window.localStorage.getItem(TS_KEY)
+        if (tsRaw) {
+          const ts = Number(tsRaw)
+          if (Number.isFinite(ts) && Date.now() - ts > TEN_HOURS) {
+            window.localStorage.removeItem(STORAGE_KEY)
+            window.localStorage.removeItem(TS_KEY)
+            setData(null)
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+    }, CHECK_INTERVAL)
+
+    // remove data on browser/tab close
+    const handleUnload = () => {
+      try {
+        window.localStorage.removeItem(STORAGE_KEY)
+        window.localStorage.removeItem(TS_KEY)
+      } catch (e) {
+        // ignore
+      }
+    }
+    // prefer 'pagehide' instead of deprecated 'unload'
+    const handlePageHide = (e: PageTransitionEvent) => {
+      handleUnload()
+    }
+    // fallback: when the document becomes hidden (tab switch / close), run cleanup
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        handleUnload()
+      }
+    }
+    window.addEventListener('beforeunload', handleUnload)
+    window.addEventListener('pagehide', handlePageHide)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('beforeunload', handleUnload)
+      window.removeEventListener('pagehide', handlePageHide)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, []);
+
+  const handleReset = () => {
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.removeItem(STORAGE_KEY)
+      window.localStorage.removeItem(TS_KEY)
+    } catch (e) {
+      // ignore
+    }
+    setData(null)
+  }
+
+  const handleUpload = (parsed: any) => {
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed))
+        window.localStorage.setItem(TS_KEY, Date.now().toString())
+      } catch (e) {
+        // ignore
+      }
+    }
+    setData(parsed)
+  }
 
   const tableExample = [
     {
@@ -72,7 +177,13 @@ const Dashboard = () => {
               <CCardSubtitle className="fw-normal text-body-secondary border-bottom mb-3 pb-4">
               </CCardSubtitle>
               {/* pass setData so parent updates immediately after upload */}
-              <JsonUploader storageKey="myAppData" onUpload={(parsed) => setData(parsed)} />
+              {/*<JsonUploader storageKey="myAppData" onUpload={(parsed) => setData(parsed)} />*/}
+              <div className="d-flex align-items-center gap-3">
+                <JsonUploader storageKey={STORAGE_KEY} onUpload={handleUpload} />
+                <CButton color="danger" onClick={handleReset}>
+                  Reset data
+                </CButton>
+              </div>
             </CCardBody>
           </CCard>
         </CCol>

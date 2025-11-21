@@ -5,7 +5,8 @@ type state = {
   sidebarShow: boolean
   sidebarUnfoldable: boolean
   asideShow: boolean
-  theme: string
+  theme: string,
+  resetData: boolean
 }
 
 const initialState: state = {
@@ -13,6 +14,7 @@ const initialState: state = {
   sidebarUnfoldable: false,
   asideShow: false,
   theme: 'dark',
+  resetData: false
 }
 
 type args = { type: string; [key: string]: boolean | string }

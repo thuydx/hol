@@ -1,47 +1,33 @@
 'use client'
 
 import React, {JSX, useEffect, useRef} from 'react'
-import { useDispatch } from 'react-redux'
-import classNames from 'classnames'
+import {useDispatch} from 'react-redux'
 
 import {
   CContainer,
-  CForm,
-  CFormInput,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CForm,
+  CFormInput,
   CHeader,
   CHeaderNav,
   CHeaderToggler,
   CInputGroup,
   CInputGroupText,
-  useColorModes, CAvatar, CDropdownHeader, CBadge, CButton,
+  useColorModes,
 } from '@coreui/react-pro'
-import {
-  cilContrast,
-  cilApplicationsSettings,
-  cilMenu,
-  cilMoon,
-  cilSearch,
-  cilSun, cilBell,
-} from '@coreui/icons'
+import {cilApplicationsSettings, cilSearch,} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import { useTypedSelector } from '@/store'
+import {useTypedSelector} from '@/store'
 
-import {
-  AppHeaderDropdown,
-  AppHeaderDropdownMssg,
-  AppHeaderDropdownNotif,
-  AppHeaderDropdownTasks,
-} from './header/'
-import avatar8 from "@/public/images/avatars/8.jpg";
+import {AppHeaderDropdown,} from './header/'
 
 const AppHeader = (): JSX.Element => {
   const headerRef = useRef<HTMLDivElement>(null)
-  const { colorMode, setColorMode } = useColorModes('zgs-theme-modern')
+  const {colorMode, setColorMode} = useColorModes('zgs-theme-modern')
 
   const dispatch = useDispatch()
   const sidebarShow = useTypedSelector((state) => state.sidebarShow)
@@ -50,7 +36,7 @@ const AppHeader = (): JSX.Element => {
   useEffect(() => {
     document.addEventListener('scroll', () => {
       headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
+      headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     })
   }, [])
 
@@ -97,12 +83,13 @@ const AppHeader = (): JSX.Element => {
         {/*  <CIcon icon={cilMenu} size="lg" />*/}
         {/*</CHeaderToggler>*/}
         <CHeaderNav className="d-none d-md-flex ms-auto">
-          <CForm className="d-none d-sm-flex">
+          <CForm id="searchForm" className="d-none d-sm-flex">
             <CInputGroup>
               <CInputGroupText id="search-addon" className="bg-body-secondary border-0 px-1">
-                <CIcon icon={cilSearch} size="lg" className="my-1 mx-2 text-body-secondary" />
+                <CIcon icon={cilSearch} size="lg" className="my-1 mx-2 text-body-secondary"/>
               </CInputGroupText>
               <CFormInput
+                id="searchInput"
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="search-addon"
@@ -115,8 +102,14 @@ const AppHeader = (): JSX.Element => {
           {/*<AppHeaderDropdownMssg />*/}
         </CHeaderNav>
         <CHeaderNav className="ms-auto ms-md-0">
-          <AppHeaderDropdown />
+          <AppHeaderDropdown/>
         </CHeaderNav>
+        <CHeaderToggler
+          onClick={() => dispatch({type: 'set', asideShow: !asideShow})}
+          style={{marginInlineEnd: '-12px'}}
+        >
+          <CIcon icon={cilApplicationsSettings} size="lg"/>
+        </CHeaderToggler>
       </CContainer>
     </CHeader>
   )

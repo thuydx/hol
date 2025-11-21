@@ -5,7 +5,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <AppSidebar />
-      <div className="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+      <div className="wrapper d-flex flex-column min-vh-100 bg-dark dark:bg-transparent">
         <AppHeader />
         <div className="body flex-grow-1 px-3">
           <CContainer lg>{children}</CContainer>
