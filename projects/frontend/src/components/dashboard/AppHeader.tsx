@@ -41,7 +41,7 @@ const AppHeader = (): JSX.Element => {
   }, [])
 
   return (
-    <CHeader position="sticky" className="mb-4 p-0">
+    <CHeader position="sticky" className="mb-2 p-0">
       <CContainer className="px-4" lg>
         <CHeaderNav className="me-2">
           <CDropdown>

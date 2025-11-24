@@ -56,7 +56,7 @@ const AppBreadcrumb = () => {
   const lastBreadcrumb = breadcrumbs && breadcrumbs.pop()
   return (
     <>
-      <div className="fs-2 fw-semibold">{lastBreadcrumb && lastBreadcrumb.name}</div>
+      {/*<div className="fs-2 fw-semibold">{lastBreadcrumb && lastBreadcrumb.name}</div>*/}
       <CBreadcrumb className="mb-4">
         <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
         {breadcrumbs &&
@@ -70,6 +70,7 @@ const AppBreadcrumb = () => {
               </CBreadcrumbItem>
             )
           })}
+        {(lastBreadcrumb && lastBreadcrumb.name !== 'Dashboard') ? <CBreadcrumbItem active>{lastBreadcrumb && lastBreadcrumb.name}</CBreadcrumbItem> : ''}
       </CBreadcrumb>
     </>
   )

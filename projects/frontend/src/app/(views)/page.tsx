@@ -95,34 +95,39 @@ const Dashboard = () => {
     }, CHECK_INTERVAL)
 
     // remove data on browser/tab close
-    const handleUnload = () => {
-      try {
-        window.localStorage.removeItem(STORAGE_KEY)
-        window.localStorage.removeItem(TS_KEY)
-      } catch (e) {
-        // ignore
-      }
-    }
+    // NOTE: removed automatic clearing on beforeunload / pagehide / visibilitychange
+    // to avoid removing data on page refresh (F5). Manual Reset button still clears storage.
+    // const handleUnload = () => {
+    //   try {
+    //     window.localStorage.removeItem(STORAGE_KEY)
+    //     window.localStorage.removeItem(TS_KEY)
+    //   } catch (e) {
+    //     // ignore
+    //   }
+    // }
+
     // prefer 'pagehide' instead of deprecated 'unload'
-    const handlePageHide = (e: PageTransitionEvent) => {
-      handleUnload()
-    }
+    // const handlePageHide = (e: PageTransitionEvent) => {
+    //   handleUnload()
+    // }
     // fallback: when the document becomes hidden (tab switch / close), run cleanup
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        handleUnload()
-      }
-    }
-    window.addEventListener('beforeunload', handleUnload)
-    window.addEventListener('pagehide', handlePageHide)
-    document.addEventListener('visibilitychange', handleVisibilityChange)
+    // const handleVisibilityChange = () => {
+    //   if (document.visibilityState === 'hidden') {
+    //     handleUnload()
+    //   }
+    // }
+    // window.addEventListener('beforeunload', handleUnload)
+    // window.addEventListener('pagehide', handlePageHide)
+    // document.addEventListener('visibilitychange', handleVisibilityChange)
 
-
+    // return () => {
+    //   clearInterval(interval)
+    //   window.removeEventListener('beforeunload', handleUnload)
+    //   window.removeEventListener('pagehide', handlePageHide)
+    //   document.removeEventListener('visibilitychange', handleVisibilityChange)
+    // }
     return () => {
       clearInterval(interval)
-      window.removeEventListener('beforeunload', handleUnload)
-      window.removeEventListener('pagehide', handlePageHide)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, []);
 
