@@ -25,6 +25,15 @@ const eslintConfig = defineConfig([
     "public/**",
   ]),
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '.demos/**',
+    '.next/**',
+    '.zip/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
 ]);
 
 export default eslintConfig;

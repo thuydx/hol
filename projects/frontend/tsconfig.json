@@ -15,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -37,6 +37,9 @@
       ],
       "@/public/*": [
         "./public/*"
+      ],
+      "@coreui/coreui-pro/*": [
+        "./node_modules/@coreui/coreui-pro/*"
       ]
     }
   },
@@ -49,6 +52,12 @@
     "**/*.mts"
   ],
   "exclude": [
-    "node_modules", ".vscode", ".idea", ".next", "dist", "build", ".yarn"
+    "node_modules",
+    ".vscode",
+    ".idea",
+    ".next",
+    "dist",
+    "build",
+    ".yarn"
   ]
 }
