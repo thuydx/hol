@@ -43,7 +43,7 @@ const AppHeader = (): JSX.Element => {
 
   return (
     <CHeader position="sticky" className="mb-2 p-0">
-      <CContainer className="px-4" lg>
+      <CContainer className="" lg>
         <CHeaderNav className="me-2">
               <CButton href="/" className="btn-primary text-body-secondary btn-dark">Home</CButton>
         </CHeaderNav>

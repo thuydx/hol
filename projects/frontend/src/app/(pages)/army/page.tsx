@@ -1,9 +1,9 @@
 'use client'
-const Family = () => {
+const Army = () => {
   return (
     <>
-      <h1>Family</h1>
+      <h1>Army</h1>
     </>
   );
 }
-export default Family
+export default Army

@@ -2,7 +2,7 @@
 const OtherFamily = () => {
   return (
     <>
-      <h1>Stable</h1>
+      <h1>Other Family</h1>
     </>
   );
 }

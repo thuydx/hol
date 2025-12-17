@@ -1,12 +1,16 @@
 @use "sass:map";
 @use "sass:meta";
-@use "@/styles/scss/functions/color" as *;
-@use "@/styles/scss/functions/to-rgb" as *;
-@use "@/styles/scss/mixins/color-mode" as *;
-@use "@/styles/scss/vendor/rfs" as *;
-@use "@/styles/scss/maps" as *;
-@use "variables" as *;
-@use "variables-dark" as *;
+@use "@coreui/coreui-pro/scss/functions/color" as *;
+@use "@coreui/coreui-pro/scss/functions/to-rgb" as *;
+@use "@coreui/coreui-pro/scss/mixins/color-mode" as *;
+@use "@coreui/coreui-pro/scss/vendor/rfs" as *;
+@use "@coreui/coreui-pro/scss/maps" as *;
+@use "@coreui/coreui-pro/scss/variables" as *;
+$enable-dark-mode: true;
+$data-infix: "-zgs-" !default;
+$prefix: "zgs-" !default;
+@forward "@coreui/coreui-pro/scss/variables";
+@use "@coreui/coreui-pro/scss/variables-dark" as *;
 
 :root,
 [data#{$data-infix}theme="dark"] {

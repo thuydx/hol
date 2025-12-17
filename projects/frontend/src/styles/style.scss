@@ -22,6 +22,8 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
 
 @use "@coreui/coreui-pro/scss/coreui" as * with (
   $enable-deprecation-messages: false,
+  $data-infix: "-zgs-",
+  $prefix: "zgs-",
   $primary: $primary-color,
   $success: $success-color,
   $danger: $danger-color,
@@ -70,17 +72,13 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
   $danger-border-subtle-dark: tint-color($danger-dark-color, 60%),
   $font-size-base: .9375rem,
   $border-color-translucent: rgba(#080a0c, .0875),
-  $footer-bg: var(--zgs-body-bg),
+  $footer-bg: var(--cui-body-bg),
   $table-cell-padding-y: .75rem,
   $table-cell-padding-x: .75rem,
 );
 
-@use "../../node_modules/@coreui/chartjs/scss/coreui-chartjs.scss" as *;
-
-//@use "@coreui/chartjs/scss/coreui-chartjs";
-
 @use "vendors/simplebar";
-
+@use "root";
 body {
   background-color: var(--#{$prefix}tertiary-bg);
 }

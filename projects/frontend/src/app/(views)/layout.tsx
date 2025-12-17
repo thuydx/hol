@@ -3,7 +3,7 @@
 import { AppAside, AppSidebar, AppFooter, AppHeader, AppBreadcrumb } from '@/components'
 import { CContainer } from '@coreui/react-pro'
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function ViewsLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/*<AppSidebar />*/}
