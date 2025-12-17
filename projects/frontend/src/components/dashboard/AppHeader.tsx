@@ -4,6 +4,7 @@ import React, {JSX, useEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 
 import {
+  CButton,
   CContainer,
   CDropdown,
   CDropdownItem,
@@ -15,7 +16,7 @@ import {
   CHeaderNav,
   CHeaderToggler,
   CInputGroup,
-  CInputGroupText,
+  CInputGroupText, CNavLink,
   useColorModes,
 } from '@coreui/react-pro'
 import {cilApplicationsSettings, cilSearch,} from '@coreui/icons'
@@ -44,32 +45,38 @@ const AppHeader = (): JSX.Element => {
     <CHeader position="sticky" className="mb-2 p-0">
       <CContainer className="px-4" lg>
         <CHeaderNav className="me-2">
+              <CButton href="/" className="btn-primary text-body-secondary btn-dark">Home</CButton>
+        </CHeaderNav>
+        <CHeaderNav className="me-2">
           <CDropdown>
-            <CDropdownToggle href="#" color="primary">Dropdown</CDropdownToggle>
+            <CDropdownToggle href="/" color="primary" className="btn-primary text-body-secondary btn-dark">Family</CDropdownToggle>
             <CDropdownMenu>
-              <CDropdownItem href="#">Action</CDropdownItem>
-              <CDropdownItem href="#">Another action</CDropdownItem>
-              <CDropdownItem href="#">Something else here</CDropdownItem>
+              <CDropdownItem href="/family">Family Info</CDropdownItem>
+              <CDropdownItem href="/family/treasury">Treasury</CDropdownItem>
+              <CDropdownItem href="/family/members">Members</CDropdownItem>
+              <CDropdownItem href="/family/members-in-law">Members in law</CDropdownItem>
+              <CDropdownItem href="/family/retainer">Retainer</CDropdownItem>
+              <CDropdownItem href="/family/warehouse">Warehouse</CDropdownItem>
+              <CDropdownItem href="/family/stable">Stable</CDropdownItem>
+              <CDropdownItem href="/family/farm">Farm</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>
         <CHeaderNav className="me-2">
           <CDropdown>
-            <CDropdownToggle href="#" color="primary">Dropdown</CDropdownToggle>
+            <CDropdownToggle href="/relationship" color="primary" className="btn-primary text-body-secondary btn-dark">Relationship</CDropdownToggle>
             <CDropdownMenu>
-              <CDropdownItem href="#">Action</CDropdownItem>
-              <CDropdownItem href="#">Another action</CDropdownItem>
-              <CDropdownItem href="#">Something else here</CDropdownItem>
+              <CDropdownItem href="/relationship/king">King</CDropdownItem>
+              <CDropdownItem href="/relationship/other-family">Other Family</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>
         <CHeaderNav className="me-2">
           <CDropdown>
-            <CDropdownToggle href="#" color="primary">Dropdown</CDropdownToggle>
+            <CDropdownToggle href="/army" color="primary" className="btn-primary text-body-secondary btn-dark">Army</CDropdownToggle>
             <CDropdownMenu>
-              <CDropdownItem href="#">Action</CDropdownItem>
-              <CDropdownItem href="#">Another action</CDropdownItem>
-              <CDropdownItem href="#">Something else here</CDropdownItem>
+              <CDropdownItem href="/army/military">Military</CDropdownItem>
+              <CDropdownItem href="/army/slave">Slave</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>

@@ -1,6 +1,6 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals.js";
-import nextTs from "eslint-config-next/typescript.js";
+import nextVitals from "eslint-config-next/dist/core-web-vitals.js";
+import nextTs from "eslint-config-next/dist/typescript.js";
 import { dirname } from "path";
 import { FlatCompat } from "@eslint/eslintrc";
 import { fileURLToPath } from "url";

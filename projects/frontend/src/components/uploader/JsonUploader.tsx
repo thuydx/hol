@@ -71,7 +71,7 @@ export default function JsonUploader({ storageKey = 'uploadedJson', onUpload }: 
       </CForm>
       {showToast && (
         <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 9999 }}>
-          <CToast animation={true} autohide={false} visible={true} color={ 'success'}>
+          <CToast animation={true} autohide={true} visible={true} color={ 'success'}>
             <CToastHeader closeButton>
               <svg
                 className="rounded me-2"
