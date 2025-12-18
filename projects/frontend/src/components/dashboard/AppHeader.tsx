@@ -2,7 +2,7 @@
 
 import React, {JSX, useEffect, useRef, useState} from 'react'
 import {useParams, usePathname, useRouter} from 'next/navigation'
-import {Lang, langOptions} from '@/lib/i18n'
+import langOptions, {Lang} from '@/lib/i18n'
 import viDict from '@/lang/vi.json'
 import {useDispatch} from 'react-redux'
 

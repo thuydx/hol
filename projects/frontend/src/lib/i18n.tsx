@@ -1,5 +1,4 @@
 import {cifCn, cifUs, cifVn} from '@coreui/icons'
-import {CIconProps} from "@coreui/icons-react/src/CIcon";
 
 export const langs = ['en', 'vi', 'cn'] as const
 export const defaultLang = 'vi'
@@ -18,12 +17,9 @@ export function generateLangParams() {
   return langs.map((lang) => ({lang}))
 }
 
-export const langOptions: {
-  code: Lang
-  label: string
-  flag: CIconProps
-}[] = [
+const langOptions = [
   {code: 'en', label: 'English', flag: cifUs},
   {code: 'vi', label: 'Tiếng Việt', flag: cifVn},
   {code: 'cn', label: '中文', flag: cifCn},
 ]
+export default langOptions
