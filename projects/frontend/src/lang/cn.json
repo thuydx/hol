@@ -1,0 +1,29 @@
+{
+  "home": {
+    "title": "欢迎",
+    "description": "主页"
+  },
+  "family": {
+    "title": "家庭",
+    "content": "家庭关系"
+  },
+  "menu": {
+    "home": "首页",
+    "family": "家族",
+    "familyInfo": "家族信息",
+    "treasury": "财库",
+    "members": "成员",
+    "membersInLaw": "姻亲",
+    "retainer": "门客",
+    "warehouse": "仓库",
+    "stable": "马厩",
+    "farm": "农场",
+    "relationship": "关系",
+    "king": "君主",
+    "otherFamily": "其他家族",
+    "army": "军队",
+    "military": "军事",
+    "slave": "奴隶",
+    "search": "搜索"
+  }
+}

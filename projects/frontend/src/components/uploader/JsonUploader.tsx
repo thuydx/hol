@@ -1,21 +1,12 @@
-import React, { useState, useRef, FormEvent } from 'react'
-import {
-  CButton,
-  CCloseButton,
-  CForm,
-  CFormInput,
-  CInputGroup,
-  CToast,
-  CToastBody,
-  CToastHeader
-} from '@coreui/react-pro'
+import React, {FormEvent, useRef, useState} from 'react'
+import {CButton, CForm, CFormInput, CInputGroup, CToast, CToastBody, CToastHeader} from '@coreui/react-pro'
 
 type Props = {
   storageKey?: string
   onUpload?: (data: any) => void
 }
 
-export default function JsonUploader({ storageKey = 'uploadedJson', onUpload }: Props) {
+export default function JsonUploader({storageKey = 'uploadedJson', onUpload}: Props) {
   const [message, setMessage] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
   const fileRef = useRef<HTMLInputElement | null>(null)
@@ -70,8 +61,8 @@ export default function JsonUploader({ storageKey = 'uploadedJson', onUpload }: 
         </CInputGroup>
       </CForm>
       {showToast && (
-        <div style={{ position: 'fixed', right: 16, top: 16, zIndex: 9999 }}>
-          <CToast animation={true} autohide={true} visible={true} color={ 'success'}>
+        <div style={{position: 'fixed', right: 16, top: 16, zIndex: 9999}}>
+          <CToast animation={true} autohide={true} visible={true} color={'success'}>
             <CToastHeader closeButton>
               <svg
                 className="rounded me-2"

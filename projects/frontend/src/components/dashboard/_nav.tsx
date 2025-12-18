@@ -1,24 +1,7 @@
-import React, { JSX, ElementType } from 'react'
-import {
-  cilBell,
-  cilCalculator,
-  cilCalendar,
-  cilChartPie,
-  cilCursor,
-  cilDrop,
-  cilEnvelopeOpen,
-  cilGrid,
-  cilLayers,
-  cilMap,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilSpreadsheet,
-  cilStar,
-} from '@coreui/icons'
+import React, {ElementType, JSX} from 'react'
+import {cilLayers, cilSpeedometer,} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react-pro'
+import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react-pro'
 
 export type Badge = {
   color: string
@@ -38,7 +21,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon"/>,
     badge: {
       color: 'info-gradient',
       text: 'NEW',
@@ -398,7 +381,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Demo',
-    icon: <CIcon icon={cilLayers} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilLayers} customClassName="nav-icon"/>,
     items: [
       {
         component: CNavItem,

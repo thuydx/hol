@@ -1,11 +1,10 @@
 'use client'
 
-import { Geist, Geist_Mono } from "next/font/google";
+import {Geist, Geist_Mono} from "next/font/google";
 import Script from 'next/script'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import store from '@/store'
 import '@/styles/style.scss'
-import ViewsLayout from "@/app/(views)/layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,8 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({children}: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
     <head>

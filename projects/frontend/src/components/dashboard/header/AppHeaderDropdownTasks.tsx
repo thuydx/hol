@@ -10,7 +10,7 @@ import {
   CProgress,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilListRich } from '@coreui/icons'
+import {cilListRich} from '@coreui/icons'
 
 const AppHeaderDropdownTasks = () => {
   const itemsCount = 5
@@ -18,7 +18,7 @@ const AppHeaderDropdownTasks = () => {
     <CDropdown variant="nav-item" alignment="end">
       <CDropdownToggle caret={false}>
         <span className="d-inline-block my-1 mx-2 position-relative">
-          <CIcon icon={cilListRich} size="lg" />
+          <CIcon icon={cilListRich} size="lg"/>
           <CBadge color="danger" position="top-end" shape="rounded-circle" className="p-1">
             <span className="visually-hidden">{itemsCount} new alerts</span>
           </CBadge>
@@ -33,35 +33,35 @@ const AppHeaderDropdownTasks = () => {
             <div className="small">Upgrade NPM</div>
             <div className="fw-semibold">0%</div>
           </div>
-          <CProgress thin color="info-gradient" value={0} />
+          <CProgress thin color="info-gradient" value={0}/>
         </CDropdownItem>
         <CDropdownItem className="d-block py-2">
           <div className="d-flex justify-content-between mb-1">
             <div className="small">ReactJS Version</div>
             <div className="fw-semibold">25%</div>
           </div>
-          <CProgress thin color="danger-gradient" value={25} />
+          <CProgress thin color="danger-gradient" value={25}/>
         </CDropdownItem>
         <CDropdownItem className="d-block py-2">
           <div className="d-flex justify-content-between mb-1">
             <div className="small">VueJS Version</div>
             <div className="fw-semibold">50%</div>
           </div>
-          <CProgress thin color="warning-gradient" value={50} />
+          <CProgress thin color="warning-gradient" value={50}/>
         </CDropdownItem>
         <CDropdownItem className="d-block py-2">
           <div className="d-flex justify-content-between mb-1">
             <div className="small">Add new layouts</div>
             <div className="fw-semibold">75%</div>
           </div>
-          <CProgress thin color="info-gradient" value={75} />
+          <CProgress thin color="info-gradient" value={75}/>
         </CDropdownItem>
         <CDropdownItem className="d-block py-2">
           <div className="d-flex justify-content-between mb-1">
             <div className="small">Angular Version</div>
             <div className="fw-semibold">100%</div>
           </div>
-          <CProgress thin color="success-gradient" value={100} />
+          <CProgress thin color="success-gradient" value={100}/>
         </CDropdownItem>
         <div className="p-2">
           <CButton color="primary" variant="outline" className="w-100">

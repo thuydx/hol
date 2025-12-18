@@ -1,30 +1,22 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {
   CAvatar,
   CCloseButton,
   CFormSwitch,
+  CListGroup,
+  CListGroupItem,
   CNav,
   CNavItem,
   CNavLink,
-  CTabContent,
-  CTabPane,
-  CListGroup,
-  CListGroupItem,
   CProgress,
   CSidebar,
   CSidebarHeader,
+  CTabContent,
+  CTabPane,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import {
-  cibSkype,
-  cilCalendar,
-  cilHome,
-  cilList,
-  cilLocationPin,
-  cilSettings,
-  cilSpeech,
-} from '@coreui/icons'
+import {cibSkype, cilCalendar, cilHome, cilList, cilLocationPin, cilSettings, cilSpeech,} from '@coreui/icons'
 
 import avatar1 from '@/public/images/avatars/1.jpg'
 import avatar2 from '@/public/images/avatars/2.jpg'
@@ -35,7 +27,7 @@ import avatar6 from '@/public/images/avatars/6.jpg'
 import avatar7 from '@/public/images/avatars/7.jpg'
 import avatar8 from '@/public/images/avatars/8.jpg'
 
-import { useTypedSelector } from '@/store'
+import {useTypedSelector} from '@/store'
 
 const AppAside = () => {
   const dispatch = useDispatch()
@@ -51,7 +43,7 @@ const AppAside = () => {
       placement="end"
       visible={asideShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', asideShow: visible })
+        dispatch({type: 'set', asideShow: visible})
       }}
     >
       <CSidebarHeader className="p-0 position-relative">
@@ -65,7 +57,7 @@ const AppAside = () => {
                 setActiveKey(1)
               }}
             >
-              <CIcon icon={cilList} />
+              <CIcon icon={cilList}/>
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -77,7 +69,7 @@ const AppAside = () => {
                 setActiveKey(2)
               }}
             >
-              <CIcon icon={cilSpeech} />
+              <CIcon icon={cilSpeech}/>
             </CNavLink>
           </CNavItem>
           <CNavItem>
@@ -89,47 +81,49 @@ const AppAside = () => {
                 setActiveKey(3)
               }}
             >
-              <CIcon icon={cilSettings} />
+              <CIcon icon={cilSettings}/>
             </CNavLink>
           </CNavItem>
         </CNav>
         <CCloseButton
           className="position-absolute top-50 end-0 translate-middle my-0 btn-close-white"
-          onClick={() => dispatch({ type: 'set', asideShow: false })}
+          onClick={() => dispatch({type: 'set', asideShow: false})}
           data-zgs-theme="dark"
         />
       </CSidebarHeader>
       <CTabContent>
         <CTabPane visible={activeKey === 1}>
           <CListGroup flush>
-            <CListGroupItem className="list-group-item border-start-4 border-start-secondary bg-body-secondary text-center fw-semibold text-body-secondary text-uppercase small">
+            <CListGroupItem
+              className="list-group-item border-start-4 border-start-secondary bg-body-secondary text-center fw-semibold text-body-secondary text-uppercase small">
               Today
             </CListGroupItem>
             <CListGroupItem href="#" className="border-start-4 border-start-warning">
-              <CAvatar src={avatar7.src} size="lg" className="float-end" />
+              <CAvatar src={avatar7.src} size="lg" className="float-end"/>
               <div>
                 Meeting with <strong>Lucas</strong>
               </div>
               <small className="text-body-secondary me-3">
-                <CIcon icon={cilCalendar} /> 1 - 3pm
+                <CIcon icon={cilCalendar}/> 1 - 3pm
               </small>
               <small className="text-body-secondary">
-                <CIcon icon={cilLocationPin} /> Palo Alto, CA
+                <CIcon icon={cilLocationPin}/> Palo Alto, CA
               </small>
             </CListGroupItem>
             <CListGroupItem href="#" className="border-start-4 border-start-info">
-              <CAvatar src={avatar4.src} size="lg" className="float-end" />
+              <CAvatar src={avatar4.src} size="lg" className="float-end"/>
               <div>
                 Skype with <strong>Megan</strong>
               </div>
               <small className="text-body-secondary me-3">
-                <CIcon icon={cilCalendar} /> 4 - 5pm
+                <CIcon icon={cilCalendar}/> 4 - 5pm
               </small>
               <small className="text-body-secondary">
-                <CIcon icon={cibSkype} /> On-line
+                <CIcon icon={cibSkype}/> On-line
               </small>
             </CListGroupItem>
-            <CListGroupItem className="border-start-4 border-start-secondary bg-body-secondary text-center fw-semibold text-body-secondary text-uppercase small">
+            <CListGroupItem
+              className="border-start-4 border-start-secondary bg-body-secondary text-center fw-semibold text-body-secondary text-uppercase small">
               Tomorrow
             </CListGroupItem>
             <CListGroupItem href="#" className="border-start-4 border-start-danger">
@@ -137,17 +131,17 @@ const AppAside = () => {
                 New UI Project - <strong>deadline</strong>
               </div>
               <small className="text-body-secondary me-3">
-                <CIcon icon={cilCalendar} /> 10 - 11pm
+                <CIcon icon={cilCalendar}/> 10 - 11pm
               </small>
               <small className="text-body-secondary">
-                <CIcon icon={cilHome} /> creativeLabs HQ
+                <CIcon icon={cilHome}/> creativeLabs HQ
               </small>
               <div className="/avatars-stack mt-2">
-                <CAvatar src={avatar2.src} size="sm" />
-                <CAvatar src={avatar3.src} size="sm" />
-                <CAvatar src={avatar4.src} size="sm" />
-                <CAvatar src={avatar5.src} size="sm" />
-                <CAvatar src={avatar6.src} size="sm" />
+                <CAvatar src={avatar2.src} size="sm"/>
+                <CAvatar src={avatar3.src} size="sm"/>
+                <CAvatar src={avatar4.src} size="sm"/>
+                <CAvatar src={avatar5.src} size="sm"/>
+                <CAvatar src={avatar6.src} size="sm"/>
               </div>
             </CListGroupItem>
             <CListGroupItem href="#" className="border-start-4 border-start-success">
@@ -155,10 +149,10 @@ const AppAside = () => {
                 <strong>#10 Startups.Garden</strong> Meetup
               </div>
               <small className="text-body-secondary me-3">
-                <CIcon icon={cilCalendar} /> 1 - 3pm
+                <CIcon icon={cilCalendar}/> 1 - 3pm
               </small>
               <small className="text-body-secondary">
-                <CIcon icon={cilLocationPin} /> Palo Alto, CA
+                <CIcon icon={cilLocationPin}/> Palo Alto, CA
               </small>
             </CListGroupItem>
             <CListGroupItem href="#" className="border-start-4 border-start-primary border-bottom">
@@ -166,27 +160,27 @@ const AppAside = () => {
                 <strong>Team meeting</strong>
               </div>
               <small className="text-body-secondary me-3">
-                <CIcon icon={cilCalendar} /> 4 - 6pm
+                <CIcon icon={cilCalendar}/> 4 - 6pm
               </small>
               <small className="text-body-secondary">
-                <CIcon icon={cilHome} /> creativeLabs HQ
+                <CIcon icon={cilHome}/> creativeLabs HQ
               </small>
               <div className="/avatars-stack mt-2">
-                <CAvatar src={avatar2.src} size="sm" />
-                <CAvatar src={avatar3.src} size="sm" />
-                <CAvatar src={avatar4.src} size="sm" />
-                <CAvatar src={avatar5.src} size="sm" />
-                <CAvatar src={avatar6.src} size="sm" />
-                <CAvatar src={avatar7.src} size="sm" />
-                <CAvatar src={avatar8.src} size="sm" />
+                <CAvatar src={avatar2.src} size="sm"/>
+                <CAvatar src={avatar3.src} size="sm"/>
+                <CAvatar src={avatar4.src} size="sm"/>
+                <CAvatar src={avatar5.src} size="sm"/>
+                <CAvatar src={avatar6.src} size="sm"/>
+                <CAvatar src={avatar7.src} size="sm"/>
+                <CAvatar src={avatar8.src} size="sm"/>
               </div>
             </CListGroupItem>
           </CListGroup>
         </CTabPane>
         <CTabPane className="p-3" visible={activeKey === 2}>
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar1.src} status="success" />
-            <div style={{ minWidth: 0 }}>
+            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar1.src} status="success"/>
+            <div style={{minWidth: 0}}>
               <div className="d-flex justify-content-between text-body-secondary small">
                 <div>Jessica Williams</div>
                 <div>Just now</div>
@@ -200,10 +194,10 @@ const AppAside = () => {
               </div>
             </div>
           </div>
-          <hr />
+          <hr/>
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar2.src} status="success" />
-            <div style={{ minWidth: 0 }}>
+            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar2.src} status="success"/>
+            <div style={{minWidth: 0}}>
               <div className="d-flex justify-content-between text-body-secondary small">
                 <div>Richard Johnson</div>
                 <div>5 minutes ago</div>
@@ -215,10 +209,10 @@ const AppAside = () => {
               </div>
             </div>
           </div>
-          <hr />
+          <hr/>
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar4.src} status="success" />
-            <div style={{ minWidth: 0 }}>
+            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar4.src} status="success"/>
+            <div style={{minWidth: 0}}>
               <div className="d-flex justify-content-between text-body-secondary small">
                 <div>Angela Rodriguez</div>
                 <div>1:52 PM</div>
@@ -232,10 +226,10 @@ const AppAside = () => {
               </div>
             </div>
           </div>
-          <hr />
+          <hr/>
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar5.src} status="success" />
-            <div style={{ minWidth: 0 }}>
+            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar5.src} status="success"/>
+            <div style={{minWidth: 0}}>
               <div className="d-flex justify-content-between text-body-secondary small">
                 <div>Jane Lewis</div>
                 <div>4:03 PM</div>
@@ -247,10 +241,10 @@ const AppAside = () => {
               </div>
             </div>
           </div>
-          <hr />
+          <hr/>
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar3.src} status="success" />
-            <div style={{ minWidth: 0 }}>
+            <CAvatar className="flex-shrink-0 my-3 me-3" size="md" src={avatar3.src} status="success"/>
+            <div style={{minWidth: 0}}>
               <div className="d-flex justify-content-between text-body-secondary small">
                 <div>Ryan Miller</div>
                 <div>3 days ago</div>
@@ -267,7 +261,7 @@ const AppAside = () => {
           <h6>Settings</h6>
           <div>
             <div className="clearfix mt-4">
-              <CFormSwitch size="lg" label="Option 1" id="Option1" defaultChecked />
+              <CFormSwitch size="lg" label="Option 1" id="Option1" defaultChecked/>
             </div>
             <div>
               <small className="text-body-secondary">
@@ -278,7 +272,7 @@ const AppAside = () => {
           </div>
           <div>
             <div className="clearfix mt-3">
-              <CFormSwitch size="lg" label="Option 2" id="fOption2" />
+              <CFormSwitch size="lg" label="Option 2" id="fOption2"/>
             </div>
             <div>
               <small className="text-body-secondary">
@@ -289,29 +283,29 @@ const AppAside = () => {
           </div>
           <div>
             <div className="clearfix mt-3">
-              <CFormSwitch size="lg" label="Option 3" id="Option3" />
+              <CFormSwitch size="lg" label="Option 3" id="Option3"/>
             </div>
           </div>
           <div>
             <div className="clearfix mt-3">
-              <CFormSwitch size="lg" label="Option 4" id="Option4" defaultChecked />
+              <CFormSwitch size="lg" label="Option 4" id="Option4" defaultChecked/>
             </div>
           </div>
-          <hr />
+          <hr/>
           <h6>System Utilization</h6>
           <div className="text-uppercase small fw-semibold  mb-1 mt-4">CPU Usage</div>
-          <CProgress thin color="info-gradient" value={25} />
+          <CProgress thin color="info-gradient" value={25}/>
           <div className="text-body-secondary small">
-          348 Processes. 1/4 Cores.
+            348 Processes. 1/4 Cores.
           </div>
           <div className="text-uppercase small fw-semibold mb-1 mt-2">Memory Usage</div>
-          <CProgress thin color="warning-gradient" value={70} />
+          <CProgress thin color="warning-gradient" value={70}/>
           <div className="text-body-secondary small">11444GB/16384MB</div>
           <div className="text-uppercase small fw-semibold mb-1 mt-2">SSD 1 Usage</div>
-          <CProgress thin color="danger-gradient" value={95} />
+          <CProgress thin color="danger-gradient" value={95}/>
           <div className="text-body-secondary small">243GB/256GB</div>
           <div className="text-uppercase small fw-semibold mb-1 mt-2">SSD 2 Usage</div>
-          <CProgress thin color="success-gradient" value={10} />
+          <CProgress thin color="success-gradient" value={10}/>
           <div className="text-body-secondary small">25GB/256GB</div>
         </CTabPane>
       </CTabContent>

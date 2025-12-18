@@ -1,0 +1,34 @@
+{
+  "home": {
+    "title": "Welcome",
+    "description": "This is the homepage"
+  },
+  "family": {
+    "title": "Family",
+    "content": "Family relationships"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "relationship": "Relationship",
+    "other-family": "Other Family"
+  },
+  "menu": {
+    "home": "Home",
+    "family": "Family",
+    "familyInfo": "Family Info",
+    "treasury": "Treasury",
+    "members": "Members",
+    "membersInLaw": "Members in law",
+    "retainer": "Retainer",
+    "warehouse": "Warehouse",
+    "stable": "Stable",
+    "farm": "Farm",
+    "relationship": "Relationship",
+    "king": "King",
+    "otherFamily": "Other Family",
+    "army": "Army",
+    "military": "Military",
+    "slave": "Slave",
+    "search": "Search"
+  }
+}

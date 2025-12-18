@@ -1,5 +1,5 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import { useSelector, TypedUseSelectorHook } from 'react-redux'
+import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit'
+import {TypedUseSelectorHook, useSelector} from 'react-redux'
 
 type state = {
   sidebarShow: boolean
@@ -19,10 +19,10 @@ const initialState: state = {
 
 type args = { type: string; [key: string]: boolean | string }
 
-const changeState = (state = initialState, { type, ...rest }: args) => {
+const changeState = (state = initialState, {type, ...rest}: args) => {
   switch (type) {
     case 'set':
-      return { ...state, ...rest }
+      return {...state, ...rest}
     default:
       return state
   }

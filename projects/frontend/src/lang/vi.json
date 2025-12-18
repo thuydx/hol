@@ -1,0 +1,34 @@
+{
+  "home": {
+    "title": "Chào mừng",
+    "description": "Trang chủ"
+  },
+  "family": {
+    "title": "Gia đình",
+    "content": "Mối quan hệ gia đình"
+  },
+  "breadcrumb": {
+    "home": "Trang Chủ",
+    "relationship": "Mối quan hệ",
+    "other-family": "Các gia đình khác"
+  },
+  "menu": {
+    "home": "Trang chủ",
+    "family": "Gia tộc",
+    "familyInfo": "Thông tin gia tộc",
+    "treasury": "Ngân khố",
+    "members": "Thành viên",
+    "membersInLaw": "Thông gia",
+    "retainer": "Môn khách",
+    "warehouse": "Kho",
+    "stable": "Chuồng ngựa",
+    "farm": "Nông trại",
+    "relationship": "Mối quan hệ",
+    "king": "Vua",
+    "otherFamily": "Gia đình khác",
+    "army": "Quân đội",
+    "military": "Quân sự",
+    "slave": "Nô lệ",
+    "search": "Tìm kiếm"
+  }
+}
