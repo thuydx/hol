@@ -44,49 +44,6 @@ const humanize = (text: string) =>
 //   return currentRoute ? currentRoute.name : false
 // }
 
-// const getBreadcrumbs = (location: string) => {
-//   const breadcrumbs: breadcrumb[] = []
-//   location.split('/').reduce((prev, curr, index, array) => {
-//     const currentPathname = `${prev}/${curr}`
-//     const routeName = getRouteName(currentPathname, routeNames) || humanize(curr)
-//     breadcrumbs.push({
-//       pathname: currentPathname,
-//       name: routeName,
-//       active: index + 1 === array.length ? true : false,
-//     })
-//     return currentPathname
-//   })
-//   return breadcrumbs
-// }
-//
-// const AppBreadcrumb = () => {
-//   const currentLocation = usePathname()
-//
-//   const breadcrumbs = currentLocation && getBreadcrumbs(currentLocation)
-//   const lastBreadcrumb = breadcrumbs && breadcrumbs.pop()
-//   return (
-//     <>
-//       {/*<div className="fs-2 fw-semibold">{lastBreadcrumb && lastBreadcrumb.name}</div>*/}
-//       <CBreadcrumb className="mb-4">
-//         <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
-//         {breadcrumbs &&
-//           breadcrumbs.map((breadcrumb, index) => {
-//             return (
-//               <CBreadcrumbItem
-//                 {...(breadcrumb.active ? { active: true } : { href: breadcrumb.pathname })}
-//                 key={index}
-//               >
-//                 {breadcrumb.name}
-//               </CBreadcrumbItem>
-//             )
-//           })}
-//         {(lastBreadcrumb && lastBreadcrumb.name !== 'Dashboard') ? <CBreadcrumbItem active>{lastBreadcrumb && lastBreadcrumb.name}</CBreadcrumbItem> : ''}
-//       </CBreadcrumb>
-//     </>
-//   )
-// }
-//
-// export default React.memo(AppBreadcrumb)
 
 export default function AppBreadcrumb() {
   const pathname = usePathname()
@@ -111,7 +68,7 @@ export default function AppBreadcrumb() {
   const breadcrumbs = segments.map((segment, index) => {
     const href = '/' + [lang, ...segments.slice(0, index + 1)].join('/')
     const name =
-      dict.breadcrumb?.[segment] ||
+      dict.menu?.[segment] ||
       humanize(segment)
 
     return {href, name, active: index === segments.length - 1}
@@ -120,7 +77,7 @@ export default function AppBreadcrumb() {
   return (
     <CBreadcrumb className="mb-4">
       <CBreadcrumbItem href={`/${lang}`}>
-        {dict.breadcrumb?.home || 'Home'}
+        {dict.menu?.home || 'Home'}
       </CBreadcrumbItem>
 
       {breadcrumbs.map((b, index) => (

@@ -7,11 +7,6 @@
     "title": "Gia đình",
     "content": "Mối quan hệ gia đình"
   },
-  "breadcrumb": {
-    "home": "Trang Chủ",
-    "relationship": "Mối quan hệ",
-    "other-family": "Các gia đình khác"
-  },
   "menu": {
     "home": "Trang chủ",
     "family": "Gia tộc",
@@ -29,6 +24,25 @@
     "army": "Quân đội",
     "military": "Quân sự",
     "slave": "Nô lệ",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "things": "Vật phẩm"
+  },
+  "uploader": {
+    "title": "Tải lên",
+    "chooseFile": "Chọn tệp",
+    "dropHere": "Kéo & thả tệp JSON vào đây",
+    "noFileChosen": "Chưa chọn tệp",
+    "upload": "Tải lên",
+    "resetButton": "Xóa dữ liệu",
+
+    "fileTooLarge": "Tệp quá lớn.",
+    "invalidFileType": "Loại tệp không hợp lệ.",
+    "emptyJson": "JSON trống.",
+    "invalidJsonStructure": "Cấu trúc JSON không hợp lệ.",
+    "invalidJsonKeys": "Các khóa JSON không hợp lệ.",
+    "parseFailed": "Không thể phân tích JSON.",
+    "saved": "JSON đã được lưu thành công.",
+
+    "toastTitle": "Trạng thái tải lên"
   }
 }

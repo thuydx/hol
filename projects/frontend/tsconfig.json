@@ -33,7 +33,7 @@
         "./src/store/*"
       ],
       "@/pages/*": [
-        "./src/app/(pages)/*"
+        "./src/app/[lang]/(pages)/*"
       ],
       "@/views/*": [
         "./src/app/(views)/*"

@@ -24,6 +24,25 @@
     "army": "军队",
     "military": "军事",
     "slave": "奴隶",
-    "search": "搜索"
+    "search": "搜索",
+    "things": "物品"
+  },
+  "uploader": {
+    "title": "上传",
+    "chooseFile": "选择文件",
+    "dropHere": "将 JSON 文件拖放到此处",
+    "noFileChosen": "未选择文件",
+    "upload": "上传",
+    "resetButton": "重置数据",
+
+    "fileTooLarge": "文件过大。",
+    "invalidFileType": "文件类型无效。",
+    "emptyJson": "JSON 为空。",
+    "invalidJsonStructure": "JSON 结构无效。",
+    "invalidJsonKeys": "JSON 键无效。",
+    "parseFailed": "解析 JSON 失败。",
+    "saved": "JSON 已成功保存。",
+
+    "toastTitle": "上传状态"
   }
 }

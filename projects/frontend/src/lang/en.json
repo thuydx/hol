@@ -7,11 +7,6 @@
     "title": "Family",
     "content": "Family relationships"
   },
-  "breadcrumb": {
-    "home": "Home",
-    "relationship": "Relationship",
-    "other-family": "Other Family"
-  },
   "menu": {
     "home": "Home",
     "family": "Family",
@@ -29,6 +24,25 @@
     "army": "Army",
     "military": "Military",
     "slave": "Slave",
-    "search": "Search"
+    "search": "Search",
+    "things": "Things"
+  },
+  "uploader": {
+    "title": "Upload",
+    "chooseFile": "Choose file",
+    "dropHere": "Drag & drop JSON file here",
+    "noFileChosen": "No file chosen",
+    "upload": "Upload",
+    "resetButton": "Reset data",
+
+    "fileTooLarge": "File is too large.",
+    "invalidFileType": "Invalid file type.",
+    "emptyJson": "JSON is empty.",
+    "invalidJsonStructure": "JSON structure is invalid.",
+    "invalidJsonKeys": "JSON keys are invalid.",
+    "parseFailed": "Failed to parse JSON.",
+    "saved": "JSON saved successfully.",
+
+    "toastTitle": "Upload status"
   }
 }

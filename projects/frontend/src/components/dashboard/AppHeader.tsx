@@ -19,7 +19,7 @@ import {
   CHeaderNav,
   CHeaderToggler,
   CInputGroup,
-  CInputGroupText,
+  CInputGroupText
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import {cilApplicationsSettings, cilMenu, cilSearch} from '@coreui/icons'
@@ -37,7 +37,7 @@ const AppHeader = (): JSX.Element => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const switchLang = (newLang: Lang) => {
+  const switchLang = (newLang: string) => {
     if (!pathname) return
 
     const segments = pathname.split('/').filter(Boolean)
@@ -115,7 +115,21 @@ const AppHeader = (): JSX.Element => {
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>
-
+        {/* Things */}
+        <CHeaderNav className="me-2">
+          <CButton href={lhref('/things')} className="btn-primary btn-dark">{t.things}</CButton>
+          {/*<CDropdown>*/}
+          {/*  <CDropdownToggle href={lhref('/things')} className="btn-primary btn-dark">*/}
+          {/*    {t.things}*/}
+          {/*  </CDropdownToggle>*/}
+          {/*  <CDropdownMenu>*/}
+          {/*    <CDropdownItem href={lhref('/things')}>{t.things}</CDropdownItem>*/}
+          {/*    <CDropdownItem href={lhref('/relationship/other-family')}>*/}
+          {/*      {t.otherFamily}*/}
+          {/*    </CDropdownItem>*/}
+          {/*  </CDropdownMenu>*/}
+          {/*</CDropdown>*/}
+        </CHeaderNav>
         {/* Search */}
         <CHeaderNav className="ms-auto">
           <CForm className="d-none d-sm-flex">

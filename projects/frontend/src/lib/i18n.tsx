@@ -23,3 +23,23 @@ const langOptions = [
   {code: 'cn', label: '中文', flag: cifCn},
 ]
 export default langOptions
+
+/**
+ * Example for the Server Component usage
+ */
+// import { getDict, Lang, defaultLang } from '@/lib/i18n'
+//
+// export default async function ThingsPage({
+//                                            params,
+//                                          }: {
+//   params?: { lang?: Lang }
+// }) {
+//   const lang = params?.lang ?? defaultLang
+//   const dict = await getDict(lang)
+//
+//   return <h1>{dict.things.title}</h1>
+// }
+
+/**
+ * use useI18nClient for the Client Component usage
+ */
