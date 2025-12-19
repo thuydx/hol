@@ -1,0 +1,23 @@
+[
+  "XunXing_King",
+  "Cost_King",
+  "PerData",
+  "ShijiaOutXianPoint",
+  "Trade_Playershop",
+  "ShiJia_king",
+  "CGNum",
+  "IdIndex",
+  "Guan_JingCheng",
+  "PlayTimeRun",
+  "NuLiNum",
+  "VisionIndex",
+  "SceneID",
+  "CityID_CanAttack",
+  "BuildTaoZhuangID_SelectNow",
+  "GetMoney_Month",
+  "SelectNumPer_Shop",
+  "SelectNumPerAct",
+  "CitySawSetData",
+  "ZhiZeData_ZhangMu",
+  "VersionID"
+]

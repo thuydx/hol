@@ -1,0 +1,49 @@
+{
+  "home": {
+    "title": "Welcome",
+    "description": "This is the homepage"
+  },
+  "family": {
+    "title": "Family",
+    "content": "Family relationships"
+  },
+  "menu": {
+    "home": "Home",
+    "family": "Family",
+    "familyInfo": "Family Info",
+    "treasury": "Treasury",
+    "members": "Members",
+    "membersInLaw": "Members in law",
+    "retainer": "Retainer",
+    "warehouse": "Warehouse",
+    "stable": "Stable",
+    "farm": "Farm",
+    "relationship": "Relationship",
+    "king": "King",
+    "otherFamily": "Other Family",
+    "army": "Army",
+    "military": "Military",
+    "slave": "Slave",
+    "search": "Search",
+    "things": "Things",
+    "tools": "Tools"
+  },
+  "uploader": {
+    "title": "Upload",
+    "chooseFile": "Choose file",
+    "dropHere": "Drag & drop JSON file here",
+    "noFileChosen": "No file chosen",
+    "upload": "Upload",
+    "resetButton": "Reset data",
+
+    "fileTooLarge": "File is too large.",
+    "invalidFileType": "Invalid file type.",
+    "emptyJson": "JSON is empty.",
+    "invalidJsonStructure": "JSON structure is invalid.",
+    "invalidJsonKeys": "JSON keys are invalid.",
+    "parseFailed": "Failed to parse JSON.",
+    "saved": "JSON saved successfully.",
+
+    "toastTitle": "Upload status"
+  }
+}
