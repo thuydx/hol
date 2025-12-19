@@ -2,6 +2,58 @@ import JSZip from 'jszip'
 
 type ColumnMap = Record<string, number>
 
+export type ColumnInfo = {
+  index: number
+  compound: boolean
+}
+
+export type SectionSchema = Record<string, ColumnInfo>
+
+export function detectCompoundColumns() {
+  if (typeof window === 'undefined') {
+    throw new Error('Must run in browser')
+  }
+
+  const raw = localStorage.getItem('uploadedJson')
+  if (!raw) {
+    throw new Error('uploadedJson not found')
+  }
+
+  const data = JSON.parse(raw)
+  const result: Record<string, SectionSchema> = {}
+
+  Object.entries<any>(data).forEach(([key, section]) => {
+    const columnCount: Record<number, boolean> = {}
+
+    if (Array.isArray(section?.value)) {
+      for (const row of section.value) {
+        if (!Array.isArray(row)) continue
+
+        row.forEach((cell, index) => {
+          if (
+            typeof cell === 'string' &&
+            cell.includes('|')
+          ) {
+            columnCount[index] = true
+          }
+        })
+      }
+    }
+
+    const schema: SectionSchema = {}
+    Object.keys(columnCount).forEach(index => {
+      schema[`COL_${index}`] = {
+        index: Number(index),
+        compound: true
+      }
+    })
+
+    result[key] = schema
+  })
+
+  return result
+}
+
 export function generateColumnMaps() {
   if (typeof window === 'undefined') {
     throw new Error('Must run in browser')
@@ -48,6 +100,64 @@ export function generateColumnMaps() {
   return result
 }
 
+export function generateRepositories(schema: Record<string, any>) {
+  const files: Record<string, string> = {}
+
+  Object.entries(schema).forEach(([key, columns]) => {
+    const className = `${key}_Repository`
+    const compoundCols = Object.entries(columns)
+      .filter(([, v]: any) => v.compound)
+      .map(([k]) => k)
+
+    const methods = compoundCols.map(col => `
+  update_${col}(id: string, newValue: string) {
+    this.updateColumn(id, ${columns[col].index}, value => {
+      if (typeof value !== 'string') return value
+      const parts = value.split('|')
+      parts[0] = newValue
+      return parts.join('|')
+    })
+  }
+`).join('\n')
+
+    files[`${className}.ts`] =
+      `import { BaseRepository } from './baseRepository'
+
+export class ${className} extends BaseRepository<any[]> {
+  protected sectionKey = '${key}'
+
+${methods}
+}
+`
+  })
+
+  return files
+}
+
+export function generateFullSchema() {
+  const columns = generateColumnMaps()
+  const compounds = detectCompoundColumns()
+
+  const schema: Record<string, any> = {}
+
+  Object.keys(columns).forEach(key => {
+    const colMap = columns[key]
+    const compoundMap = compounds[key] ?? {}
+
+    const merged: any = {}
+
+    Object.entries(colMap).forEach(([col, index]) => {
+      merged[col] = {
+        index,
+        compound: Boolean(compoundMap[col]?.compound)
+      }
+    })
+
+    schema[key] = merged
+  })
+
+  return schema
+}
 /* --------------------------------------------------
  * ALWAYS generate & download files
  * -------------------------------------------------- */
@@ -94,48 +204,6 @@ export function downloadColumnMaps() {
     URL.revokeObjectURL(url)
   })
 }
-
-
-//
-// type ColumnMap = Record<string, number>
-//
-// export function generateColumnMaps() {
-//   if (typeof window === 'undefined') {
-//     throw new Error('Must run in browser')
-//   }
-//
-//   const raw = localStorage.getItem('uploadedJson')
-//   if (!raw) {
-//     throw new Error('uploadedJson not found')
-//   }
-//
-//   const data = JSON.parse(raw)
-//   const result: Record<string, ColumnMap> = {}
-//
-//   Object.keys(data).forEach(key => {
-//     // 🔒 DO NOT CHECK ANYTHING
-//     // 🔒 ALWAYS GENERATE
-//     const section = data[key]
-//     let maxLength = 0
-//
-//     if (Array.isArray(section?.value)) {
-//       for (const row of section.value) {
-//         if (Array.isArray(row)) {
-//           maxLength = Math.max(maxLength, row.length)
-//         }
-//       }
-//     }
-//
-//     const map: ColumnMap = {}
-//     for (let i = 0; i < maxLength; i++) {
-//       map[`COL_${i}`] = i
-//     }
-//
-//     result[key] = map
-//   })
-//
-//   return result
-// }
 
 /* --------------------------------------------------
  * ZIP EXPORT (THE FIX)
