@@ -117,19 +117,8 @@ const AppHeader = (): JSX.Element => {
         </CHeaderNav>
         {/* Things */}
         <CHeaderNav className="me-2">
-          <CButton href={lhref('/things')} className="btn-primary btn-dark">{t.things}</CButton>
+          <CButton href={lhref('/items')} className="btn-primary btn-dark">{t.items}</CButton>
           <CButton href={lhref('/tools')} className="btn-primary btn-dark">{t.tools}</CButton>
-          {/*<CDropdown>*/}
-          {/*  <CDropdownToggle href={lhref('/things')} className="btn-primary btn-dark">*/}
-          {/*    {t.things}*/}
-          {/*  </CDropdownToggle>*/}
-          {/*  <CDropdownMenu>*/}
-          {/*    <CDropdownItem href={lhref('/things')}>{t.things}</CDropdownItem>*/}
-          {/*    <CDropdownItem href={lhref('/relationship/other-family')}>*/}
-          {/*      {t.otherFamily}*/}
-          {/*    </CDropdownItem>*/}
-          {/*  </CDropdownMenu>*/}
-          {/*</CDropdown>*/}
         </CHeaderNav>
         {/* Search */}
         <CHeaderNav className="ms-auto">
