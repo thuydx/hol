@@ -10,13 +10,8 @@ import {
   CDropdownToggle,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilEnvelopeOpen } from '@coreui/icons'
-
-import avatar1 from '@/public/images/avatars/1.jpg'
-import avatar2 from '@/public/images/avatars/2.jpg'
+import {cilEnvelopeOpen} from '@coreui/icons'
 import avatar3 from '@/public/images/avatars/3.jpg'
-import avatar4 from '@/public/images/avatars/4.jpg'
-import avatar5 from '@/public/images/avatars/5.jpg'
 
 const AppHeaderDropdownMssg = () => {
   const itemsCount = 1
@@ -24,13 +19,13 @@ const AppHeaderDropdownMssg = () => {
     <CDropdown variant="nav-item" alignment="end">
       <CDropdownToggle caret={false}>
         <span className="d-inline-block my-1 mx-2 position-relative">
-          <CIcon icon={cilEnvelopeOpen} size="lg" />
+          <CIcon icon={cilEnvelopeOpen} size="lg"/>
           <CBadge color="danger" position="top-end" shape="rounded-circle" className="p-1">
             <span className="visually-hidden">{itemsCount} new alerts</span>
           </CBadge>
         </span>
       </CDropdownToggle>
-      <CDropdownMenu className="py-0" style={{ minWidth: '24rem' }}>
+      <CDropdownMenu className="py-0" style={{minWidth: '24rem'}}>
         <CDropdownHeader className="bg-body-secondary text-body-secondary fw-semibold rounded-top mb-2">
           You have {itemsCount} messages
         </CDropdownHeader>
@@ -104,7 +99,7 @@ const AppHeaderDropdownMssg = () => {
         {/*</CDropdownItem>*/}
         <CDropdownItem href="#">
           <div className="d-flex">
-            <CAvatar className="flex-shrink-0 my-3 me-3" src={avatar3.src} status="secondary" />
+            <CAvatar className="flex-shrink-0 my-3 me-3" src={avatar3.src} status="secondary"/>
             <div className="message text-wrap">
               <div className="d-flex justify-content-between small text-body-secondary mt-1">
                 <div>Ryan Miller</div>

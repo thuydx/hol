@@ -1,18 +1,18 @@
-import { AppAside, AppSidebar, AppFooter, AppHeader } from '@/components/dashboard'
-import { CContainer } from '@coreui/react-pro'
+import {AppAside, AppFooter, AppHeader, AppSidebar} from '@/components/dashboard'
+import {CContainer} from '@coreui/react-pro'
 
-function DefaultLayout({ children }: { children: React.ReactNode }) {
+function DefaultLayout({children}: { children: React.ReactNode }) {
   return (
     <>
-      <AppSidebar />
+      <AppSidebar/>
       <div className="wrapper d-flex flex-column min-vh-100 bg-dark dark:bg-transparent">
-        <AppHeader />
+        <AppHeader/>
         <div className="body flex-grow-1 px-3">
           <CContainer lg>{children}</CContainer>
         </div>
-        <AppFooter />
+        <AppFooter/>
       </div>
-      <AppAside />
+      <AppAside/>
     </>
   )
 }

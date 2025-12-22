@@ -1,20 +1,12 @@
 import React, {JSX} from 'react'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
-import { useTypedSelector } from '@/store'
-import {
-  CCloseButton, CHeaderText,
-  CSidebar,
-  CSidebarBrand,
-  CSidebarHeader,
-  CSidebarToggler,
-} from '@coreui/react-pro'
+import {useDispatch} from 'react-redux'
+import {useTypedSelector} from '@/store'
+import {CCloseButton, CHeaderText, CSidebar, CSidebarBrand, CSidebarHeader, CSidebarToggler,} from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 
 import AppSidebarNav from './AppSidebarNav'
-
-import { logo } from '@/public/brand/logo'
-import { sygnet } from '@/public/brand/sygnet'
+import {sygnet} from '@/public/brand/sygnet'
 
 // sidebar nav config
 import navigation from './_nav'
@@ -32,25 +24,25 @@ const AppSidebar = (): JSX.Element => {
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible })
+        dispatch({type: 'set', sidebarShow: visible})
       }}
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand as={Link} href="/">
           {/*<CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />*/}
           <CHeaderText className="sidebar-brand-full"> DASHBOARD </CHeaderText>
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
+          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32}/>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
           dark
-          onClick={() => dispatch({ type: 'set', sidebarShow: false })}
+          onClick={() => dispatch({type: 'set', sidebarShow: false})}
         />
         <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          onClick={() => dispatch({type: 'set', sidebarUnfoldable: !unfoldable})}
         />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation} />
+      <AppSidebarNav items={navigation}/>
     </CSidebar>
   )
 }

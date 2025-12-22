@@ -22,6 +22,8 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
 
 @use "@coreui/coreui-pro/scss/coreui" as * with (
   $enable-deprecation-messages: false,
+  $data-infix: "-zgs-",
+  $prefix: "zgs-",
   $primary: $primary-color,
   $success: $success-color,
   $danger: $danger-color,
@@ -75,12 +77,8 @@ $info-gradient-dark-color: gradient($info-dark-color) !default;
   $table-cell-padding-x: .75rem,
 );
 
-@use "../../node_modules/@coreui/chartjs/scss/coreui-chartjs.scss" as *;
-
-//@use "@coreui/chartjs/scss/coreui-chartjs";
-
 @use "vendors/simplebar";
-
+@use "root";
 body {
   background-color: var(--#{$prefix}tertiary-bg);
 }
@@ -91,6 +89,7 @@ body {
   will-change: auto;
   @include transition(padding .15s);
 }
+
 .header {
   min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
 }
@@ -128,6 +127,11 @@ body {
 .footer,
 .sidebar {
   box-shadow: rgb(50 50 93 / 2%) 0 2px 5px -1px, rgb(0 0 0 / 5%) 0 1px 3px -1px;
+}
+
+.form-control:focus {
+  border-color: #9cf;
+  box-shadow: 0 0 0 .05rem #3399ff40;
 }
 
 .sidebar-nav .nav-link:hover {

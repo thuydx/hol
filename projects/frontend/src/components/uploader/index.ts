@@ -1,3 +1,3 @@
 import JsonUploader from './JsonUploader'
 
-export { JsonUploader }
+export {JsonUploader}
