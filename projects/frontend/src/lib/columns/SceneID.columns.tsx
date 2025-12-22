@@ -1,3 +1,3 @@
-export const SceneID_Columns = {
+export const SceneIDColumns = {
 
 } as const

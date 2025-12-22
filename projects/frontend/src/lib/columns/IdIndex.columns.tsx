@@ -1,3 +1,3 @@
-export const IdIndex_Columns = {
+export const IdIndexColumns = {
 
 } as const

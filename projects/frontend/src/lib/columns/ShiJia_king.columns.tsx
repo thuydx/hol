@@ -1,3 +1,3 @@
-export const ShiJia_king_Columns = {
+export const ShiJia_kingColumns = {
 
 } as const

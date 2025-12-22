@@ -1,3 +1,3 @@
-export const ZhiZeData_ZhangMu_Columns = {
+export const ZhiZeData_ZhangMuColumns = {
 
 } as const

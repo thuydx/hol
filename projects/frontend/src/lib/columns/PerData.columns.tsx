@@ -1,3 +1,3 @@
-export const PerData_Columns = {
+export const PerDataColumns = {
 
 } as const

@@ -1,3 +1,3 @@
-export const ZiBei_Now_Columns = {
+export const ZiBei_NowColumns = {
 
 } as const

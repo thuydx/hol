@@ -1,3 +1,3 @@
-export const ZuZhangJueCeID_now_Columns = {
+export const ZuZhangJueCeID_nowColumns = {
 
 } as const

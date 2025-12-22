@@ -1,3 +1,3 @@
-export const GetMoney_Month_Columns = {
+export const GetMoney_MonthColumns = {
 
 } as const

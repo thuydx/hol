@@ -1,3 +1,3 @@
-export const XunXing_King_Columns = {
+export const XunXing_KingColumns = {
 
 } as const

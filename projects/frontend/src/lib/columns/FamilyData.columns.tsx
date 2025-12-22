@@ -1,3 +1,3 @@
-export const FamilyData_Columns = {
+export const FamilyDataColumns = {
 
 } as const

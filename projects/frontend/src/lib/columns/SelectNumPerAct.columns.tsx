@@ -1,3 +1,3 @@
-export const SelectNumPerAct_Columns = {
+export const SelectNumPerActColumns = {
 
 } as const

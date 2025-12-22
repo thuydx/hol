@@ -1,3 +1,3 @@
-export const VisionIndex_Columns = {
+export const VisionIndexColumns = {
 
 } as const

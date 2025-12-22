@@ -1,3 +1,3 @@
-export const JieDai_now_Columns = {
+export const JieDai_nowColumns = {
 
 } as const

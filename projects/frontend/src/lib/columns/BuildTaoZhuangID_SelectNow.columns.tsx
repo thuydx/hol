@@ -1,3 +1,3 @@
-export const BuildTaoZhuangID_SelectNow_Columns = {
+export const BuildTaoZhuangID_SelectNowColumns = {
 
 } as const

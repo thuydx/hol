@@ -1,3 +1,3 @@
-export const CGNum_Columns = {
+export const CGNumColumns = {
 
 } as const

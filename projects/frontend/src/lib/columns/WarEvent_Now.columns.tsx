@@ -1,3 +1,3 @@
-export const WarEvent_Now_Columns = {
+export const WarEvent_NowColumns = {
 
 } as const

@@ -1,3 +1,3 @@
-export const CitySawSetData_Columns = {
+export const CitySawSetDataColumns = {
 
 } as const

@@ -1,3 +1,3 @@
-export const NuLiNum_Columns = {
+export const NuLiNumColumns = {
 
 } as const

@@ -1,3 +1,3 @@
-export const Buluo_Now_Columns = {
+export const Buluo_NowColumns = {
 
 } as const

@@ -1,6 +1,7 @@
 import JSZip from 'jszip'
 
 type ColumnMap = Record<string, number>
+type SubColumnMap = Record<string, number>
 
 export type ColumnInfo = {
   index: number
@@ -8,6 +9,30 @@ export type ColumnInfo = {
 }
 
 export type SectionSchema = Record<string, ColumnInfo>
+
+function detectSubColumns(section: any, columnIndex: number): SubColumnMap {
+  let maxParts = 0
+
+  if (!Array.isArray(section?.value)) return {}
+
+  for (const row of section.value) {
+    if (!Array.isArray(row)) continue
+
+    const cell = row[columnIndex]
+    if (typeof cell !== 'string') continue
+    if (!cell.includes('|')) continue
+
+    const parts = cell.split('|')
+    maxParts = Math.max(maxParts, parts.length)
+  }
+
+  const subMap: SubColumnMap = {}
+  for (let i = 0; i < maxParts; i++) {
+    subMap[`SUB_${i}`] = i
+  }
+
+  return subMap
+}
 
 export function detectCompoundColumns() {
   if (typeof window === 'undefined') {
@@ -135,6 +160,16 @@ ${methods}
 }
 
 export function generateFullSchema() {
+  if (typeof window === 'undefined') {
+    throw new Error('Must run in browser')
+  }
+
+  const raw = localStorage.getItem('uploadedJson')
+  if (!raw) {
+    throw new Error('uploadedJson not found')
+  }
+
+  const data = JSON.parse(raw)
   const columns = generateColumnMaps()
   const compounds = detectCompoundColumns()
 
@@ -143,13 +178,24 @@ export function generateFullSchema() {
   Object.keys(columns).forEach(key => {
     const colMap = columns[key]
     const compoundMap = compounds[key] ?? {}
+    const section = data[key]
 
     const merged: any = {}
 
     Object.entries(colMap).forEach(([col, index]) => {
+      const isCompound = Boolean(compoundMap[col]?.compound)
+
       merged[col] = {
         index,
-        compound: Boolean(compoundMap[col]?.compound)
+        compound: isCompound
+      }
+
+      // 🔥 NEW: sub-column mapping
+      if (isCompound) {
+        const subColumns = detectSubColumns(section, index)
+        if (Object.keys(subColumns).length > 0) {
+          merged[col].subColumns = subColumns
+        }
       }
     })
 
@@ -158,33 +204,50 @@ export function generateFullSchema() {
 
   return schema
 }
+
 /* --------------------------------------------------
  * ALWAYS generate & download files
  * -------------------------------------------------- */
 
 export function exportColumnMapsAsTSX() {
-  const maps = generateColumnMaps()
+  const schema = generateFullSchema()
   const files: Record<string, string> = {}
 
-  Object.entries(maps).forEach(([key, map]) => {
-    const constName = `${key}Columns` // DO NOT TOUCH `_`
+  Object.entries(schema).forEach(([key, columns]) => {
+    const constName = `${key}Columns` // 🔒 keep key intact
 
-    const entries = Object.entries(map)
-      .map(([k, v]) => `  ${k}: ${v},`)
-      .join('\n')
+    const body = Object.entries(columns)
+      .map(([colName, info]: any) => {
+        const lines: string[] = []
+
+        lines.push(`    index: ${info.index},`)
+        lines.push(`    compound: ${info.compound},`)
+
+        if (info.subColumns) {
+          const subs = Object.entries(info.subColumns)
+            .map(([k, v]) => `      ${k}: ${v},`)
+            .join('\n')
+
+          lines.push(`    subColumns: {\n${subs}\n    },`)
+        }
+
+        return `  ${colName}: {\n${lines.join('\n')}\n  },`
+      })
+      .join('\n\n')
 
     const content =
       `export const ${constName} = {
-${entries}
+${body}
 } as const
 `
 
-    // 🔒 ALWAYS create file
+    // 🔒 ALWAYS generate file
     files[`${key}.columns.tsx`] = content
   })
 
   return files
 }
+
 
 export function downloadColumnMaps() {
   const files = exportColumnMapsAsTSX()
@@ -210,23 +273,11 @@ export function downloadColumnMaps() {
  * -------------------------------------------------- */
 
 export async function downloadColumnMapsZip() {
-  const maps = generateColumnMaps()
+  const files = exportColumnMapsAsTSX()
   const zip = new JSZip()
 
-  Object.entries(maps).forEach(([key, map]) => {
-    const constName = `${key}_Columns`
-
-    const body = Object.entries(map)
-      .map(([k, v]) => `  ${k}: ${v},`)
-      .join('\n')
-
-    const content =
-      `export const ${constName} = {
-${body}
-} as const
-`
-
-    zip.file(`${key}.columns.tsx`, content)
+  Object.entries(files).forEach(([filename, content]) => {
+    zip.file(filename, content)
   })
 
   const blob = await zip.generateAsync({ type: 'blob' })
@@ -236,5 +287,6 @@ ${body}
   a.href = url
   a.download = 'column-maps.zip'
   a.click()
+
   URL.revokeObjectURL(url)
 }

@@ -1,3 +1,3 @@
-export const MemberNumWillDead_Columns = {
+export const MemberNumWillDeadColumns = {
 
 } as const

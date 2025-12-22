@@ -1,3 +1,3 @@
-export const PlayTimeRun_Columns = {
+export const PlayTimeRunColumns = {
 
 } as const

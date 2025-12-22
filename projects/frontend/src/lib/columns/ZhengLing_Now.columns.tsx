@@ -1,3 +1,3 @@
-export const ZhengLing_Now_Columns = {
+export const ZhengLing_NowColumns = {
 
 } as const

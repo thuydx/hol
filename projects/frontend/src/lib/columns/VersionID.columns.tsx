@@ -1,3 +1,3 @@
-export const VersionID_Columns = {
+export const VersionIDColumns = {
 
 } as const

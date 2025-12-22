@@ -1,3 +1,3 @@
-export const Member_First_Columns = {
+export const Member_FirstColumns = {
 
 } as const

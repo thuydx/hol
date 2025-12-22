@@ -1,3 +1,3 @@
-export const TaskHD_Now_Columns = {
+export const TaskHD_NowColumns = {
 
 } as const

@@ -1,3 +1,3 @@
-export const Time_now_Columns = {
+export const Time_nowColumns = {
 
 } as const

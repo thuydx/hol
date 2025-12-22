@@ -1,3 +1,3 @@
-export const CityID_CanAttack_Columns = {
+export const CityID_CanAttackColumns = {
 
 } as const

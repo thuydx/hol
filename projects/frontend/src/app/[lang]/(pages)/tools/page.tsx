@@ -1,79 +1,114 @@
 'use client'
 
-import { useState } from 'react'
-import { useI18nClient } from '@/lib/i18nClient'
-import {
-  generateColumnMaps,
-  downloadColumnMaps, downloadColumnMapsZip
-} from '@/lib/dev/generateColumnMaps'
+import {useState} from 'react'
+import {useI18nClient} from '@/lib/i18nClient'
+import {downloadColumnMapsZip, generateFullSchema} from '@/lib/dev/generateColumnMaps'
+import {downloadRepositoriesZip, generateRepositoriesFromSchema} from '@/lib/dev/generateRepositoriesFromSchema'
+import {CButton, CCard, CCardBody, CCardTitle, CCol, CRow} from "@coreui/react-pro";
 
 const Tools = () => {
-  const { t } = useI18nClient<{ menu: { tools: string } }>()
-
+  const {t} = useI18nClient<{ menu: { tools: string } }>()
+  const [data, setData] = useState<boolean>(false)
   const [result, setResult] = useState<Record<string, any> | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleGenerate = () => {
     try {
       setError(null)
-      const maps = generateColumnMaps()
+      const maps = generateFullSchema();
+      setData(true);
       setResult(maps)
     } catch (e: any) {
       setResult(null)
+      setData(false);
       setError(e.message ?? 'Failed to generate column maps')
     }
   }
 
-  const handleDownload = () => {
+
+
+  const handleDownloadColumnMapsZip = () => {
     try {
       setError(null)
-      downloadColumnMaps()
+      downloadColumnMapsZip()
     } catch (e: any) {
       setError(e.message ?? 'Failed to download column maps')
     }
   }
 
+  const handleGenerateRepositoriesFromSchema = () => {
+    try {
+      setError(null)
+      const schemaMapping = generateFullSchema()
+      generateRepositoriesFromSchema(schemaMapping)
+    } catch (e: any) {
+      setError(e.message ?? 'Failed to generate repositories')
+    }
+  }
+
+  const handleDownloadRepositoriesZip = () => {
+    try {
+      setError(null)
+      const schemaMapping = generateFullSchema()
+      downloadRepositoriesZip(schemaMapping)
+    } catch (e: any) {
+      setError(e.message ?? 'Failed to download repositories')
+    }
+  }
+
+
   return (
     <>
-      <h1>{t.menu.tools}</h1>
+      <CRow>
+        <CCol>
+          <CCard className="p-2">
 
-      <div style={{ marginTop: 16 }}>
-        <button onClick={handleGenerate}>
-          Generate Column Maps
-        </button>
+            <CCardTitle as="h3" className="text-body-secondary text-truncate">Dev tools</CCardTitle>
+            <CCardBody className="d-flex flex-wrap p-0">
+              <CButton onClick={handleGenerate} color="primary" className="me-2">Generate Column Maps</CButton>
+              {result && (<CButton onClick={handleGenerateRepositoriesFromSchema} color="primary" className="me-2">Generate Repositories</CButton>)}
+              {result && (<CButton onClick={handleDownloadRepositoriesZip} color="success" className="me-2">Download Repositories (ZIP)</CButton>)}
+              {result && (<CButton onClick={handleDownloadColumnMapsZip} color="success" className="me-2">Download ALL Column Maps (ZIP)</CButton>)}
+              {data && (<CButton onClick={() => localStorage.clear()} color="d" className="me-2 btn-danger">Clear Local Storage</CButton>)}
+            </CCardBody>
+          </CCard>
 
-        <button
-          style={{ marginLeft: 12 }}
-          onClick={handleDownload}
-        >
-          Download Column Maps
-        </button>
-        <button onClick={downloadColumnMapsZip}>
-          Download ALL Column Maps (ZIP)
-        </button>
+        </CCol>
+      </CRow>
 
-      </div>
+      <CRow>
+        <CCol>
 
-      {error && (
-        <p style={{ color: 'red', marginTop: 16 }}>
-          {error}
-        </p>
-      )}
-
-      {result && (
-        <pre
-          style={{
-            marginTop: 16,
-            padding: 12,
-            background: '#111',
-            color: '#0f0',
-            maxHeight: 400,
-            overflow: 'auto'
-          }}
-        >
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+          {error && (
+            <CCard className="p-2">
+              <CCardTitle as="h3" className="text-body-secondary text-truncate">Errors</CCardTitle>
+              <CCardBody className="d-flex flex-wrap p-0 text-danger">
+                {error}
+              </CCardBody>
+            </CCard>
+          )}
+          {result && (
+            <CCard className="">
+              <CCardTitle as="h3" className="text-body-secondary text-truncate p-2">Results</CCardTitle>
+              <CCardBody
+                className="p-3"
+                style={{
+                  backgroundColor: '#111',
+                  color: '#0f0',
+                  maxHeight: 400,
+                  overflow: 'auto',
+                  fontFamily: 'monospace',
+                  fontSize: 13,
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                }}
+              >
+                {JSON.stringify(result, null, 2)}
+              </CCardBody>
+            </CCard>
+          )}
+        </CCol>
+      </CRow>
     </>
   )
 }

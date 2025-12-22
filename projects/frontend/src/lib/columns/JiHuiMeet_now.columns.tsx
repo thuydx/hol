@@ -1,3 +1,3 @@
-export const JiHuiMeet_now_Columns = {
+export const JiHuiMeet_nowColumns = {
 
 } as const

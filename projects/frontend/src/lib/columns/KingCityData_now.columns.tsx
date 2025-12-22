@@ -1,3 +1,3 @@
-export const KingCityData_now_Columns = {
+export const KingCityData_nowColumns = {
 
 } as const

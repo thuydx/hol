@@ -1,3 +1,3 @@
-export const Cost_King_Columns = {
+export const Cost_KingColumns = {
 
 } as const
