@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Create a `.env.local` file
+```dotenv
+ SASS_PATH=./node_modules/@coreui/coreui-pro/scss;./src/styles
+```
+
 First, run the development server:
 
 ```bash
