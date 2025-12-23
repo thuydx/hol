@@ -46,9 +46,67 @@
 
     "toastTitle": "Trạng thái tải lên"
   },
+  "warehouse": {
+    "title": "Khố Phòng",
+    "description": "Quản lý vật phẩm trong kho",
+    "instruction": "Chọn vật phẩm ở khung bên phải để đưa vào kho. Chọn vật phẩm ở khung bên trái để loại khỏi kho.",
+    "id": "Mã",
+    "name": "Tên",
+    "quantity": "Số Lượng",
+    "actions": "Thao Tác",
+    "add": "Thêm",
+    "moveLeft": "<<",
+    "moveRight": ">>",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "noItems": "Kho hiện không có vật phẩm"
+  },
+  "stable": {
+    "title": "Chuồng Ngựa",
+    "description": "Quản lý thú cưỡi trong chuồng",
+    "instruction": "Chọn thuộc tính của ngựa ở bảng bên phải để thêm vào chuồng. Chọn ngựa bên trái để loại khỏi chuồng.",
+    "attribute": {
+      "color": "Màu Sắc",
+      "yearAge": "Tuổi",
+      "lifespan": "Tuổi Thọ",
+      "power": "Sức Mạnh",
+      "speed": "Tốc Độ",
+      "smart": "Trí Tuệ",
+      "owner": "Chủ Nhân"
+    },
+    "colors": {
+      "0": "Đỏ",
+      "1": "Đỏ / Đốm Trắng",
+      "2": "Lam",
+      "3": "Lam / Đốm Trắng",
+      "4": "Trắng",
+      "5": "Trắng / Đốm Nâu",
+      "6": "Kim",
+      "7": "Kim / Đốm Trắng",
+      "8": "Đen",
+      "9": "Đen / Đốm Trắng"
+    },
+    "value": "Giá Trị",
+    "add": "Thêm",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "noAttributes": "Không có thuộc tính"
+  },
+  "treasury": {
+    "title": "Ngân Khố",
+    "description": "Ngân khố là nơi cất giữ vàng bạc của gia tộc.",
+    "instruction": "",
+    "gold": "Vàng",
+    "silver": "Bạc"
+  },
+  "slave": {
+    "title": "Nô lệ",
+    "description": "Quản lý số lượng nô lệ trong gia tộc",
+    "count": "Số lượng nô lệ"
+  },
   "items": {
     "0": "Hương phẩm - [Cúng tế]",
-    "1": "Phân bón - [Phì liệu]",
+    "1": "Phân bón - [Phân bón]",
     "2": "Ngũ cốc - [Thực phẩm]",
     "3": "Rau xanh - [Thực phẩm]",
     "4": "Nhục phẩm - [Thực phẩm]",
@@ -334,6 +392,7 @@
   },
   "group-item-options": {
     "OFFERING": "Cúng Tế",
+    "FERTILIZER": "Phân Bón",
     "FOOD": "Thực Phẩm",
     "TEXTILES": "Vải Vóc",
     "MINERALS": "Khoáng Sản",
@@ -369,8 +428,10 @@
       "OFFERING": {
         "0": "Hương phẩm"
       },
+      "FERTILIZER": {
+        "1": "Phân bón"
+      },
       "FOOD": {
-        "1": "Phân bón",
         "2": "Gạo",
         "3": "Rau xanh",
         "4": "Nhục phẩm",

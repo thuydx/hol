@@ -40,14 +40,6 @@ const Items = () => {
   const groupItems = t['group-items']?.[0] ?? {}
   const groupOptions = t['group-item-options']
 
-
-  // ✅ dropdown options
-  const groupKeys = useMemo(
-    () => Object.keys(groupItems),
-    [groupItems]
-  )
-
-  // ✅ filtered items
   const filteredItems = useMemo(() => {
     if (!selectedGroup) return {}
     return groupItems[selectedGroup] ?? {}
@@ -77,7 +69,6 @@ const Items = () => {
                     </CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
-
                 <CTableBody>
                   {Object.entries(allItems).map(([id, name]) => (
                     <CTableRow key={id}>
@@ -104,15 +95,12 @@ const Items = () => {
                   ? groupOptions[selectedGroup] ?? selectedGroup
                   : t.menu.items}
               </CCardTitle>
-
-
               <CDropdown>
                 <CDropdownToggle color="primary">
                   {selectedGroup
                     ? groupOptions[selectedGroup] ?? selectedGroup
                     : 'Select group'}
                 </CDropdownToggle>
-
                 <CDropdownMenu>
                   {Object.keys(groupItems).map(groupKey => (
                     <CDropdownItem
@@ -125,7 +113,6 @@ const Items = () => {
                 </CDropdownMenu>
               </CDropdown>
             </CCardHeader>
-
             <CCardBody>
               {selectedGroup ? (
                 <CTable striped hover small>

@@ -46,6 +46,65 @@
 
     "toastTitle": "Upload status"
   },
+  "warehouse": {
+    "title": "Warehouse",
+    "description": "Manage your warehouse items",
+    "instruction": "Select item on the right and then add it to the warehouse. Select item on the left and then delete items from the warehouse.",
+    "id": "ID",
+    "name": "Name",
+    "quantity": "Quantity",
+    "actions": "Actions",
+    "add": "Add",
+    "moveLeft": "<<",
+    "moveRight": ">>",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noItems": "No items in warehouse"
+  },
+  "stable": {
+    "title": "Stable",
+    "description": "Manage your stable items",
+    "instruction": "Select item on the right and then add it to the stable. Select item on the left and then delete items from the stable.",
+
+    "attribute": {
+      "color" : "Color",
+      "yearAge" : "Year Age",
+      "lifespan" : "Lifespan",
+      "power" : "Power",
+      "speed" : "Speed",
+      "smart" : "Smart",
+      "owner" : "Owner"
+    },
+    "colors": {
+      "0" : "Red",
+      "1" : "Red / White Spot",
+      "2" : "Blue",
+      "3" : "Blue / White Spot",
+      "4" : "White",
+      "5" : "White / Brown Spot",
+      "6" : "Gold",
+      "7" : "Gold / White Spot",
+      "8" : "Black",
+      "9" : "Black / White Spot"
+    },
+    "value": "Value",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noAttributes": "No attributes"
+  },
+  "treasury": {
+    "title": "Treasury",
+    "description": "Treasury is a place where you can store your gold and silver.",
+    "instruction": "",
+    "gold": "gold",
+    "silver": "silver"
+  },
+  "slave": {
+    "title": "Slave",
+    "description": "Slave numbers are stored here.",
+    "count": "Slaves number"
+  },
   "items": {
     "0" : "Incense - [Offering]",
     "1" : "Feces - [Fertilizer]",
@@ -334,6 +393,7 @@
   },
   "group-item-options": {
     "OFFERING" : "Offering",
+    "FERTILIZER" : "Fertilizer",
     "FOOD": "FOOD",
     "TEXTILES": "TEXTILES",
     "MINERALS": "MINERALS",
@@ -369,8 +429,10 @@
       "OFFERING" : {
         "0": "Incense"
       },
+      "FERTILIZER" : {
+        "1": "Fertilizer"
+      },
       "FOOD": {
-        "1": "Fertilizer",
         "2": "rice",
         "3": "veg",
         "4": "meat",

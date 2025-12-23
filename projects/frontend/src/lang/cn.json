@@ -46,9 +46,68 @@
 
     "toastTitle": "上传状态"
   },
+  "warehouse": {
+    "title": "仓库",
+    "description": "管理仓库中的物品",
+    "instruction": "选择右侧的物品添加到仓库，选择左侧的物品从仓库删除。",
+    "id": "编号",
+    "name": "名称",
+    "quantity": "数量",
+    "actions": "操作",
+    "add": "添加物品",
+    "moveLeft": "<<",
+    "moveRight": ">>",
+    "edit": "编辑",
+    "delete": "删除",
+    "noItems": "仓库中暂无物品"
+  },
+  "stable": {
+    "title": "马厩",
+    "description": "管理马厩中的坐骑",
+    "instruction": "选择右侧物品以添加到马厩，选择左侧物品以从马厩中移除。",
+
+    "attribute": {
+      "color": "颜色",
+      "yearAge": "年龄",
+      "lifespan": "寿命",
+      "power": "力量",
+      "speed": "速度",
+      "smart": "智慧",
+      "owner": "主人"
+    },
+    "colors": {
+      "0": "红色",
+      "1": "红色 / 白斑",
+      "2": "蓝色",
+      "3": "蓝色 / 白斑",
+      "4": "白色",
+      "5": "白色 / 棕斑",
+      "6": "金色",
+      "7": "金色 / 白斑",
+      "8": "黑色",
+      "9": "黑色 / 白斑"
+    },
+    "value": "价值",
+    "add": "添加",
+    "edit": "编辑",
+    "delete": "删除",
+    "noAttributes": "暂无属性"
+  },
+  "treasury": {
+    "title": "银库",
+    "description": "银库是存放家族金银之所。",
+    "instruction": "",
+    "gold": "黄金",
+    "silver": "白银"
+  },
+  "slave": {
+    "title": "仆役",
+    "description": "此处记录仆役的数量。",
+    "count": "仆役数量"
+  },
   "items": {
     "0": "香品 - [祭祀]",
-    "1": "肥料 - [食物]",
+    "1": "肥料 - [肥料]",
     "2": "五谷 - [食物]",
     "3": "蔬菜 - [食物]",
     "4": "肉食 - [食物]",
@@ -334,6 +393,7 @@
   },
   "group-item-options": {
     "OFFERING": "祭祀",
+    "FERTILIZER": "肥料",
     "FOOD": "食物",
     "TEXTILES": "织物",
     "MINERALS": "矿物",
@@ -369,8 +429,10 @@
       "OFFERING": {
         "0": "香品"
       },
+      "FERTILIZER": {
+        "1": "肥料"
+      },
       "FOOD": {
-        "1": "肥料",
         "2": "米",
         "3": "蔬菜",
         "4": "肉食",

@@ -56,6 +56,8 @@ export async function getSchema() {
 
     // detect compound + subColumns
     section.value.forEach((row: any[]) => {
+      if (!Array.isArray(row)) return
+
       row.forEach((cell, colIndex) => {
         if (typeof cell === 'string' && cell.includes('|')) {
           columns[`COL_${colIndex}`].compound = true
@@ -77,6 +79,46 @@ export async function getSchema() {
 
   return schema
 }
+
+export async function updateCellByIndex(
+  sectionKey: string,
+  rowIndex: number,
+  colIndex: number,
+  value: string
+) {
+  const data = await readAll()
+
+  const rows = data?.[sectionKey]?.value
+  if (!Array.isArray(rows)) return
+  if (!rows[rowIndex]) return
+
+  const next = [...rows[rowIndex]]
+  next[colIndex] = value
+
+  data[sectionKey].value = rows.map((r: any[], i: number) =>
+    i === rowIndex ? next : r
+  )
+
+  await writeAll(data)
+}
+
+export async function updateValueByIndex(
+  sectionKey: string,
+  index: number,
+  value: string
+) {
+  const data = await readAll()
+
+  const arr = data?.[sectionKey]?.value
+  if (!Array.isArray(arr)) return
+
+  const next = [...arr]
+  next[index] = value
+
+  data[sectionKey].value = next
+  await writeAll(data)
+}
+
 
 /* -----------------------------------------
  * CRUD primitives (schema aware)
