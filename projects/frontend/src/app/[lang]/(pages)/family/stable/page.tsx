@@ -10,7 +10,19 @@
  * COL_5 : smart
  * COL_6 : owner - belong to character
  */
-
+/**
+ * Horse Color:
+ * 0 : Red
+ * 1 : Red / White Spot
+ * 2 : Blue
+ * 3 : Blue / White Spot
+ * 4 : White
+ * 5 : White / Brown Spot
+ * 6 : Gold
+ * 7 : Gold / White Spot
+ * 8 : Black
+ * 9 : Black / White Spot
+ */
 import React, {useEffect, useState} from 'react'
 import {
   CButton,
@@ -69,6 +81,9 @@ type I18nSchema = {
     colors: Record<string, string>
     add: string
     delete: string
+  }
+  uploader: {
+    toastTitle: string
   }
 }
 
@@ -236,7 +251,7 @@ const StablePage = () => {
           >
             <CToastHeader closeButton>
               <strong className="me-auto">
-                {/*{t.uploader.toastTitle}*/}
+                {t.uploader.toastTitle}
               </strong>
             </CToastHeader>
             <CToastBody>{toast.message}</CToastBody>

@@ -3,9 +3,20 @@
     "title": "Chào mừng",
     "description": "Trang chủ"
   },
+  "common": {
+    "all": "Tất cả"
+  },
   "family": {
-    "title": "Gia đình",
-    "content": "Mối quan hệ gia đình"
+    "title": "Gia Tộc",
+    "description": "Thông tin gia tộc",
+    "instruction": "",
+    "coordinates": "Tọa Độ",
+    "name": "Họ",
+    "level": "Cấp Bậc",
+    "renown": "Danh Vọng",
+    "influence": "Quan Hệ Với Triều Đình",
+    "capacity": "Sức Chứa Còn Lại",
+    "horsesRemaining": "Số Ngựa Còn Lại"
   },
   "menu": {
     "home": "Trang chủ",
@@ -21,8 +32,8 @@
     "relationship": "Mối quan hệ",
     "king": "Vua",
     "otherFamily": "Gia đình khác",
-    "army": "Quân đội",
-    "military": "Quân sự",
+    "army": "Tư Binh",
+    "military": "Doanh Trại",
     "slave": "Nô lệ",
     "search": "Tìm kiếm",
     "items": "Vật phẩm",
@@ -419,7 +430,7 @@
     "BOOKS-SORCERY": "Thư Tịch Pháp Thuật",
     "BOOKS-MEDICINE": "Thư Tịch Y Học",
     "BOOKS-DAOISM": "Thư Tịch Đạo Gia",
-    "BOOKS-AUGUR": "Thư Tịch Chiêm Bốc",
+    "BOOKS-AUGUR": "Thư Tịch Bói",
     "BOOKS-CHARISMA": "Thư Tịch Mị Thuật",
     "BOOKS-CRAFT": "Thư Tịch Kỹ Nghệ"
   },

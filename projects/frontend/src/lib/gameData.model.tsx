@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 const STORAGE_KEY = 'uploadedJson'
 
 /* -----------------------------------------

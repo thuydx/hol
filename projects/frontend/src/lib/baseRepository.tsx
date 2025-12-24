@@ -108,4 +108,44 @@ export abstract class BaseRepository {
 
     await writeAll(data)
   }
+
+  /* =======================
+  * READ – SINGLE ROW
+  * ======================= */
+  protected async getSingleRow(): Promise<any[] | null> {
+    const data = await readAll()
+    const section = data?.[this.sectionKey]
+
+    if (!section || !Array.isArray(section.value)) return null
+
+    // Single row = value is array<string>
+    if (section.value.length && !Array.isArray(section.value[0])) {
+      return section.value
+    }
+
+    return null
+  }
+
+  /* =======================
+   * UPDATE – SINGLE ROW BY INDEX
+   * ======================= */
+  protected async updateSingleCell(
+    colIndex: number,
+    value: string
+  ): Promise<void> {
+    const data = await readAll()
+    const section = data?.[this.sectionKey]
+
+    if (!section || !Array.isArray(section.value)) return
+
+    // Ensure single row
+    if (Array.isArray(section.value[0])) {
+      throw new Error(
+        `${this.sectionKey} is not a single-row section`
+      )
+    }
+
+    section.value[colIndex] = value
+    await writeAll(data)
+  }
 }

@@ -147,4 +147,55 @@ export class NongZ_nowRepository extends BaseRepository {
   async update_COL_35(id: string, value: string): Promise<void> {
     await this.updateColumn(id, 'COL_35', value)
   }
+
+  async getAll(): Promise<string[][]> {
+    return this.all()
+  }
+
+  /**
+   * NongZ_now has structure:
+   * value: [ [ row, row, ... ] ]
+   */
+  async getAllRows(): Promise<string[][]> {
+    const raw = await super.all()
+
+    // raw === section.value === [ [ row, row, ... ] ]
+    if (
+      Array.isArray(raw) &&
+      Array.isArray(raw[0])
+    ) {
+      return raw[0] as string[][]
+    }
+    // fallback (safety)
+    return raw as string[][]
+  }
+
+  /**
+   * Update single cell by rowId (row[0])
+   */
+  async updateCellByColIndex(
+    rowId: string,
+    colIndex: number,
+    value: string
+  ) {
+    await this.updateColumn(rowId, `COL_${colIndex}`, value)
+  }
+
+  /**
+   * Update compound cell (| separated)
+   */
+  async updateCompoundByIndex(
+    rowId: string,
+    colIndex: number,
+    subIndex: number,
+    value: string
+  ) {
+    await this.updateSubColumn(
+      rowId,
+      `COL_${colIndex}`,
+      `SUB_${subIndex}`,
+      value
+    )
+  }
 }
+

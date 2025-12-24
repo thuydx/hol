@@ -3,9 +3,20 @@
     "title": "欢迎",
     "description": "主页"
   },
+  "common": {
+    "all": "全部"
+  },
   "family": {
-    "title": "家庭",
-    "content": "家庭关系"
+    "title": "宗族",
+    "description": "宗族信息",
+    "instruction": "",
+    "coordinates": "坐标",
+    "name": "姓氏",
+    "level": "等级",
+    "renown": "声望",
+    "influence": "对王朝的影响力",
+    "capacity": "剩余容量",
+    "horsesRemaining": "剩余马匹数量"
   },
   "menu": {
     "home": "首页",

@@ -1,16 +1,17 @@
 'use client'
 
 import {
-  CButton,
-  CCard, CCardBody, CCardHeader, CCardTitle,
-  CCol, CRow,
-  CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow,
-  CFormInput,
-  CToast, CToastHeader, CToastBody, CCardText
+  CButton, CFormInput,
+  CCard, CCardBody, CCardHeader, CCardText, CCardTitle,
+  CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle,
+  CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow,
+  CToast, CToastBody, CToastHeader
 } from "@coreui/react-pro";
-import React, { useEffect, useState } from "react";
-import { useI18nClient } from "@/lib/i18nClient";
-import { Prop_haveRepository } from "@/lib/repositories/Prop_have.repository";
+import React, {useMemo, useEffect, useState} from "react";
+import {useI18nClient} from "@/lib/i18nClient";
+import {Prop_haveRepository} from "@/lib/repositories/Prop_have.repository";
+
+const ALL_KEY = '__ALL__'
 
 type WarehouseRow = {
   id: string
@@ -29,22 +30,47 @@ type I18nSchema = {
     add: string
     delete: string
   }
+  uploader: {
+    toastTitle: string
+  }
   menu: {
     items: string
   }
+  common: {
+    all: string
+  }
   items: Record<string, string>
+  'group-item-options': Record<string, string>
+  'group-items': Array<Record<string, Record<string, string>>>
 }
 
 const repo = new Prop_haveRepository()
 
 const Warehouse = () => {
-  const { t } = useI18nClient<I18nSchema>()
+  const {t} = useI18nClient<I18nSchema>()
   const allItems = t.items
+  const [selectedGroup, setSelectedGroup] = useState<string>(ALL_KEY)
+
+  const groupItems: Record<string, Record<string, string>> = t['group-items']?.[0] ?? {}
+
+  const groupOptions = t['group-item-options']
 
   const [warehouse, setWarehouse] = useState<WarehouseRow[]>([])
   const [selectedLeft, setSelectedLeft] = useState<Set<string>>(new Set())
   const [selectedRight, setSelectedRight] = useState<Set<string>>(new Set())
   const [toast, setToast] = useState<{ message: string, color: 'success' | 'danger' } | null>(null)
+
+  const rightTableData = useMemo<Record<string, string>>(() => {
+    if (selectedGroup === ALL_KEY) {
+      return allItems
+    }
+    return groupItems[selectedGroup] ?? {}
+  }, [selectedGroup, allItems, groupItems])
+
+  const rightTitle =
+    selectedGroup === ALL_KEY
+      ? t.menu.items
+      : groupOptions[selectedGroup] ?? selectedGroup
 
   /* =============================
    * LOAD
@@ -94,7 +120,7 @@ const Warehouse = () => {
     }
 
     if (toAdd.length) {
-      setToast({ message: `${toAdd.length} item(s) added`, color: 'success' })
+      setToast({message: `${toAdd.length} item(s) added`, color: 'success'})
       await loadWarehouse()
     }
 
@@ -109,7 +135,7 @@ const Warehouse = () => {
 
     await repo.deleteWhere(row => toDelete.has(row[0]))
 
-    setToast({ message: `${toDelete.size} item(s) removed`, color: 'success' })
+    setToast({message: `${toDelete.size} item(s) removed`, color: 'success'})
     setSelectedLeft(new Set())
     await loadWarehouse()
   }
@@ -119,9 +145,40 @@ const Warehouse = () => {
    * ============================= */
   const updateQty = async (id: string, value: string) => {
     setWarehouse(w =>
-      w.map(row => row.id === id ? { ...row, quantity: value } : row)
+      w.map(row => row.id === id ? {...row, quantity: value} : row)
     )
     await repo.update_COL_1(id, value)
+  }
+
+  /* =============================
+  * SELECT ALL helpers
+  * ============================= */
+
+// LEFT (Warehouse)
+  const allLeftIds = warehouse.map(w => w.id)
+  const isAllLeftSelected =
+    allLeftIds.length > 0 && allLeftIds.every(id => selectedLeft.has(id))
+
+  const toggleSelectAllLeft = () => {
+    if (isAllLeftSelected) {
+      setSelectedLeft(new Set())
+    } else {
+      setSelectedLeft(new Set(allLeftIds))
+    }
+  }
+
+// RIGHT (All items)
+  const allRightIds = Object.keys(rightTableData)
+
+  const isAllRightSelected =
+    allRightIds.length > 0 && allRightIds.every(id => selectedRight.has(id))
+
+  const toggleSelectAllRight = () => {
+    if (isAllRightSelected) {
+      setSelectedRight(new Set())
+    } else {
+      setSelectedRight(new Set(allRightIds))
+    }
   }
 
   return (
@@ -141,9 +198,19 @@ const Warehouse = () => {
 
       {/* TOAST */}
       {toast && (
-        <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 9999 }}>
-          <CToast visible autohide delay={3000} color={toast.color} onClose={() => setToast(null)}>
-            <CToastHeader closeButton />
+        <div style={{position: 'fixed', top: 16, right: 16, zIndex: 9999}}>
+          <CToast
+            visible
+            autohide
+            delay={3000}
+            color={toast.color}
+            onClose={() => setToast(null)}
+          >
+            <CToastHeader closeButton>
+              <strong className="me-auto">
+                {t.uploader.toastTitle}
+              </strong>
+            </CToastHeader>
             <CToastBody>{toast.message}</CToastBody>
           </CToast>
         </div>
@@ -161,7 +228,13 @@ const Warehouse = () => {
               <CTable striped hover small>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell />
+                    <CTableHeaderCell>
+                      <input
+                        type="checkbox"
+                        checked={isAllLeftSelected}
+                        onChange={toggleSelectAllLeft}
+                      />
+                    </CTableHeaderCell>
                     <CTableHeaderCell>{t.warehouse.id}</CTableHeaderCell>
                     <CTableHeaderCell>{t.warehouse.name}</CTableHeaderCell>
                     <CTableHeaderCell>{t.warehouse.quantity}</CTableHeaderCell>
@@ -200,7 +273,7 @@ const Warehouse = () => {
 
         {/* ACTIONS */}
         <CCol md={2}>
-          <div style={{ position: 'sticky', top: 80 }}>
+          <div style={{position: 'sticky', top: 80}}>
             <CCard>
               <CCardHeader>
                 <CCardTitle>{t.warehouse.actions}</CCardTitle>
@@ -216,24 +289,62 @@ const Warehouse = () => {
             </CCard>
           </div>
         </CCol>
-
         {/* RIGHT — ALL ITEMS */}
         <CCol md={4}>
           <CCard>
-            <CCardHeader>
-              <CCardTitle>{t.menu.items}</CCardTitle>
+            <CCardHeader className="d-flex justify-content-between align-items-center">
+              <CCardTitle>{rightTitle}</CCardTitle>
+
+              <CDropdown alignment="end">
+                <CDropdownToggle color="primary">
+                  {rightTitle}
+                </CDropdownToggle>
+
+                <CDropdownMenu
+                  style={{
+                    maxHeight: 'calc(20 * 31px)',
+                    overflowY: 'auto'
+                  }}
+                >
+                  {/* ALL OPTION */}
+                  <CDropdownItem
+                    active={selectedGroup === ALL_KEY}
+                    onClick={() => setSelectedGroup(ALL_KEY)}
+                  >
+                    {t.common.all}
+                  </CDropdownItem>
+
+                  {Object.keys(groupItems).map(groupKey => (
+                    <CDropdownItem
+                      key={groupKey}
+                      active={selectedGroup === groupKey}
+                      onClick={() => setSelectedGroup(groupKey)}
+                    >
+                      {groupOptions[groupKey] ?? groupKey}
+                    </CDropdownItem>
+                  ))}
+                </CDropdownMenu>
+              </CDropdown>
             </CCardHeader>
+
             <CCardBody>
               <CTable striped hover small>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell />
+                    <CTableHeaderCell>
+                      <input
+                        type="checkbox"
+                        checked={isAllRightSelected}
+                        onChange={toggleSelectAllRight}
+                      />
+                    </CTableHeaderCell>
                     <CTableHeaderCell>{t.warehouse.id}</CTableHeaderCell>
                     <CTableHeaderCell>{t.warehouse.name}</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
+
                 <CTableBody>
-                  {Object.entries(allItems).map(([id, name]) => (
+                  {Object.entries(rightTableData).map(([id, name]) => (
                     <CTableRow key={id} active={selectedRight.has(id)}>
                       <CTableDataCell>
                         <input
@@ -255,7 +366,6 @@ const Warehouse = () => {
             </CCardBody>
           </CCard>
         </CCol>
-
       </CRow>
     </>
   )

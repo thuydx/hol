@@ -3,9 +3,20 @@
     "title": "Welcome",
     "description": "This is the homepage"
   },
+  "common": {
+    "all": "All"
+  },
   "family": {
     "title": "Family",
-    "content": "Family relationships"
+    "description": "Family information",
+    "instruction": "",
+    "coordinates": "Coordinates",
+    "name": "Name",
+    "level": "Level",
+    "renown": "Renown",
+    "influence": "Influence to Kingdom",
+    "capacity": "Remaining Storage",
+    "horsesRemaining": "Horses Remaining"
   },
   "menu": {
     "home": "Home",
