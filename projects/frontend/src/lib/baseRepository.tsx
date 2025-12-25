@@ -1,7 +1,8 @@
 import {
   getRows,
   updateCell, updateCellByIndex,
-  updateSubCell
+  updateSubCell,
+  getRowsLevel2
 } from '@/lib/gameData.model'
 
 const STORAGE_KEY = 'uploadedJson'
@@ -148,4 +149,8 @@ export abstract class BaseRepository {
     section.value[colIndex] = value
     await writeAll(data)
   }
+  async allLevel2(): Promise<string[][]> {
+    return getRowsLevel2(this.sectionKey)
+  }
 }
+

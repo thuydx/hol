@@ -3,186 +3,44 @@ import { BaseRepository } from '@/lib/baseRepository'
 export class NongZ_nowRepository extends BaseRepository {
   protected sectionKey = 'NongZ_now'
 
-
-  async update_COL_0(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_0', value)
-  }
-
-  async update_COL_1(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_1', value)
-  }
-
-  async update_COL_2(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_2', value)
-  }
-
-  async update_COL_3(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_3', value)
-  }
-
-  async update_COL_4(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_4', value)
-  }
-
-  async update_COL_5(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_5', value)
-  }
-
-  async update_COL_6(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_6', value)
-  }
-
-  async update_COL_7(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_7', value)
-  }
-
-  async update_COL_8(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_8', value)
-  }
-
-  async update_COL_9(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_9', value)
-  }
-
-  async update_COL_10(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_10', value)
-  }
-
-  async update_COL_11(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_11', value)
-  }
-
-  async update_COL_12(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_12', value)
-  }
-
-  async update_COL_13(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_13', value)
-  }
-
-  async update_COL_14(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_14', value)
-  }
-
-  async update_COL_15(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_15', value)
-  }
-
-  async update_COL_16(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_16', value)
-  }
-
-  async update_COL_17(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_17', value)
-  }
-
-  async update_COL_18(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_18', value)
-  }
-
-  async update_COL_19(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_19', value)
-  }
-
-  async update_COL_20(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_20', value)
-  }
-
-  async update_COL_21(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_21', value)
-  }
-
-  async update_COL_22(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_22', value)
-  }
-
-  async update_COL_23(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_23', value)
-  }
-
-  async update_COL_24(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_24', value)
-  }
-
-  async update_COL_25(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_25', value)
-  }
-
-  async update_COL_26(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_26', value)
-  }
-
-  async update_COL_27(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_27', value)
-  }
-
-  async update_COL_28(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_28', value)
-  }
-
-  async update_COL_29(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_29', value)
-  }
-
-  async update_COL_30(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_30', value)
-  }
-
-  async update_COL_31(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_31', value)
-  }
-
-  async update_COL_32(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_32', value)
-  }
-
-  async update_COL_33(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_33', value)
-  }
-
-  async update_COL_34(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_34', value)
-  }
-
-  async update_COL_35(id: string, value: string): Promise<void> {
-    await this.updateColumn(id, 'COL_35', value)
-  }
-
-  async getAll(): Promise<string[][]> {
-    return this.all()
-  }
-
   /**
-   * NongZ_now has structure:
    * value: [ [ row, row, ... ] ]
    */
   async getAllRows(): Promise<string[][]> {
     const raw = await super.all()
-
-    // raw === section.value === [ [ row, row, ... ] ]
-    if (
-      Array.isArray(raw) &&
-      Array.isArray(raw[0])
-    ) {
-      return raw[0] as string[][]
-    }
-    // fallback (safety)
-    return raw as string[][]
+    return Array.isArray(raw) && Array.isArray(raw[0])
+      ? (raw[0] as string[][])
+      : []
   }
 
   /**
-   * Update single cell by rowId (row[0])
+   * 🔴 OVERRIDE: update single cell for 3-level array
    */
   async updateCellByColIndex(
     rowId: string,
     colIndex: number,
     value: string
   ) {
-    await this.updateColumn(rowId, `COL_${colIndex}`, value)
+    const data = await this.readAllInternal()
+
+    const section = data?.[this.sectionKey]
+    if (!section?.value || !Array.isArray(section.value[0])) return
+
+    const rows: string[][] = section.value[0]
+
+    section.value[0] = rows.map(row => {
+      // ⚠️ rowId is BELONG_TO_CLAN (not ideal but consistent with current code)
+      if (row[0] !== rowId) return row
+      const next = [...row]
+      next[colIndex] = value
+      return next
+    })
+
+    await this.writeAllInternal(data)
   }
 
   /**
-   * Update compound cell (| separated)
+   * 🔴 OVERRIDE: update compound cell (| separated)
    */
   async updateCompoundByIndex(
     rowId: string,
@@ -190,12 +48,69 @@ export class NongZ_nowRepository extends BaseRepository {
     subIndex: number,
     value: string
   ) {
-    await this.updateSubColumn(
-      rowId,
-      `COL_${colIndex}`,
-      `SUB_${subIndex}`,
-      value
-    )
-  }
-}
+    const data = await this.readAllInternal()
 
+    const section = data?.[this.sectionKey]
+    if (!section?.value || !Array.isArray(section.value[0])) return
+
+    const rows: string[][] = section.value[0]
+
+    section.value[0] = rows.map(row => {
+      if (row[0] !== rowId) return row
+
+      const next = [...row]
+      const raw = String(next[colIndex] ?? '')
+      const parts = raw.split('|')
+      parts[subIndex] = value
+      next[colIndex] = parts.join('|')
+      return next
+    })
+
+    await this.writeAllInternal(data)
+  }
+
+  /* --------------------------------
+   * INTERNAL helpers
+   * -------------------------------- */
+  private async readAllInternal(): Promise<any> {
+    const raw = localStorage.getItem('uploadedJson')
+    return raw ? JSON.parse(raw) : {}
+  }
+
+  private async writeAllInternal(data: any): Promise<void> {
+    localStorage.setItem('uploadedJson', JSON.stringify(data))
+  }
+
+  async updateCellByRowIndex(
+    rowIndex: number,
+    colIndex: number,
+    value: string
+  ) {
+    const data = await this.readAllInternal()
+    const section = data?.[this.sectionKey]
+    if (!Array.isArray(section?.value?.[0])) return
+
+    section.value[0][rowIndex][colIndex] = value
+
+    await this.writeAllInternal(data)
+  }
+
+  async updateCompoundByRowIndex(
+    rowIndex: number,
+    colIndex: number,
+    subIndex: number,
+    value: string
+  ) {
+    const data = await this.readAllInternal()
+    const section = data?.[this.sectionKey]
+    if (!Array.isArray(section?.value?.[0])) return
+
+    const row = section.value[0][rowIndex]
+    const parts = String(row[colIndex] ?? '').split('|')
+    parts[subIndex] = value
+    row[colIndex] = parts.join('|')
+
+    await this.writeAllInternal(data)
+  }
+
+}

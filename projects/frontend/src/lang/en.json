@@ -18,6 +18,28 @@
     "capacity": "Remaining Storage",
     "horsesRemaining": "Horses Remaining"
   },
+  "farm" : {
+    "title": "Farm Management",
+    "columns": {
+      "FARM_NAME": "Farm Name",
+      "AREA": "Area",
+      "RENT": "Rent",
+      "MAX_FARMERS": "Max Farmers",
+      "STATUS": "Status",
+      "ENVIRONMENT": "Environment",
+      "SECURITY": "Security",
+      "CONVENIENCE": "Convenience",
+      "FARM_HEAD_ID": "Farm Head ID",
+      "FARMER_COUNT": "Farmer Count",
+      "FARMER_RATIO": "Farmer Ratio",
+      "BELONG_TO_CLAN": "Clan"
+    },
+    "actions": {
+      "OWNER": "OWNER",
+      "OCCUPIED": "OCCUPIED",
+      "ABANDONED": "ABANDONED"
+    }
+  },
   "menu": {
     "home": "Home",
     "family": "Family",

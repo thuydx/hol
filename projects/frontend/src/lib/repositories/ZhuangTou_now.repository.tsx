@@ -1,7 +1,94 @@
 import { BaseRepository } from '@/lib/baseRepository'
 
+export type ZhuangTouRecord = {
+  id: string
+  name: string
+}
+
+export type FarmHeadOption = {
+  id: string
+  name: string
+}
+
+export type FarmHeadSelectGroup = FarmHeadOption[]
+
 export class ZhuangTou_nowRepository extends BaseRepository {
   protected sectionKey = 'ZhuangTou_now'
+
+  async getAllRecords(): Promise<ZhuangTouRecord[]> {
+    const rows = await this.allLevel2()
+
+    /**
+     * rows structure:
+     * [
+     *   [ option, option, ... ],  // group 1
+     *   [ option ],               // group 2
+     *   [],
+     *   ...
+     * ]
+     *
+     * option = string[] (length = 6)
+     */
+
+    const records: ZhuangTouRecord[] = []
+
+    for (const group of rows) {
+      if (!Array.isArray(group)) continue
+
+      for (const option of group) {
+        if (!Array.isArray(option)) continue
+
+        const id = option[0]
+        const nameCompound = option[2] ?? ''
+        const name = nameCompound.split('|')[0]
+
+        if (id) {
+          records.push({ id, name })
+        }
+      }
+    }
+
+    return records
+  }
+
+  /**
+   * Return grouped select options
+   * [
+   *   [ {id, name} ],              // group 0
+   *   [ {id, name} ],              // group 1
+   *   [ {id, name}, ... ],         // group 2
+   *   ...
+   * ]
+   */
+  async buildSelectOptions(): Promise<FarmHeadSelectGroup[]> {
+    const rows = await this.allLevel2()
+    const result: FarmHeadSelectGroup[] = []
+
+    for (const group of rows) {
+      if (!Array.isArray(group)) {
+        result.push([])
+        continue
+      }
+
+      const options: FarmHeadOption[] = []
+
+      for (const option of group) {
+        if (!Array.isArray(option)) continue
+
+        const id = option[0]
+        const compound = option[2] ?? ''
+        const name = compound.split('|')[0]
+
+        if (id && name) {
+          options.push({ id, name })
+        }
+      }
+
+      result.push(options)
+    }
+
+    return result
+  }
 
 
   async update_COL_0(id: string, value: string): Promise<void> {

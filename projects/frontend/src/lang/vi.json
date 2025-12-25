@@ -18,6 +18,29 @@
     "capacity": "Sức Chứa Còn Lại",
     "horsesRemaining": "Số Ngựa Còn Lại"
   },
+  "farm": {
+    "title": "Quản lý Nông Trại",
+    "instruction": "Nhấn vào khu \"Bỏ Hoang\" để chuyển qua thành \"Sở Hữu\" và ngược lại nhấn vào khu \"Sở Hữu\" để chuyển qua thành \"Bỏ Hoang\".",
+    "columns": {
+      "FARM_NAME": "Tên nông trại",
+      "AREA": "Diện tích",
+      "RENT": "Tiền thuê",
+      "MAX_FARMERS": "Hộ dân",
+      "STATUS": "Tình trạng",
+      "ENVIRONMENT": "Môi trường",
+      "SECURITY": "An toàn",
+      "CONVENIENCE": "Tiện nghi",
+      "FARM_HEAD_ID": "Trưởng thôn",
+      "FARMER_COUNT": "Số lượng nông dân",
+      "FARMER_RATIO": "Tỷ lệ nông dân",
+      "BELONG_TO_CLAN": "Sở hữu"
+    },
+    "actions": {
+      "OWNER": "Sở Hữu",
+      "OCCUPIED": "Bị Chiếm",
+      "ABANDONED": "Bỏ Hoang"
+    }
+  },
   "menu": {
     "home": "Trang chủ",
     "family": "Gia tộc",

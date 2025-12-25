@@ -186,3 +186,21 @@ export async function updateSubCell(
 
   await writeAll(data)
 }
+
+export async function getRowsLevel2(
+  sectionKey: string
+): Promise<string[][]> {
+  const data = await readAll()
+  const value = data?.[sectionKey]?.value
+
+  if (
+    Array.isArray(value) &&
+    Array.isArray(value[0]) &&
+    Array.isArray(value[0][0])
+  ) {
+    // value[0][0] = LIST RECORDS
+    return value[0] as string[][]
+  }
+
+  return []
+}

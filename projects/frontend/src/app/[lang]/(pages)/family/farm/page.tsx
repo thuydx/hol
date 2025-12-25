@@ -1,40 +1,10 @@
-/**
- * Farm Data Index Mapping Fields - Top-Level key NongZ_now
- *
- * 0: BELONG_TO_CLAN = 0; // Quan hệ gia đình   value = -1 (thuộc clan chính - owner) | 0 (không thuộc clan nào) | số dương (thuộc clan phụ)
- * 1: COL_1 = 1; // Không rõ
- * 2: LAND_FERTILITY = 2; // Độ phì nhiêu của đất (min = 0, max = 100)
- * 3: RENT = 3; // Tiền thuê đất (min = 0)
- * 4: COORDINATES = 4; // Tọa độ (Đối với bản đồ lớn: Chỉ số quận | Chỉ số quận; Đối với thái ấp: Tọa độ x | Tọa độ y)
- * 5: AREA = 5; // Diện tích (options = 4, 9, 16, 25)
- * 6: FARM_NAME = 6; // Tên trang trại - Nếu trùng tên trang trại thì KHÔNG ĐƯỢC thuộc gia tộc (clan) nào
- * 7: MAX_FARMERS = 7; // Số hộ gia đình nông trại đủ điều kiện cư trú
- * 8: STATUS = 8; // Tình trạng
- * 9: COL_9 = 9; // Không rõ
- * 10: ENVIRONMENT = 10; // Môi trường
- * 11: SECURITY = 11; // An toàn
- * 12: CONVENIENCE = 12; // Tiện nghi
- * 13: COL_13 = 13; // Không rõ
- * 14: FARM_HEAD_ID = 14; // Mã số trưởng thôn
- * 15: COL_15 = 15; // Không rõ
- * 16: COL_16 = 16; // Không rõ
- * 17: COL_17 = 17; // Không rõ
- * 18: COL_18 = 18; // Không rõ
- * 19: COL_19 = 19; // Không rõ
- * 20: COL_20 = 20; // Không rõ
- * 21: COL_21 = 21; // Không rõ
- * 22: COL_22 = 22; // Không rõ
- * 23: COL_23 = 23; // Không rõ
- * 24: FARMER_COUNT = 24; // Số lượng nông dân (trồng trọt | chăn nuôi | thủ công mỹ nghệ)
- * 25: COL_25 = 25; // Không rõ
- * 26: FARMER_RATIO = 26; // Tỷ lệ nông dân (trồng trọt | chăn nuôi | thủ công mỹ nghệ)
- */
 'use client'
 
 import {
+  CButton,
   CCard,
   CCardBody,
-  CCardHeader,
+  CCardHeader, CCardSubtitle,
   CCardTitle,
   CCol,
   CDropdown,
@@ -52,11 +22,11 @@ import {
 } from '@coreui/react-pro'
 import {useEffect, useState} from 'react'
 import {NongZ_nowRepository} from '@/lib/repositories/NongZ_now.repository'
-
-const repo = new NongZ_nowRepository()
+import {useI18nClient} from '@/lib/i18nClient'
+import {FarmHeadSelectGroup, ZhuangTou_nowRepository} from "@/lib/repositories/ZhuangTou_now.repository";
 
 /* =============================
- * COL + COLUMNS (as defined above)
+ * COLUMN INDEX
  * ============================= */
 const COL = {
   BELONG_TO_CLAN: 0,
@@ -72,27 +42,17 @@ const COL = {
   CONVENIENCE: 12,
   FARM_HEAD_ID: 16,
   FARMER_COUNT: 24,
-  FARMER_RATIO: 26
+  FARMER_RATIO: 26,
 }
 
-// const COLUMNS = [
-//   { key: 'FARM_NAME', label: 'Farm Name', col: COL.FARM_NAME, type: 'text' },
-//   { key: 'AREA', label: 'Area', col: COL.AREA, type: 'select', options: ['4','9','16','25'] },
-//   { key: 'RENT', label: 'Rent', col: COL.RENT, type: 'number' },
-//   { key: 'COORDINATES', label: 'Coordinates', col: COL.COORDINATES, type: 'compound', sub: 2 },
-//   { key: 'MAX_FARMERS', label: 'Max Farmers', col: COL.MAX_FARMERS, type: 'number' },
-//   { key: 'STATUS', label: 'Status', col: COL.STATUS, type: 'number' },
-//   { key: 'ENVIRONMENT', label: 'Environment', col: COL.ENVIRONMENT, type: 'number' },
-//   { key: 'SECURITY', label: 'Security', col: COL.SECURITY, type: 'number' },
-//   { key: 'CONVENIENCE', label: 'Convenience', col: COL.CONVENIENCE, type: 'number' },
-//   { key: 'FARM_HEAD_ID', label: 'Farm Head ID', col: COL.FARM_HEAD_ID, type: 'text' },
-//   { key: 'FARMER_COUNT', label: 'Farmer Count', col: COL.FARMER_COUNT, type: 'compound', sub: 3 },
-//   { key: 'FARMER_RATIO', label: 'Farmer Ratio', col: COL.FARMER_RATIO, type: 'compound', sub: 3 }
-// ]
+/* =============================
+ * COLUMN TYPES
+ * ============================= */
 type BaseColumn = {
   key: string
   label: string
   col: number
+  width?: number
 }
 
 type TextColumn = BaseColumn & {
@@ -108,147 +68,280 @@ type CompoundColumn = BaseColumn & {
   type: 'compound'
   sub: number
 }
+type StatusColumn = BaseColumn & {
+  type: 'status'
+}
+type FarmHeadColumn = BaseColumn & {
+  type: 'farm-head'
+}
 
+type Column = TextColumn | SelectColumn | CompoundColumn | StatusColumn | FarmHeadColumn
+
+/* =============================
+ * COLUMNS CONFIG
+ * ============================= */
 const COLUMNS: Column[] = [
-  {key: 'FARM_NAME', label: 'Farm Name', col: 6, type: 'text'},
-
+  {key: 'FARM_NAME', label: 'Farm Name', col: COL.FARM_NAME, type: 'text', width: 150,},
   {
     key: 'AREA',
     label: 'Area',
-    col: 5,
+    col: COL.AREA,
     type: 'select',
     options: ['4', '9', '16', '25'],
+    width: 80,
   },
-
-  {key: 'RENT', label: 'Rent', col: 3, type: 'number'},
-
-  {
-    key: 'COORDINATES',
-    label: 'Coordinates',
-    col: 4,
-    type: 'text',
-  },
-
-  {key: 'MAX_FARMERS', label: 'Max Farmers', col: 7, type: 'number'},
-
-  {key: 'STATUS', label: 'Status', col: 8, type: 'number'},
-
-  {key: 'ENVIRONMENT', label: 'Environment', col: 10, type: 'number'},
-
-  {key: 'SECURITY', label: 'Security', col: 11, type: 'number'},
-
-  {key: 'CONVENIENCE', label: 'Convenience', col: 12, type: 'number'},
-
-  {key: 'FARM_HEAD_ID', label: 'Farm Head ID', col: 16, type: 'text'},
-
+  // { key: 'LAND_FERTILITY', label: 'Land Fertility', col: COL.LAND_FERTILITY, type: 'text' },
+  // { key: 'RENT', label: 'Rent', col: COL.RENT, type: 'number' },
+  {key: 'MAX_FARMERS', label: 'Max Farmers', col: COL.MAX_FARMERS, type: 'number'},
+  // { key: 'STATUS', label: 'Status', col: COL.STATUS, type: 'number' },
+  {key: 'ENVIRONMENT', label: 'Environment', col: COL.ENVIRONMENT, type: 'number'},
+  {key: 'SECURITY', label: 'Security', col: COL.SECURITY, type: 'number'},
+  {key: 'CONVENIENCE', label: 'Convenience', col: COL.CONVENIENCE, type: 'number'},
+  // {key: 'FARM_HEAD_ID', label: 'Farm Head ID', col: COL.FARM_HEAD_ID, type: 'text'},
+  { key: 'FARM_HEAD_ID', label: 'Farm Head ID', col: COL.FARM_HEAD_ID, type: 'farm-head' },
   {
     key: 'FARMER_COUNT',
     label: 'Farmer Count',
-    col: 24,
+    col: COL.FARMER_COUNT,
     type: 'compound',
     sub: 3,
   },
-
   {
     key: 'FARMER_RATIO',
     label: 'Farmer Ratio',
-    col: 26,
+    col: COL.FARMER_RATIO,
     type: 'compound',
     sub: 3,
   },
+  {
+    key: 'BELONG_TO_CLAN',
+    label: 'Clan',
+    col: COL.BELONG_TO_CLAN,
+    type: 'status',
+    width: 90,
+  }
 ]
-
-type Column = TextColumn | SelectColumn | CompoundColumn
 
 export default function FarmPage() {
   const [rows, setRows] = useState<string[][]>([])
   const repo = new NongZ_nowRepository()
+  const zhuangRepo = new ZhuangTou_nowRepository()
+  const [headGroups, setHeadGroups] = useState<FarmHeadSelectGroup[]>([])
+
+  const {t} = useI18nClient<{
+    farm: {
+      title: string
+      instruction: string
+      columns: Record<string, string>
+      actions: {
+        OWNER: string
+        ABANDONED: string
+        OCCUPIED: string
+      }
+    }
+  }>()
 
   /* =============================
-   * LOAD
+   * LOAD DATA (2 LEVEL)
    * ============================= */
-  const load = async () => {
-    const rows = await repo.getAllRows()
-    setRows(rows)
-  }
-
-  // const load = async () => {
-  //   const all = await repo.getAll()
-  //   setRows(all.filter(r => r[COL.BELONG_TO_CLAN] !== '0'))
-  // }
-
   useEffect(() => {
     load()
+    zhuangRepo.buildSelectOptions().then(setHeadGroups)
   }, [])
 
+
   /* =============================
-   * UPDATE HELPERS
+   * LOAD DATA (3 LEVEL)
    * ============================= */
-  const updateCell = async (row: string[], col: number, value: string) => {
-    const rowId = row[COL.BELONG_TO_CLAN]
-    setRows(rs => rs.map(r => r === row ? r.map((c, i) => i === col ? value : c) : r))
-    await repo.updateCellByColIndex(rowId, col, value)
+  const load = async () => {
+    const data = await repo.getAllRows()
+    setRows(data)
+  }
+
+
+  /* =============================
+   * UPDATE HELPERS (STATE + STORAGE)
+   * ============================= */
+  const updateCell = async (
+    rowIndex: number,
+    colIndex: number,
+    value: string
+  ) => {
+    // 1️⃣ update UI state
+    setRows(rs =>
+      rs.map((r, i) =>
+        i === rowIndex
+          ? r.map((c, ci) => (ci === colIndex ? value : c))
+          : r
+      )
+    )
+
+    // 2️⃣ persist BY INDEX
+    await repo.updateCellByRowIndex(rowIndex, colIndex, value)
   }
 
   const updateCompound = async (
-    row: string[],
-    col: number,
-    sub: number,
+    rowIndex: number,
+    colIndex: number,
+    subIndex: number,
     value: string
   ) => {
-    const rowId = row[COL.BELONG_TO_CLAN]
-    await repo.updateCompoundByIndex(rowId, col, sub, value)
+    setRows(rs =>
+      rs.map((r, i) => {
+        if (i !== rowIndex) return r
+        const next = [...r]
+        const parts = String(next[colIndex] ?? '').split('|')
+        parts[subIndex] = value
+        next[colIndex] = parts.join('|')
+        return next
+      })
+    )
+
+    await repo.updateCompoundByRowIndex(
+      rowIndex,
+      colIndex,
+      subIndex,
+      value
+    )
   }
+
+  const toggleBelongToClan = async (rowIndex: number) => {
+    const row = rows[rowIndex]
+    const current = row[COL.BELONG_TO_CLAN]
+
+    if (Number(current) > 0) return
+
+    const nextValue = current === '-1' ? '0' : '-1'
+    await updateCell(rowIndex, COL.BELONG_TO_CLAN, nextValue)
+  }
+
+  /* =============================
+   * RENDER HELPERS
+   * ============================= */
   const renderInput = (
     row: string[],
+    rowIndex: number,
     colIndex: number,
-    type: 'text' | 'number',
-    onChange: (value: string) => void
+    type: 'text' | 'number'
   ) => (
     <CFormInput
-      size="sm"
+      id={`farm-${colIndex}`}
+      name={`farm[${colIndex}]`}
+      // size="sm"
       type={type}
       value={row[colIndex] ?? ''}
-      onChange={e => onChange(e.target.value)}
+      onChange={e => updateCell(rowIndex, colIndex, e.target.value)}
     />
   )
 
   const renderCompound = (
     row: string[],
+    rowIndex: number,
     colIndex: number,
-    sub: number,
-    onChange: (subIndex: number, value: string) => void
+    sub: number
   ) => {
     const parts = String(row[colIndex] ?? '').split('|')
 
+    const isFarmerMetric =
+      colIndex === COL.FARMER_COUNT ||
+      colIndex === COL.FARMER_RATIO
+
     return (
       <div className="d-flex gap-1">
-        {Array.from({ length: sub }).map((_, i) => (
+        {Array.from({length: sub}).map((_, i) => (
           <CFormInput
+            id={`farm-${colIndex}-${i}`}
+            name={`farm[${colIndex}][${i}]`}
             key={i}
-            size="sm"
+            // size="sm"
+            type='text' //{isFarmerMetric ? 'number' : 'text'}
+            min={isFarmerMetric ? 0 : undefined}
+            max={isFarmerMetric ? 100 : undefined}
             value={parts[i] ?? ''}
-            onChange={e => onChange(i, e.target.value)}
+            style={
+              isFarmerMetric
+                ? {
+                  width: '60px',
+                  textAlign: 'center',
+                }
+                : undefined
+            }
+            onChange={e => {
+              let value = e.target.value
+
+              if (isFarmerMetric) {
+                // sanitize number
+                const num = Math.max(
+                  0,
+                  Math.min(100, Number(value || 0))
+                )
+                value = String(num)
+              }
+
+              updateCompound(rowIndex, colIndex, i, value)
+            }}
           />
         ))}
       </div>
     )
   }
 
+  const renderBelongToClan = (row: string[], rowIndex: number) => {
+    const value = row[COL.BELONG_TO_CLAN]
+
+    // unavailable
+    if (Number(value) > 0) {
+      return (
+        <CButton
+          // size="sm"
+          style={{width: '110px'}}
+          color="secondary" disabled>
+          {t.farm.actions.OCCUPIED}
+        </CButton>
+      )
+    }
+
+    // disabled (-1)
+    if (value === '-1') {
+      return (
+        <CButton
+          // size="sm"
+          style={{width: '110px'}}
+          color="danger"
+          onClick={() => toggleBelongToClan(rowIndex)}
+        >
+          {t.farm.actions.OWNER}
+        </CButton>
+      )
+    }
+
+    // enabled (0)
+    return (
+      <CButton
+        // size="sm"
+        style={{width: '110px'}}
+        color="success"
+        onClick={() => toggleBelongToClan(rowIndex)}
+      >
+        {t.farm.actions.ABANDONED}
+      </CButton>
+    )
+  }
+
 
   const renderSelect = (
     row: string[],
+    rowIndex: number,
     colIndex: number,
-    options: string[],
-    onChange: (value: string) => void
+    options: string[]
   ) => {
     const current = options.includes(row[colIndex])
       ? row[colIndex]
       : ''
 
     return (
-      <CDropdown >
-        <CDropdownToggle color="secondary" variant="outline">
+      <CDropdown>
+        <CDropdownToggle color="secondary" variant="outline" style={{width: '60px'}}>
           {current || 'Select'}
         </CDropdownToggle>
 
@@ -257,7 +350,7 @@ export default function FarmPage() {
             <CDropdownItem
               key={opt}
               active={opt === current}
-              onClick={() => onChange(opt)}
+              onClick={() => updateCell(rowIndex, colIndex, opt)}
             >
               {opt}
             </CDropdownItem>
@@ -267,23 +360,73 @@ export default function FarmPage() {
     )
   }
 
+  const renderFarmHeadSelect = (
+    row: string[],
+    rowIndex: number
+  ) => {
+    const farmHeadId = row[COL.FARM_HEAD_ID]
+    const options = headGroups[rowIndex] ?? []
+
+    // nếu group rỗng → tạo empty option
+    const dropdownOptions =
+      options.length > 0
+        ? options
+        : [{ id: '', name: '—' }]
+
+    const current = dropdownOptions.find(
+      o => o.id === farmHeadId
+    )
+
+    return (
+      <CDropdown>
+        <CDropdownToggle color="secondary" variant="outline" style={{width: '150px'}}>
+          {current?.name || 'Select'}
+        </CDropdownToggle>
+
+        <CDropdownMenu>
+          {dropdownOptions.map(opt => (
+            <CDropdownItem
+              key={opt.id || 'empty'}
+              active={opt.id === farmHeadId}
+              onClick={() =>
+                updateCell(
+                  rowIndex,
+                  COL.FARM_HEAD_ID,
+                  opt.id
+                )
+              }
+            >
+              {opt.name || '—'}
+            </CDropdownItem>
+          ))}
+        </CDropdownMenu>
+      </CDropdown>
+    )
+  }
 
   /* =============================
    * RENDER
    * ============================= */
   return (
+    <>
     <CRow>
       <CCol md={12}>
         <CCard>
           <CCardHeader>
-            <CCardTitle>Farm Management</CCardTitle>
+            <CCardTitle>{t.farm.title}</CCardTitle>
+            <CCardSubtitle>{t.farm.instruction}</CCardSubtitle>
           </CCardHeader>
+
           <CCardBody>
             <CTable striped hover small>
               <CTableHead>
                 <CTableRow>
                   {COLUMNS.map(c => (
-                    <CTableHeaderCell key={c.key}>{c.label}</CTableHeaderCell>
+                    <CTableHeaderCell key={c.key} style={c.width
+                      ? {width: `${c.width}px`}
+                      : undefined}>
+                      {t.farm.columns[c.key] ?? c.key}
+                    </CTableHeaderCell>
                   ))}
                 </CTableRow>
               </CTableHead>
@@ -293,56 +436,28 @@ export default function FarmPage() {
                   <CTableRow key={idx}>
                     {COLUMNS.map(col => (
                       <CTableDataCell key={col.key}>
-                        {col.type === 'compound'
-                          ? renderCompound(
-                            row,
-                            col.col,
-                            col.sub,              // ✅ number
-                            (subIndex, value) =>
-                              repo.updateCompoundByIndex(
-                                row[0],
-                                col.col,
-                                subIndex,
-                                value
-                              )
-                          )
-                          : col.type === 'select'
-                            ? renderSelect(
-                              row,
-                              col.col,
-                              col.options,        // ✅ string[]
-                              value =>
-                                repo.updateCellByColIndex(
-                                  row[0],
-                                  col.col,
-                                  value
-                                )
-                            )
-                            : renderInput(
-                              row,
-                              col.col,
-                              col.type,            // ✅ 'text' | 'number'
-                              value =>
-                                repo.updateCellByColIndex(
-                                  row[0],
-                                  col.col,
-                                  value
-                                )
-                            )
+                        {col.type === 'status'
+                          ? renderBelongToClan(row, idx)
+                          : col.type === 'farm-head'
+                            ? renderFarmHeadSelect(row, idx)
+                            : col.type === 'compound'
+                              ? renderCompound(row, idx, col.col, col.sub)
+                              : col.type === 'select'
+                                ? renderSelect(row, idx, col.col, col.options)
+                                : renderInput(row, idx, col.col, col.type)
                         }
+
                       </CTableDataCell>
                     ))}
-
                   </CTableRow>
                 ))}
+
               </CTableBody>
             </CTable>
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
+    </>
   )
 }
-
-
-
