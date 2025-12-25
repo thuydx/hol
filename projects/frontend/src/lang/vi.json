@@ -41,6 +41,22 @@
       "ABANDONED": "Bỏ Hoang"
     }
   },
+  "military": {
+    "title": "Doanh Trại",
+    "add": "Thêm Doanh Trại",
+    "delete": "Xóa",
+    "deleteSelected": "Xóa Đã Chọn",
+    "actions": "Thao Tác",
+    "coordinates": "Tọa Độ",
+    "area": "Diện Tích",
+    "soldiers": "Quân Số",
+    "combat": "Chiến Lực",
+    "loyalty": "Trung Thành",
+    "lowEquip": "Tỷ Lệ Trang Bị Thấp",
+    "highEquip": "Tỷ Lệ Trang Bị Cao",
+    "campName": "Tên Doanh Trại",
+    "salary": "Quân Lương"
+  },
   "menu": {
     "home": "Trang chủ",
     "family": "Gia tộc",
@@ -69,7 +85,6 @@
     "noFileChosen": "Chưa chọn tệp",
     "upload": "Tải lên",
     "resetButton": "Xóa dữ liệu",
-
     "fileTooLarge": "Tệp quá lớn.",
     "invalidFileType": "Loại tệp không hợp lệ.",
     "emptyJson": "JSON trống.",
@@ -77,7 +92,6 @@
     "invalidJsonKeys": "Các khóa JSON không hợp lệ.",
     "parseFailed": "Không thể phân tích JSON.",
     "saved": "JSON đã được lưu thành công.",
-
     "toastTitle": "Trạng thái tải lên"
   },
   "warehouse": {

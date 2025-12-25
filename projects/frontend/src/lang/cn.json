@@ -18,6 +18,44 @@
     "capacity": "剩余容量",
     "horsesRemaining": "剩余马匹数量"
   },
+  "farm": {
+    "title": "田庄管理",
+    "columns": {
+      "FARM_NAME": "田庄名称",
+      "AREA": "面积",
+      "RENT": "地租",
+      "MAX_FARMERS": "最大农户",
+      "STATUS": "状态",
+      "ENVIRONMENT": "环境",
+      "SECURITY": "治安",
+      "CONVENIENCE": "便利",
+      "FARM_HEAD_ID": "庄头",
+      "FARMER_COUNT": "农户数量",
+      "FARMER_RATIO": "农户比例",
+      "BELONG_TO_CLAN": "宗族"
+    },
+    "actions": {
+      "OWNER": "自有",
+      "OCCUPIED": "被占",
+      "ABANDONED": "荒废"
+    }
+  },
+  "military": {
+    "title": "军营",
+    "add": "新增军营",
+    "delete": "删除",
+    "deleteSelected": "删除已选",
+    "actions": "操作",
+    "coordinates": "坐标",
+    "area": "面积",
+    "soldiers": "兵力",
+    "combat": "战力",
+    "loyalty": "忠诚",
+    "lowEquip": "低级装备率",
+    "highEquip": "高级装备率",
+    "campName": "军营名称",
+    "salary": "军饷"
+  },
   "menu": {
     "home": "首页",
     "family": "家族",

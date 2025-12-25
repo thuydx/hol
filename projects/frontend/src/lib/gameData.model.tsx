@@ -21,6 +21,14 @@ async function writeAll(data: any): Promise<void> {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 }
 
+export interface GameSection<T = any> {
+  __type?: string
+  value: T
+}
+
+export type GameData = Record<string, GameSection>
+
+
 /* -----------------------------------------
  * Dynamic schema generation (RUNTIME)
  * ----------------------------------------- */

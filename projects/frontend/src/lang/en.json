@@ -40,6 +40,22 @@
       "ABANDONED": "ABANDONED"
     }
   },
+  "military": {
+    "title": "Military Camps",
+    "add": "Add Camp",
+    "delete": "Delete",
+    "deleteSelected": "Delete Selected",
+    "actions": "Actions",
+    "coordinates": "Coordinates",
+    "area": "Area",
+    "soldiers": "Soldier Count",
+    "combat": "Combat Power",
+    "loyalty": "Loyalty",
+    "lowEquip": "Low Equipment Rate",
+    "highEquip": "High Equipment Rate",
+    "campName": "Camp Name",
+    "salary": "Salary"
+  },
   "menu": {
     "home": "Home",
     "family": "Family",

@@ -1,10 +1,5 @@
-import {
-  getRows,
-  updateCell, updateCellByIndex,
-  updateSubCell,
-  getRowsLevel2
-} from '@/lib/gameData.model'
-
+import {getRows, getRowsLevel2, updateCell, updateCellByIndex, updateSubCell} from '@/lib/gameData.model'
+import type { GameData } from './gameData.model'
 const STORAGE_KEY = 'uploadedJson'
 
 async function readAll(): Promise<any> {
@@ -81,7 +76,7 @@ export abstract class BaseRepository {
     const data = await readAll()
 
     if (!data[this.sectionKey]) {
-      data[this.sectionKey] = { value: [] }
+      data[this.sectionKey] = {value: []}
     }
 
     if (!Array.isArray(data[this.sectionKey].value)) {
@@ -149,8 +144,65 @@ export abstract class BaseRepository {
     section.value[colIndex] = value
     await writeAll(data)
   }
+
   async allLevel2(): Promise<string[][]> {
     return getRowsLevel2(this.sectionKey)
+  }
+
+ /* =======================
+ * READ / WRITE – SECTION VALUE
+ * ======================= */
+
+  /**
+   * Get raw value of section
+   * Example: JunYing_now.value
+   */
+  // protected async getValue(): Promise<any[]> {
+  //   const data = await readAll()
+  //   return data?.[this.sectionKey]?.value ?? []
+  // }
+
+  /**
+   * Replace whole value of section
+   */
+  // protected async setValue(value: any[]): Promise<void> {
+  //   const data = await readAll()
+  //
+  //   if (!data[this.sectionKey]) {
+  //     data[this.sectionKey] = {}
+  //   }
+  //
+  //   data[this.sectionKey].value = value
+  //   await writeAll(data)
+  // }
+
+  /* =======================
+ * READ / WRITE – RAW DATA
+ * ======================= */
+
+  protected async getAllData(): Promise<GameData> {
+    return await readAll()
+  }
+
+  /* =======================
+   * READ / WRITE – SECTION VALUE
+   * ======================= */
+
+  protected async getValue<T = any>(): Promise<T> {
+    const data = await this.getAllData()
+    return data?.[this.sectionKey]?.value as T
+  }
+
+  protected async setValue<T = any>(value: T): Promise<void> {
+    const data = await this.getAllData()
+
+    if (!data[this.sectionKey]) {
+      data[this.sectionKey] = { value }
+    } else {
+      data[this.sectionKey].value = value
+    }
+
+    await writeAll(data)
   }
 }
 
