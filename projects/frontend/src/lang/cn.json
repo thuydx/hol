@@ -4,7 +4,11 @@
     "description": "主页"
   },
   "common": {
-    "all": "全部"
+    "all": "全部",
+    "action": "操作",
+    "add": "新增军营",
+    "delete": "删除",
+    "edit": "编辑"
   },
   "family": {
     "title": "宗族",
@@ -16,7 +20,15 @@
     "renown": "声望",
     "influence": "对王朝的影响力",
     "capacity": "剩余容量",
-    "horsesRemaining": "剩余马匹数量"
+    "horsesRemaining": "剩余马匹数量",
+    "zibeiTitle": "字辈管理",
+    "zibeiListTitle": "字辈列表",
+    "zibei": "字辈",
+    "zibeiLevel": "辈分",
+    "zibeiPosition": "序位",
+    "zibeiPositionOption1": "第二字",
+    "zibeiPositionOption2": "第三字",
+    "zibeiLevelError": "辈分必须为正整数，且不能重复。"
   },
   "farm": {
     "title": "田庄管理",

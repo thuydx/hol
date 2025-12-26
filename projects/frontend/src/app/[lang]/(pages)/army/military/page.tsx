@@ -78,8 +78,6 @@ export default function MilitaryPage() {
   const [checked, setChecked] = useState<number[]>([])
   const [form, setForm] = useState<JunYingRow>(() => [])
 
-  // repo.getRows(GROUP_INDEX).then(rows => setRows(rows))
-
   useEffect(() => {
     const load = async () => {
       const data = await repo.getRows(GROUP_INDEX)
@@ -88,8 +86,6 @@ export default function MilitaryPage() {
 
     load()
   }, [])
-
-
 
   const toggleCheck = (idx: number) => {
     setChecked(prev =>
@@ -109,7 +105,6 @@ export default function MilitaryPage() {
         : rows.map((_, i) => i)
     )
   }
-
 
   const toggleOne = (idx: number) => {
     setChecked((prev) =>
@@ -177,6 +172,7 @@ export default function MilitaryPage() {
       }
     />
   )
+
   const renderFormRow = (
     label: string,
     value: string,
@@ -184,12 +180,12 @@ export default function MilitaryPage() {
     type: 'text' | 'number' = 'text'
   ) => (
     <CRow className="align-items-center mb-2">
-      <CCol xs={4}>
+      <CCol xs={7}>
         <CFormLabel className="mb-0">
           {label}
         </CFormLabel>
       </CCol>
-      <CCol xs={8}>
+      <CCol xs={5}>
         <CFormInput
           size="sm"
           type={type}
@@ -203,7 +199,7 @@ export default function MilitaryPage() {
   return (
     <CRow>
       {/* LEFT TABLE */}
-      <CCol md={8}>
+      <CCol md={9}>
         <CCard>
           <CCardHeader>{t.military.title}</CCardHeader>
           <CCardBody>
@@ -217,11 +213,12 @@ export default function MilitaryPage() {
                     />
                   </CTableHeaderCell>
                   <CTableHeaderCell>{t.military.campName}</CTableHeaderCell>
-                  <CTableHeaderCell>{t.military.coordinates}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.area}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.soldiers}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.combat}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.loyalty}</CTableHeaderCell>
+                  <CTableHeaderCell>{t.military.lowEquip}</CTableHeaderCell>
+                  <CTableHeaderCell>{t.military.highEquip}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.salary}</CTableHeaderCell>
                   <CTableHeaderCell>{t.military.actions}</CTableHeaderCell>
 
@@ -237,21 +234,16 @@ export default function MilitaryPage() {
                         onChange={() => toggleOne(idx)}
                       />
                     </CTableDataCell>
-                    <CTableDataCell>{renderInlineInput(row, idx, 7)}</CTableDataCell> {/* camp name */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 0)}</CTableDataCell> {/* coordinates */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 1, 'number')}</CTableDataCell> {/* area */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 2, 'number')}</CTableDataCell> {/* soldiers */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 3, 'number')}</CTableDataCell> {/* combat */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 4, 'number')}</CTableDataCell> {/* loyalty */}
-                    <CTableDataCell>{renderInlineInput(row, idx, 8, 'number')}</CTableDataCell> {/* salary */}
-                    <CTableDataCell>
-                      <CButton
-                        size="sm"
-                        color="danger"
-                        onClick={() => deleteRow(idx)}
-                      >
-                        {t.military.delete}
-                      </CButton>
+                    <CTableDataCell>{renderInlineInput(row, idx, 7)}</CTableDataCell>
+                    <CTableDataCell width={80}>{renderInlineInput(row, idx, 1, 'text')}</CTableDataCell>
+                    <CTableDataCell width={100}>{renderInlineInput(row, idx, 2, 'text')}</CTableDataCell>
+                    <CTableDataCell width={80}>{renderInlineInput(row, idx, 3, 'text')}</CTableDataCell>
+                    <CTableDataCell width={80}>{renderInlineInput(row, idx, 4, 'text')}</CTableDataCell>
+                    <CTableDataCell width={80}>{renderInlineInput(row, idx, 5, 'text')}</CTableDataCell>
+                    <CTableDataCell width={80}>{renderInlineInput(row, idx, 6, 'text')}</CTableDataCell>
+                    <CTableDataCell width={50}>{renderInlineInput(row, idx, 8, 'text')}</CTableDataCell>
+                    <CTableDataCell width={100}>
+                      <CButton size="sm" color="danger" onClick={() => deleteRow(idx)}> {t.military.delete} </CButton>
                     </CTableDataCell>
                   </CTableRow>
                 ))}
@@ -272,33 +264,10 @@ export default function MilitaryPage() {
       </CCol>
 
       {/* RIGHT FORM */}
-      <CCol md={4}>
+      <CCol md={3}>
         <CCard>
           <CCardHeader>{t.military.add}</CCardHeader>
           <CCardBody className="d-grid gap-2">
-            <CFormInput
-              label={t.military.coordinates}
-              value={form[0]}
-              onChange={e => setForm(f => ([e.target.value, ...f.slice(1)]))}
-            />
-
-            <CDropdown>
-              <CDropdownToggle color="secondary">
-                {t.military.area}: {form[1]}
-              </CDropdownToggle>
-              <CDropdownMenu>
-                {AREA_OPTIONS.map(v => (
-                  <CDropdownItem
-                    key={v}
-                    onClick={() =>
-                      setForm(f => ([f[0], v, ...f.slice(2)]))
-                    }
-                  >
-                    {v}
-                  </CDropdownItem>
-                ))}
-              </CDropdownMenu>
-            </CDropdown>
             {renderFormRow(
               t.military.campName,
               form[7],
@@ -308,6 +277,41 @@ export default function MilitaryPage() {
                 return next
               })
             )}
+            {renderFormRow(
+              t.military.coordinates,
+              form[0],
+              v => setForm(f => {
+                const next = [...f]
+                next[0] = v
+                return next
+              })
+            )}
+            <CRow className="align-items-center mb-2">
+              <CCol xs={7}>
+                <CFormLabel className="mb-0">
+                  {t.military.area}:
+                </CFormLabel>
+              </CCol>
+              <CCol xs={5}>
+                <CDropdown style={{width:'100%'}}>
+                  <CDropdownToggle color="secondary">
+                    {form[1]}
+                  </CDropdownToggle>
+                  <CDropdownMenu>
+                    {AREA_OPTIONS.map(v => (
+                      <CDropdownItem
+                        key={v}
+                        onClick={() =>
+                          setForm(f => ([f[0], v, ...f.slice(2)]))
+                        }
+                      >
+                        {v}
+                      </CDropdownItem>
+                    ))}
+                  </CDropdownMenu>
+                </CDropdown>
+              </CCol>
+            </CRow>
 
             {renderFormRow(
               t.military.soldiers,
@@ -330,7 +334,46 @@ export default function MilitaryPage() {
               }),
               'number'
             )}
-
+            {renderFormRow(
+              t.military.loyalty,
+              form[4],
+              v => setForm(f => {
+                const next = [...f]
+                next[4] = v
+                return next
+              }),
+              'number'
+            )}
+            {renderFormRow(
+              t.military.lowEquip,
+              form[5],
+              v => setForm(f => {
+                const next = [...f]
+                next[5] = v
+                return next
+              }),
+              'number'
+            )}
+            {renderFormRow(
+              t.military.highEquip,
+              form[6],
+              v => setForm(f => {
+                const next = [...f]
+                next[6] = v
+                return next
+              }),
+              'number'
+            )}
+            {renderFormRow(
+              t.military.salary,
+              form[8],
+              v => setForm(f => {
+                const next = [...f]
+                next[8] = v
+                return next
+              }),
+              'number'
+            )}
             <CButton color="primary" onClick={addRow}>
               {t.military.add}
             </CButton>

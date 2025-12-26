@@ -1,9 +1,25 @@
 'use client'
 
-import {CCard, CCardBody, CCardHeader, CCardTitle, CCol, CFormInput, CRow,} from '@coreui/react-pro'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCardTitle,
+  CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle,
+  CFormInput,
+  CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react-pro'
 import React, {useEffect, useState} from 'react'
 import {useI18nClient} from '@/lib/i18nClient'
 import {FamilyDataRepository} from '@/lib/repositories/FamilyData.repository'
+import {ZiBei_NowRepository, ZiBeiItem} from "@/lib/repositories/ZiBei_Now.repository";
 
 /**
  * Family Data
@@ -37,6 +53,7 @@ type FamilyData = {
   col_8: string
   col_9: string
 }
+
 type I18nSchema = {
   family: {
     title: string
@@ -49,78 +66,137 @@ type I18nSchema = {
     influence: string
     capacity: string
     horsesRemaining: string
+    zibeiTitle: string,
+    zibeiListTitle: string,
+    zibei: string,
+    zibeiLevel: string,
+    zibeiPosition: string,
+    zibeiPositionOption1: string,
+    zibeiPositionOption2: string,
+    zibeiLevelError: string
+  }
+  common: {
+    action: string,
+    add: string,
+    delete: string
   }
   uploader: {
     toastTitle: string
   }
 }
 const repo = new FamilyDataRepository()
+const zibeiRepo = new ZiBei_NowRepository()
 
 const Family = () => {
   const {t} = useI18nClient<I18nSchema>()
   const [familyData, setFamilyData] = useState<FamilyData | null>(null)
+  const [zibeiList, setZibeiList] = useState<ZiBeiItem[]>([])
+  const [zibeiLevelError, setZibeiLevelError] = useState<string | null>(null)
+  const [newZibei, setNewZibei] = useState<ZiBeiItem>({
+    name: '',
+    level: '',
+    position: '',
+  })
+  const ZIBEI_POSITION_OPTIONS = [
+    { value: '0', label: t.family.zibeiPositionOption1 },
+    { value: '1', label: t.family.zibeiPositionOption2 },
+  ]
+
+  const getPositionLabel = (value?: string) =>
+    ZIBEI_POSITION_OPTIONS.find(o => o.value === value)?.label ?? t.family.zibeiPositionOption1
+
   useEffect(() => {
     let mounted = true
 
     const load = async () => {
       const data = await repo.getData()
-      if (mounted) {
-        setFamilyData({
-          ...data,
-          col_7: '',
-          col_8: '',
-          col_9: '',
-        })
-      }
+      const zibeiData = await zibeiRepo.getData()
+      if (!mounted) return
+      setFamilyData({
+        ...data,
+        col_7: '',
+        col_8: '',
+        col_9: '',
+      });
+      setZibeiList(zibeiData)
     }
-
     load()
-
     return () => {
       mounted = false
     }
   }, [])
+
+  useEffect(() => {
+    if (zibeiList.length === 0) {
+      setNewZibei(p => ({ ...p, level: '1' }))
+      return
+    }
+
+    const maxLevel = Math.max(...zibeiList.map(z => Number(z.level)))
+
+    setNewZibei(p => ({
+      ...p,
+      level: String(maxLevel + 1),
+    }))
+  }, [zibeiList])
+
+  const isValidLevel = (
+    value: string,
+    list: ZiBeiItem[],
+    editingIndex?: number
+  ) => {
+    // 1. phải là số nguyên
+    if (!/^\d+$/.test(value)) return false
+
+    const levelNum = Number(value)
+    if (levelNum <= 0) return false
+
+    // 2. unique (bỏ qua row đang edit)
+    return !list.some((item, idx) =>
+      idx !== editingIndex && item.level === value
+    )
+  }
+
   const updateName = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, name: v } : p))
+    setFamilyData(p => (p ? {...p, name: v} : p))
     await repo.updateName(v)
   }
 
   const updateLevel = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, level: v } : p))
+    setFamilyData(p => (p ? {...p, level: v} : p))
     await repo.updateLevel(v)
   }
 
   const updateRenown = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, renown: v } : p))
+    setFamilyData(p => (p ? {...p, renown: v} : p))
     await repo.updateRenown(v)
   }
 
   const updateInfluence = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, influence: v } : p))
+    setFamilyData(p => (p ? {...p, influence: v} : p))
     await repo.updateInfluence(v)
   }
 
   const updateCapacity = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, capacity: v } : p))
+    setFamilyData(p => (p ? {...p, capacity: v} : p))
     await repo.updateCapacity(v)
   }
 
   const updateHorsesRemaining = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? { ...p, horsesRemaining: v } : p))
+    setFamilyData(p => (p ? {...p, horsesRemaining: v} : p))
     await repo.updateHorsesRemaining(v)
   }
 
   return (
     <>
-      {/*<h1>{t.family.title}</h1>*/}
       <CRow>
-        <CCol xs={5}>
+        <CCol xs={4}>
           <CCard>
             <CCardHeader>
               <CCardTitle>{t.family.title}</CCardTitle>
@@ -129,24 +205,24 @@ const Family = () => {
             <CCardBody>
               {/* COORDINATES */}
               <CRow className="align-items-center mb-2">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.coordinates}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   {familyData?.coordinates ?? '0|0'}
                 </CCol>
               </CRow>
 
               {/* NAME */}
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.name}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="text"
@@ -156,12 +232,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.level}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -173,12 +249,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.renown}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -189,12 +265,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.influence}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -206,12 +282,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.capacity}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -222,12 +298,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={5}>
+                <CCol xs={6}>
                   <label className="form-label mb-0">
                     {t.family.horsesRemaining}
                   </label>
                 </CCol>
-                <CCol xs={7}>
+                <CCol xs={6}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -237,6 +313,232 @@ const Family = () => {
                   />
                 </CCol>
               </CRow>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs={5}>
+          <CCard>
+            <CCardHeader>
+              <CCardTitle>{t.family.zibeiTitle}</CCardTitle>
+            </CCardHeader>
+
+            <CCardBody>
+              <CTable>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell>{t.family.zibei}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.family.zibeiLevel}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.family.zibeiPosition}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.common.action}</CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+
+                <CTableBody>
+                  <CTableRow>
+                    <CTableDataCell>
+                      <CFormInput
+                        size="sm"
+                        value={newZibei.name}
+                        onChange={e => setNewZibei(p => ({...p, name: e.target.value}))}
+                      />
+                    </CTableDataCell>
+                    <CTableDataCell width={100}>
+                      {/*<CFormInput*/}
+                      {/*  size="sm"*/}
+                      {/*  value={newZibei.level}*/}
+                      {/*  onChange={e => setNewZibei(p => ({...p, level: e.target.value}))}*/}
+                      {/*/>*/}
+                      <CFormInput
+                        size="sm"
+                        type="number"
+                        min={1}
+                        value={newZibei.level}
+                        invalid={!!zibeiLevelError}
+                        onChange={e => {
+                          const v = e.target.value
+                          setNewZibei(p => ({ ...p, level: v }))
+
+                          if (!isValidLevel(v, zibeiList)) {
+                            setZibeiLevelError(t.family.zibeiLevelError)
+                          } else {
+                            setZibeiLevelError(null)
+                          }
+                        }}
+                      />
+
+                      {zibeiLevelError && (
+                        <div className="text-danger small mt-1">
+                          {zibeiLevelError}
+                        </div>
+                      )}
+
+                    </CTableDataCell>
+                    <CTableDataCell width={80}>
+                      {/*<CFormInput*/}
+                      {/*  size="sm"*/}
+                      {/*  value={newZibei.position}*/}
+                      {/*  onChange={e => setNewZibei(p => ({...p, position: e.target.value}))}*/}
+                      {/*/>*/}
+                      <CDropdown>
+                        <CDropdownToggle color="secondary" size="sm">
+                          {getPositionLabel(newZibei.position)}
+                        </CDropdownToggle>
+
+                        <CDropdownMenu>
+                          {ZIBEI_POSITION_OPTIONS.map(opt => (
+                            <CDropdownItem
+                              key={opt.value}
+                              onClick={async () => {
+                                // update UI state nếu có
+                                setNewZibei(p => ({ ...p, position: opt.value }))
+                                // save
+                                // await zibeiRepo.updateZibeiPosition(opt.value)
+                              }}
+                            >
+                              {opt.label}
+                            </CDropdownItem>
+                          ))}
+                        </CDropdownMenu>
+                      </CDropdown>
+
+                    </CTableDataCell>
+                    <CTableDataCell width={100}>
+                      <CButton
+                        color="primary"
+                        size="sm"
+                        style={{width: '60px'}}
+                        disabled={
+                          !newZibei.name ||
+                          !isValidLevel(newZibei.level, zibeiList)
+                        }
+                        onClick={async () => {
+                          await zibeiRepo.create(newZibei)
+                          setZibeiList(await zibeiRepo.getData())
+                          setNewZibei({name: '', level: '', position: ''})
+                          setZibeiLevelError(null)
+                        }}
+                      >
+                        {t.common.add}
+                      </CButton>
+                    </CTableDataCell>
+                  </CTableRow>
+                </CTableBody>
+              </CTable>
+            </CCardBody>
+          </CCard>
+          <CCard>
+            <CCardHeader>
+              <CCardTitle>{t.family.zibeiListTitle}</CCardTitle>
+            </CCardHeader>
+            <CCardBody>
+              <CTable>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell>{t.family.zibei}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.family.zibeiLevel}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.family.zibeiPosition}</CTableHeaderCell>
+                    <CTableHeaderCell>{t.common.action}</CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+
+                <CTableBody>
+                  {zibeiList.map((z, i) => (
+                    <CTableRow key={i}>
+                      <CTableDataCell>
+                        <CFormInput
+                          size="sm"
+                          value={z.name}
+                          onChange={async e => {
+                            await zibeiRepo.updateZibei(i, e.target.value)
+                            setZibeiList(await zibeiRepo.getData())
+                          }}
+                        />
+                      </CTableDataCell>
+
+                      <CTableDataCell width={100}>
+                        {/*<CFormInput*/}
+                        {/*  size="sm"*/}
+                        {/*  value={z.level}*/}
+                        {/*  onChange={async e => {*/}
+                        {/*    await zibeiRepo.updateZibeiLevel(i, e.target.value)*/}
+                        {/*    setZibeiList(await zibeiRepo.getData())*/}
+                        {/*  }}*/}
+                        {/*/>*/}
+                        <CFormInput
+                          size="sm"
+                          type="number"
+                          min={1}
+                          value={z.level}
+                          invalid={!isValidLevel(z.level, zibeiList, i)}
+                          onChange={async e => {
+                            const v = e.target.value
+
+                            // cập nhật UI trước
+                            setZibeiList(list =>
+                              list.map((item, idx) =>
+                                idx === i ? { ...item, level: v } : item
+                              )
+                            )
+
+                            // validate
+                            if (!isValidLevel(v, zibeiList, i)) return
+
+                            // save
+                            await zibeiRepo.updateZibeiLevel(i, v)
+                            setZibeiList(await zibeiRepo.getData())
+                          }}
+                        />
+
+                      </CTableDataCell>
+
+                      <CTableDataCell width={80}>
+                        {/*<CFormInput*/}
+                        {/*  size="sm"*/}
+                        {/*  value={z.position}*/}
+                        {/*  onChange={async e => {*/}
+                        {/*    await zibeiRepo.updateZibeiPosition(i, e.target.value)*/}
+                        {/*    setZibeiList(await zibeiRepo.getData())*/}
+                        {/*  }}*/}
+                        {/*/>*/}
+                        <CDropdown>
+                          <CDropdownToggle size="sm" color="secondary">
+                            {getPositionLabel(z.position)}
+                          </CDropdownToggle>
+
+                          <CDropdownMenu>
+                            {ZIBEI_POSITION_OPTIONS.map(opt => (
+                              <CDropdownItem
+                                key={opt.value}
+                                onClick={async () => {
+                                  await zibeiRepo.updateZibeiPosition(i, opt.value)
+                                  setZibeiList(await zibeiRepo.getData())
+                                }}
+                              >
+                                {opt.label}
+                              </CDropdownItem>
+                            ))}
+                          </CDropdownMenu>
+                        </CDropdown>
+
+                      </CTableDataCell>
+
+                      <CTableDataCell width={100}>
+                        <CButton
+                          size="sm"
+                          color="danger"
+                          style={{width: '60px'}}
+                          onClick={async () => {
+                            await zibeiRepo.delete(i)
+                            setZibeiList(await zibeiRepo.getData())
+                          }}
+                        >
+                          {t.common.delete}
+                        </CButton>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))}
+                </CTableBody>
+              </CTable>
             </CCardBody>
           </CCard>
         </CCol>

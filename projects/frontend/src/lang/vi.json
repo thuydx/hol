@@ -4,7 +4,11 @@
     "description": "Trang chủ"
   },
   "common": {
-    "all": "Tất cả"
+    "all": "Tất cả",
+    "action": "Thao Tác",
+    "add": "Thêm",
+    "edit": "Sửa",
+    "delete": "Xóa"
   },
   "family": {
     "title": "Gia Tộc",
@@ -16,7 +20,15 @@
     "renown": "Danh Vọng",
     "influence": "Quan Hệ Với Triều Đình",
     "capacity": "Sức Chứa Còn Lại",
-    "horsesRemaining": "Số Ngựa Còn Lại"
+    "horsesRemaining": "Số Ngựa Còn Lại",
+    "zibeiTitle": "Quản Lý Tự Bối",
+    "zibeiListTitle": "Danh Sách Tự Bối",
+    "zibei": "Tự Bối",
+    "zibeiLevel": "Đời Thứ",
+    "zibeiPosition": "Vị Trí",
+    "zibeiPositionOption1": "Chữ thứ 2",
+    "zibeiPositionOption2": "Chữ thứ 3",
+    "zibeiLevelError": "Đời Thứ phải là số nguyên dương và không được trùng."
   },
   "farm": {
     "title": "Quản lý Nông Trại",
@@ -55,7 +67,7 @@
     "lowEquip": "Tỷ Lệ Trang Bị Thấp",
     "highEquip": "Tỷ Lệ Trang Bị Cao",
     "campName": "Tên Doanh Trại",
-    "salary": "Quân Lương"
+    "salary": "Lương"
   },
   "menu": {
     "home": "Trang chủ",

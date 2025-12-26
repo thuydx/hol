@@ -22,6 +22,10 @@ async function writeAll(data: any): Promise<void> {
 export abstract class BaseRepository {
   protected abstract sectionKey: string
 
+  protected async getRows<T = any[]>(): Promise<T> {
+    return await this.getValue<T>()
+  }
+
   /* =======================
    * READ
    * ======================= */

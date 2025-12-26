@@ -4,7 +4,11 @@
     "description": "This is the homepage"
   },
   "common": {
-    "all": "All"
+    "all": "All",
+    "action": "Action",
+    "delete": "Delete",
+    "add": "Add",
+    "edit": "Edit"
   },
   "family": {
     "title": "Family",
@@ -16,7 +20,15 @@
     "renown": "Renown",
     "influence": "Influence to Kingdom",
     "capacity": "Remaining Storage",
-    "horsesRemaining": "Horses Remaining"
+    "horsesRemaining": "Horses Remaining",
+    "zibeiTitle": "Generation Name Management",
+    "zibeiListTitle": "Generation List",
+    "zibei": "Name",
+    "zibeiLevel": "Order",
+    "zibeiPosition": "Position",
+    "zibeiPositionOption1": "2nd Character",
+    "zibeiPositionOption2": "3rd Character",
+    "zibeiLevelError": "Generation Order must be a positive unique integer."
   },
   "farm" : {
     "title": "Farm Management",
