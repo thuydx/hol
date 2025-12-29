@@ -20,7 +20,7 @@ import {
   CTableHeaderCell,
   CTableRow
 } from '@coreui/react-pro'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {NongZ_nowRepository} from '@/lib/repositories/NongZ_now.repository'
 import {useI18nClient} from '@/lib/i18nClient'
 import {FarmHeadSelectGroup, ZhuangTou_nowRepository} from "@/lib/repositories/ZhuangTou_now.repository";
@@ -124,11 +124,14 @@ const COLUMNS: Column[] = [
 
 export default function FarmPage() {
   const [rows, setRows] = useState<string[][]>([])
-  const repo = new NongZ_nowRepository()
-  const zhuangRepo = new ZhuangTou_nowRepository()
+
+  // Make repositories stable across renders
+  const repo = useMemo(() => new NongZ_nowRepository(), [])
+  const zhuangRepo = useMemo(() => new ZhuangTou_nowRepository(), [])
+
   const [headGroups, setHeadGroups] = useState<FarmHeadSelectGroup[]>([])
 
-  const {t} = useI18nClient<{
+  const { t } = useI18nClient<{
     farm: {
       title: string
       instruction: string
@@ -141,23 +144,22 @@ export default function FarmPage() {
     }
   }>()
 
-  /* =============================
-   * LOAD DATA (2 LEVEL)
-   * ============================= */
   useEffect(() => {
-    load()
-    zhuangRepo.buildSelectOptions().then(setHeadGroups)
-  }, [])
+    let cancelled = false
 
+    const load = async () => {
+      const data = await repo.getAllRows()
+      if (!cancelled) setRows(data)
 
-  /* =============================
-   * LOAD DATA (3 LEVEL)
-   * ============================= */
-  const load = async () => {
-    const data = await repo.getAllRows()
-    setRows(data)
-  }
+      const groups = await zhuangRepo.buildSelectOptions()
+      if (!cancelled) setHeadGroups(groups)
+    }
 
+    void load()
+    return () => {
+      cancelled = true
+    }
+  }, [repo, zhuangRepo])
 
   /* =============================
    * UPDATE HELPERS (STATE + STORAGE)

@@ -32,7 +32,7 @@ import {
   CFormCheck, CFormLabel
 } from '@coreui/react-pro'
 
-import { useEffect, useState } from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import { JunYing_nowRepository } from '@/lib/repositories/JunYing_now.repository'
 import { useI18nClient } from '@/lib/i18nClient'
 
@@ -58,7 +58,7 @@ export default function MilitaryPage() {
       salary: string
     }
   }>()
-  const repo = new JunYing_nowRepository()
+  const repo = useMemo(() => new JunYing_nowRepository(), [])
 
   const GROUP_INDEX = 3
   const AREA_OPTIONS = ['4', '6', '9', '16']
@@ -79,13 +79,19 @@ export default function MilitaryPage() {
   const [form, setForm] = useState<JunYingRow>(() => [])
 
   useEffect(() => {
+    let cancelled = false
+
     const load = async () => {
-      const data = await repo.getRows(GROUP_INDEX)
-      setRows(data)
+      const data = await repo.getRowsByGroupIndex(GROUP_INDEX)
+      if (!cancelled) setRows(data)
     }
 
-    load()
-  }, [])
+    void load()
+
+    return () => {
+      cancelled = true
+    }
+  }, [repo])
 
   const toggleCheck = (idx: number) => {
     setChecked(prev =>

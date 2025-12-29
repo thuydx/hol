@@ -16,7 +16,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react-pro'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {useI18nClient} from '@/lib/i18nClient'
 import {FamilyDataRepository} from '@/lib/repositories/FamilyData.repository'
 import {ZiBei_NowRepository, ZiBeiItem} from "@/lib/repositories/ZiBei_Now.repository";
@@ -120,25 +120,33 @@ const Family = () => {
       });
       setZibeiList(zibeiData)
     }
-    load()
+
+    void load()
+
     return () => {
       mounted = false
     }
   }, [])
 
-  useEffect(() => {
-    if (zibeiList.length === 0) {
-      setNewZibei(p => ({ ...p, level: '1' }))
-      return
-    }
+  // useEffect(() => {
+  //   if (zibeiList.length === 0) {
+  //     setNewZibei(p => ({ ...p, level: '1' }))
+  //     return
+  //   }
+  //
+  //   const maxLevel = Math.max(...zibeiList.map(z => Number(z.level)))
+  //
+  //   setNewZibei(p => ({
+  //     ...p,
+  //     level: String(maxLevel + 1),
+  //   }))
+  // }, [zibeiList])
 
+  const suggestedLevel = useMemo(() => {
+    if (zibeiList.length === 0) return '1'
     const maxLevel = Math.max(...zibeiList.map(z => Number(z.level)))
-
-    setNewZibei(p => ({
-      ...p,
-      level: String(maxLevel + 1),
-    }))
-  }, [zibeiList])
+    return String(maxLevel + 1)
+  },[zibeiList])
 
   const isValidLevel = (
     value: string,
@@ -409,9 +417,14 @@ const Family = () => {
                         style={{width: '60px'}}
                         disabled={
                           !newZibei.name ||
-                          !isValidLevel(newZibei.level, zibeiList)
+                          !isValidLevel(newZibei.level || suggestedLevel, zibeiList)
                         }
                         onClick={async () => {
+                          const payload: ZiBeiItem = {
+                            ...newZibei,
+                            level: newZibei.level || suggestedLevel,
+                          }
+
                           await zibeiRepo.create(newZibei)
                           setZibeiList(await zibeiRepo.getData())
                           setNewZibei({name: '', level: '', position: ''})

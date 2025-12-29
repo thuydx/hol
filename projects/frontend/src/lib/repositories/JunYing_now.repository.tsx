@@ -40,7 +40,7 @@ export class JunYing_nowRepository extends BaseRepository {
     return (await this.getValue()) ?? []
   }
 
-  async getRows(groupIndex: number): Promise<any[]> {
+  async getRowsByGroupIndex(groupIndex: number): Promise<any[]> {
     const groups = await this.getGroups()
     return groups[groupIndex] ?? []
   }

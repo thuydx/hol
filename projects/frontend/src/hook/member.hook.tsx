@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import { MemberParsed } from '@/lib/members.model'
 import { Member_nowRepository } from '@/lib/repositories/Member_now.repository'
 
@@ -25,33 +25,49 @@ export function useMember(rowIndex: number) {
   const [member, setMember] = useState<MemberParsed | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const repo = new Member_nowRepository()
+  const repo = useMemo(() => new Member_nowRepository(), [])
 
-  const load = useCallback(async () => {
+  // Event-driven reload (button click, after update, etc.)
+  const reload = useCallback(async () => {
     setLoading(true)
     const data = await repo.getParsed(rowIndex)
     setMember(data)
     setLoading(false)
-  }, [rowIndex])
+  }, [repo, rowIndex])
 
   const update = useCallback(
     async (updater: (m: MemberParsed) => MemberParsed) => {
       if (!member) return
       await repo.updateParsed(rowIndex, updater)
-      await load()
+      await reload()
     },
-    [member, rowIndex, load],
+    [member, repo, rowIndex, reload],
   )
 
+  // Initial (and rowIndex change) load without calling a state-updating helper from the effect body.
   useEffect(() => {
-    load()
-  }, [load])
+    let cancelled = false
+
+    const run = async () => {
+      setLoading(true)
+      const data = await repo.getParsed(rowIndex)
+      if (cancelled) return
+      setMember(data)
+      setLoading(false)
+    }
+
+    void run()
+
+    return () => {
+      cancelled = true
+    }
+  }, [repo, rowIndex])
 
   return {
     member,
     setMember, // optional: local optimistic update
     update,
-    reload: load,
+    reload,
     loading,
   }
 }

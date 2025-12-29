@@ -47,53 +47,68 @@ type I18nSchema = {
 const repo = new Prop_haveRepository()
 
 const Warehouse = () => {
-  const {t} = useI18nClient<I18nSchema>()
-  const allItems = t.items
+  const { t } = useI18nClient<I18nSchema>()
+
+  const itemsDict = t.items
+  const groupItemsRaw = t['group-items']
+  const groupItemOptionsDict = t['group-item-options']
+
+  const allItems = useMemo(() => itemsDict ?? {}, [itemsDict])
+
+  const groupItems = useMemo<Record<string, Record<string, string>>>(
+    () => groupItemsRaw?.[0] ?? {},
+    [groupItemsRaw],
+  )
+
+  const groupOptions = useMemo(() => groupItemOptionsDict ?? {}, [groupItemOptionsDict])
+
   const [selectedGroup, setSelectedGroup] = useState<string>(ALL_KEY)
-
-  const groupItems: Record<string, Record<string, string>> = t['group-items']?.[0] ?? {}
-
-  const groupOptions = t['group-item-options']
-
   const [warehouse, setWarehouse] = useState<WarehouseRow[]>([])
   const [selectedLeft, setSelectedLeft] = useState<Set<string>>(new Set())
   const [selectedRight, setSelectedRight] = useState<Set<string>>(new Set())
-  const [toast, setToast] = useState<{ message: string, color: 'success' | 'danger' } | null>(null)
+  const [toast, setToast] = useState<{ message: string; color: 'success' | 'danger' } | null>(null)
 
   const rightTableData = useMemo<Record<string, string>>(() => {
-    if (selectedGroup === ALL_KEY) {
-      return allItems
-    }
+    if (selectedGroup === ALL_KEY) return allItems
     return groupItems[selectedGroup] ?? {}
   }, [selectedGroup, allItems, groupItems])
 
   const rightTitle =
-    selectedGroup === ALL_KEY
-      ? t.menu.items
-      : groupOptions[selectedGroup] ?? selectedGroup
+    selectedGroup === ALL_KEY ? t.menu.items : groupOptions[selectedGroup] ?? selectedGroup
 
-  /* =============================
-   * LOAD
-   * ============================= */
   const loadWarehouse = async () => {
     const rows = await repo.all()
     setWarehouse(
-      rows.map(r => ({
+      rows.map((r) => ({
         id: r[0],
-        quantity: r[1] ?? '1'
-      }))
+        quantity: r[1] ?? '1',
+      })),
     )
   }
 
   useEffect(() => {
-    loadWarehouse()
+    let cancelled = false
+
+    const run = async () => {
+      const rows = await repo.all()
+      if (cancelled) return
+      setWarehouse(
+        rows.map((r) => ({
+          id: r[0],
+          quantity: r[1] ?? '1',
+        })),
+      )
+    }
+
+    void run()
+
+    return () => {
+      cancelled = true
+    }
   }, [])
 
-  /* =============================
-   * SELECT helpers
-   * ============================= */
   const toggleLeft = (id: string) => {
-    setSelectedLeft(prev => {
+    setSelectedLeft((prev) => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
       return next
@@ -101,84 +116,57 @@ const Warehouse = () => {
   }
 
   const toggleRight = (id: string) => {
-    setSelectedRight(prev => {
+    setSelectedRight((prev) => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
       return next
     })
   }
 
-  /* =============================
-   * ADD (Right → Left, COPY)
-   * ============================= */
   const addToWarehouse = async () => {
-    const exists = new Set(warehouse.map(w => w.id))
-    const toAdd = Array.from(selectedRight).filter(id => !exists.has(id))
+    const exists = new Set(warehouse.map((w) => w.id))
+    const toAdd = Array.from(selectedRight).filter((id) => !exists.has(id))
 
     for (const id of toAdd) {
       await repo.createRow([id, '1'])
     }
 
     if (toAdd.length) {
-      setToast({message: `${toAdd.length} item(s) added`, color: 'success'})
+      setToast({ message: `${toAdd.length} item(s) added`, color: 'success' })
       await loadWarehouse()
     }
 
     setSelectedRight(new Set())
   }
 
-  /* =============================
-   * DELETE (Left)
-   * ============================= */
   const deleteFromWarehouse = async () => {
     const toDelete = new Set(selectedLeft)
 
-    await repo.deleteWhere(row => toDelete.has(row[0]))
+    await repo.deleteWhere((row) => toDelete.has(row[0]))
 
-    setToast({message: `${toDelete.size} item(s) removed`, color: 'success'})
+    setToast({ message: `${toDelete.size} item(s) removed`, color: 'success' })
     setSelectedLeft(new Set())
     await loadWarehouse()
   }
 
-  /* =============================
-   * UPDATE quantity
-   * ============================= */
   const updateQty = async (id: string, value: string) => {
-    setWarehouse(w =>
-      w.map(row => row.id === id ? {...row, quantity: value} : row)
-    )
+    setWarehouse((w) => w.map((row) => (row.id === id ? { ...row, quantity: value } : row)))
     await repo.update_COL_1(id, value)
   }
 
-  /* =============================
-  * SELECT ALL helpers
-  * ============================= */
-
-// LEFT (Warehouse)
-  const allLeftIds = warehouse.map(w => w.id)
-  const isAllLeftSelected =
-    allLeftIds.length > 0 && allLeftIds.every(id => selectedLeft.has(id))
+  const allLeftIds = warehouse.map((w) => w.id)
+  const isAllLeftSelected = allLeftIds.length > 0 && allLeftIds.every((id) => selectedLeft.has(id))
 
   const toggleSelectAllLeft = () => {
-    if (isAllLeftSelected) {
-      setSelectedLeft(new Set())
-    } else {
-      setSelectedLeft(new Set(allLeftIds))
-    }
+    setSelectedLeft(isAllLeftSelected ? new Set() : new Set(allLeftIds))
   }
 
-// RIGHT (All items)
   const allRightIds = Object.keys(rightTableData)
-
   const isAllRightSelected =
-    allRightIds.length > 0 && allRightIds.every(id => selectedRight.has(id))
+    allRightIds.length > 0 && allRightIds.every((id) => selectedRight.has(id))
 
   const toggleSelectAllRight = () => {
-    if (isAllRightSelected) {
-      setSelectedRight(new Set())
-    } else {
-      setSelectedRight(new Set(allRightIds))
-    }
+    setSelectedRight(isAllRightSelected ? new Set() : new Set(allRightIds))
   }
 
   return (
