@@ -116,37 +116,37 @@ const AppHeader = (): JSX.Element => {
           </CDropdown>
         </CHeaderNav>
         {/* Things */}
-        <CHeaderNav className="me-2">
-          <CButton href={lhref('/items')} className="btn-primary btn-dark">{t.items}</CButton>
-          <CButton href={lhref('/tools')} className="btn-primary btn-dark">{t.tools}</CButton>
-        </CHeaderNav>
+        {/*<CHeaderNav className="me-2">*/}
+        {/*  <CButton href={lhref('/items')} className="btn-primary btn-dark">{t.items}</CButton>*/}
+        {/*  <CButton href={lhref('/tools')} className="btn-primary btn-dark">{t.tools}</CButton>*/}
+        {/*</CHeaderNav>*/}
         {/* Search */}
-        <CHeaderNav className="ms-auto">
-          <CForm className="d-none d-sm-flex">
-            <CInputGroup>
-              <CInputGroupText id="search-addon" className="border-0 px-1">
-                <CIcon icon={cilSearch} size="lg" className="my-1 mx-2"/>
-              </CInputGroupText>
-              <CFormInput
-                id="searchInput"
-                placeholder={t.search}
-                aria-label={t.search}
-                aria-describedby="search-addon"
-                className="bg-body-secondary border-0"
-              />
-            </CInputGroup>
-          </CForm>
+        {/*<CHeaderNav className="ms-auto">*/}
+          {/*<CForm className="d-none d-sm-flex">*/}
+          {/*  <CInputGroup>*/}
+          {/*    <CInputGroupText id="search-addon" className="border-0 px-1">*/}
+          {/*      <CIcon icon={cilSearch} size="lg" className="my-1 mx-2"/>*/}
+          {/*    </CInputGroupText>*/}
+          {/*    <CFormInput*/}
+          {/*      id="searchInput"*/}
+          {/*      placeholder={t.search}*/}
+          {/*      aria-label={t.search}*/}
+          {/*      aria-describedby="search-addon"*/}
+          {/*      className="bg-body-secondary border-0"*/}
+          {/*    />*/}
+          {/*  </CInputGroup>*/}
+          {/*</CForm>*/}
           {/*<AppHeaderDropdownNotif />*/}
           {/*<AppHeaderDropdownTasks />*/}
           {/*<AppHeaderDropdownMssg />*/}
-        </CHeaderNav>
+        {/*</CHeaderNav>*/}
         {/* Language Switcher */}
-        <CHeaderNav className="ms-2">
+        <CHeaderNav className="ms-auto">
           <CDropdown variant="nav-item">
             <CDropdownToggle caret={false} className="py-0">
-      <span style={{fontSize: '1.25rem'}}>
-        <CIcon icon={langOptions.find((l) => l.code === lang)?.flag} size='lg'/>
-      </span>
+              <span style={{fontSize: '1.25rem'}}>
+                <CIcon icon={langOptions.find((l) => l.code === lang)?.flag} size='lg'/>
+              </span>
             </CDropdownToggle>
 
             <CDropdownMenu>
@@ -158,31 +158,30 @@ const AppHeader = (): JSX.Element => {
                   className="d-flex align-items-center gap-2"
                 >
                   <CIcon icon={l.flag} size='lg'/>
-                  {/*<span style={{fontSize: '1.25rem'}}><CIcon icon={l.flag} /></span>*/}
                   <span>{l.label}</span>
                 </CDropdownItem>
               ))}
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>
-        <CHeaderToggler
-          className={classNames('d-lg-none', {
-            'prevent-hide': !sidebarShow,
-          })}
-          onClick={() => dispatch({type: 'set', sidebarShow: !sidebarShow})}
-          style={{marginInlineStart: '-14px'}}
-        >
-          <CIcon icon={cilMenu} size="lg"/>
-        </CHeaderToggler>
-        <CHeaderNav className="ms-auto ms-md-0">
-          <AppHeaderDropdown/>
-        </CHeaderNav>
-        <CHeaderToggler
-          onClick={() => dispatch({type: 'set', asideShow: !asideShow})}
-          style={{marginInlineEnd: '-12px'}}
-        >
-          <CIcon icon={cilApplicationsSettings} size="lg"/>
-        </CHeaderToggler>
+        {/*<CHeaderToggler*/}
+        {/*  className={classNames('d-lg-none', {*/}
+        {/*    'prevent-hide': !sidebarShow,*/}
+        {/*  })}*/}
+        {/*  onClick={() => dispatch({type: 'set', sidebarShow: !sidebarShow})}*/}
+        {/*  style={{marginInlineStart: '-14px'}}*/}
+        {/*>*/}
+        {/*  <CIcon icon={cilMenu} size="lg"/>*/}
+        {/*</CHeaderToggler>*/}
+        {/*<CHeaderNav className="ms-auto ms-md-0">*/}
+        {/*  <AppHeaderDropdown/>*/}
+        {/*</CHeaderNav>*/}
+        {/*<CHeaderToggler*/}
+        {/*  onClick={() => dispatch({type: 'set', asideShow: !asideShow})}*/}
+        {/*  style={{marginInlineEnd: '-12px'}}*/}
+        {/*>*/}
+        {/*  <CIcon icon={cilApplicationsSettings} size="lg"/>*/}
+        {/*</CHeaderToggler>*/}
       </CContainer>
     </CHeader>
   )

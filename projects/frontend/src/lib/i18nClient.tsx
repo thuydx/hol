@@ -9,16 +9,22 @@ export function useI18nClient<T = any>() {
   const params = useParams<{ lang?: Lang }>()
   const lang: Lang = params?.lang ?? defaultLang
 
-  // Only store async dictionaries in state.
-  const [asyncT, setAsyncT] = useState<T>(() => ({} as T))
+  // async dictionaries keyed by lang
+  const [dictMap, setDictMap] = useState<Record<string, T>>({})
 
   useEffect(() => {
     if (lang === defaultLang) return
 
     let cancelled = false
 
-    void getDict(lang).then((d) => {
-      if (!cancelled) setAsyncT(d as unknown as T)
+    void getDict(lang).then((dict) => {
+      if (cancelled) return
+
+      setDictMap((prev) => {
+        // already loaded → no state update
+        if (prev[lang]) return prev
+        return { ...prev, [lang]: dict as T }
+      })
     })
 
     return () => {
@@ -26,13 +32,14 @@ export function useI18nClient<T = any>() {
     }
   }, [lang])
 
-  // Render-time selection: default is synchronous, others come from async state.
   const t = useMemo<T>(() => {
-    return (lang === defaultLang ? (viDict as unknown as T) : asyncT) as T
-  }, [lang, asyncT])
+    if (lang === defaultLang) return viDict as T
+    return dictMap[lang] ?? (viDict as T) // fallback while loading
+  }, [lang, dictMap])
 
   return { t, lang }
 }
+
 
 /**
  * Example for the Client Component usage

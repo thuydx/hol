@@ -8,7 +8,9 @@
     "action": "操作",
     "add": "新增军营",
     "delete": "删除",
-    "edit": "编辑"
+    "edit": "编辑",
+    "export": "保存",
+    "save": "保存"
   },
   "family": {
     "title": "宗族",
@@ -29,6 +31,138 @@
     "zibeiPositionOption1": "第二字",
     "zibeiPositionOption2": "第三字",
     "zibeiLevelError": "辈分必须为正整数，且不能重复。"
+  },
+  "member": {
+    "title": "成员管理",
+    "basic": "基本信息",
+    "status": "状态",
+    "attributes": "属性",
+    "talents": "天赋",
+    "salary": "俸禄",
+    "delete": "删除",
+    "save": "保存",
+    "fields": {
+      "name": "姓名",
+      "age": "年龄",
+      "gender": "性别",
+      "health": "健康",
+      "mood": "心情",
+      "fame": "名声",
+      "reputation": "威望",
+      "martial": "武",
+      "literary": "文",
+      "business": "商",
+      "art": "艺",
+      "charm": "魅力",
+      "strategy": "谋略",
+      "stamina": "体力",
+      "skillPos": "技能位置",
+      "talent": "天赋",
+      "talentPos": "天赋点",
+      "skills": "技能",
+      "luck": "气运",
+      "hobby": "嗜好"
+    },
+    "batch": {
+      "title": "批量更新",
+      "set": "设置 {field}",
+      "prompt": "请输入 {field} 的值"
+    },
+    "options": {
+      "appearance": {
+        "black_hair": "后发",
+        "body": "身体",
+        "face_shape": "面容",
+        "front_hair": "前发"
+      },
+      "skill": {
+        "0": "无",
+        "sorcery": "法术",
+        "medicine": "医术",
+        "daoism": "道法",
+        "divination": "占卜",
+        "charisma": "魅术",
+        "technology": "技艺"
+      },
+      "talent": {
+        "0": "无",
+        "writing": "文",
+        "might": "武",
+        "business": "商",
+        "art": "艺"
+      },
+      "gender": {
+        "female": "女",
+        "male": "男"
+      },
+      "hobby": {
+        "rogue": "江湖",
+        "ink": "书墨",
+        "art": "书法",
+        "antique": "古物",
+        "tea_set": "茶具",
+        "incense": "香道",
+        "vase": "陶瓶",
+        "wine": "美酒",
+        "music": "音律",
+        "pelt": "兽皮"
+      },
+      "trait": {
+        "paranoid": "多疑",
+        "proud": "傲慢",
+        "righteous": "正直",
+        "lively": "活泼",
+        "kind": "仁厚",
+        "honest": "朴实",
+        "carefree": "洒脱",
+        "cold": "冷漠",
+        "insecure": "不安",
+        "timid": "胆怯",
+        "shy": "羞怯",
+        "mean": "刻薄",
+        "fickle": "善变",
+        "gloomy": "阴郁"
+      },
+      "exam_title": {
+        "none": "未中",
+        "xiucai": "秀才",
+        "juren": "举人",
+        "xieyuan": "解元",
+        "gongshi": "贡士",
+        "huiyuan": "会元",
+        "jinshi": "进士",
+        "tanhua": "探花",
+        "bangyan": "榜眼",
+        "zhuangyuan": "状元"
+      },
+      "additional_traits": {
+        "homosexual": "同性",
+        "lustful": "好色",
+        "greedy": "贪婪",
+        "prodigy": "天才",
+        "noble": "高贵",
+        "rebellious": "叛逆",
+        "fragrant": "体香",
+        "eloquent": "善辩",
+        "melodious": "妙音",
+        "flirtatious": "轻佻",
+        "triumphant": "得势"
+      },
+      "school_options": {
+        "none": "无",
+        "mingly": "明理",
+        "jiuyuan": "九渊",
+        "jinwen": "今文"
+      },
+      "availability_status": {
+        "available": "可用",
+        "married": "已婚",
+        "in_service": "服役中",
+        "deceased": "已故",
+        "missing": "失踪",
+        "imprisoned": "被囚"
+      }
+    }
   },
   "farm": {
     "title": "田庄管理",
@@ -96,7 +230,6 @@
     "noFileChosen": "未选择文件",
     "upload": "上传",
     "resetButton": "重置数据",
-
     "fileTooLarge": "文件过大。",
     "invalidFileType": "文件类型无效。",
     "emptyJson": "JSON 为空。",
@@ -104,7 +237,6 @@
     "invalidJsonKeys": "JSON 键无效。",
     "parseFailed": "解析 JSON 失败。",
     "saved": "JSON 已成功保存。",
-
     "toastTitle": "上传状态"
   },
   "warehouse": {
@@ -126,7 +258,6 @@
     "title": "马厩",
     "description": "管理马厩中的坐骑",
     "instruction": "选择右侧物品以添加到马厩，选择左侧物品以从马厩中移除。",
-
     "attribute": {
       "color": "颜色",
       "yearAge": "年龄",

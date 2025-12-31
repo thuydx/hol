@@ -3,47 +3,14 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, usePathname} from 'next/navigation'
 
-import {CBreadcrumb, CBreadcrumbItem} from '@coreui/react-pro'
+import {CBreadcrumb, CBreadcrumbItem, CButton} from '@coreui/react-pro'
 import {Lang} from '@/lib/i18n'
-
-//
-// type breadcrumb = {
-//   pathname?: string
-//   name?: boolean | string
-//   active?: boolean
-// }
-//
-// type route = {
-//   path: string
-//   name: string
-// }
-//
-// const routeNames = [
-//   { path: '/', name: 'Dashboard' },
-//   { path: '/components/base/navs', name: 'Navs & Tabs' },
-// ]
-
-// const humanize = (text: string) => {
-//   const string = text
-//     .split('-')
-//     .reduce(
-//       (accumulator, currentValue) =>
-//         accumulator + ' ' + currentValue[0].toUpperCase() + currentValue.slice(1),
-//     )
-//   return string[0].toUpperCase() + string.slice(1)
-// }
 
 const humanize = (text: string) =>
   text
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
-
-// const getRouteName = (pathname: string, routes: route[]) => {
-//   const currentRoute = routes.find((route) => route.path === pathname)
-//   return currentRoute ? currentRoute.name : false
-// }
-
 
 export default function AppBreadcrumb() {
   const pathname = usePathname()
@@ -74,20 +41,55 @@ export default function AppBreadcrumb() {
     return {href, name, active: index === segments.length - 1}
   })
 
-  return (
-    <CBreadcrumb className="mb-4">
-      <CBreadcrumbItem href={`/${lang}`}>
-        {dict.menu?.home || 'Home'}
-      </CBreadcrumbItem>
+  // Export JSON from localStorage
+  const handleExport = () => {
+    const raw = localStorage.getItem('uploadedJson')
+    if (!raw) {
+      alert('No data to export')
+      return
+    }
 
-      {breadcrumbs.map((b, index) => (
-        <CBreadcrumbItem
-          key={index}
-          {...(b.active ? {active: true} : {href: b.href})}
-        >
-          {b.name}
+    const blob = new Blob([raw], { type: 'application/json;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'GameData.es3'
+    a.click()
+
+    URL.revokeObjectURL(url)
+  }
+
+  return (
+    <div className="d-flex align-items-center mb-4">
+      {/* LEFT: Breadcrumb */}
+      <CBreadcrumb className="mb-0">
+        <CBreadcrumbItem href={`/${lang}`}>
+          {dict.menu?.home || 'Home'}
         </CBreadcrumbItem>
-      ))}
-    </CBreadcrumb>
+
+        {breadcrumbs.map((b, index) => (
+          <CBreadcrumbItem
+            key={index}
+            {...(b.active ? { active: true } : { href: b.href })}
+          >
+            {b.name}
+          </CBreadcrumbItem>
+        ))}
+      </CBreadcrumb>
+
+      {/* RIGHT: Export button */}
+      <div className="ms-auto">
+        <CButton
+          className="btn btn-primary"
+          // color="success"
+          variant="outline"
+          size="sm"
+          onClick={handleExport}
+        >
+          {dict.common.export}
+        </CButton>
+      </div>
+    </div>
   )
 }

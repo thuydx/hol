@@ -8,7 +8,8 @@
     "action": "Thao Tác",
     "add": "Thêm",
     "edit": "Sửa",
-    "delete": "Xóa"
+    "delete": "Xóa",
+    "export": "Xuất file"
   },
   "family": {
     "title": "Gia Tộc",
@@ -29,6 +30,139 @@
     "zibeiPositionOption1": "Chữ thứ 2",
     "zibeiPositionOption2": "Chữ thứ 3",
     "zibeiLevelError": "Đời Thứ phải là số nguyên dương và không được trùng."
+  },
+  "member": {
+    "title": "Quản lý thành viên",
+    "basic": "Thông tin cơ bản",
+    "status": "Trạng thái",
+    "attributes": "Thuộc tính",
+    "talents": "Tài năng",
+    "salary": "Lương bổng",
+    "delete": "Xoá",
+    "save": "Lưu",
+    "fields": {
+      "name": "Tên",
+      "age": "Tuổi",
+      "gender": "Giới tính",
+      "health": "Sức khoẻ",
+      "mood": "Tâm trạng",
+      "fame": "Danh tiếng",
+      "reputation": "Danh tiếng",
+      "martial": "Võ",
+      "literary": "Văn",
+      "business": "Thương",
+      "art": "Nghệ",
+      "charm": "Mị lực",
+      "strategy": "Mưu lược",
+      "stamina": "Thể lực",
+      "skillPos": "Điểm kỹ năng",
+      "talent": "Thiên phú",
+      "talentPos": "Điểm thiên phú",
+      "skills": "Kỹ năng",
+      "luck": "Khí vận",
+      "hobby": "Sở thích"
+    },
+    "batch": {
+      "title": "Cập nhật hàng loạt",
+      "set": "{field}",
+      "prompt": "Nhập giá trị cho {field}",
+      "maxAll": "Tối đa hóa toàn bộ thuộc tính"
+    },
+    "options": {
+      "appearance": {
+        "black_hair": "Tóc Sau",
+        "body": "Thân Thể",
+        "face_shape": "Khuôn Mặt",
+        "front_hair": "Tóc Trước"
+      },
+      "skill": {
+        "0": "Chưa Có",
+        "sorcery": "Pháp Thuật",
+        "medicine": "Y Thuật",
+        "daoism": "Đạo Pháp",
+        "divination": "Bói",
+        "charisma": "Mị Thuật",
+        "technology": "Kỹ Nghệ"
+      },
+      "talent": {
+        "0": "Chưa Có",
+        "writing": "Văn",
+        "might": "Võ",
+        "business": "Thương",
+        "art": "Nghệ"
+      },
+      "gender": {
+        "female": "Nữ",
+        "male": "Nam"
+      },
+      "hobby": {
+        "rogue": "Giang Hồ",
+        "ink": "Thư Mặc",
+        "art": "Thư Pháp",
+        "antique": "Cổ Vật",
+        "tea_set": "Trà Cụ",
+        "incense": "Hương Đạo",
+        "vase": "Bình Gốm",
+        "wine": "Mỹ Tửu",
+        "music": "Âm Luật",
+        "pelt": "Da Thú"
+      },
+      "trait": {
+        "paranoid": "Đa Nghi",
+        "proud": "Kiêu Ngạo",
+        "righteous": "Chính Trực",
+        "lively": "Hoạt Bát",
+        "kind": "Nhân Hậu",
+        "honest": "Chất Phác",
+        "carefree": "Tiêu Dao",
+        "cold": "Lãnh Đạm",
+        "insecure": "Bất An",
+        "timid": "Nhát Gan",
+        "shy": "Rụt Rè",
+        "mean": "Hẹp Hòi",
+        "fickle": "Hay Đổi",
+        "gloomy": "U Uất"
+      },
+      "exam_title": {
+        "none": "Chưa Đỗ",
+        "xiucai": "Tú Tài",
+        "juren": "Cử Nhân",
+        "xieyuan": "Giải Nguyên",
+        "gongshi": "Cống Sĩ",
+        "huiyuan": "Hội Nguyên",
+        "jinshi": "Tiến Sĩ",
+        "tanhua": "Thám Hoa",
+        "bangyan": "Bảng Nhãn",
+        "zhuangyuan": "Trạng Nguyên"
+      },
+      "additional_traits": {
+        "homosexual": "Đồng Tính",
+        "lustful": "Dâm Dật",
+        "greedy": "Tham Lam",
+        "prodigy": "Thiên Tài",
+        "noble": "Quý Phái",
+        "rebellious": "Phản Nghịch",
+        "fragrant": "Hương Thể",
+        "eloquent": "Khéo Nói",
+        "melodious": "Thanh Âm",
+        "flirtatious": "Lả Lơi",
+        "triumphant": "Đắc Thế"
+      },
+      "school_options": {
+        "none": "Vô",
+        "mingly": "Minh Lý",
+        "jiuyuan": "Cửu Uyên",
+        "jinwen": "Kim Văn"
+      },
+      "availability_status": {
+        "available": "Khả Dụng",
+        "married": "Đã Thành Hôn",
+        "in_service": "Đang Phục Vụ",
+        "deceased": "Đã Qua Đời",
+        "missing": "Mất Tích",
+        "imprisoned": "Bị Giam"
+      }
+    }
   },
   "farm": {
     "title": "Quản lý Nông Trại",

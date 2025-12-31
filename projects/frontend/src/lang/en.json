@@ -8,7 +8,8 @@
     "action": "Action",
     "delete": "Delete",
     "add": "Add",
-    "edit": "Edit"
+    "edit": "Edit",
+    "export": "Export"
   },
   "family": {
     "title": "Family",
@@ -29,6 +30,138 @@
     "zibeiPositionOption1": "2nd Character",
     "zibeiPositionOption2": "3rd Character",
     "zibeiLevelError": "Generation Order must be a positive unique integer."
+  },
+  "member": {
+    "title": "Member Management",
+    "basic": "Basic Information",
+    "status": "Status",
+    "attributes": "Attributes",
+    "talents": "Talents",
+    "salary": "Salary",
+    "delete": "Delete",
+    "save": "Save",
+    "fields": {
+      "name": "Name",
+      "age": "Age",
+      "gender": "Gender",
+      "health": "Health",
+      "mood": "Mood",
+      "fame": "Fame",
+      "reputation": "Reputation",
+      "martial": "Martial",
+      "literary": "Literary",
+      "business": "Business",
+      "art": "Art",
+      "charm": "Charm",
+      "strategy": "Strategy",
+      "stamina": "Stamina",
+      "skillPos": "Skill Slot",
+      "talent": "Talent",
+      "talentPos": "Talent Points",
+      "skills": "Skills",
+      "luck": "Luck",
+      "hobby": "Hobby"
+    },
+    "batch": {
+      "title": "Batch Update",
+      "set": "Set {field}",
+      "prompt": "Enter value for {field}"
+    },
+    "options" : {
+      "appearance" : {
+        "black_hair" : "Back Hair",
+        "body" : "Body",
+        "face_shape" : "Face Shape",
+        "front_hair" : "Front Hair"
+      },
+      "skill" : {
+        "0": "None",
+        "sorcery" : "Sorcery",
+        "medicine" : "Medicine",
+        "daoism" : "Daoism",
+        "divination" : "Divination",
+        "charisma" : "Charisma",
+        "technology" : "Technology"
+      },
+      "talent" : {
+        "0": "None",
+        "writing" : "Writing",
+        "might" : "Might",
+        "business" : "Business",
+        "art" : "Art"
+      },
+      "gender" : {
+        "female" : "Female",
+        "male" : "Male"
+      },
+      "hobby" : {
+        "rogue" : "Rogue",
+        "ink" : "Ink",
+        "art" : "Art",
+        "antique" : "Antique",
+        "tea_set" : "Tea set",
+        "incense" : "Incense",
+        "vase" : "Vase",
+        "wine" : "Wine",
+        "music" : "Music",
+        "pelt" : "Pelt"
+      },
+      "trait" : {
+        "paranoid" : "Paranoid",
+        "proud" : "Proud",
+        "righteous" : "Righteous",
+        "lively" : "Lively",
+        "kind" : "Kind",
+        "honest" : "Honest",
+        "carefree" : "Carefree",
+        "cold" : "Cold",
+        "insecure" : "Insecure",
+        "timid" : "Timid",
+        "shy" : "Shy",
+        "mean" : "Mean",
+        "fickle" : "Fickle",
+        "gloomy" : "Gloomy"
+      },
+      "exam_title" : {
+        "none" : "None",
+        "xiucai" : "Xiucai",
+        "juren" : "Juren",
+        "xieyuan" : "Xieyuan",
+        "gongshi" : "Gongshi",
+        "huiyuan" : "Huiyuan",
+        "jinshi" : "Jinshi",
+        "tanhua" : "Tanhua",
+        "bangyan" : "Bangyan",
+        "zhuangyuan" : "Zhuangyuan"
+      },
+      "additional_traits" : {
+        "homosexual" : "Homosexual",
+        "lustful" : "Lustful",
+        "greedy" : "Greedy",
+        "prodigy" : "Prodigy",
+        "noble" : "Noble",
+        "rebellious" : "Rebellious",
+        "fragrant" : "Fragrant",
+        "eloquent" : "Eloquent",
+        "melodious" : "Melodious",
+        "flirtatious" : "Flirtatious",
+        "triumphant" : "Triumphant"
+      },
+      "school_options" : {
+        "none" : "None",
+        "mingly" : "Mingli",
+        "jiuyuan" : "Jiuyuan",
+        "jinwen" : "Jinwen"
+      },
+      "availability_status" : {
+        "available" : "Available",
+        "married" : "Married",
+        "in_service" : "In Service",
+        "deceased" : "Deceased",
+        "missing" : "Missing",
+        "imprisoned" : "Imprisoned"
+      }
+    }
   },
   "farm" : {
     "title": "Farm Management",

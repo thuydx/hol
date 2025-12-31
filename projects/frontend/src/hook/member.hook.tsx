@@ -66,8 +66,40 @@ export function useMember(rowIndex: number) {
   return {
     member,
     setMember, // optional: local optimistic update
-    update,
-    reload,
+    update,     // 1 member
+    reload,     // manual reload
     loading,
+  }
+}
+
+export function useMembers() {
+  const [count, setCount] = useState(0)
+
+  const repo = useMemo(() => new Member_nowRepository(), [])
+
+  useEffect(() => {
+    let cancelled = false
+
+    const run = async () => {
+      const rows = await repo.all()
+      if (cancelled) return
+      setCount(Array.isArray(rows) ? rows.length : 0)
+    }
+
+    void run()
+
+    return () => {
+      cancelled = true
+    }
+  }, [repo])
+
+  const indexes = useMemo(
+    () => Array.from({ length: count }, (_, i) => i),
+    [count],
+  )
+
+  return {
+    count,
+    indexes,
   }
 }

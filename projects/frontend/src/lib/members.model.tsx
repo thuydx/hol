@@ -65,7 +65,7 @@ export interface MemberAppearance {
 
 /**
  * PERSON_DATA
- * "name|generation|talent|talentPos|gender|lifespan|skills|luck|?|preferences"
+ * "name|generation|talent|talentPos|gender|lifespan|skills|luck|?|hobby"
  */
 export interface MemberPersonData {
   name: string
@@ -77,7 +77,7 @@ export interface MemberPersonData {
   skills: number
   luck: number
   unknown?: number
-  preferences: number
+  hobby: number
 }
 
 /**
@@ -389,7 +389,7 @@ export function parsePersonData(raw: string): MemberPersonData {
     skills,
     luck,
     unknown,
-    preferences,
+    hobby,
   ] = raw.split('|')
 
   return {
@@ -402,7 +402,7 @@ export function parsePersonData(raw: string): MemberPersonData {
     skills: toInt(skills),
     luck: toInt(luck),
     unknown: toInt(unknown),
-    preferences: toInt(preferences),
+    hobby: toInt(hobby),
   }
 }
 
@@ -417,7 +417,7 @@ export function serializePersonData(p: MemberPersonData): string {
     p.skills,
     p.luck,
     p.unknown ?? 0,
-    p.preferences,
+    p.hobby,
   ].join('|')
 }
 
