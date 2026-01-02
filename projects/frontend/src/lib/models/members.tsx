@@ -179,7 +179,7 @@ export interface MemberParsed {
   appearance: MemberAppearance                // 1
   childrenIds: string[]                       // 2
   housing: MemberHousing                      // 3
-  person: MemberPersonData                   // 4
+  person: MemberPersonData                    // 4
 
   /* =======================
    * 5 → 11
@@ -216,7 +216,7 @@ export interface MemberParsed {
   charm: number                               // 20
   health: number                              // 21
   isHeadOfFamily: boolean                     // 22
-  specialTags: string[]                      // 23
+  specialTags: string[]                       // 23
   recentEvents: string | null                 // 24
 
   /* =======================
@@ -249,19 +249,15 @@ export interface MemberParsed {
   /* =======================
    * 40 → 42
    * ======================= */
-  school: number                              // 40
-  clanResponsibilities: {
-    taskId: number
-    money: number
-    unknown: number
-  } | null                                    // 41
-  travel: string                              // 42
+  school: number                                  // 40
+  clanResponsibilities: MemberClanResponsibility  // 41
+  travel: string                                  // 42
 }
 
 /**
  * Mapping table
  * for repository / serializer
- * Order MUST follow MemberColumn index
+ * Order MUST-follows MemberColumn index
  */
 export const MemberColumnMap = {
   /* =======================
@@ -351,8 +347,8 @@ export const MemberColumnMap = {
 const toInt = (v: string | null, d = 0) =>
   v === null || v === 'null' ? d : Number(v)
 
-const toFloat = (v: string | null, d = 0) =>
-  v === null || v === 'null' ? d : Number(v)
+// const toFloat = (v: string | null, d = 0) =>
+//   v === null || v === 'null' ? d : Number(v)
 
 const toNull = (v: string) => (v === 'null' ? null : v)
 
@@ -536,9 +532,7 @@ export function serializeLifeEvents(events: MemberLifeEvent[]): string {
  * MONTHLY_INCREMENT
  * PARSE
  */
-export function parseMonthlyIncrement(
-  raw: string,
-): MemberMonthlyIncrement {
+export function parseMonthlyIncrement(raw: string): MemberMonthlyIncrement {
   const [
     u1,
     u2,
@@ -564,9 +558,7 @@ export function parseMonthlyIncrement(
  * MONTHLY_INCREMENT
  * Serializer
  */
-export function serializeMonthlyIncrement(
-  m: MemberMonthlyIncrement,
-): string {
+export function serializeMonthlyIncrement(m: MemberMonthlyIncrement): string {
   return [
     m.unknown1,
     m.unknown2,
@@ -582,9 +574,7 @@ export function serializeMonthlyIncrement(
  * GROWTH_BONUS
  * Parser
  */
-export function parseGrowthBonus(
-  raw: string,
-): MemberGrowthBonus {
+export function parseGrowthBonus(raw: string): MemberGrowthBonus {
   const [
     intelligence,
     charisma,
@@ -608,9 +598,7 @@ export function parseGrowthBonus(
  * GROWTH_BONUS
  * Serializer
  */
-export function serializeGrowthBonus(
-  g: MemberGrowthBonus,
-): string {
+export function serializeGrowthBonus(g: MemberGrowthBonus): string {
   return [
     g.intelligence,
     g.charisma,
@@ -619,6 +607,27 @@ export function serializeGrowthBonus(
     g.might,
     g.business,
   ].join('|')
+}
+
+/**
+ * CLAN_RESPONSIBILITIES
+ * Parser
+ */
+export function parserClanResponsibilities(raw: string): MemberClanResponsibility {
+  const [
+    taskId,
+    money,
+    unknown,
+  ] = raw.split('|')
+  return {
+    taskId: Number(taskId),
+    money: Number(money),
+    unknown: Number(unknown),
+  }
+}
+
+export function serializeClanResponsibilities(c: MemberClanResponsibility): string {
+  return [c.taskId, c.money, c.unknown].join('|')
 }
 
 /**
@@ -723,18 +732,9 @@ export function deserializeAll(row: MemberRawRow): MemberParsed {
 
     /* 40 → 42 */
     school: Number(row[MemberColumnMap.school]),
-    clanResponsibilities:
-      row[MemberColumnMap.clanResponsibilities] === 'null'
-        ? null
-        : (() => {
-          const [taskId, money, unknown] =
-            row[MemberColumnMap.clanResponsibilities].split('|')
-          return {
-            taskId: Number(taskId),
-            money: Number(money),
-            unknown: Number(unknown),
-          }
-        })(),
+    clanResponsibilities: parserClanResponsibilities(
+      row[MemberColumnMap.clanResponsibilities],
+    ),
     travel: row[MemberColumnMap.travel],
   }
 }
@@ -742,10 +742,7 @@ export function deserializeAll(row: MemberRawRow): MemberParsed {
 /**
  * serializeAll(parsed) → MemberRawRow
  */
-export function serializeAll(
-  parsed: MemberParsed,
-  baseRow?: MemberRawRow,
-): MemberRawRow {
+export function serializeAll(parsed: MemberParsed, baseRow?: MemberRawRow): MemberRawRow {
   // clone để giữ unknown field nếu có
   const row: MemberRawRow = baseRow
     ? [...baseRow]
@@ -860,10 +857,7 @@ export function serializeAll(
   row[MemberColumnMap.school] =
     String(parsed.school)
 
-  row[MemberColumnMap.clanResponsibilities] =
-    parsed.clanResponsibilities
-      ? `${parsed.clanResponsibilities.taskId}|${parsed.clanResponsibilities.money}|${parsed.clanResponsibilities.unknown}`
-      : 'null'
+  row[MemberColumnMap.clanResponsibilities] = serializeClanResponsibilities(parsed.clanResponsibilities)
 
   row[MemberColumnMap.travel] =
     parsed.travel

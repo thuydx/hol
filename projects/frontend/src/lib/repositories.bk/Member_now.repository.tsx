@@ -4,7 +4,7 @@ import {
   MemberColumn,
   MemberParsed,
   MemberRawRow,
-} from '@/lib/members.model'
+} from '@/lib/models/members'
 
 /**
  * HOW TO USE

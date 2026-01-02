@@ -16,12 +16,12 @@
     "description": "Thông tin gia tộc",
     "instruction": "",
     "coordinates": "Tọa Độ",
-    "name": "Họ",
+    "name": "Tộc Thị",
     "level": "Cấp Bậc",
     "renown": "Danh Vọng",
     "influence": "Quan Hệ Với Triều Đình",
-    "capacity": "Sức Chứa Còn Lại",
-    "horsesRemaining": "Số Ngựa Còn Lại",
+    "capacity": "Sức Chứa của Kho",
+    "stableCapacity": "Sức Chứa của Chuồng Ngựa",
     "zibeiTitle": "Quản Lý Tự Bối",
     "zibeiListTitle": "Danh Sách Tự Bối",
     "zibei": "Tự Bối",
@@ -168,18 +168,18 @@
     "title": "Quản lý Nông Trại",
     "instruction": "Nhấn vào khu \"Bỏ Hoang\" để chuyển qua thành \"Sở Hữu\" và ngược lại nhấn vào khu \"Sở Hữu\" để chuyển qua thành \"Bỏ Hoang\".",
     "columns": {
-      "FARM_NAME": "Tên nông trại",
-      "AREA": "Diện tích",
+      "farmName": "Tên nông trại",
+      "area": "Diện tích",
       "RENT": "Tiền thuê",
-      "MAX_FARMERS": "Hộ dân",
+      "maxFarmers": "Hộ dân",
       "STATUS": "Tình trạng",
-      "ENVIRONMENT": "Môi trường",
-      "SECURITY": "An toàn",
-      "CONVENIENCE": "Tiện nghi",
-      "FARM_HEAD_ID": "Trưởng thôn",
-      "FARMER_COUNT": "Số lượng nông dân",
-      "FARMER_RATIO": "Tỷ lệ nông dân",
-      "BELONG_TO_CLAN": "Sở hữu"
+      "environment": "Môi trường",
+      "security": "An toàn",
+      "convenience": "Tiện nghi",
+      "farmHeadId": "Trưởng thôn",
+      "farmerCount": "Số lượng nông dân",
+      "farmerRatio": "Tỷ lệ nông dân",
+      "belongToClan": "Sở hữu"
     },
     "actions": {
       "OWNER": "Sở Hữu",
@@ -296,7 +296,7 @@
   "slave": {
     "title": "Nô lệ",
     "description": "Quản lý số lượng nô lệ trong gia tộc",
-    "count": "Số lượng nô lệ"
+    "count": "Số lượng"
   },
   "items": {
     "0": "Hương phẩm - [Cúng tế]",

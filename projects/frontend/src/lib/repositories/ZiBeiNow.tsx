@@ -6,7 +6,7 @@ export type ZiBeiItem = {
   position: string
 }
 
-export class ZiBei_NowRepository extends BaseRepository {
+export class ZiBeiNowRepository extends BaseRepository {
   protected sectionKey = 'ZiBei_Now'
 
   async getData(): Promise<ZiBeiItem[]> {

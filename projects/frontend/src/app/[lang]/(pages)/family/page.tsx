@@ -18,9 +18,10 @@ import {
 } from '@coreui/react-pro'
 import React, {useEffect, useMemo, useState} from 'react'
 import {useI18nClient} from '@/lib/i18nClient'
-import {FamilyDataRepository} from '@/lib/repositories/FamilyData.repository'
-import {ZiBei_NowRepository, ZiBeiItem} from "@/lib/repositories/ZiBei_Now.repository";
-
+import {FamilyDataRepository} from '@/repositories/FamilyData'
+import {ZiBeiNowRepository, ZiBeiItem} from "@/repositories/ZiBeiNow";
+import { CGNumRepository } from '@/repositories/CGNum'
+import { NuLiNumRepository } from '@/repositories/NuLiNum'
 /**
  * Family Data
  * "FamilyData": {
@@ -48,7 +49,7 @@ type FamilyData = {
   renown: string
   influence: string
   capacity: string
-  horsesRemaining: string
+  stableCapacity: string
   col_7: string
   col_8: string
   col_9: string
@@ -65,7 +66,7 @@ type I18nSchema = {
     renown: string
     influence: string
     capacity: string
-    horsesRemaining: string
+    stableCapacity: string
     zibeiTitle: string,
     zibeiListTitle: string,
     zibei: string,
@@ -75,6 +76,22 @@ type I18nSchema = {
     zibeiPositionOption2: string,
     zibeiLevelError: string
   }
+  treasury: {
+    title: string
+    description: string
+    instruction: string
+    gold: string
+    silver: string
+  }
+  slave: {
+    title: string
+    description: string
+    count: string
+  }
+  menu: {
+    treasury: string
+  }
+  items: Record<string, string>
   common: {
     action: string,
     add: string,
@@ -85,7 +102,9 @@ type I18nSchema = {
   }
 }
 const repo = new FamilyDataRepository()
-const zibeiRepo = new ZiBei_NowRepository()
+const zibeiRepo = new ZiBeiNowRepository()
+const cgNumRepo = new CGNumRepository()
+const nuLiNumRepo = new NuLiNumRepository()
 
 const Family = () => {
   const {t} = useI18nClient<I18nSchema>()
@@ -101,6 +120,21 @@ const Family = () => {
     { value: '0', label: t.family.zibeiPositionOption1 },
     { value: '1', label: t.family.zibeiPositionOption2 },
   ]
+  const [silver, setSilver] = useState('')
+  const [gold, setGold] = useState('')
+  const [value, setValue] = useState<number>(0)
+  /* -------------------------------
+  * Load from LocalStorage
+  * ------------------------------- */
+  useEffect(() => {
+    cgNumRepo.get().then(data => {
+      setSilver(data.silver)
+      setGold(data.gold)
+    })
+  }, [])
+  useEffect(() => {
+    nuLiNumRepo.get().then(setValue)
+  }, [])
 
   const getPositionLabel = (value?: string) =>
     ZIBEI_POSITION_OPTIONS.find(o => o.value === value)?.label ?? t.family.zibeiPositionOption1
@@ -195,17 +229,37 @@ const Family = () => {
     await repo.updateCapacity(v)
   }
 
-  const updateHorsesRemaining = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateStableCapacity = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
-    setFamilyData(p => (p ? {...p, horsesRemaining: v} : p))
-    await repo.updateHorsesRemaining(v)
+    setFamilyData(p => (p ? {...p, stableCapacity: v} : p))
+    await repo.updateStableCapacity(v)
   }
 
+  /* -------------------------------
+   * Handlers (auto save)
+   * ------------------------------- */
+  const onSilverChange = async (value: string) => {
+    setSilver(value)
+    await cgNumRepo.updateSilver(value)
+  }
+
+  const onGoldChange = async (value: string) => {
+    setGold(value)
+    await cgNumRepo.updateGold(value)
+  }
+
+  const onChange = async (v: string) => {
+    const num = Number(v)
+    if (Number.isNaN(num)) return
+
+    setValue(num)
+    await nuLiNumRepo.update(num)
+  }
   return (
     <>
       <CRow>
         <CCol xs={4}>
-          <CCard>
+          <CCard className="mb-3">
             <CCardHeader>
               <CCardTitle>{t.family.title}</CCardTitle>
             </CCardHeader>
@@ -213,24 +267,24 @@ const Family = () => {
             <CCardBody>
               {/* COORDINATES */}
               <CRow className="align-items-center mb-2">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.coordinates}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   {familyData?.coordinates ?? '0|0'}
                 </CCol>
               </CRow>
 
               {/* NAME */}
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.name}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="text"
@@ -240,12 +294,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.level}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -257,12 +311,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.renown}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -273,12 +327,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.influence}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -290,12 +344,12 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
                     {t.family.capacity}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="number"
@@ -306,18 +360,18 @@ const Family = () => {
                 </CCol>
               </CRow>
               <CRow className="align-items-center">
-                <CCol xs={6}>
+                <CCol xs={7}>
                   <label className="form-label mb-0">
-                    {t.family.horsesRemaining}
+                    {t.family.stableCapacity}
                   </label>
                 </CCol>
-                <CCol xs={6}>
+                <CCol xs={5}>
                   <CFormInput
                     size="sm"
                     type="number"
                     min={0}
-                    value={familyData?.horsesRemaining ?? ''}
-                    onChange={updateHorsesRemaining}
+                    value={familyData?.stableCapacity ?? ''}
+                    onChange={updateStableCapacity}
                   />
                 </CCol>
               </CRow>
@@ -325,12 +379,12 @@ const Family = () => {
           </CCard>
         </CCol>
         <CCol xs={5}>
-          <CCard>
+          <CCard className="mb-3">
             <CCardHeader>
               <CCardTitle>{t.family.zibeiTitle}</CCardTitle>
             </CCardHeader>
 
-            <CCardBody>
+            <CCardBody className="p-0">
               <CTable>
                 <CTableHead>
                   <CTableRow>
@@ -439,11 +493,11 @@ const Family = () => {
               </CTable>
             </CCardBody>
           </CCard>
-          <CCard>
+          <CCard className="mb-3">
             <CCardHeader>
               <CCardTitle>{t.family.zibeiListTitle}</CCardTitle>
             </CCardHeader>
-            <CCardBody>
+            <CCardBody className="p-0">
               <CTable>
                 <CTableHead>
                   <CTableRow>
@@ -552,6 +606,76 @@ const Family = () => {
                   ))}
                 </CTableBody>
               </CTable>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol xs={3}>
+          <CCard className="mb-3">
+            <CCardHeader>
+              <CCardTitle>{t.treasury.title}</CCardTitle>
+            </CCardHeader>
+
+            <CCardBody>
+              {/* SILVER */}
+              <CRow className="align-items-center mb-2">
+                <CCol xs={4}>
+                  <label className="form-label mb-0">
+                    {t.treasury.silver}
+                  </label>
+                </CCol>
+                <CCol xs={8}>
+                  <CFormInput
+                    size="sm"
+                    type="number"
+                    min={0}
+                    value={silver}
+                    onChange={e => onSilverChange(e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+
+              {/* GOLD */}
+              <CRow className="align-items-center">
+                <CCol xs={4}>
+                  <label className="form-label mb-0">
+                    {t.treasury.gold}
+                  </label>
+                </CCol>
+                <CCol xs={8}>
+                  <CFormInput
+                    size="sm"
+                    type="number"
+                    min={0}
+                    value={gold}
+                    onChange={e => onGoldChange(e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+            </CCardBody>
+          </CCard>
+          <CCard className="mb-3">
+            <CCardHeader>
+              <CCardTitle>{t.slave.title}</CCardTitle>
+            </CCardHeader>
+
+            <CCardBody>
+
+              <CRow className="align-items-center">
+                <CCol xs={4}>
+                  <label className="form-label mb-0">
+                    {t.slave.count}
+                  </label>
+                </CCol>
+
+                <CCol xs={8}>
+                  <CFormInput
+                    type="number"
+                    min={0}
+                    value={value}
+                    onChange={e => onChange(e.target.value)}
+                  />
+                </CCol>
+              </CRow>
             </CCardBody>
           </CCard>
         </CCol>

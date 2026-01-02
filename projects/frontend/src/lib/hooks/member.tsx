@@ -1,8 +1,8 @@
 'use client'
 
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import { MemberParsed } from '@/lib/members.model'
-import { Member_nowRepository } from '@/lib/repositories/Member_now.repository'
+import { MemberParsed } from '@/lib/models/members'
+import { MemberNowRepository } from '@/lib/repositories/MemberNow'
 
 /**
  * How to use on Page/Component
@@ -25,7 +25,7 @@ export function useMember(rowIndex: number) {
   const [member, setMember] = useState<MemberParsed | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const repo = useMemo(() => new Member_nowRepository(), [])
+  const repo = useMemo(() => new MemberNowRepository(), [])
 
   // Event-driven reload (button click, after update, etc.)
   const reload = useCallback(async () => {
@@ -75,7 +75,7 @@ export function useMember(rowIndex: number) {
 export function useMembers() {
   const [count, setCount] = useState(0)
 
-  const repo = useMemo(() => new Member_nowRepository(), [])
+  const repo = useMemo(() => new MemberNowRepository(), [])
 
   useEffect(() => {
     let cancelled = false

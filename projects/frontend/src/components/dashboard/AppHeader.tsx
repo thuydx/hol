@@ -78,13 +78,13 @@ const AppHeader = (): JSX.Element => {
                              className="btn-primary btn-dark">{t.family}</CDropdownToggle>
             <CDropdownMenu>
               <CDropdownItem href={lhref('/family')}>{t.familyInfo}</CDropdownItem>
-              <CDropdownItem href={lhref('/family/treasury')}>{t.treasury}</CDropdownItem>
               <CDropdownItem href={lhref('/family/members')}>{t.members}</CDropdownItem>
               <CDropdownItem href={lhref('/family/members-in-law')}>{t.membersInLaw}</CDropdownItem>
               <CDropdownItem href={lhref('/family/retainer')}>{t.retainer}</CDropdownItem>
               <CDropdownItem href={lhref('/family/warehouse')}>{t.warehouse}</CDropdownItem>
               <CDropdownItem href={lhref('/family/stable')}>{t.stable}</CDropdownItem>
               <CDropdownItem href={lhref('/family/farm')}>{t.farm}</CDropdownItem>
+              <CDropdownItem href={lhref('/family/military')}>{t.military}</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>
@@ -103,18 +103,7 @@ const AppHeader = (): JSX.Element => {
           </CDropdown>
         </CHeaderNav>
 
-        {/* Army */}
-        <CHeaderNav className="me-2">
-          <CDropdown>
-            <CDropdownToggle href={lhref('/army')} className="btn-primary btn-dark">
-              {t.army}
-            </CDropdownToggle>
-            <CDropdownMenu>
-              <CDropdownItem href={lhref('/army/military')}>{t.military}</CDropdownItem>
-              <CDropdownItem href={lhref('/army/slave')}>{t.slave}</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CHeaderNav>
+
         {/* Things */}
         {/*<CHeaderNav className="me-2">*/}
         {/*  <CButton href={lhref('/items')} className="btn-primary btn-dark">{t.items}</CButton>*/}

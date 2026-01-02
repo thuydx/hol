@@ -43,6 +43,18 @@
       ],
       "@coreui/coreui-pro/*": [
         "./node_modules/@coreui/coreui-pro/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/models/*": [
+        "./src/lib/models/*"
+      ],
+      "@/repositories/*": [
+        "./src/lib/repositories/*"
+      ],
+      "@/hooks/*": [
+        "./src/lib/hooks/*"
       ]
     }
   },

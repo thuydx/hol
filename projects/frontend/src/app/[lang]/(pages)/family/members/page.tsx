@@ -14,14 +14,14 @@ import {
 } from '@coreui/react-pro'
 
 import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react'
-import {useMember, useMembers} from '@/hook/member.hook'
+import {useMember, useMembers} from '@/hooks/member'
 import {useI18nClient} from '@/lib/i18nClient'
 import {
   MemberParsed,
   MemberMonthlyIncrement,
   MemberGrowthBonus,
-} from '@/lib/members.model'
-import {Member_nowRepository} from '@/lib/repositories/Member_now.repository'
+} from '@/lib/models/members'
+import {MemberNowRepository} from '@/lib/repositories/MemberNow'
 
 /* =========================================================
  * Column schema
@@ -454,7 +454,7 @@ function BatchPanel({
   onReload: () => void
 }) {
   const {t} = useI18nClient<any>()
-  const repo = useMemo(() => new Member_nowRepository(), [])
+  const repo = useMemo(() => new MemberNowRepository(), [])
 
   return (
     // <CCard>
@@ -577,19 +577,19 @@ export default function MemberPage() {
   const forceReload = useCallback(() => {
     setVersion(v => v + 1)
   }, [])
-  const repo = useMemo(() => new Member_nowRepository(), [])
+  const repo = useMemo(() => new MemberNowRepository(), [])
   const columns = useMemo(() => buildColumns(t), [t])
 
   /* ================= Batch edit ================= */
-  const batchEdit = async (
-    col: ColumnDef,
-    group: ColumnGroup,
-    value: any,
-  ) => {
-    await repo.batchUpdate((m) =>
-      col.set ? col.set(m, value) : null,
-    )
-  }
+  // const batchEdit = async (
+  //   col: ColumnDef,
+  //   group: ColumnGroup,
+  //   value: any,
+  // ) => {
+  //   await repo.batchUpdate((m) =>
+  //     col.set ? col.set(m, value) : null,
+  //   )
+  // }
 
   return (
     <CRow>

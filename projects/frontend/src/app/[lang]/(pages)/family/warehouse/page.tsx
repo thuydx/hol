@@ -1,174 +1,50 @@
 'use client'
 
 import {
-  CButton, CFormInput,
+  CButton,
   CCard, CCardBody, CCardHeader, CCardText, CCardTitle,
   CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle,
+  CFormInput,
   CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow,
   CToast, CToastBody, CToastHeader
-} from "@coreui/react-pro";
-import React, {useMemo, useEffect, useState} from "react";
-import {useI18nClient} from "@/lib/i18nClient";
-import {Prop_haveRepository} from "@/lib/repositories/Prop_have.repository";
+} from '@coreui/react-pro'
+import { useMemo, useState } from 'react'
+import { useI18nClient } from '@/lib/i18nClient'
+import { useWarehouse } from '@/lib/hooks/warehouse'
+import { ALL_KEY } from '@/lib/models/warehouse'
 
-const ALL_KEY = '__ALL__'
+const WarehousePage = () => {
+  const { t } = useI18nClient<any>()
+  const [toast, setToast] = useState<string | null>(null)
 
-type WarehouseRow = {
-  id: string
-  quantity: string
-}
+  const items = t.items ?? {}
+  const groupItems = t['group-items']?.[0] ?? {}
+  const groupOptions = t['group-item-options'] ?? {}
 
-type I18nSchema = {
-  warehouse: {
-    title: string
-    description: string
-    instruction: string
-    id: string
-    name: string
-    quantity: string
-    actions: string
-    add: string
-    delete: string
-  }
-  uploader: {
-    toastTitle: string
-  }
-  menu: {
-    items: string
-  }
-  common: {
-    all: string
-  }
-  items: Record<string, string>
-  'group-item-options': Record<string, string>
-  'group-items': Array<Record<string, Record<string, string>>>
-}
+  const {
+    warehouse,
+    rightTableData,
+    selectedGroup,
+    setSelectedGroup,
 
-const repo = new Prop_haveRepository()
+    selectedLeft,
+    selectedRight,
 
-const Warehouse = () => {
-  const { t } = useI18nClient<I18nSchema>()
+    toggleLeft,
+    toggleRight,
+    toggleSelectAllLeft,
+    toggleSelectAllRight,
 
-  const itemsDict = t.items
-  const groupItemsRaw = t['group-items']
-  const groupItemOptionsDict = t['group-item-options']
+    isAllLeftSelected,
+    isAllRightSelected,
 
-  const allItems = useMemo(() => itemsDict ?? {}, [itemsDict])
-
-  const groupItems = useMemo<Record<string, Record<string, string>>>(
-    () => groupItemsRaw?.[0] ?? {},
-    [groupItemsRaw],
-  )
-
-  const groupOptions = useMemo(() => groupItemOptionsDict ?? {}, [groupItemOptionsDict])
-
-  const [selectedGroup, setSelectedGroup] = useState<string>(ALL_KEY)
-  const [warehouse, setWarehouse] = useState<WarehouseRow[]>([])
-  const [selectedLeft, setSelectedLeft] = useState<Set<string>>(new Set())
-  const [selectedRight, setSelectedRight] = useState<Set<string>>(new Set())
-  const [toast, setToast] = useState<{ message: string; color: 'success' | 'danger' } | null>(null)
-
-  const rightTableData = useMemo<Record<string, string>>(() => {
-    if (selectedGroup === ALL_KEY) return allItems
-    return groupItems[selectedGroup] ?? {}
-  }, [selectedGroup, allItems, groupItems])
+    addToWarehouse,
+    deleteFromWarehouse,
+    updateQuantity,
+  } = useWarehouse(items, groupItems)
 
   const rightTitle =
     selectedGroup === ALL_KEY ? t.menu.items : groupOptions[selectedGroup] ?? selectedGroup
-
-  const loadWarehouse = async () => {
-    const rows = await repo.all()
-    setWarehouse(
-      rows.map((r) => ({
-        id: r[0],
-        quantity: r[1] ?? '1',
-      })),
-    )
-  }
-
-  useEffect(() => {
-    let cancelled = false
-
-    const run = async () => {
-      const rows = await repo.all()
-      if (cancelled) return
-      setWarehouse(
-        rows.map((r) => ({
-          id: r[0],
-          quantity: r[1] ?? '1',
-        })),
-      )
-    }
-
-    void run()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  const toggleLeft = (id: string) => {
-    setSelectedLeft((prev) => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      return next
-    })
-  }
-
-  const toggleRight = (id: string) => {
-    setSelectedRight((prev) => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      return next
-    })
-  }
-
-  const addToWarehouse = async () => {
-    const exists = new Set(warehouse.map((w) => w.id))
-    const toAdd = Array.from(selectedRight).filter((id) => !exists.has(id))
-
-    for (const id of toAdd) {
-      await repo.createRow([id, '1'])
-    }
-
-    if (toAdd.length) {
-      setToast({ message: `${toAdd.length} item(s) added`, color: 'success' })
-      await loadWarehouse()
-    }
-
-    setSelectedRight(new Set())
-  }
-
-  const deleteFromWarehouse = async () => {
-    const toDelete = new Set(selectedLeft)
-
-    await repo.deleteWhere((row) => toDelete.has(row[0]))
-
-    setToast({ message: `${toDelete.size} item(s) removed`, color: 'success' })
-    setSelectedLeft(new Set())
-    await loadWarehouse()
-  }
-
-  const updateQty = async (id: string, value: string) => {
-    setWarehouse((w) => w.map((row) => (row.id === id ? { ...row, quantity: value } : row)))
-    await repo.update_COL_1(id, value)
-  }
-
-  const allLeftIds = warehouse.map((w) => w.id)
-  const isAllLeftSelected = allLeftIds.length > 0 && allLeftIds.every((id) => selectedLeft.has(id))
-
-  const toggleSelectAllLeft = () => {
-    setSelectedLeft(isAllLeftSelected ? new Set() : new Set(allLeftIds))
-  }
-
-  const allRightIds = Object.keys(rightTableData)
-  const isAllRightSelected =
-    allRightIds.length > 0 && allRightIds.every((id) => selectedRight.has(id))
-
-  const toggleSelectAllRight = () => {
-    setSelectedRight(isAllRightSelected ? new Set() : new Set(allRightIds))
-  }
-
   return (
     <>
       {/* INFO */}
@@ -183,27 +59,17 @@ const Warehouse = () => {
           </CCard>
         </CCol>
       </CRow>
-
       {/* TOAST */}
       {toast && (
-        <div style={{position: 'fixed', top: 16, right: 16, zIndex: 9999}}>
-          <CToast
-            visible
-            autohide
-            delay={3000}
-            color={toast.color}
-            onClose={() => setToast(null)}
-          >
+        <CToast visible autohide delay={3000} color="success" onClose={() => setToast(null)}>
             <CToastHeader closeButton>
               <strong className="me-auto">
                 {t.uploader.toastTitle}
               </strong>
             </CToastHeader>
-            <CToastBody>{toast.message}</CToastBody>
-          </CToast>
-        </div>
+          <CToastBody>{toast}</CToastBody>
+        </CToast>
       )}
-
       <CRow className="mt-3">
 
         {/* LEFT — WAREHOUSE */}
@@ -242,13 +108,13 @@ const Warehouse = () => {
                         {row.id}
                       </CTableDataCell>
                       <CTableDataCell role="button" onClick={() => toggleLeft(row.id)}>
-                        {allItems[row.id]}
+                        {items[row.id]}
                       </CTableDataCell>
                       <CTableDataCell>
                         <CFormInput
                           size="sm"
                           value={row.quantity}
-                          onChange={e => updateQty(row.id, e.target.value)}
+                          onChange={e => updateQuantity(row.id, e.target.value)}
                         />
                       </CTableDataCell>
                     </CTableRow>
@@ -359,4 +225,4 @@ const Warehouse = () => {
   )
 }
 
-export default Warehouse
+export default WarehousePage
