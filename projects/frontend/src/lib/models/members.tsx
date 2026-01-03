@@ -746,7 +746,7 @@ export function serializeAll(parsed: MemberParsed, baseRow?: MemberRawRow): Memb
   // clone để giữ unknown field nếu có
   const row: MemberRawRow = baseRow
     ? [...baseRow]
-    : Array(43).fill('0')
+    : new Array(43).fill('0')
 
   /* 0 */
   row[MemberColumnMap.id] = parsed.id

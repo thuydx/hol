@@ -55,6 +55,15 @@
       ],
       "@/hooks/*": [
         "./src/lib/hooks/*"
+      ],
+      "@/types/*": [
+        "./src/lib/types/*"
+      ],
+      "@/columns/*": [
+        "./src/lib/columns/*"
+      ],
+      "@/constants/*": [
+        "./src/lib/constants/*"
       ]
     }
   },

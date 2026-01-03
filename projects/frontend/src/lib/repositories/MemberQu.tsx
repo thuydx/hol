@@ -2,7 +2,9 @@ import { BaseRepository } from '@/lib/baseRepository'
 import {
   MemberQuColumn,
   MemberQuParsed,
+  MemberQuRawRow, serializeRow, deserializeRow,
 } from '@/lib/models/memberQu'
+import {MemberColumn, MemberParsed, MemberRawRow} from "@/models/members";
 
 /**
  * Repository quản lý Member_qu (dâu / rể)
@@ -11,115 +13,63 @@ import {
 export class MemberQuRepository extends BaseRepository {
   protected sectionKey = 'Member_qu'
 
-  /**
-   * Parse toàn bộ Member_qu → object dùng cho UI
-   */
-  async deserializeAll(): Promise<MemberQuParsed[]> {
-    const rows = await this.getRows()
+  /* =======================
+   * READ
+   * ======================= */
 
-    return rows.map((row: string[]): MemberQuParsed => ({
-      id: row[MemberQuColumn.ID],
-      appearance: row[MemberQuColumn.APPEARANCE],
-      personData: row[MemberQuColumn.PERSON_DATA],
-      children: row[MemberQuColumn.CHILDREN],
-      housing: row[MemberQuColumn.HOUSING],
+  async getAllParsed(): Promise<MemberQuParsed[]> {
+    const rows = await this.getRows<MemberQuRawRow[]>()
+    if (!Array.isArray(rows)) return []
+    return rows.map(r => deserializeRow(r))
+  }
 
-      age: Number(row[MemberQuColumn.AGE]),
-      martial: Number(row[MemberQuColumn.MARTIAL]),
-      literary: Number(row[MemberQuColumn.LITERARY]),
-      business: Number(row[MemberQuColumn.BUSINESS]),
-      art: Number(row[MemberQuColumn.ART]),
-      mood: Number(row[MemberQuColumn.MOOD]),
-      merits: Number(row[MemberQuColumn.MERITS]),
-      reputation: Number(row[MemberQuColumn.REPUTATION]),
-      maritalStatus: Number(row[MemberQuColumn.MARITAL_STATUS]),
-
-      equipment: row[MemberQuColumn.EQUIPMENT],
-      charm: Number(row[MemberQuColumn.CHARM]),
-      health: Number(row[MemberQuColumn.HEALTH]),
-
-      pregnancyMonth: Number(row[MemberQuColumn.PREGNANCY_MONTH]),
-      pregnancyStatus: Number(row[MemberQuColumn.PREGNANCY_STATUS]),
-
-      strategy: Number(row[MemberQuColumn.STRATEGY]),
-      stamina: Number(row[MemberQuColumn.STAMINA]),
-
-      monthlyIncrement: row[MemberQuColumn.MONTHLY_INCREMENT],
-      growthBonus: row[MemberQuColumn.GROWTH_BONUS],
-
-      skillPoint: Number(row[MemberQuColumn.SKILL_POINT]),
-      workPlace: row[MemberQuColumn.WORK_PLACE],
-      task: row[MemberQuColumn.TASK],
-    }))
+  async getParsed(index: number): Promise<MemberQuParsed | null> {
+    const rows = await this.getRows<MemberQuRawRow[]>()
+    if (!rows?.[index]) return null
+    return deserializeRow(rows[index])
   }
 
   /* =======================
-   * UPDATE
+   * UPDATE – SINGLE RECORD
    * ======================= */
 
-  /**
-   * Update 1 cell theo rowIndex + columnIndex
-   * (API CHUẨN của BaseRepository)
-   */
-  async updateCell(
-    rowIndex: number,
-    columnIndex: number,
-    value: string
+  async updateParsed(
+    index: number,
+    updater: (m: MemberQuParsed) => MemberQuParsed,
   ): Promise<void> {
-    await this.updateColumnByIndex(rowIndex, columnIndex, value)
-  }
+    const rows = await this.getRows<MemberQuRawRow[]>()
+    if (!rows?.[index]) return
 
-  /* =======================
-   * WRITE (BATCH)
-   * ======================= */
+    const next = updater(deserializeRow(rows[index]))
+    rows[index] = serializeRow(next, rows[index])
 
-  /**
-   * Ghi lại toàn bộ Member_qu
-   */
-  async writeAll(members: MemberQuParsed[]): Promise<void> {
-    const rows = this.serializeAll(members)
     await this.setValue(rows)
   }
 
   /* =======================
-   * SERIALIZE
+   * UPDATE – MULTI RECORDS
    * ======================= */
 
-  /**
-   * Convert object → raw rows (string[][])
-   */
-  serializeAll(members: MemberQuParsed[]): string[][] {
-    return members.map((m): string[] => {
-      const row: string[] = []
+  async batchUpdate(
+    updater: (m: MemberQuParsed, index: number) => MemberQuParsed | null,
+  ): Promise<void> {
+    const rows = await this.getRows<MemberQuRawRow[]>()
+    if (!rows) return
 
-      row[MemberQuColumn.ID] = m.id
-      row[MemberQuColumn.APPEARANCE] = m.appearance
-      row[MemberQuColumn.PERSON_DATA] = m.personData
-      row[MemberQuColumn.CHILDREN] = m.children
-      row[MemberQuColumn.HOUSING] = m.housing
-      row[MemberQuColumn.AGE] = String(m.age)
-      row[MemberQuColumn.MARTIAL] = String(m.martial)
-      row[MemberQuColumn.LITERARY] = String(m.literary)
-      row[MemberQuColumn.BUSINESS] = String(m.business)
-      row[MemberQuColumn.ART] = String(m.art)
-      row[MemberQuColumn.MOOD] = String(m.mood)
-      row[MemberQuColumn.MERITS] = String(m.merits)
-      row[MemberQuColumn.REPUTATION] = String(m.reputation)
-      row[MemberQuColumn.MARITAL_STATUS] = String(m.maritalStatus)
-      row[MemberQuColumn.EQUIPMENT] = m.equipment
-      row[MemberQuColumn.CHARM] = String(m.charm)
-      row[MemberQuColumn.HEALTH] = String(m.health)
-      row[MemberQuColumn.PREGNANCY_MONTH] = String(m.pregnancyMonth)
-      row[MemberQuColumn.PREGNANCY_STATUS] = String(m.pregnancyStatus)
-      row[MemberQuColumn.STRATEGY] = String(m.strategy)
-      row[MemberQuColumn.STAMINA] = String(m.stamina)
-      row[MemberQuColumn.MONTHLY_INCREMENT] = m.monthlyIncrement
-      row[MemberQuColumn.GROWTH_BONUS] = m.growthBonus
-      row[MemberQuColumn.SKILL_POINT] = String(m.skillPoint)
-      row[MemberQuColumn.WORK_PLACE] = m.workPlace
-      row[MemberQuColumn.TASK] = m.task
+    let changed = false
 
-      return row
+    rows.forEach((row, i) => {
+      const parsed = deserializeRow(row)
+      const next = updater(parsed, i)
+      if (next) {
+        rows[i] = serializeRow(next, row)
+        changed = true
+      }
     })
+
+    if (changed) {
+      await this.setValue(rows)
+    }
   }
 }
+

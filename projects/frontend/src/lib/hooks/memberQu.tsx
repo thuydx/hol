@@ -1,47 +1,45 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import {MemberQuRepository} from "@/repositories/MemberQu";
-import {MemberQuColumn, MemberQuParsed} from "@/models/memberQu";
+import {useCallback, useMemo} from 'react'
+import { MemberQuRepository } from '@/lib/repositories/MemberQu'
+import { MemberQuParsed } from '@/lib/models/memberQu'
+import { useRowEditor } from '@/lib/hooks/useRowEditor'
+import { useTableEditor } from '@/lib/hooks/useTableEditor'
 
-export function useMemberQu(rowIndex: number) {
+/* =======================
+ * ROW (1 MEMBER QU)
+ * ======================= */
+
+export function useMemberQu(index: number) {
   const repo = useMemo(() => new MemberQuRepository(), [])
-  const [member, setMember] = useState<MemberQuParsed | null>(null)
-  const [loading, setLoading] = useState(false)
 
-  /* =======================
-   * LOAD (MANUAL – NO useEffect)
-   * ======================= */
-  const load = useCallback(async () => {
-    setLoading(true)
-    const rows = await repo.deserializeAll()
-    setMember(rows[rowIndex] ?? null)
-    setLoading(false)
-  }, [repo, rowIndex])
-
-  /* =======================
-   * UPDATE (CELL LEVEL)
-   * ======================= */
-  const updateField = useCallback(
-    async (colIndex: MemberQuColumn, value: string) => {
-      if (!member) return
-
-      // update UI trước
-      setMember(prev => {
-        if (!prev) return prev
-        const next = { ...prev }
-        ;(next as any)[colIndex] = value
-        return next
-      })
-
-      // persist
-      await repo.updateColumnByIndex(rowIndex, colIndex, value)
-    },
-    [repo, rowIndex, member]
+  const loadRow = useCallback(
+    (i: number) => repo.getParsed(i),
+    [repo],
   )
 
-  return {
-    member,
-    loading,
-    load,        // 👈 component gọi
-    updateField,
-  }
+  const updateRow = useCallback(
+    (i: number, updater: (row: MemberQuParsed) => MemberQuParsed) =>
+      repo.updateParsed(i, updater),
+    [repo],
+  )
+
+  return useRowEditor<MemberQuParsed>({
+    index,
+    loadRow,
+    updateRow,
+  })
+}
+
+/* =======================
+ * TABLE (N MEMBER QU)
+ * ======================= */
+
+export function useMembersQu() {
+  const repo = useMemo(() => new MemberQuRepository(), [])
+
+  return useTableEditor({
+    loadCount: async () => {
+      const rows = await repo.all()
+      return Array.isArray(rows) ? rows.length : 0
+    },
+  })
 }

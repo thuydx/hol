@@ -1,5 +1,117 @@
 'use client'
 
+import { useEffect, useMemo } from 'react'
+import { useI18nClient } from '@/lib/i18nClient'
+
+import { TableEditor } from '@/components/table/TableEditor'
+import { InputCell } from '@/components/table/InputCell'
+import { MaxAttributeButton } from '@//components/button/MaxAttributeButton'
+
+import { buildMemberQuColumns } from '@/columns/memberQu'
+import { useMemberQu, useMembersQu } from '@/lib/hooks/memberQu'
+import { useBatchEditor } from '@/lib/hooks/useBatchEditor'
+
+import { MemberQuRepository } from '@/lib/repositories/MemberQu'
+import { MemberQuParsed } from '@/lib/models/memberQu'
+import {CTableDataCell, CTableRow} from "@coreui/react-pro";
+import {ColumnSchema} from "@/columns/buildBaseColumns";
+
+/* =========================================================
+ * Row
+ * ========================================================= */
+
+function MemberQuRow({
+                       index,
+                       registerReload,
+                       unregisterReload,
+                     }: {
+  index: number
+  registerReload: (index: number, fn: () => void) => void
+  unregisterReload: (index: number) => void
+}) {
+  const { t } = useI18nClient<any>()
+  const { row: member, update, load, loading } = useMemberQu(index)
+  const columns = useMemo(() => buildMemberQuColumns(t), [t])
+
+  /* register reload */
+  useEffect(() => {
+    registerReload(index, load)
+    return () => {
+      unregisterReload(index)
+    }
+  }, [index, load, registerReload, unregisterReload])
+
+  /* initial load */
+  useEffect(() => {
+    void load()
+  }, [load])
+
+  if (loading || !member) {
+    return null
+  }
+
+  return (
+    <CTableRow>
+      <CTableDataCell>{member.id}</CTableDataCell>
+      {columns.map(col => (
+        <CTableDataCell key={col.key}>
+          {col.render ? (
+            col.render(member, update, t)
+          ) : (
+            <InputCell
+              value={col.get(member)}
+              type={col.input}
+              onChange={v => update(m => col.set(m, v))}
+            />
+          )}
+        </CTableDataCell>
+      ))}
+    </CTableRow>
+  )
+}
+
+/* =========================================================
+ * Page
+ * ========================================================= */
+export default function MemberQuPage() {
+  const { t } = useI18nClient<any>()
+  const repo = useMemo(() => new MemberQuRepository(), [])
+  // const columns = useMemo(() => buildMemberQuColumns(t), [t])
+  const columns = useMemo<ColumnSchema<MemberQuParsed>>(
+    () => buildMemberQuColumns(t),
+    [t],
+  )
+  const { indexes, load } = useMembersQu()
+
+  useEffect(() => {
+    void load()
+  }, [load])
+
+  return (
+    <TableEditor<MemberQuParsed>
+      title={t.memberQu?.title ?? 'Members In Law'}
+      columns={columns}
+      indexes={indexes}
+      renderHeaderActions={({ reloadAllRows }) => (
+        <MaxAttributeButton
+          label={t.memberQu?.batch?.maxAll ?? 'Max All'}
+          onClick={async () => {
+            await repo.batchUpdate(row => columns.maxAll(row))
+            reloadAllRows()
+          }}
+        />
+      )}
+      renderRow={(index, helpers) => (
+        <MemberQuRow
+          key={index}
+          index={index}
+          registerReload={helpers.registerReload}
+          unregisterReload={helpers.unregisterReload}
+        />
+      )}
+    />
+  )
+}
 /**
  * Data example
  * "Member_qu": {
@@ -40,294 +152,3 @@
  *                 "7|5|0"  // TASK = 32 (JOB/WORK in Familu) 3|30000|0 TASKID | Money |
  *             ],
  */
-
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CTable,
-  CTableHead,
-  CTableBody,
-  CTableRow,
-  CTableHeaderCell,
-  CTableDataCell,
-  CRow,
-  CCol,
-} from '@coreui/react-pro'
-
-import {useCallback, useEffect, useMemo, useState} from 'react'
-import { useI18nClient } from '@/lib/i18nClient'
-import { useMemberQu } from '@/hooks/memberQu'
-import { MemberQuParsed, MemberQuColumn } from '@/models/memberQu'
-import {MemberQuRepository} from "@/repositories/MemberQu";
-
-/* =========================================================
- * Column schema
- * ========================================================= */
-
-type ColumnDef = {
-  key: string
-  labelKey: string
-  width?: number | string
-  input?: 'text' | 'number'
-  get: (m: MemberQuParsed) => any
-  colIndex: MemberQuColumn
-}
-
-function buildColumns(): ColumnDef[] {
-  return [
-    {
-      key: 'age',
-      labelKey: 'age',
-      width: 50,
-      input: 'number',
-      colIndex: MemberQuColumn.AGE,
-      get: m => m.age,
-    },
-    {
-      key: 'literary',
-      labelKey: 'literary',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.LITERARY,
-      get: m => m.literary,
-    },
-    {
-      key: 'martial',
-      labelKey: 'martial',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.MARTIAL,
-      get: m => m.martial,
-    },
-    {
-      key: 'business',
-      labelKey: 'business',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.BUSINESS,
-      get: m => m.business,
-    },
-    {
-      key: 'art',
-      labelKey: 'art',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.ART,
-      get: m => m.art,
-    },
-    {
-      key: 'mood',
-      labelKey: 'mood',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.MOOD,
-      get: m => m.mood,
-    },
-    {
-      key: 'reputation',
-      labelKey: 'reputation',
-      width: 70,
-      input: 'number',
-      colIndex: MemberQuColumn.REPUTATION,
-      get: m => m.reputation,
-    },
-    {
-      key: 'charm',
-      labelKey: 'charm',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.CHARM,
-      get: m => m.charm,
-    },
-    {
-      key: 'health',
-      labelKey: 'health',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.HEALTH,
-      get: m => m.health,
-    },
-    {
-      key: 'strategy',
-      labelKey: 'strategy',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.STRATEGY,
-      get: m => m.strategy,
-    },
-    {
-      key: 'stamina',
-      labelKey: 'stamina',
-      width: 60,
-      input: 'number',
-      colIndex: MemberQuColumn.STAMINA,
-      get: m => m.stamina,
-    },
-    {
-      key: 'skillPoint',
-      labelKey: 'skillPoint',
-      width: 70,
-      input: 'number',
-      colIndex: MemberQuColumn.SKILL_POINT,
-      get: m => m.skillPoint,
-    },
-    {
-      key: 'pregnancyStatus',
-      labelKey: 'pregnancy',
-      width: 70,
-      input: 'number',
-      colIndex: MemberQuColumn.PREGNANCY_STATUS,
-      get: m => m.pregnancyStatus,
-    },
-    {
-      key: 'pregnancyMonth',
-      labelKey: 'pregMonth',
-      width: 70,
-      input: 'number',
-      colIndex: MemberQuColumn.PREGNANCY_MONTH,
-      get: m => m.pregnancyMonth,
-    },
-  ]
-}
-
-/* =========================================================
- * Cell
- * ========================================================= */
-
-function InputCell({
-                     value,
-                     type,
-                     onChange,
-                   }: {
-  value: any
-  type?: 'text' | 'number'
-  onChange: (v: any) => void
-}) {
-  return (
-    <input
-      type={type ?? 'text'}
-      value={value ?? ''}
-      onChange={e =>
-        onChange(
-          type === 'number'
-            ? Number(e.target.value)
-            : e.target.value,
-        )
-      }
-      style={{ width: '100%' }}
-    />
-  )
-}
-
-/* =========================================================
- * Row
- * ========================================================= */
-
-function MemberQuRow({ index }: { index: number }) {
-  const { member, loading, load, updateField } =
-    useMemberQu(index)
-
-  const columns = useMemo(() => buildColumns(), [])
-
-  if (!member && !loading) load()
-
-  if (loading || !member) {
-    return (
-      <CTableRow>
-        <CTableDataCell colSpan={columns.length + 1}>
-          Loading…
-        </CTableDataCell>
-      </CTableRow>
-    )
-  }
-
-  return (
-    <CTableRow>
-      <CTableDataCell>{member.id}</CTableDataCell>
-
-      {columns.map(col => (
-        <CTableDataCell
-          key={col.key}
-          style={col.width ? { width: col.width } : undefined}
-        >
-          <InputCell
-            value={col.get(member)}
-            type={col.input}
-            onChange={v =>
-              updateField(col.colIndex, String(v))
-            }
-          />
-        </CTableDataCell>
-      ))}
-    </CTableRow>
-  )
-}
-
-/* =========================================================
- * Page
- * ========================================================= */
-
-export default function MemberQuPage() {
-  const { t } = useI18nClient<any>()
-  const repo = useMemo(() => new MemberQuRepository(), [])
-  const columns = useMemo(() => buildColumns(), [])
-
-  const [indexes, setIndexes] = useState<number[]>([])
-  const [version, setVersion] = useState(0)
-
-  const forceReload = useCallback(() => {
-    setVersion(v => v + 1)
-  }, [])
-
-  useEffect(() => {
-    repo.all().then(rows => {
-      setIndexes(rows.map((_, i) => i))
-    })
-  }, [repo, version])
-
-  return (
-    <CRow>
-      <CCol md={12}>
-        <CCard>
-          <CCardHeader>
-            <span className="fw-semibold">
-              {t.memberQu?.title ?? 'External Members'}
-            </span>
-          </CCardHeader>
-
-          <CCardBody style={{ overflowX: 'auto' }}>
-            <CTable key={version} striped hover small>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell style={{ width: 60 }}>
-                    ID
-                  </CTableHeaderCell>
-                  {columns.map(col => (
-                    <CTableHeaderCell
-                      key={col.key}
-                      style={
-                        col.width
-                          ? { width: col.width }
-                          : undefined
-                      }
-                    >
-                      {t.memberQu?.fields?.[col.labelKey] ??
-                        col.key}
-                    </CTableHeaderCell>
-                  ))}
-                </CTableRow>
-              </CTableHead>
-
-              <CTableBody>
-                {indexes.map(i => (
-                  <MemberQuRow key={i} index={i} />
-                ))}
-              </CTableBody>
-            </CTable>
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
-  )
-}
