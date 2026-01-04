@@ -130,4 +130,19 @@ export class MemberNowRepository extends BaseRepository {
 
     await this.setValue(rows)
   }
+
+  async getChiefMember(): Promise<MemberParsed | null> {
+    const rows = await this.getRows<MemberRawRow[]>()
+
+    for (const row of rows) {
+      const parsed = deserializeAll(row)
+      if (parsed.isHeadOfFamily) {
+        return parsed
+      }
+    }
+
+    return null
+  }
+
+
 }

@@ -1,10 +1,8 @@
 import { BaseRepository } from '@/lib/baseRepository'
 import {
-  MemberQuColumn,
   MemberQuParsed,
   MemberQuRawRow, serializeRow, deserializeRow,
 } from '@/lib/models/memberQu'
-import {MemberColumn, MemberParsed, MemberRawRow} from "@/models/members";
 
 /**
  * Repository quản lý Member_qu (dâu / rể)

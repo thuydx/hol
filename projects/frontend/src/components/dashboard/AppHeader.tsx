@@ -84,7 +84,7 @@ const AppHeader = (): JSX.Element => {
               <CDropdownItem href={lhref('/family/warehouse')}>{t.warehouse}</CDropdownItem>
               <CDropdownItem href={lhref('/family/stable')}>{t.stable}</CDropdownItem>
               <CDropdownItem href={lhref('/family/farm')}>{t.farm}</CDropdownItem>
-              <CDropdownItem href={lhref('/family/military')}>{t.military}</CDropdownItem>
+              <CDropdownItem href={lhref('/family/fief')}>{t.fief}</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CHeaderNav>

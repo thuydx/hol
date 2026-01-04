@@ -24,23 +24,22 @@ export function useHorseHave() {
    * ======================= */
   useEffect(() => {
     let mounted = true
-
     ;(async () => {
       if (!mounted) return
       await load()
     })()
-
     return () => {
       mounted = false
     }
   }, [load])
+
 
   /* ---------- Derived ---------- */
 
   const usedOwnerIds = useMemo(
     () =>
       new Set(
-        rows.map(r => r[6]).filter((v): v is string => Boolean(v))
+        rows.map(r => r[6]).filter(v => v !== 'null')
       ),
     [rows]
   )
@@ -63,13 +62,14 @@ export function useHorseHave() {
     colIndex: number,
     value: string
   ) => {
-    await repo.updateByIndex(rowIndex, colIndex, value)
+    const v = value === '' ? 'null' : value
+    await repo.updateByIndex(rowIndex, colIndex, v)
 
     // optimistic update
     setRows(prev => {
       const next = [...prev]
       next[rowIndex] = [...next[rowIndex]]
-      next[rowIndex][colIndex] = value
+      next[rowIndex][colIndex] = v
       return next
     })
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import {useEffect, useMemo, useRef} from 'react'
 import { useI18nClient } from '@/lib/i18nClient'
 
 import { TableEditor } from '@/components/table/TableEditor'
@@ -9,7 +9,6 @@ import { MaxAttributeButton } from '@//components/button/MaxAttributeButton'
 
 import { buildMemberQuColumns } from '@/columns/memberQu'
 import { useMemberQu, useMembersQu } from '@/lib/hooks/memberQu'
-import { useBatchEditor } from '@/lib/hooks/useBatchEditor'
 
 import { MemberQuRepository } from '@/lib/repositories/MemberQu'
 import { MemberQuParsed } from '@/lib/models/memberQu'
@@ -20,15 +19,11 @@ import {ColumnSchema} from "@/columns/buildBaseColumns";
  * Row
  * ========================================================= */
 
-function MemberQuRow({
-                       index,
-                       registerReload,
-                       unregisterReload,
-                     }: {
+function MemberQuRow({index, registerReload, unregisterReload,}: Readonly<{
   index: number
   registerReload: (index: number, fn: () => void) => void
   unregisterReload: (index: number) => void
-}) {
+}>) {
   const { t } = useI18nClient<any>()
   const { row: member, update, load, loading } = useMemberQu(index)
   const columns = useMemo(() => buildMemberQuColumns(t), [t])
@@ -76,13 +71,12 @@ function MemberQuRow({
 export default function MemberQuPage() {
   const { t } = useI18nClient<any>()
   const repo = useMemo(() => new MemberQuRepository(), [])
-  // const columns = useMemo(() => buildMemberQuColumns(t), [t])
   const columns = useMemo<ColumnSchema<MemberQuParsed>>(
     () => buildMemberQuColumns(t),
     [t],
   )
-  const { indexes, load } = useMembersQu()
-
+  const { indexes, load, forceReload } = useMembersQu()
+  const rowReloaders = useRef(new Map<number, () => void>())
   useEffect(() => {
     void load()
   }, [load])
@@ -92,16 +86,20 @@ export default function MemberQuPage() {
       title={t.memberQu?.title ?? 'Members In Law'}
       columns={columns}
       indexes={indexes}
-      renderHeaderActions={({ reloadAllRows }) => (
+      renderHeaderAction={() => (
         <MaxAttributeButton
-          label={t.memberQu?.batch?.maxAll ?? 'Max All'}
+          label={t.member?.batch?.maxAll ?? 'Max All'}
           onClick={async () => {
             await repo.batchUpdate(row => columns.maxAll(row))
-            reloadAllRows()
+            forceReload()
+            // reloadAllRows()
+            rowReloaders.current.forEach(fn => {
+              fn()
+            })
           }}
         />
       )}
-      renderRow={(index, helpers) => (
+      renderRowAction={(index, helpers) => (
         <MemberQuRow
           key={index}
           index={index}
@@ -118,8 +116,8 @@ export default function MemberQuPage() {
  *         "value": [
  *             [
  *                 "M102", // ID = 0,
- *                 "16|17|2|0", // APPEARANCE = 1  compound Back Hair|Body|Face Shape|Front Hair
- *                 "Nhan Khả Hàm|2|2|100|0|68|2|100|8|M199|4|M97",  // PERSON_DATA = 2 compound Character Name|Clan|Talent|Talent Potential|Gender|Life Span|Skill|Luck|Trait|Marry to #|Hobby|?
+ *                 "16|17|2|0", // APPEARANCE = 1 compound Back Hair|Body|Face Shape|Front Hair
+ *                 "Nhan Khả Hàm|2|2|100|0|68|2|100|8|M199|4|M97", // PERSON_DATA = 2 compound Character Name|Clan|Talent|Talent Potential|Gender|Life Span|Skill|Luck|Trait|Marry to #|Hobby|?
  *                 "M234|M372|M373",  // CHILDREN = 3
  *                 "1|LTB22816|null|5",  // HOUSING = 4
  *                 "43",  // AGE = 5,
@@ -149,6 +147,6 @@ export default function MemberQuPage() {
  *                 "1",     // COL_29
  *                 "0@0@0@-1@-1|0",  // COL_30/
  *                 "100|100",  // WORK_PLACE = 31 compound x|y
- *                 "7|5|0"  // TASK = 32 (JOB/WORK in Familu) 3|30000|0 TASKID | Money |
+ *                 "7|5|0"  // TASK = 32 (JOB/WORK in Family) 3|30000|0 TASK_ID | Money |
  *             ],
  */

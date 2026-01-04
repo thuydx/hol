@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {
   CButton,
   CCard,
@@ -63,10 +63,23 @@ const StablePage = () => {
   )
 
   /* ---------- Load members ---------- */
-  if (members.length === 0) {
-    void getRows('Member_now').then(setMembers)
-  }
+  // if (members.length === 0) {
+  //   void getRows('Member_now').then(setMembers)
+  // }
+  useEffect(() => {
+    let mounted = true
 
+    ;(async () => {
+      const data = await getRows('Member_now')
+      if (mounted) {
+        setMembers(data)
+      }
+    })()
+
+    return () => {
+      mounted = false
+    }
+  }, [])
   /* ---------- Owner helpers ---------- */
 
   const allOwners = useMemo(() => {
@@ -83,7 +96,7 @@ const StablePage = () => {
     const usedByOtherRows = new Set(
       rows
         .map((r, i) => (i !== rowIndex ? r[6] : null))
-        .filter((v): v is string => Boolean(v))
+        .filter(v => v && v !== 'null')
     )
 
     return allOwners.filter(
@@ -230,12 +243,12 @@ const StablePage = () => {
                       <CTableDataCell>
                         <CFormSelect
                           size="sm"
-                          value={row[6] ?? ''}
+                          value={row[6]}
                           onChange={e =>
                             updateCell(rowIndex, 6, e.target.value)
                           }
                         >
-                          <option value="">—</option>
+                          <option value="null">—</option>
                           {getAvailableOwnersForRow(rowIndex).map(o => (
                             <option key={o.id} value={o.id}>
                               {o.name}
@@ -282,14 +295,14 @@ const StablePage = () => {
 
               <CFormSelect
                 size="sm"
-                value={form[6] ?? ''}
+                value={form[6]}
                 onChange={e => {
                   const next = [...form] as HorseHaveRow
-                  next[6] = e.target.value || null
+                  next[6] = e.target.value
                   setForm(next)
                 }}
               >
-                <option value="">—</option>
+                <option value="null">—</option>
                 {allOwners.map(o => (
                   <option key={o.id} value={o.id}>
                     {o.name}

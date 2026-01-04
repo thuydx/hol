@@ -9,7 +9,7 @@ export type HorseHaveRow = [
   string,          // COL_3 power
   string,          // COL_4 speed
   string,          // COL_5 smart
-  string | null    // COL_6 owner (Member ID)
+  string    // COL_6 owner (Member ID)
 ]
 
 export const DEFAULT_HORSE_HAVE_ROW: HorseHaveRow = [
@@ -19,5 +19,5 @@ export const DEFAULT_HORSE_HAVE_ROW: HorseHaveRow = [
   '100',
   '100',
   '100',
-  null,
+  "null",
 ]

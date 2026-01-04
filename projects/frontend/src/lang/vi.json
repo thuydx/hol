@@ -4,12 +4,20 @@
     "description": "Trang chủ"
   },
   "common": {
-    "all": "Tất cả",
+    "all": "Tất Cả",
     "action": "Thao Tác",
-    "add": "Thêm",
-    "edit": "Sửa",
     "delete": "Xóa",
-    "export": "Xuất file"
+    "add": "Thêm",
+    "edit": "Chỉnh Sửa",
+    "export": "Xuất",
+    "maxAll": "Tối Đa Hóa",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "search": "Tìm Kiếm",
+    "reset": "Đặt Lại",
+    "move": "Di Chuyển",
+    "confirm": "Xác Nhận",
+    "noData": "Không Có Dữ Liệu"
   },
   "family": {
     "title": "Gia Tộc",
@@ -29,7 +37,13 @@
     "zibeiPosition": "Vị Trí",
     "zibeiPositionOption1": "Chữ thứ 2",
     "zibeiPositionOption2": "Chữ thứ 3",
-    "zibeiLevelError": "Đời Thứ phải là số nguyên dương và không được trùng."
+    "zibeiLevelError": "Đời Thứ phải là số nguyên dương và không được trùng.",
+    "headman": {
+      "title": "Tộc Trưởng",
+      "name": "Tên",
+      "officialTitle": "Chức Vị",
+      "fengdiTitle": "Tước Vị"
+    }
   },
   "member": {
     "title": "Quản lý thành viên",
@@ -60,7 +74,9 @@
       "talentPos": "Điểm thiên phú",
       "skills": "Kỹ năng",
       "luck": "Khí vận",
-      "hobby": "Sở thích"
+      "hobby": "Sở thích",
+      "pregnancy": "Thai",
+      "pregMonth": "Tháng thai"
     },
     "batch": {
       "title": "Cập nhật hàng loạt",
@@ -164,6 +180,9 @@
       }
     }
   },
+  "memberQu": {
+    "title": "Dâu Rể ngoại tộc"
+  },
   "farm": {
     "title": "Quản lý Nông Trại",
     "instruction": "Nhấn vào khu \"Bỏ Hoang\" để chuyển qua thành \"Sở Hữu\" và ngược lại nhấn vào khu \"Sở Hữu\" để chuyển qua thành \"Bỏ Hoang\".",
@@ -187,9 +206,9 @@
       "ABANDONED": "Bỏ Hoang"
     }
   },
-  "military": {
-    "title": "Doanh Trại",
-    "add": "Thêm Doanh Trại",
+  "fengdi": {
+    "title": "Phong Địa",
+    "add": "Thêm Phong Địa",
     "delete": "Xóa",
     "deleteSelected": "Xóa Đã Chọn",
     "actions": "Thao Tác",
@@ -200,8 +219,13 @@
     "loyalty": "Trung Thành",
     "lowEquip": "Tỷ Lệ Trang Bị Thấp",
     "highEquip": "Tỷ Lệ Trang Bị Cao",
-    "campName": "Tên Doanh Trại",
-    "salary": "Lương"
+    "campName": "Tên Phong Địa",
+    "salary": "Quân Lương",
+    "population": "Dân Số",
+    "happiness": "Dân Tâm",
+    "business": "Thương Nghiệp",
+    "agriculture": "Nông Nghiệp",
+    "enterCampName": "Nhập Tên Phong Địa"
   },
   "menu": {
     "home": "Trang chủ",
@@ -210,19 +234,22 @@
     "treasury": "Ngân khố",
     "members": "Thành viên",
     "membersInLaw": "Thông gia",
+    "members-in-law": "Thông gia",
     "retainer": "Môn khách",
     "warehouse": "Kho",
     "stable": "Chuồng ngựa",
     "farm": "Nông trại",
     "relationship": "Mối quan hệ",
     "king": "Vua",
-    "otherFamily": "Gia đình khác",
+    "otherFamily": "Gia tộc khác",
+    "other-family": "Gia tộc khác",
     "army": "Tư Binh",
     "military": "Doanh Trại",
     "slave": "Nô lệ",
     "search": "Tìm kiếm",
     "items": "Vật phẩm",
-    "tools": "Công cụ"
+    "tools": "Công cụ",
+    "fief": "Phong địa"
   },
   "uploader": {
     "title": "Tải lên",
@@ -967,5 +994,94 @@
         "281": "Mặc gia học thuyết (+3)"
       }
     }
-  ]
+  ],
+  "official_title": {
+    "0@0@0": "Không Có",
+    "5@0@0": "Chưa Có Chức Vị",
+    "5@0@1": "Phó Huyện Lệnh",
+    "5@0@2": "Huyện Úy",
+    "5@0@3": "Nghĩa Hội Quan",
+    "5@1@0": "Chưa Có Chức Vị",
+    "5@1@1": "Huyện Lệnh",
+    "5@1@2": "Quy Đức Quan",
+    "5@2@0": "Chưa Có Chức Vị",
+    "5@3@0": "Chưa Có Chức Vị",
+    "5@3@1": "Thứ Sử",
+    "5@3@3": "Tả Dực Vệ Tướng Quân",
+    "5@3@4": "Hữu Dực Vệ Tướng Quân",
+    "5@3@5": "Tả Hiệu Vệ Tướng Quân",
+    "5@3@6": "Hữu Hiệu Vệ Tướng Quân",
+    "5@3@7": "Tả Vũ Vệ Tướng Quân",
+    "5@3@8": "Hữu Vũ Vệ Tướng Quân",
+    "5@3@9": "Tả Đồn Vệ Tướng Quân",
+    "5@3@10": "Hữu Đồn Vệ Tướng Quân",
+    "5@3@11": "Tả Hậu Vệ Tướng Quân",
+    "5@3@12": "Hữu Hậu Vệ Tướng Quân",
+    "5@3@13": "Tả Ngự Vệ Tướng Quân",
+    "5@3@14": "Hữu Ngự Vệ Tướng Quân",
+    "5@4@0": "Chưa Có Chức Vị",
+    "5@4@1": "Hình Bộ Thượng Thư",
+    "5@4@2": "Lại Bộ Thượng Thư",
+    "5@4@3": "Hộ Bộ Thượng Thư",
+    "5@4@4": "Lễ Bộ Thượng Thư",
+    "5@4@5": "Công Bộ Thượng Thư",
+    "5@4@6": "Binh Bộ Thượng Thư",
+    "5@4@7": "Ngự Sử",
+    "5@4@8": "Ngự Sử",
+    "5@4@9": "Ngự Sử",
+    "5@4@10": "Ngự Sử",
+    "5@5@0": "Chưa Có Chức Vị",
+    "5@5@1": "Thượng Thư Lệnh",
+    "5@5@2": "Ngự Sử Đại Phu",
+    "5@6@0": "Chưa Có Chức Vị",
+    "5@6@1": "Thừa Tướng"
+  },
+  "merits_title": {
+    "0": "Không Có",
+    "1": "Tú Tài",
+    "2": "Cử Nhân",
+    "3": "Giải Nguyên",
+    "4": "Cống Sĩ",
+    "5": "Hội Nguyên",
+    "6": "Tiến Sĩ",
+    "7": "Thám Hoa",
+    "8": "Bảng Nhãn",
+    "9": "Trạng Nguyên"
+  },
+  "city_name": {
+    "1": "Nam Quận",
+    "2": "Tam Xuyên",
+    "3": "Ba Thục",
+    "4": "Đan Dương",
+    "5": "Trần Lưu",
+    "6": "Trường Sa",
+    "7": "Kuaiji",
+    "8": "Quảng Lĩnh",
+    "9": "Thái Nguyên",
+    "10": "Ích Châu",
+    "11": "Nam Hải",
+    "12": "Vân Nam"
+  },
+  "fief_name": {
+    "0": "",
+    "1": "Hán Dương",
+    "2": "Tả Đình",
+    "3": "Hoa Dương",
+    "4": "Uyển Lăng",
+    "5": "Trường La",
+    "6": "Trường La",
+    "7": "An Thành",
+    "8": "Thái Mạt",
+    "9": "Diêm Độc",
+    "10": "Hoắc Nhân",
+    "11": "Tân Hội",
+    "12": "Việt Tuy"
+  },
+  "fief_level": {
+    "0": "Không Có",
+    "1": "Bá Tước",
+    "2": "Hầu Tước",
+    "3": "Công Tước",
+    "4": "Vương"
+  }
 }

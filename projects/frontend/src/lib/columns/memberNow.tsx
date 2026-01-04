@@ -16,7 +16,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     // },
     {
       key: 'name',
-      labelKey: 'name',
+      labelKey: t.member.fields.name,
       input: 'text',
       get: m => m.person.name,
       set: (m, v) => ({
@@ -26,7 +26,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'age',
-      labelKey: 'age',
+      labelKey: t.member.fields.age,
       input: 'text',
       width: '50px',
       get: m => m.age,
@@ -34,7 +34,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'literary',
-      labelKey: 'literary',
+      labelKey: t.member.fields.literary,
       input: 'text',
       width: '50px',
       get: m => m.literary,
@@ -43,7 +43,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'martial',
-      labelKey: 'martial',
+      labelKey: t.member.fields.martial,
       input: 'text',
       width: '50px',
       get: m => m.martial,
@@ -52,7 +52,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'business',
-      labelKey: 'business',
+      labelKey: t.member.fields.business,
       input: 'text',
       width: '50px',
       get: m => m.business,
@@ -61,7 +61,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'art',
-      labelKey: 'art',
+      labelKey: t.member.fields.art,
       input: 'text',
       width: '50px',
       get: m => m.art,
@@ -71,7 +71,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     /* ================= SKILLS ================= */
     {
       key: 'skills',
-      labelKey: 'skills',
+      labelKey: t.member.fields.skills,
       width: '80px',
       get: m => m.person.skills,
       set: (m, v) => ({
@@ -94,7 +94,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'skillPos',
-      labelKey: 'skillPos',
+      labelKey: t.member.fields.skillPos,
       input: 'text',
       width: '50px',
       get: m => m.skillPos,
@@ -105,7 +105,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
 
     // {
     //   key: 'generation',
-    //   labelKey: 'Gen',
+    //   labelKey: t.member.fields.Gen,
     //   input: 'text',
     //   get: m => m.person.generation,
     //   set: (m, v) => ({
@@ -116,7 +116,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     /* ================= TALENT ================= */
     {
       key: 'talent',
-      labelKey: 'talent',
+      labelKey: t.member.fields.talent,
       width: '80px',
       get: m => m.person.talent,
       set: (m, v) => ({
@@ -139,7 +139,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'talentPos',
-      labelKey: 'talentPos',
+      labelKey: t.member.fields.talentPos,
       input: 'text',
       width: '50px',
       get: m => m.person.talentPos,
@@ -151,7 +151,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     // {
     //   key: 'gender',
-    //   labelKey: 'gender',
+    //   labelKey: t.member.fields.gender,
     //   input: 'text',
     //   get: m => m.person.gender,
     //   set: (m, v) => ({
@@ -161,7 +161,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     // },
     // {
     //   key: 'lifespan',
-    //   labelKey: 'lifespan',
+    //   labelKey: t.member.fields.lifespan,
     //   input: 'text',
     //   get: m => m.person.lifespan,
     //   set: (m, v) => ({
@@ -172,7 +172,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
 
     {
       key: 'luck',
-      labelKey: 'luck',
+      labelKey: t.member.fields.luck,
       input: 'text',
       width: '50px',
       get: m => m.person.luck,
@@ -185,7 +185,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     /* ================= HOBBY ================= */
     {
       key: 'hobby',
-      labelKey: 'hobby',
+      labelKey: t.member.fields.hobby,
       width: '80px',
       get: m => m.person.hobby,
       set: (m, v) => ({
@@ -209,7 +209,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
 
     {
       key: 'mood',
-      labelKey: 'mood',
+      labelKey: t.member.fields.mood,
       input: 'text',
       width: '50px',
       get: m => m.mood,
@@ -218,21 +218,21 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     // {
     //   key: 'merits',
-    //   labelKey: 'merits',
+    //   labelKey: t.member.fields.merits,
     //   input: 'text',
     //   get: m => m.merits,
     //   set: (m, v) => ({...m, merits: Number(v)}),
     // },
     // {
     //   key: 'status',
-    //   labelKey: 'Status',
+    //   labelKey: t.member.fields.status,
     //   input: 'text',
     //   get: m => m.status,
     //   set: (m, v) => ({...m, status: Number(v)}),
     // },
     {
       key: 'reputation',
-      labelKey: 'reputation',
+      labelKey: t.member.fields.reputation,
       input: 'text',
       width: '50px',
       get: m => m.reputation,
@@ -241,7 +241,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'charm',
-      labelKey: 'charm',
+      labelKey: t.member.fields.charm,
       input: 'text',
       width: '50px',
       get: m => m.charm,
@@ -250,7 +250,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'health',
-      labelKey: 'health',
+      labelKey: t.member.fields.health,
       input: 'text',
       width: '50px',
       get: m => m.health,
@@ -259,7 +259,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     },
     {
       key: 'strategy',
-      labelKey: 'strategy',
+      labelKey: t.member.fields.strategy,
       input: 'text',
       width: '50px',
       get: m => m.strategy,
@@ -275,7 +275,7 @@ export function buildMemberNowColumns(t: any): ColumnSchema<MemberParsed> {
     // },
     {
       key: 'stamina',
-      labelKey: 'stamina',
+      labelKey: t.member.fields.stamina,
       input: 'text',
       width: '50px',
       get: m => m.stamina,

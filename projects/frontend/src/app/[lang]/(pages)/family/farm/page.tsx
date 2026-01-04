@@ -124,15 +124,13 @@ export default function FarmPage() {
           <CFormInput
             key={i}
             size="sm"
-            type="number"
-            min={0}
-            max={100}
+            type="text"
             style={{ width: '60px', textAlign: 'center' }}
             value={values[i] ?? '0'}
             onChange={e => {
               const next = [...values] as any
               next[i] = String(
-                Math.max(0, Math.min(100, Number(e.target.value || 0)))
+                Math.max(0, Math.min(10000, Number(e.target.value || 0)))
               )
               updateFarm(rowIndex, { [key]: next } as any)
             }}

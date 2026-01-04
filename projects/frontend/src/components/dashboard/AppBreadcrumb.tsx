@@ -37,7 +37,6 @@ export default function AppBreadcrumb() {
     const name =
       dict.menu?.[segment] ||
       humanize(segment)
-
     return {href, name, active: index === segments.length - 1}
   })
 

@@ -29,21 +29,21 @@ LocalStorage (uploadedJson)
 ```
 lib/
  ├─ types/
- │   └─ table.ts          ← ColumnDef<T>
+ │   └─ table.tsx          ← ColumnDef<T>
  ├─ constants/
- │   └─ options.ts        ← SKILL / TALENT / HOBBY
+ │   └─ options.tsx        ← SKILL / TALENT / HOBBY
  ├─ components/
  │   ├─ table/
  │   │   ├─ InputCell.tsx
  │   │   └─ DropdownCell.tsx
- │   └─ batch/
+ │   └─ button/
  │       └─ MaxAttributeButton.tsx
  ├─ columns/
- │   ├─ memberNow.columns.ts
- │   └─ memberQu.columns.ts
+ │   ├─ memberNow.tsx
+ │   └─ memberQu.tsx
  └─ hooks/
-    ├─ useMemberNow.ts     ← useTableEditor + useRowEditor
-    └─ useMemberQu.ts      ← useTableEditor + useRowEditor
+    ├─ useMemberNow.tsx     ← useTableEditor + useRowEditor
+    └─ useMemberQu.tsx      ← useTableEditor + useRowEditor
 ```
 
 ```

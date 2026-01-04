@@ -92,15 +92,28 @@ export interface MemberHousing {
 }
 
 /**
+ * FENGDI_TITLE
+ * "4|4" Uyển Lăng Vương
+ */
+export type MemberTitleFengdi = {
+  level: number          // fief_level
+  prefectureId: number  // city_name
+}
+
+/**
  * OFFICIAL_TITLE
  * "5@5@1@-1@-1|162446"
  */
-export interface MemberOfficialTitle {
-  identity: number
-  titleByIdentity: number
-  prefectureId: number
-  countyId: number
-  politicalAchievement: number
+export type MemberOfficialTitle = {
+  identity: number        // a
+  rank: number            // b
+  position: number        // c
+  prefectureId: number    // d
+  countyId: number        // e
+  politicalAchievement: number // f
+
+  /** derived – NOT serialized */
+  i18nKey?: string        // `${a}@${b}@${c}`
 }
 
 /**
@@ -185,6 +198,20 @@ export interface MemberParsed {
    * 5 → 11
    * ======================= */
   character: number                           // 5
+  // 1: Kiêu hãnh
+  // 2: Chính trực
+  // 3: Hoạt bát
+  // 4: Tốt bụng
+  // 5: Chân thành
+  // 6: Tự do thoải mái
+  // 7: Lãnh đạm
+  // 8: Tự ti
+  // 9: Hèn nhát
+  // 10: Nhút nhát
+  // 11: Dữ dội
+  // 12: Hay thay đổi
+  // 13: U sầu
+  // 14: Đa nghi
   age: number                                 // 6
   literary: number                            // 7
   martial: number                             // 8
@@ -196,11 +223,113 @@ export interface MemberParsed {
    * 12 → 18
    * ======================= */
   officialTitle: MemberOfficialTitle | null   // 12
+  // a@b@c@d@e|f
+  // a: is at least so far always 0 or 5
+  // b: is the rank of the position 0 means rank 7, 6 means rank 1
+  // c: is the position
+  // d: is the province key
+  // e: is the county key
+  //
+  // a@b@c Position
+  // ----- -------------------
+  // 0@0@0 None
+  // 5@0@0 No Firm Position
+  // 5@0@1 Deputy Magistrate
+  // 5@0@2 County Marshal
+  // 5@0@3 Yihui Officer
+  // 5@1@0 No Firm Position
+  // 5@1@1 Magistrate
+  // 5@1@2 Gui'de Officer
+  // 5@2@0 No Firm Position
+  // 5@3@0 No Firm Position
+  // 5@3@1 Provincial Governor
+  // 5@3@3 General of Zuolin
+  // 5@3@4 General of Youlin
+  // 5@3@5 General of Zuoxiao
+  // 5@3@6 General of Youxiao
+  // 5@3@7 General of Zuowu
+  // 5@3@8 General of Youwu
+  // 5@3@9 General of Zuotun
+  // 5@3@1 General of Youtun
+  // 5@3@1 General of Zuohou
+  // 5@3@1 General of Youhou
+  // 5@3@1 General of Zuoyu
+  // 5@3@1 General of Youyu
+  // 5@4@0 No Firm Position
+  // 5@4@1 Justice Minister
+  // 5@4@2 Civil Minister
+  // 5@4@3 Revenue Minister
+  // 5@4@4 Rites Minister
+  // 5@4@5 Industry Minister
+  // 5@4@6 War Minister
+  // 5@4@7 Censor
+  // 5@4@8 Censor
+  // 5@4@9 Censor
+  // 5@4@1 Censor
+  // 5@5@0 No Firm Position
+  // 5@5@1 Grand Minister
+  // 5@5@2 Imperial Censor
+  // 5@6@0 No Firm Position
+  // 5@6@1 Chancellor
   merits: number                              // 13
+  // 0 None
+  // 1 Xiucai
+  // 2 Juren
+  // 3 Xieyuan
+  // 4 Gongshi
+  // 5 Huiyuan
+  // 6 Jinshi
+  // 7 Tanhua
+  // 8 Bangyan
+  // 9 Zhuangyuan
   titleFengdi: {
     level: number                             // 0–3
     prefectureId: number
   }                                           // 14
+  // City indexes and Level for Fiefs
+  //
+  // 1 Nan
+  // 2 Sanchuan
+  // 3 Shu
+  // 4 Danyang
+  // 5 Chenliu
+  // 6 Changsha
+  // 7 Kuaiji
+  // 8 Guangling
+  // 9 Taiyuan
+  // 10 Yizhou
+  // 11 Nanhai
+  // 12 Yunnan|
+  //
+  // Fief level
+  // 0 None
+  // 1 Earl
+  // 2 Marquis
+  // 3 Duke
+  // 4 King
+  //
+  //
+  // Chỉ số và cấp độ thành phố cho Fiefs
+  //
+  // 1 Nam Quận
+  // 2 Tam Xuyên
+  // 3 Ba Thục
+  // 4 Đan Dương
+  // 5 Thần Lưu
+  // 6 Trường Sa
+  // 7 Kuaiji
+  // 8 Quảng Lĩnh
+  // 9 Thái Nguyên
+  // 10 Ích Châu
+  // 11 Nam Hải
+  // 12 Vân Nam
+  //
+  // cấp độ thái ấp
+  // 0 Không có
+  // 1 Bá tước
+  // 2 Hầu tước
+  // 3 công tước
+  // 4 Vương
   status: number                              // 15
   reputation: number                          // 16
   statusDuration: number                      // 17
@@ -250,6 +379,11 @@ export interface MemberParsed {
    * 40 → 42
    * ======================= */
   school: number                                  // 40
+  // School List on line 40
+  // 0 None
+  // 1 Mingli
+  // 2 Jiuyuan
+  // 3 Jinwen
   clanResponsibilities: MemberClanResponsibility  // 41
   travel: string                                  // 42
 }
@@ -443,36 +577,89 @@ export function serializeHousing(h: MemberHousing): string {
 /**
  * OFFICIAL_TITLE
  */
-export function parseOfficialTitle(raw: string): MemberOfficialTitle | null {
-  if (raw === '0' || raw === 'null') return null
+/**
+ * OFFICIAL_TITLE
+ * raw format: a@b@c@d@e|f
+ */
+export function parseOfficialTitle(
+  raw: string
+): MemberOfficialTitle | null {
+  if (!raw || raw === '0' || raw === 'null') return null
 
   const [info, merit] = raw.split('|')
-  const [identity, titleByIdentity, prefectureId, countyId] =
-    info.split('@').map(Number)
 
-  return {
+  const [
     identity,
-    titleByIdentity,
+    rank,
+    position,
     prefectureId,
     countyId,
-    politicalAchievement: Number(merit),
+  ] = info.split('@').map(Number)
+
+  if (
+    [identity, rank, position].some(v => Number.isNaN(v))
+  ) {
+    return null
+  }
+
+  return {
+    identity,              // a
+    rank,                  // b
+    position,              // c
+    prefectureId: prefectureId ?? 0, // d
+    countyId: countyId ?? 0,         // e
+    politicalAchievement: Number(merit) || 0, // f
+
+    /**
+     * ✅ derived field for i18n
+     * official_title.${a}@${b}@${c}
+     */
+    i18nKey: `${identity}@${rank}@${position}`,
   }
 }
 
-export function serializeOfficialTitle(t: MemberOfficialTitle | null): string {
+
+export function serializeOfficialTitle(
+  t: MemberOfficialTitle | null
+): string {
   if (!t) return '0'
 
   return (
     [
       t.identity,
-      t.titleByIdentity,
-      t.prefectureId,
-      t.countyId,
+      t.rank,
+      t.position,
+      t.prefectureId ?? 0,
+      t.countyId ?? 0,
     ].join('@') +
     '|' +
-    t.politicalAchievement
+    (t.politicalAchievement ?? 0)
   )
 }
+
+/**
+ * TITLE_FENGDI
+ * raw format: level|prefectureId
+ */
+export function parseTitleFengdi(raw: string): MemberTitleFengdi {
+  if (!raw || raw === 'null') {
+    return { level: 0, prefectureId: 0 }
+  }
+
+  const [level, prefectureId] = raw.split('|')
+
+  return {
+    level: Number(level) || 0,
+    prefectureId: Number(prefectureId) || 0,
+  }
+}
+
+export function serializeTitleFengdi(
+  t: MemberTitleFengdi
+): string {
+  return `${t.level}|${t.prefectureId}`
+}
+
 
 /**
  * EQUIPMENT
@@ -658,14 +845,9 @@ export function deserializeAll(row: MemberRawRow): MemberParsed {
       row[MemberColumnMap.officialTitle],
     ),
     merits: Number(row[MemberColumnMap.merits]),
-    titleFengdi: (() => {
-      const [level, prefectureId] =
-        row[MemberColumnMap.titleFengdi].split('|')
-      return {
-        level: Number(level),
-        prefectureId: Number(prefectureId),
-      }
-    })(),
+    titleFengdi: parseTitleFengdi(
+      row[MemberColumnMap.titleFengdi],
+    ),
     status: Number(row[MemberColumnMap.status]),
     reputation: Number(row[MemberColumnMap.reputation]),
     statusDuration: Number(row[MemberColumnMap.statusDuration]),
@@ -779,8 +961,7 @@ export function serializeAll(parsed: MemberParsed, baseRow?: MemberRawRow): Memb
 
   row[MemberColumnMap.merits] = String(parsed.merits)
 
-  row[MemberColumnMap.titleFengdi] =
-    `${parsed.titleFengdi.level}|${parsed.titleFengdi.prefectureId}`
+  row[MemberColumnMap.titleFengdi] = serializeTitleFengdi(parsed.titleFengdi)
 
   row[MemberColumnMap.status] = String(parsed.status)
   row[MemberColumnMap.reputation] = String(parsed.reputation)
@@ -863,4 +1044,20 @@ export function serializeAll(parsed: MemberParsed, baseRow?: MemberRawRow): Memb
     parsed.travel
 
   return row
+}
+
+export function buildOfficialTitleKey(
+  a?: number,
+  b?: number,
+  c?: number
+): string | null {
+  if (
+    a === undefined ||
+    b === undefined ||
+    c === undefined
+  ) {
+    return null
+  }
+
+  return `${a}@${b}@${c}`
 }

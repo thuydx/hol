@@ -26,7 +26,7 @@ export function MaxAttributeButton({
                                    }: MaxAttributeButtonProps) {
   return (
     <CButton
-      color="danger"
+      color="warning"
       className="w-100"
       onClick={onClick}
     >

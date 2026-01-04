@@ -1,44 +1,47 @@
-import {MemberQuParsed} from "@/models/memberQu";
+import { ColumnDef } from '@/types/table'
+import { MenKeNowParsed } from '@/models/menKeNow'
 import {buildBaseColumns, ColumnSchema} from "@/columns/buildBaseColumns";
 import {DropdownCell} from "@/components/table/DropdownCell";
-import {HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
+import {MemberQuParsed} from "@/models/memberQu";
+import {SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
 
-export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
-  return buildBaseColumns<MemberQuParsed>([
+export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
+  return buildBaseColumns<MenKeNowParsed>([
     {
       key: 'name',
-      labelKey: t.member.fields.name,
+      labelKey: 'name',
       input: 'text',
-      get: m => m.personData.name,
+      get: m => m.person.name,
       set: (m, v) => ({
         ...m,
-        personData: {...m.personData, name: v},
+        person: { ...m.person, name: v },
       }),
     },
     {
       key: 'age',
-      labelKey: t.member.fields.age,
+      labelKey: 'age',
       width: '40px',
       input: 'text',
       get: m => m.age,
-      set: (m, v) => ({...m, age: Number(v)})
+      set: (m, v) => ({ ...m, age: Number(v) }),
+      maxValue: 20
     },
     {
       key: 'literary',
-      labelKey: t.member.fields.literary,
+      labelKey: 'literary',
       width: '40px',
       input: 'text',
       get: m => m.literary,
-      set: (m, v) => ({...m, literary: Number(v)}),
+      set: (m, v) => ({ ...m, literary: Number(v) }),
       maxValue: 100
     },
     {
       key: 'martial',
-      labelKey: t.member.fields.martial,
+      labelKey: 'martial',
       width: '40px',
       input: 'text',
       get: m => m.martial,
-      set: (m, v) => ({...m, martial: Number(v)}),
+      set: (m, v) => ({ ...m, martial: Number(v) }),
       maxValue: 100
     },
     {
@@ -64,38 +67,13 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       labelKey: t.member.fields.luck,
       input: 'text',
       width: '40px',
-      get: m => m.personData.luck,
+      get: m => m.person.luck,
       set: (m, v) => ({
         ...m,
-        personData: {...m.personData, luck: Number(v)},
+        person: {...m.person, luck: Number(v)},
       }),
       maxValue: 100
     },
-    /* ================= HOBBY ================= */
-    {
-      key: 'hobby',
-      labelKey: t.member.fields.hobby,
-      width: '80px',
-      get: m => m.personData.hobby,
-      set: (m, v) => ({
-        ...m,
-        personData: {...m.personData, hobby: Number(v)},
-      }),
-      render: (member, update) => (
-        <DropdownCell
-          value={member.personData.hobby}
-          options={HOBBY_OPTIONS}
-          labels={t.member.options.hobby}
-          onChange={v =>
-            update(m => ({
-              ...m,
-              personData: {...m.personData, hobby: v},
-            }))
-          }
-        />
-      ),
-    },
-
     {
       key: 'mood',
       labelKey: t.member.fields.mood,
@@ -132,15 +110,15 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       set: (m, v) => ({...m, health: Number(v)}),
       maxValue: 100
     },
-    {
-      key: 'strategy',
-      labelKey: t.member.fields.strategy,
-      width: '40px',
-      input: 'text',
-      get: m => m.strategy,
-      set: (m, v) => ({...m, strategy: Number(v)}),
-      maxValue: 100
-    },
+    // {
+    //   key: 'strategy',
+    //   labelKey: t.member.fields.strategy,
+    //   width: '40px',
+    //   input: 'text',
+    //   get: m => m.strategy,
+    //   set: (m, v) => ({...m, strategy: Number(v)}),
+    //   maxValue: 100
+    // },
     {
       key: 'stamina',
       labelKey: t.member.fields.stamina,
@@ -150,25 +128,24 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       set: (m, v) => ({...m, stamina: Number(v)}),
       maxValue: 50
     },
-    /* ================= SKILLS ================= */
     {
-      key: 'skills',
+      key: 'skill',
       labelKey: t.member.fields.skills,
       width: '80px',
-      get: m => m.personData.skills,
+      get: m => m.person.skill,
       set: (m, v) => ({
         ...m,
-        personData: { ...m.personData, skills: Number(v) },
+        person: { ...m.person, skill: Number(v) },
       }),
       render: (member, update, t) => (
         <DropdownCell
-          value={member.personData.skills}
+          value={member.person.skill}
           options={SKILL_OPTIONS}
           labels={t.member.options.skill}
           onChange={v =>
             update(m => ({
               ...m,
-              personData: { ...m.personData, skills: v },
+              person: { ...m.person, skill: v },
             }))
           }
         />
@@ -185,55 +162,48 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
     },
     /* ================= TALENT ================= */
     {
-      key: 'talent',
+      key: 'talentType',
       labelKey: t.member.fields.talent,
       width: '80px',
-      get: m => m.personData.talent,
+      get: m => m.person.talentType,
       set: (m, v) => ({
         ...m,
-        personData: {...m.personData, talent: Number(v)},
+        person: {...m.person, talentType: Number(v)},
       }),
       render: (member, update) => (
         <DropdownCell
-          value={member.personData.talent}
+          value={member.person.talentType}
           options={TALENT_OPTIONS}
           labels={t.member.options.talent}
           onChange={v =>
             update(m => ({
               ...m,
-              personData: {...m.personData, talent: v},
+              person: {...m.person, talentType: v},
             }))
           }
         />
       ),
     },
     {
-      key: 'talentPoint',
+      key: 'talentValue',
       labelKey: t.member.fields.talentPos,
       input: 'text',
       width: '40px',
-      get: m => m.personData.talentPoint,
+      get: m => m.person.talentValue,
       set: (m, v) => ({
         ...m,
-        personData: {...m.personData, talentPoint: Number(v)},
+        person: {...m.person, talentValue: Number(v)},
       }),
       maxValue: 100
     },
     {
-      key: 'pregnancyStatus',
-      labelKey: t.member.fields.pregnancy,
-      width: '40px',
-      input: 'number',
-      get: m => m.pregnancyStatus,
-      set:(m, v) => ({...m, pregnancyStatus: Number(v)}),
-    },
-    {
-      key: 'pregnancyMonth',
-      labelKey: t.member.fields.pregMonth,
-      width: '50px',
-      input: 'number',
-      get: m => m.pregnancyMonth,
-      set:(m, v) => ({...m, pregnancyMonth: Number(v)}),
+      key: 'salary',
+      labelKey: 'salary',
+      width: '60px',
+      input: 'text',
+      get: m => m.salary,
+      set: (m, v) => ({ ...m, salary: Number(v) }),
+      maxValue: 0
     },
   ])
 }

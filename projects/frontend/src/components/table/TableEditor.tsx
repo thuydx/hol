@@ -18,28 +18,30 @@ import { ReactNode } from 'react'
 import { useRowReloadRegistry } from '@/lib/hooks/useRowReloadRegistry'
 
 type TableEditorProps<T> = {
+  showIdColumn?: boolean
   title: string
   columns: ColumnDef<T>[]
   indexes: number[]
-  renderRow: (
+  renderRowAction: (
     index: number,
     helpers: {
       registerReload: (index: number, fn: () => void) => void
       unregisterReload: (index: number) => void
     }
   ) => ReactNode
-  renderHeaderActions?: (helpers: {
+  renderHeaderAction?: (helpers: {
     reloadAllRows: () => void
   }) => ReactNode
 }
 
 export function TableEditor<T>({
+                                 showIdColumn = true,
                                  title,
                                  columns,
                                  indexes,
-                                 renderRow,
-                                 renderHeaderActions,
-                               }: TableEditorProps<T>) {
+                                 renderRowAction,
+                                 renderHeaderAction,
+                               }: Readonly<TableEditorProps<T>>) {
   const registry = useRowReloadRegistry()
   return (
     <CRow>
@@ -48,9 +50,9 @@ export function TableEditor<T>({
           <CCardHeader className="d-flex align-items-center">
             <span className="fw-semibold">{title}</span>
 
-            {renderHeaderActions && (
+            {renderHeaderAction && (
               <div className="ms-auto">
-                {renderHeaderActions({
+                {renderHeaderAction({
                   reloadAllRows: registry.reloadAll,
                 })}
               </div>
@@ -61,9 +63,11 @@ export function TableEditor<T>({
             <CTable striped hover small>
               <CTableHead>
                 <CTableRow>
-                  <CTableHeaderCell style={{ width: 60 }}>
-                    ID
-                  </CTableHeaderCell>
+                  {showIdColumn && (
+                    <CTableHeaderCell style={{ width: 60 }}>
+                      ID
+                    </CTableHeaderCell>
+                  )}
 
                   {columns.map(col => (
                     <CTableHeaderCell
@@ -82,7 +86,7 @@ export function TableEditor<T>({
 
               <CTableBody>
                 {indexes.map(index =>
-                  renderRow(index, {
+                  renderRowAction(index, {
                     registerReload: registry.register,
                     unregisterReload: registry.unregister,
                   })

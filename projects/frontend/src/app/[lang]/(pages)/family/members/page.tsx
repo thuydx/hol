@@ -9,22 +9,21 @@ import {MaxAttributeButton} from '@/components/button/MaxAttributeButton'
 
 import {buildMemberNowColumns} from '@/columns/memberNow'
 import {useMember, useMembers} from '@/hooks/member'
-import {useBatchEditor} from '@/hooks/useBatchEditor'
 
 import {MemberNowRepository} from '@/repositories/MemberNow'
 import {MemberParsed} from '@/models/members'
+import {ColumnSchema} from "@/columns/buildBaseColumns";
+import {CTableDataCell, CTableRow} from "@coreui/react-pro";
 
 /* =========================================================
  * Row
  * ========================================================= */
 
-function MemberNowRow({
-                        index,
-                        registerReload,
-                      }: {
+function MemberNowRow({index, registerReload,}: Readonly<{
   index: number
   registerReload: (index: number, fn: () => void) => void
-}) {
+  unregisterReload: (index: number) => void
+}>) {
   const { t } = useI18nClient<any>()
   const { row: member, update, load, loading } = useMember(index)
   const columns = useMemo(() => buildMemberNowColumns(t), [t])
@@ -42,10 +41,10 @@ function MemberNowRow({
   }
 
   return (
-    <>
-      <td>{member.id}</td>
+    <CTableRow>
+      <CTableDataCell>{member.id}</CTableDataCell>
       {columns.map(col => (
-        <td key={col.key} style={col.width ? { width: col.width } : undefined}>
+          <CTableDataCell key={col.key} style={col.width ? { width: col.width } : undefined}>
           {col.render ? (
             col.render(member, update, t)
           ) : (
@@ -55,9 +54,9 @@ function MemberNowRow({
               onChange={v => update(m => col.set(m, v))}
             />
           )}
-        </td>
+          </CTableDataCell>
       ))}
-    </>
+    </CTableRow>
   )
 }
 
@@ -68,7 +67,10 @@ function MemberNowRow({
 export default function MemberNowPage() {
   const { t } = useI18nClient<any>()
   const repo = useMemo(() => new MemberNowRepository(), [])
-  const columns = useMemo(() => buildMemberNowColumns(t), [t])
+  const columns = useMemo<ColumnSchema<MemberParsed>>(
+    () => buildMemberNowColumns(t),
+    [t],
+  )
   const { indexes, load, forceReload } = useMembers()
 
   const rowReloaders = useRef(new Map<number, () => void>())
@@ -82,7 +84,7 @@ export default function MemberNowPage() {
       title={t.member?.title ?? 'Members'}
       columns={columns}
       indexes={indexes}
-      renderHeaderActions={() => (
+      renderHeaderAction={() => (
         <MaxAttributeButton
           label={t.member?.batch?.maxAll ?? 'Max All'}
           onClick={async () => {
@@ -94,15 +96,13 @@ export default function MemberNowPage() {
           }}
         />
       )}
-      renderRow={index => (
-        <tr key={index}>
+      renderRowAction={(index, helpers) => (
           <MemberNowRow
+            key={index}
             index={index}
-            registerReload={(i, fn) => {
-              rowReloaders.current.set(i, fn)
-            }}
+            registerReload={helpers.registerReload}
+            unregisterReload={helpers.unregisterReload}
           />
-        </tr>
       )}
     />
   )
