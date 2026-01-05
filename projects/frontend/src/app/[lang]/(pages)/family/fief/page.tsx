@@ -482,7 +482,7 @@ export default function FiefPage() {
                             move(from, tg, row[0])
                           }
                         >
-                          → {tg}
+                          {t.fengdi[from]} → {t.fengdi[tg]}
                         </CDropdownItem>
                       ))}
                     </CDropdownMenu>
@@ -502,7 +502,7 @@ export default function FiefPage() {
   return (
     <>
       {renderTable(
-        t.vilage?.title ?? 'Village',
+        t.fengdi?.cun ?? 'Village',
         cunRows,
         setCunRows,
         cunRepo,
@@ -512,7 +512,7 @@ export default function FiefPage() {
       )}
 
       {renderTable(
-        t.town?.title ?? 'Town',
+        t.fengdi?.zhen ?? 'Town',
         zhenRows,
         setZhenRows,
         zhenRepo,
@@ -522,7 +522,7 @@ export default function FiefPage() {
       )}
 
       {renderTable(
-        t.military?.title ?? 'Military',
+        t.fengdi?.junying ?? 'Military',
         junRows,
         setJunRows,
         junRepo,

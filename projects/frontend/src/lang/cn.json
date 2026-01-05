@@ -218,7 +218,10 @@
     "happiness": "民心",
     "business": "商业",
     "agriculture": "农业",
-    "enterCampName": "输入封地名称"
+    "enterCampName": "输入封地名称",
+    "cun": "村",
+    "zhen": "镇",
+    "junying": "军营"
   },
   "menu": {
     "home": "首页",

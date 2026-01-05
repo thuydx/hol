@@ -15,7 +15,7 @@
     "cancel": "Hủy",
     "search": "Tìm Kiếm",
     "reset": "Đặt Lại",
-    "move": "Di Chuyển",
+    "move": "Chuyển Đổi",
     "confirm": "Xác Nhận",
     "noData": "Không Có Dữ Liệu"
   },
@@ -225,7 +225,10 @@
     "happiness": "Dân Tâm",
     "business": "Thương Nghiệp",
     "agriculture": "Nông Nghiệp",
-    "enterCampName": "Nhập Tên Phong Địa"
+    "enterCampName": "Nhập Tên Phong Địa",
+    "cun": "Thôn",
+    "zhen": "Trấn",
+    "junying": "Quân Doanh"
   },
   "menu": {
     "home": "Trang chủ",

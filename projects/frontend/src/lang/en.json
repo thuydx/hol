@@ -223,7 +223,10 @@
     "happiness": "Happiness",
     "business": "Business",
     "agriculture": "Agriculture",
-    "enterCampName": "Enter Camp Name"
+    "enterCampName": "Enter Camp Name",
+    "cun": "Village",
+    "zhen": "Town",
+    "junying": "Military"
   },
   "menu": {
     "home": "Home",
