@@ -29,14 +29,14 @@ export function DropdownCell({
     ),
   )
 
-  const widthPx = Math.max(80, maxLabelLength * 8 + 24)
+  const widthPx = Math.max(60, maxLabelLength * 8 + 24)
 
   return (
     <CDropdown style={{ width: widthPx }}>
       <CDropdownToggle color="light" size="sm">
         {currentLabel}
       </CDropdownToggle>
-      <CDropdownMenu>
+      <CDropdownMenu style={{ minWidth: widthPx }}>
         {Object.entries(options).map(([num, key]) => (
           <CDropdownItem
             key={num}

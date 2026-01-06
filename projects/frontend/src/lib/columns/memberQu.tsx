@@ -1,9 +1,11 @@
 import {MemberQuParsed} from "@/models/memberQu";
 import {buildBaseColumns, ColumnSchema} from "@/columns/buildBaseColumns";
 import {DropdownCell} from "@/components/table/DropdownCell";
-import {HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
+import {GENDER_OPTIONS, HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
+import {InputCell} from "@/components/table/InputCell";
 
 export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
+  const isMale = (m: MemberQuParsed) => m.personData.gender === 1
   return buildBaseColumns<MemberQuParsed>([
     {
       key: 'name',
@@ -14,6 +16,19 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
         ...m,
         personData: {...m.personData, name: v},
       }),
+    },
+    {
+      key: 'gender',
+      labelKey: t.member.fields.gender,
+      width: '40px',
+      input: 'text',
+      get: m => m.personData.gender,
+      set: m => m,
+      render: (member, update) => (
+        <span>
+          {t.member.options.gender[member.personData.gender]}
+        </span>
+      ),
     },
     {
       key: 'age',
@@ -75,7 +90,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
     {
       key: 'hobby',
       labelKey: t.member.fields.hobby,
-      width: '80px',
+      width: '50px',
       get: m => m.personData.hobby,
       set: (m, v) => ({
         ...m,
@@ -154,7 +169,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
     {
       key: 'skills',
       labelKey: t.member.fields.skills,
-      width: '80px',
+      width: '50px',
       get: m => m.personData.skills,
       set: (m, v) => ({
         ...m,
@@ -177,7 +192,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
     {
       key: 'skillPoint',
       labelKey: t.member.fields.skillPos,
-      width: '70px',
+      width: '50px',
       input: 'text',
       get: m => m.skillPoint,
       set: (m, v) => ({...m, skillPoint: Number(v)}),
@@ -187,7 +202,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
     {
       key: 'talent',
       labelKey: t.member.fields.talent,
-      width: '80px',
+      width: '50px',
       get: m => m.personData.talent,
       set: (m, v) => ({
         ...m,
@@ -225,7 +240,22 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       width: '40px',
       input: 'number',
       get: m => m.pregnancyStatus,
-      set:(m, v) => ({...m, pregnancyStatus: Number(v)}),
+      set: (m, v) => ({ ...m, pregnancyStatus: Number(v) }),
+      render: (member, update) => {
+        const disabled = isMale(member)
+
+        return (
+          <InputCell
+            value={member.pregnancyStatus}
+            type="number"
+            disabled={disabled}
+            onChange={v => {
+              if (disabled) return
+              update(m => ({...m, pregnancyStatus: Number(v)}))
+            }}
+          />
+        )
+      }
     },
     {
       key: 'pregnancyMonth',
@@ -233,7 +263,22 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       width: '50px',
       input: 'number',
       get: m => m.pregnancyMonth,
-      set:(m, v) => ({...m, pregnancyMonth: Number(v)}),
+      set: (m, v) => ({ ...m, pregnancyMonth: Number(v) }),
+      render: (member, update) => {
+        const disabled = isMale(member)
+
+        return (
+          <InputCell
+            value={member.pregnancyMonth}
+            type="number"
+            disabled={disabled}
+            onChange={v => {
+              if (disabled) return
+              update(m => ({ ...m, pregnancyMonth: Number(v) }))
+            }}
+          />
+        )
+      },
     },
   ])
 }

@@ -33,3 +33,8 @@ export const HOBBY_OPTIONS: OptionMap = {
   8: 'music',
   9: 'pelt',
 }
+/* ================= GENDER ================= */
+export const GENDER_OPTIONS: OptionMap = {
+  0: 'female',
+  1: 'male',
+}

@@ -25,6 +25,8 @@ import { NuLiNumRepository } from '@/repositories/NuLiNum'
 import {MemberNowRepository} from "@/repositories/MemberNow";
 import {MemberParsed, MemberTitleFengdi} from "@/models/members";
 import {useParams} from "next/navigation";
+import {MemberQuRepository} from "@/repositories/MemberQu";
+import {MenKeNowRepository} from "@/repositories/MenKeNow";
 /**
  * Family Data
  * "FamilyData": {
@@ -78,6 +80,9 @@ type I18nSchema = {
     zibeiPositionOption1: string,
     zibeiPositionOption2: string,
     zibeiLevelError: string
+    memberNowCount: string
+    memberQuCount: string
+    menKeCount: string
     headman: {
       title: string
       name: string
@@ -89,6 +94,8 @@ type I18nSchema = {
   city_name: Record<string, string>
   fief_level: Record<string, string>
   fief_name: Record<string, string>
+  clan_name: string
+  place_name: Record<string, string>
   treasury: {
     title: string
     description: string
@@ -119,6 +126,8 @@ const zibeiRepo = new ZiBeiNowRepository()
 const cgNumRepo = new CGNumRepository()
 const nuLiNumRepo = new NuLiNumRepository()
 const memberRepo = new MemberNowRepository()
+const memberQuRepo = new MemberQuRepository()
+const menKeNowRepo = new MenKeNowRepository()
 
 const Family = () => {
   const params = useParams()
@@ -140,6 +149,9 @@ const Family = () => {
   const [gold, setGold] = useState('')
   const [value, setValue] = useState<number>(0)
   const [headman, setHeadman] = useState<MemberParsed | null>()
+  const [memberNowCount, setMemberNowCount] = useState(0)
+  const [memberQuCount, setMemberQuCount] = useState(0)
+  const [menKeCount, setMenKeCount] = useState(0)
   /* -------------------------------
   * Load from LocalStorage
   * ------------------------------- */
@@ -151,6 +163,28 @@ const Family = () => {
   }, [])
   useEffect(() => {
     nuLiNumRepo.get().then(setValue)
+  }, [])
+
+  useEffect(() => {
+    let mounted = true
+
+    const loadCounts = async () => {
+      const memberNow = await memberRepo.all()
+      const memberQu = await memberQuRepo.all()
+      const menKeNow = await menKeNowRepo.all()
+
+      if (!mounted) return
+
+      setMemberNowCount(memberNow.length)
+      setMemberQuCount(memberQu.length)
+      setMenKeCount(menKeNow.length)
+    }
+
+    void loadCounts()
+
+    return () => {
+      mounted = false
+    }
   }, [])
 
   const getPositionLabel = (value?: string) =>
@@ -242,6 +276,37 @@ const Family = () => {
     }
   }
 
+  function formatTemplate(
+    template: string,
+    vars: Record<string, string>
+  ) {
+    return template.replace(
+      /\{(\w+)\}/g,
+      (_, key) => vars[key] ?? ''
+    )
+  }
+
+  function getFamilyTitle(
+    t: I18nSchema,
+    familyData: FamilyData | null
+  ): string {
+    if (!familyData) return t.family.title
+
+    const place =
+      t.place_name[familyData.coordinates] ??
+      familyData.coordinates
+
+    const clan = formatTemplate(t.clan_name, {
+      name: familyData.name,
+    })
+
+    // Ví dụ:
+    // EN: Xiangfan · Clan of Đinh
+    // VI: Tương Phàn · Đinh Thị
+    // CN: 襄樊 · Đinh氏宗族
+    return `${place} · ${clan}`
+  }
+
   const updateName = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
     setFamilyData(p => (p ? {...p, name: v} : p))
@@ -303,7 +368,9 @@ const Family = () => {
       <CCol xs={4}>
         <CCard className="mb-3">
           <CCardHeader>
-            <CCardTitle>{t.family.title}</CCardTitle>
+            <CCardTitle>
+              {getFamilyTitle(t, familyData)}
+            </CCardTitle>
           </CCardHeader>
 
           <CCardBody>
@@ -315,7 +382,8 @@ const Family = () => {
                 </label>
               </CCol>
               <CCol xs={5}>
-                {familyData?.coordinates ?? '0|0'}
+                {familyData?.coordinates ?? '0|0'}{' '}
+                · {t.place_name[familyData?.coordinates ?? '0|0'] ?? ''}
               </CCol>
             </CRow>
 
@@ -415,6 +483,39 @@ const Family = () => {
                   value={familyData?.stableCapacity ?? ''}
                   onChange={updateStableCapacity}
                 />
+              </CCol>
+            </CRow>
+            {/* MEMBER COUNTS */}
+            <CRow className="align-items-center">
+              <CCol xs={7}>
+                <label className="form-label mb-0">
+                  {t.family.memberNowCount}
+                </label>
+              </CCol>
+              <CCol xs={5}>
+                {memberNowCount}
+              </CCol>
+            </CRow>
+
+            <CRow className="align-items-center">
+              <CCol xs={7}>
+                <label className="form-label mb-0">
+                  {t.family.memberQuCount}
+                </label>
+              </CCol>
+              <CCol xs={5}>
+                {memberQuCount}
+              </CCol>
+            </CRow>
+
+            <CRow className="align-items-center">
+              <CCol xs={7}>
+                <label className="form-label mb-0">
+                  {t.family.menKeCount}
+                </label>
+              </CCol>
+              <CCol xs={5}>
+                {menKeCount}
               </CCol>
             </CRow>
           </CCardBody>

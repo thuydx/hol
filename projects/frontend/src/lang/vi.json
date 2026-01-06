@@ -38,6 +38,9 @@
     "zibeiPositionOption1": "Chữ thứ 2",
     "zibeiPositionOption2": "Chữ thứ 3",
     "zibeiLevelError": "Đời Thứ phải là số nguyên dương và không được trùng.",
+    "memberNowCount": "Thành viên nội tộc",
+    "memberQuCount": "Thành viên ngoại tộc",
+    "menKeCount": "Số lượng Môn Khách",
     "headman": {
       "title": "Tộc Trưởng",
       "name": "Tên",
@@ -92,7 +95,7 @@
         "front_hair": "Tóc Trước"
       },
       "skill": {
-        "0": "Chưa Có",
+        "0": " - ",
         "sorcery": "Pháp Thuật",
         "medicine": "Y Thuật",
         "daoism": "Đạo Pháp",
@@ -101,7 +104,7 @@
         "technology": "Kỹ Nghệ"
       },
       "talent": {
-        "0": "Chưa Có",
+        "0": " - ",
         "writing": "Văn",
         "might": "Võ",
         "business": "Thương",
@@ -109,7 +112,9 @@
       },
       "gender": {
         "female": "Nữ",
-        "male": "Nam"
+        "male": "Nam",
+        "0": "Nữ",
+        "1": "Nam"
       },
       "hobby": {
         "rogue": "Giang Hồ",
@@ -236,8 +241,8 @@
     "familyInfo": "Thông tin gia tộc",
     "treasury": "Ngân khố",
     "members": "Thành viên",
-    "membersInLaw": "Thông gia",
-    "members-in-law": "Thông gia",
+    "membersInLaw": "Dâu rể ngoại tộc",
+    "members-in-law": "Dâu rể ngoại tộc",
     "retainer": "Môn khách",
     "warehouse": "Kho",
     "stable": "Chuồng ngựa",
@@ -1072,11 +1077,11 @@
     "3": "Hoa Dương",
     "4": "Uyển Lăng",
     "5": "Trường La",
-    "6": "Trường La",
-    "7": "An Thành",
-    "8": "Thái Mạt",
-    "9": "Diêm Độc",
-    "10": "Hoắc Nhân",
+    "6": "An Thành",
+    "7": "Thái Mạt",
+    "8": "Diêm Độc",
+    "9": "Hoắc Nhân",
+    "10": "Tỉ Tô",
     "11": "Tân Hội",
     "12": "Việt Tuy"
   },
@@ -1086,5 +1091,97 @@
     "2": "Hầu Tước",
     "3": "Công Tước",
     "4": "Vương"
+  },
+  "clan_name": "{name} Thị",
+  "place_name": {
+    "0|0": "Lâm Tự",
+    "0|1": "Tương Phàn",
+    "0|2": "Nghi Thành",
+    "0|3": "Mạch Thành",
+    "0|4": "Hoa Dung",
+    "0|5": "Doanh Đình",
+    "0|6": "Giang Lăng",
+    "0|7": "Di Lăng",
+
+    "1|0": "Bình Dương",
+    "1|1": "Hình Dương",
+    "1|2": "Nguyên Vũ",
+    "1|3": "Dương Vũ",
+    "1|4": "Tân Trịnh",
+    "1|5": "Nghi Dương",
+
+    "2|0": "Khung Lai",
+    "2|1": "Bì Huyện",
+    "2|2": "Thập Phương",
+    "2|3": "Miên Trúc",
+    "2|4": "Tân Đô",
+    "2|5": "Thành Đô",
+
+    "3|0": "Mạt Lăng",
+    "3|1": "Giang Thừa",
+    "3|2": "Giang Ninh",
+    "3|3": "Lật Dương",
+    "3|4": "Kiến Nghiệp",
+    "3|5": "Vĩnh Thế",
+
+    "4|0": "Trường Viên",
+    "4|1": "Tế Dương",
+    "4|2": "Thành Vũ",
+    "4|3": "Tương Ấp",
+    "4|4": "Ninh Lăng",
+    "4|5": "Phong Khâu",
+
+    "5|0": "Linh Lăng",
+    "5|1": "Ích Dương",
+    "5|2": "Tương Huyện",
+    "5|3": "Viên Châu",
+    "5|4": "Lư Lăng",
+    "5|5": "Hành Sơn",
+    "5|6": "Kiến Ninh",
+    "5|7": "Quế Dương",
+
+    "6|0": "Khúc A",
+    "6|1": "Tùng Giang",
+    "6|2": "Sơn Âm",
+    "6|3": "Dư Kỵ",
+
+    "7|0": "Bình An",
+    "7|1": "Xạ Dương",
+    "7|2": "Hải Lăng",
+    "7|3": "Giang Đô",
+
+    "8|0": "Đại Lăng",
+    "8|1": "Tấn Dương",
+    "8|2": "Cửu Nguyên",
+    "8|3": "Thạch Thành",
+    "8|4": "Dương Khúc",
+    "8|5": "Ngụy Du",
+    "8|6": "Vu Huyện",
+    "8|7": "Trung Đô",
+
+    "9|0": "Liên Nhiên",
+    "9|1": "Cốc Xương",
+    "9|2": "Đồng Lao",
+    "9|3": "Côn Trạch",
+    "9|4": "Điền Trì",
+    "9|5": "Du Nguyên",
+    "9|6": "Thắng Hưu",
+    "9|7": "Nam An",
+
+    "10|0": "Tứ Hội",
+    "10|1": "Dương Sơn",
+    "10|2": "Long Xuyên",
+    "10|3": "Khiết Lĩnh",
+    "10|4": "La Dương",
+    "10|5": "Thiện Vu",
+
+    "11|0": "Vân Bình",
+    "11|1": "Diệp Du",
+    "11|2": "Vĩnh Ninh",
+    "11|3": "Toại Cửu",
+    "11|4": "Cô Phục",
+    "11|5": "Thanh Linh",
+    "11|6": "Nộng Đống",
+    "11|7": "Tà Long"
   }
 }
