@@ -271,7 +271,7 @@
     "invalidJsonKeys": "JSON keys are invalid.",
     "parseFailed": "Failed to parse JSON.",
     "saved": "JSON saved successfully.",
-    "toastTitle": "Upload status",
+    "toastTitle": "Upload status"
   },
   "requiredUpload": {
     "title": "Please upload data",
