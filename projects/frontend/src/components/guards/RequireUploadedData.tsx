@@ -10,15 +10,22 @@ import {
   CButton,
 } from '@coreui/react-pro'
 import { useMemo, useState } from 'react'
+import {useI18nClient} from "@/lib/i18nClient";
 
 type Props = {
   children: React.ReactNode
 }
-
+type I18nSchema = {
+  requiredUpload: {
+    title: string,
+    description: string,
+    upload: string
+  },
+}
 export default function RequireUploadedData({ children }: Props) {
+  const {t} = useI18nClient<I18nSchema>()
   const router = useRouter()
   const pathname = usePathname()
-
   const segments = pathname.split('/').filter(Boolean)
   const lang = segments[0] || 'vi'
 
@@ -57,16 +64,16 @@ export default function RequireUploadedData({ children }: Props) {
         alignment="center"
       >
         <CModalHeader>
-          <CModalTitle>Please upload data</CModalTitle>
+          <CModalTitle>{t.requiredUpload.title}</CModalTitle>
         </CModalHeader>
 
         <CModalBody>
-          You need to upload game data before accessing this page.
+          {t.requiredUpload.description}
         </CModalBody>
 
         <CModalFooter>
           <CButton color="primary" onClick={goHome}>
-            Go to Home
+            {t.requiredUpload.upload}
           </CButton>
         </CModalFooter>
       </CModal>
