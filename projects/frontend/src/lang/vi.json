@@ -275,6 +275,11 @@
     "saved": "JSON đã được lưu thành công.",
     "toastTitle": "Trạng thái tải lên"
   },
+  "requiredUpload": {
+    "title": "Vui Lòng Tải Dữ Liệu",
+    "description": "Bạn cần tải dữ liệu game trước khi truy cập trang này.",
+    "upload": "Về Trang Chủ"
+  },
   "warehouse": {
     "title": "Khố Phòng",
     "description": "Quản lý vật phẩm trong kho",

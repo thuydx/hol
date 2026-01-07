@@ -131,18 +131,18 @@ export class MemberNowRepository extends BaseRepository {
     await this.setValue(rows)
   }
 
-  async getChiefMember(): Promise<MemberParsed | null> {
+  async getChiefMember() {
     const rows = await this.getRows<MemberRawRow[]>()
-
+    if (!Array.isArray(rows)) {
+      return undefined
+    }
     for (const row of rows) {
       const parsed = deserializeAll(row)
       if (parsed.isHeadOfFamily) {
         return parsed
       }
     }
-
-    return null
+    return undefined
   }
-
 
 }

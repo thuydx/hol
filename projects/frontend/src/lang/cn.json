@@ -273,6 +273,11 @@
     "saved": "JSON 已成功保存。",
     "toastTitle": "上传状态"
   },
+  "requiredUpload": {
+    "title": "请上传数据",
+    "description": "在访问此页面之前，您需要先上传游戏数据。",
+    "upload": "返回首页"
+  },
   "warehouse": {
     "title": "仓库",
     "description": "管理仓库中的物品",

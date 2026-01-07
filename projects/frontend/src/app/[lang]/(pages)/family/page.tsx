@@ -166,14 +166,10 @@ const Family = () => {
   }, [])
 
   useEffect(() => {
-    let mounted = true
-
     const loadCounts = async () => {
       const memberNow = await memberRepo.all()
       const memberQu = await memberQuRepo.all()
       const menKeNow = await menKeNowRepo.all()
-
-      if (!mounted) return
 
       setMemberNowCount(memberNow.length)
       setMemberQuCount(memberQu.length)
@@ -182,38 +178,32 @@ const Family = () => {
 
     void loadCounts()
 
-    return () => {
-      mounted = false
-    }
-  }, [])
+  }, [memberNowCount, memberQuCount,menKeCount])
 
   const getPositionLabel = (value?: string) =>
     ZIBEI_POSITION_OPTIONS.find(o => o.value === value)?.label ?? t.family.zibeiPositionOption1
 
   useEffect(() => {
-    let mounted = true
-
     const load = async () => {
       const data = await repo.getData()
-      if (!mounted) return
+      if (!data) return
+
       setFamilyData({
         ...data,
         col_7: '',
         col_8: '',
         col_9: '',
-      });
+      })
+
       const zibeiData = await zibeiRepo.getData()
       setZibeiList(zibeiData)
+
       const member = await memberRepo.getChiefMember()
       setHeadman(member)
     }
 
     void load()
-
-    return () => {
-      mounted = false
-    }
-  }, [])
+  }, [familyData, zibeiList, headman])
 
   const suggestedLevel = useMemo(() => {
     if (zibeiList.length === 0) return '1'
@@ -664,10 +654,10 @@ const Family = () => {
                         !isValidLevel(newZibei.level || suggestedLevel, zibeiList)
                       }
                       onClick={async () => {
-                        const payload: ZiBeiItem = {
-                          ...newZibei,
-                          level: newZibei.level || suggestedLevel,
-                        }
+                        // const payload: ZiBeiItem = {
+                        //   ...newZibei,
+                        //   level: newZibei.level || suggestedLevel,
+                        // }
 
                         await zibeiRepo.create(newZibei)
                         setZibeiList(await zibeiRepo.getData())

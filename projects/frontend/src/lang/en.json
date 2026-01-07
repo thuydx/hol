@@ -271,7 +271,12 @@
     "invalidJsonKeys": "JSON keys are invalid.",
     "parseFailed": "Failed to parse JSON.",
     "saved": "JSON saved successfully.",
-    "toastTitle": "Upload status"
+    "toastTitle": "Upload status",
+  },
+  "requiredUpload": {
+    "title": "Please upload data",
+    "description": "You need to upload game data before accessing this page.",
+    "upload": "Go to Home"
   },
   "warehouse": {
     "title": "Warehouse",
