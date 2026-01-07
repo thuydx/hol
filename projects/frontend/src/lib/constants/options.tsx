@@ -38,3 +38,11 @@ export const GENDER_OPTIONS: OptionMap = {
   0: 'female',
   1: 'male',
 }
+
+export const INHERITANCE_OPTIONS: OptionMap = {
+  0: 'beauty',
+  1: 'scholarly',
+  2: 'martial',
+  3: 'merchant',
+  4: 'artistic'
+}

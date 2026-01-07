@@ -27,7 +27,7 @@
     "name": "Tộc Thị",
     "level": "Cấp Bậc",
     "renown": "Danh Vọng",
-    "influence": "Quan Hệ Với Triều Đình",
+    "influence": "Sức ảnh hưởng tới triều đình",
     "capacity": "Sức Chứa của Kho",
     "stableCapacity": "Sức Chứa của Chuồng Ngựa",
     "zibeiTitle": "Quản Lý Tự Bối",
@@ -46,6 +46,23 @@
       "name": "Tên",
       "officialTitle": "Chức Vị",
       "fengdiTitle": "Tước Vị"
+    },
+    "otherFamily": {
+      "title": "Quan Hệ Với Các Gia Tộc Khác",
+      "name": "Tộc Thị",
+      "relationship": "Quan Hệ (%)"
+    }
+  },
+  "otherFamily": {
+    "level": "Cấp bậc",
+    "title": "Tộc Thị",
+    "relationshipIndex": "Chỉ Số Quan Hệ",
+    "coordinates": "Tọa Độ",
+    "inheritance": "Truyền Thừa",
+    "royalInfluence": "Ảnh Hưởng Triều Đình",
+    "army": {
+      "privateArmy": "Tư Binh",
+      "militaryPower": "Chiến Lực"
     }
   },
   "member": {
@@ -1096,6 +1113,18 @@
     "2": "Hầu Tước",
     "3": "Công Tước",
     "4": "Vương"
+  },
+  "inheritance_option": {
+    "0": "Gia tộc sắc đẹp",
+    "1": "Gia tộc thư hương",
+    "2": "Gia tộc võ công",
+    "3": "Gia tộc thương nhân",
+    "4": "Gia tộc nghệ thuật",
+    "beauty": "Gia tộc sắc đẹp",
+    "scholarly": "Gia tộc thư hương",
+    "martial": "Gia tộc võ công",
+    "merchant": "Gia tộc thương nhân",
+    "artistic": "Gia tộc nghệ thuật"
   },
   "clan_name": "{name} Thị",
   "place_name": {

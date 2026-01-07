@@ -2,6 +2,7 @@ type InputCellProps<T> = {
   value: any
   type?: 'text' | 'number'
   onChange: (value: any) => void
+  onBlur?: () => void
   disabled: boolean
 }
 
@@ -9,6 +10,7 @@ export function InputCell<T>({
                                value,
                                type,
                                onChange,
+                               onBlur,
                                disabled = false,
                              }: InputCellProps<T>) {
   return (
@@ -23,6 +25,7 @@ export function InputCell<T>({
             : e.target.value,
         )
       }
+      onBlur={onBlur}
       style={{width: '100%'}}
     />
   )

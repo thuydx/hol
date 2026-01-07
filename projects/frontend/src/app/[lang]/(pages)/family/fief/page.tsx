@@ -105,8 +105,7 @@ export default function FiefPage() {
    * ====================================================*/
   useEffect(() => {
     ;(async () => {
-      const member: MemberParsed | null =
-        await memberRepo.getChiefMember()
+      const member: undefined | MemberParsed = await memberRepo.getChiefMember()
 
       const idx = member?.titleFengdi.prefectureId ?? 0
       setFengdiIndex(idx)

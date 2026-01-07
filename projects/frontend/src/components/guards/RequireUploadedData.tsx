@@ -9,77 +9,74 @@ import {
   CModalFooter,
   CButton,
 } from '@coreui/react-pro'
-import { useMemo, useState } from 'react'
-import {useI18nClient} from "@/lib/i18nClient";
+import { useEffect, useState } from 'react'
 
 type Props = {
   children: React.ReactNode
 }
-type I18nSchema = {
-  requiredUpload: {
-    title: string,
-    description: string,
-    upload: string
-  },
-}
+
 export default function RequireUploadedData({ children }: Props) {
-  const {t} = useI18nClient<I18nSchema>()
   const router = useRouter()
   const pathname = usePathname()
+
   const segments = pathname.split('/').filter(Boolean)
   const lang = segments[0] || 'vi'
-
-  /** ✅ Home page: /vi, /en */
   const isHomePage = segments.length === 1
 
-  /** ✅ check data once */
-  const hasData = useMemo(() => {
+  /** 🔒 trạng thái trung gian để tránh hydration mismatch */
+  const [checked, setChecked] = useState(false)
+  const [hasData, setHasData] = useState<boolean>(false)
+
+  useEffect(() => {
     try {
-      return !!localStorage.getItem('uploadedJson')
+      setHasData(!!localStorage.getItem('uploadedJson'))
     } catch {
-      return false
+      setHasData(false)
+    } finally {
+      setChecked(true)
     }
   }, [])
 
-  /** ✅ modal state */
-  const [visible, setVisible] = useState(!hasData && !isHomePage)
-
   const goHome = () => {
-    setVisible(false)          // 👈 close modal first
-    router.replace(`/${lang}`) // 👈 then redirect
+    router.replace(`/${lang}`)
   }
 
-  /** ✅ allow home page always */
+  /** ⛔ SSR + first client render → giống nhau */
+  if (!checked) {
+    return null
+  }
+
+  /** ✅ Home page luôn render */
   if (isHomePage) {
     return <>{children}</>
   }
 
-  /** ⛔ block protected pages */
+  /** ⛔ Block protected pages */
   if (!hasData) {
     return (
       <CModal
-        visible={visible}
+        visible
         backdrop="static"
         keyboard={false}
         alignment="center"
       >
         <CModalHeader>
-          <CModalTitle>{t.requiredUpload.title}</CModalTitle>
+          <CModalTitle>Please upload data</CModalTitle>
         </CModalHeader>
 
         <CModalBody>
-          {t.requiredUpload.description}
+          You need to upload game data before accessing this page.
         </CModalBody>
 
         <CModalFooter>
           <CButton color="primary" onClick={goHome}>
-            {t.requiredUpload.upload}
+            Go to Home
           </CButton>
         </CModalFooter>
       </CModal>
     )
   }
 
-  /** ✅ has data → render page */
+  /** ✅ Has data → render page */
   return <>{children}</>
 }

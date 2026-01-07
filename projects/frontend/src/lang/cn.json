@@ -48,6 +48,18 @@
       "fengdiTitle": "爵位"
     }
   },
+  "otherFamily": {
+    "level": "辈分",
+    "title": "姓氏",
+    "relationshipIndex": "关系指数",
+    "coordinates": "坐标",
+    "inheritance": "继承",
+    "royalInfluence": "朝廷影响",
+    "army": {
+      "privateArmy": "私军",
+      "militaryPower": "军力"
+    }
+  },
   "member": {
     "title": "成员管理",
     "basic": "基本信息",
@@ -1096,6 +1108,18 @@
     "2": "侯爵",
     "3": "公爵",
     "4": "王"
+  },
+  "inheritance_option": {
+    "0": "美貌世家",
+    "1": "书香世家",
+    "2": "武道世家",
+    "3": "商贾世家",
+    "4": "艺术世家",
+    "beauty": "美貌世家",
+    "scholarly": "书香世家",
+    "martial": "武道世家",
+    "merchant": "商贾世家",
+    "artistic": "艺术世家"
   },
   "clan_name": "{name}氏宗族",
   "place_name": {

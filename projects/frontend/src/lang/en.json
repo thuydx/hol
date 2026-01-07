@@ -48,6 +48,18 @@
       "fengdiTitle": "Noble Title"
     }
   },
+  "otherFamily": {
+    "level": "Level",
+    "title": "Title",
+    "relationshipIndex": "Relationship Index",
+    "coordinates": "Coordinates",
+    "inheritance": "Inheritance",
+    "royalInfluence": "Royal Influence",
+    "army": {
+      "privateArmy": "Private Army",
+      "militaryPower": "Military Power"
+    }
+  },
   "member": {
     "title": "Member Management",
     "basic": "Basic Information",
@@ -1094,6 +1106,18 @@
     "2": "Marquis",
     "3": "Duke",
     "4": "King"
+  },
+  "inheritance_option": {
+    "0": "Beauty Clan",
+    "1": "Scholarly Clan",
+    "2": "Martial Clan",
+    "3": "Merchant Clan",
+    "4": "Artistic Clan",
+    "beauty": "Beauty Clan",
+    "scholarly": "Scholarly Clan",
+    "martial": "Martial Clan",
+    "merchant": "Merchant Clan",
+    "artistic": "Artistic Clan"
   },
   "clan_name": "Clan of {name}",
   "place_name": {
