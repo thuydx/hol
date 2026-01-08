@@ -48,7 +48,7 @@
       "fengdiTitle": "Noble Title"
     }
   },
-  "otherFamily": {
+  "shiJiaNow": {
     "level": "Level",
     "title": "Title",
     "relationshipIndex": "Relationship Index",
@@ -261,7 +261,7 @@
     "farm": "Farm",
     "relationship": "Relationship",
     "king": "King",
-    "otherFamily": "Other Family",
+    "shiJiaNow": "Other Family",
     "army": "Army",
     "military": "Military",
     "slave": "Slave",

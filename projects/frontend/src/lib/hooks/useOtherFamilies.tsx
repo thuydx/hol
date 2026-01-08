@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { OtherFamilyParsed } from '@/types/otherFamily'
-import { OtherFamilyRepository } from '@/repositories/OtherFamily'
+import { ShiJiaNowParsed } from '@/types/ShiJiaNow'
+import { ShiJiaNowRepository } from '@/repositories/ShiJiaNow'
 
-const repo = new OtherFamilyRepository()
+const repo = new ShiJiaNowRepository()
 
 export function useOtherFamilies() {
-  const [data, setData] = useState<OtherFamilyParsed[]>([])
+  const [data, setData] = useState<ShiJiaNowParsed[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function useOtherFamilies() {
 
   const update = async (
     id: number,
-    fn: (m: OtherFamilyParsed) => OtherFamilyParsed,
+    fn: (m: ShiJiaNowParsed) => ShiJiaNowParsed,
   ) => {
     await repo.update(id, fn)
     setData(await repo.getAll())

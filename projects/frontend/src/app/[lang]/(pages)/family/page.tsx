@@ -31,8 +31,8 @@ import {MemberParsed, MemberTitleFengdi} from "@/models/members";
 import {useParams} from "next/navigation";
 import {MemberQuRepository} from "@/repositories/MemberQu";
 import {MenKeNowRepository} from "@/repositories/MenKeNow";
-import {OtherFamilyRepository} from "@/repositories/OtherFamily";
-import {OtherFamilyParsed} from "@/types/otherFamily";
+import {ShiJiaNowRepository} from "@/repositories/ShiJiaNow";
+import {ShiJiaNowParsed} from "@/types/ShiJiaNow";
 
 /**
  * Family Data
@@ -96,7 +96,7 @@ type I18nSchema = {
       officialTitle: string
       fengdiTitle: string
     }
-    otherFamily: {
+    shiJiaNow: {
       title: string,
       name: string,
       relationship: string,
@@ -140,7 +140,7 @@ const nuLiNumRepo = new NuLiNumRepository()
 const memberRepo = new MemberNowRepository()
 const memberQuRepo = new MemberQuRepository()
 const menKeNowRepo = new MenKeNowRepository()
-const otherFamilyRepo = new OtherFamilyRepository()
+const shiJiaNowRepo = new ShiJiaNowRepository()
 
 const Family = () => {
   const params = useParams()
@@ -165,7 +165,7 @@ const Family = () => {
   const [memberNowCount, setMemberNowCount] = useState(0)
   const [memberQuCount, setMemberQuCount] = useState(0)
   const [menKeCount, setMenKeCount] = useState(0)
-  const [otherFamily, setOtherFamily] = useState<OtherFamilyParsed[]>([])
+  const [shiJiaNow, setShiJiaNow] = useState<ShiJiaNowParsed[]>([])
   /* -------------------------------
   * Load from LocalStorage
   * ------------------------------- */
@@ -181,11 +181,11 @@ const Family = () => {
       const memberNow = await memberRepo.all()
       const memberQu = await memberQuRepo.all()
       const menKeNow = await menKeNowRepo.all()
-      const otherFamily = await otherFamilyRepo.getAll()
+      const shiJiaNow = await shiJiaNowRepo.getAll()
       setMemberNowCount(memberNow.length)
       setMemberQuCount(memberQu.length)
       setMenKeCount(menKeNow.length)
-      setOtherFamily(otherFamily)
+      setShiJiaNow(shiJiaNow)
     }
     void loadCounts()
   }, [memberNowCount, memberQuCount, menKeCount])
@@ -324,7 +324,7 @@ const Family = () => {
     return `${place} · ${clan}`
   }
 
-  function buildOtherFamilyTitle(
+  function buildShiJiaNowTitle(
     t: I18nSchema,
     coordinates: string,
     name: string,
@@ -1064,7 +1064,7 @@ const Family = () => {
         <CCard className="mb-3">
           <CCardHeader>
             <CCardTitle>
-              {t.family.otherFamily.title}
+              {t.family.shiJiaNow.title}
             </CCardTitle>
           </CCardHeader>
 
@@ -1073,16 +1073,16 @@ const Family = () => {
               <CTableHead>
                 <CTableRow>
                   <CTableHeaderCell>
-                    {t.family.otherFamily.name}
+                    {t.family.shiJiaNow.name}
                   </CTableHeaderCell>
                   <CTableHeaderCell style={{width: 120}}>
-                    {t.family.otherFamily.relationship}
+                    {t.family.shiJiaNow.relationship}
                   </CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
 
               <CTableBody>
-                {otherFamily.length === 0 && (
+                {shiJiaNow.length === 0 && (
                   <CTableRow>
                     <CTableDataCell colSpan={2} className="text-center text-muted">
                       —
@@ -1090,10 +1090,10 @@ const Family = () => {
                   </CTableRow>
                 )}
 
-                {otherFamily.map(of => (
+                {shiJiaNow.map(of => (
                   <CTableRow key={of.id}>
                     <CTableDataCell>
-                      {buildOtherFamilyTitle(
+                      {buildShiJiaNowTitle(
                         t,
                         of.coordinates,
                         of.name,

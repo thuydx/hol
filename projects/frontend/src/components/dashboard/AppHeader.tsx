@@ -97,7 +97,7 @@ const AppHeader = (): JSX.Element => {
             <CDropdownMenu>
               <CDropdownItem href={lhref('/relationship/king')}>{t.king}</CDropdownItem>
               <CDropdownItem href={lhref('/relationship/other-family')}>
-                {t.otherFamily}
+                {t.shiJiaNow}
               </CDropdownItem>
             </CDropdownMenu>
           </CDropdown>

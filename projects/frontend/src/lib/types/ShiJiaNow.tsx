@@ -5,12 +5,12 @@ export type ArmyStrength = {
   militaryPower: number
 }
 
-export type OtherFamilyRelation = {
+export type ShiJiaNowRelation = {
   familyId: number
   value: number
 }
 
-export type OtherFamilyParsed = {
+export type ShiJiaNowParsed = {
   id: number
   name: string
   level: number
@@ -18,6 +18,6 @@ export type OtherFamilyParsed = {
   coordinates: Coordinates
   inheritance: number
   royalInfluence: number
-  relations: OtherFamilyRelation[]
+  relations: ShiJiaNowRelation[]
   army: ArmyStrength
 }

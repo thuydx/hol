@@ -15,14 +15,14 @@ import {
 
 import { InputCell } from '@/components/table/InputCell'
 import { DropdownCell } from '@/components/table/DropdownCell'
-import { OtherFamilyRelationMatrix } from '@/components/table/OtherFamilyRelationMatrix'
+import { ShiJiaNowRelationMatrix } from '@/components/table/ShiJiaNowRelationMatrix'
 
 import { useOtherFamilies } from '@/hooks/useOtherFamilies'
 import { useI18nClient } from '@/lib/i18nClient'
-import { OtherFamilyColumn } from '@/columns/otherFamily'
+import { ShiJiaNowColumn } from '@/columns/ShiJiaNow'
 import { INHERITANCE_OPTIONS } from '@/constants/options'
-import type { OtherFamilyParsed } from '@/types/otherFamily'
-import {countTotalClanMembers} from "@/lib/services/otherFamilyMemberCount";
+import type { ShiJiaNowParsed } from '@/types/ShiJiaNow'
+import {countTotalClanMembers} from "@/lib/services/shiJiaNowMemberCount";
 
 /* ========================
  * helpers
@@ -42,14 +42,14 @@ function buildFamilyTitle(
 /* ========================
  * Row component (CoreUI)
  * ======================== */
-function OtherFamilyRow({
+function ShiJiaNowRow({
                           family,
                           t,
                           memberCount,
                           updateColumn,
                           updateSubColumn,
                         }: Readonly<{
-  family: OtherFamilyParsed
+  family: ShiJiaNowParsed
   memberCount: number
   t: any
   updateColumn: (
@@ -89,7 +89,7 @@ function OtherFamilyRow({
           onBlur={() =>
             updateColumn(
               row.id,
-              OtherFamilyColumn.LEVEL,
+              ShiJiaNowColumn.LEVEL,
               String(row.level),
             )
           }
@@ -108,7 +108,7 @@ function OtherFamilyRow({
           onBlur={() =>
             updateColumn(
               row.id,
-              OtherFamilyColumn.RELATIONSHIP_INDEX,
+              ShiJiaNowColumn.RELATIONSHIP_INDEX,
               String(row.relationshipIndex),
             )
           }
@@ -125,7 +125,7 @@ function OtherFamilyRow({
             setRow({ ...row, inheritance: v })
             updateColumn(
               row.id,
-              OtherFamilyColumn.INHERITANCE,
+              ShiJiaNowColumn.INHERITANCE,
               String(v),
             )
           }}
@@ -144,7 +144,7 @@ function OtherFamilyRow({
           onBlur={() =>
             updateColumn(
               row.id,
-              OtherFamilyColumn.ROYAL_INFLUENCE,
+              ShiJiaNowColumn.ROYAL_INFLUENCE,
               String(row.royalInfluence),
             )
           }
@@ -166,7 +166,7 @@ function OtherFamilyRow({
           onBlur={() =>
             updateSubColumn(
               String(row.id),
-              OtherFamilyColumn.ARMY_STRENGTH,
+              ShiJiaNowColumn.ARMY_STRENGTH,
               '0',
               String(row.army.privateArmy),
             )
@@ -192,7 +192,7 @@ function OtherFamilyRow({
           onBlur={() =>
             updateSubColumn(
               String(row.id),
-              OtherFamilyColumn.ARMY_STRENGTH,
+              ShiJiaNowColumn.ARMY_STRENGTH,
               '1',
               String(row.army.militaryPower),
             )
@@ -207,7 +207,7 @@ function OtherFamilyRow({
  * Page
  * ======================== */
 
-export default function OtherFamilyPage() {
+export default function ShiJiaNowPage() {
   const {
     data,
     loading,
@@ -240,7 +240,7 @@ export default function OtherFamilyPage() {
     <>
       <CCard>
         <CCardHeader>
-          <strong>{t.menu.otherFamily}</strong>
+          <strong>{t.menu.shiJiaNow}</strong>
         </CCardHeader>
         <CCardBody style={{ overflowX: 'auto' }}>
           <CTable striped small hover>
@@ -250,38 +250,38 @@ export default function OtherFamilyPage() {
                   ID
                 </CTableHeaderCell>
                 <CTableHeaderCell>
-                  {t.otherFamily.title}
+                  {t.shiJiaNow.title}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 90 }}>
-                  {t.otherFamily.coordinates}
+                  {t.shiJiaNow.coordinates}
                 </CTableHeaderCell>
                 <CTableHeaderCell>
-                  {t.otherFamily.members}
+                  {t.shiJiaNow.members}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 80 }}>
-                  {t.otherFamily.level}
+                  {t.shiJiaNow.level}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 140 }}>
-                  {t.otherFamily.relationshipIndex}
+                  {t.shiJiaNow.relationshipIndex}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 180 }}>
-                  {t.otherFamily.inheritance}
+                  {t.shiJiaNow.inheritance}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 160 }}>
-                  {t.otherFamily.royalInfluence}
+                  {t.shiJiaNow.royalInfluence}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 110 }}>
-                  {t.otherFamily.army.privateArmy}
+                  {t.shiJiaNow.army.privateArmy}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 110 }}>
-                  {t.otherFamily.army.militaryPower}
+                  {t.shiJiaNow.army.militaryPower}
                 </CTableHeaderCell>
               </CTableRow>
             </CTableHead>
 
             <CTableBody>
               {data.map((family, index) => (
-                <OtherFamilyRow
+                <ShiJiaNowRow
                   key={family.id}
                   family={family}
                   memberCount={memberCount[family.id] ?? 0}
@@ -296,7 +296,7 @@ export default function OtherFamilyPage() {
       </CCard>
 
       {/* RELATIONSHIP MATRIX */}
-      <OtherFamilyRelationMatrix families={data} />
+      <ShiJiaNowRelationMatrix families={data} />
     </>
   )
 }

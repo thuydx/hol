@@ -1,6 +1,6 @@
 import { BaseRepository } from '@/lib/baseRepository'
 
-export class ShiJia_kingRepository extends BaseRepository {
+export class ShiJiaKing extends BaseRepository {
   protected sectionKey = 'ShiJia_king'
 
 

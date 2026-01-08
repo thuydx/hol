@@ -1,4 +1,4 @@
-export enum OtherFamilyColumn {
+export enum ShiJiaNowColumn {
   UNKNOWN_0 = 0,
   NAME = 1,
   LEVEL = 2,

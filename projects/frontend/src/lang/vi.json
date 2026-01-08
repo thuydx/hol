@@ -47,13 +47,13 @@
       "officialTitle": "Chức Vụ",
       "fengdiTitle": "Tước Vị"
     },
-    "otherFamily": {
+    "shiJiaNow": {
       "title": "Quan Hệ Với Các Gia Tộc Khác",
       "name": "Tộc Thị",
       "relationship": "Quan Hệ (%)"
     }
   },
-  "otherFamily": {
+  "shiJiaNow": {
     "level": "Cấp bậc",
     "title": "Tộc Thị",
     "relationshipIndex": "Chỉ Số Quan Hệ",
@@ -267,7 +267,7 @@
     "farm": "Nông trại",
     "relationship": "Mối quan hệ",
     "king": "Vua",
-    "otherFamily": "Gia tộc khác",
+    "shiJiaNow": "Gia tộc khác",
     "other-family": "Gia tộc khác",
     "army": "Tư Binh",
     "military": "Doanh Trại",

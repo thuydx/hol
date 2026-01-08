@@ -1,4 +1,4 @@
-import type { OtherFamilyRelation } from '@/types/otherFamily'
+import type { ShiJiaNowRelation } from '@/types/ShiJiaNow'
 
 export type RelationMap = Record<number, number>
 
@@ -7,7 +7,7 @@ export type RelationMap = Record<number, number>
  * [{familyId: 1, value: 7.6}] -> { 1: 7.6 }
  */
 export function buildRelationMap(
-  relations: OtherFamilyRelation[] | undefined,
+  relations: ShiJiaNowRelation[] | undefined,
 ): RelationMap {
   if (!Array.isArray(relations)) return {}
 

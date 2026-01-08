@@ -48,7 +48,7 @@
       "fengdiTitle": "爵位"
     }
   },
-  "otherFamily": {
+  "shiJiaNow": {
     "level": "辈分",
     "title": "姓氏",
     "relationshipIndex": "关系指数",
@@ -261,7 +261,7 @@
     "farm": "农场",
     "relationship": "关系",
     "king": "君主",
-    "otherFamily": "其他家族",
+    "shiJiaNow": "其他家族",
     "army": "军队",
     "military": "军事",
     "slave": "奴隶",

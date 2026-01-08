@@ -10,13 +10,13 @@ import {
   CTableDataCell,
 } from '@coreui/react-pro'
 import { buildRelationMatrix, RELATION_NA } from '@/lib/services/buildRelationMatrix'
-import type { OtherFamilyParsed } from '@/types/otherFamily'
+import type { ShiJiaNowParsed } from '@/types/ShiJiaNow'
 
 type Props = {
-  families: OtherFamilyParsed[]
+  families: ShiJiaNowParsed[]
 }
 
-export function OtherFamilyRelationMatrix({ families }: Props) {
+export function ShiJiaNowRelationMatrix({ families }: Props) {
   const matrix = buildRelationMatrix(families)
 
   return (

@@ -1,10 +1,10 @@
-import { buildRelationMap } from './otherFamilyRelationship'
-import {OtherFamilyParsed} from "@/types/otherFamily";
+import { buildRelationMap } from './shiJiaNowRelationship'
+import {ShiJiaNowParsed} from "@/types/ShiJiaNow";
 
 export const RELATION_NA = -1
 
 export function buildRelationMatrix(
-  families: OtherFamilyParsed[],
+  families: ShiJiaNowParsed[],
 ): number[][] {
   return families.map((familyA, i) => {
     const map = buildRelationMap(familyA.relations)
