@@ -193,11 +193,30 @@ const Family = () => {
   const getPositionLabel = (value?: string) =>
     ZIBEI_POSITION_OPTIONS.find(o => o.value === value)?.label ?? t.family.zibeiPositionOption1
 
+  // useEffect(() => {
+  //   const load = async () => {
+  //     const data = await repo.getData()
+  //     if (!data) return
+  //
+  //     setFamilyData({
+  //       ...data,
+  //       col_7: '',
+  //       col_8: '',
+  //       col_9: '',
+  //     })
+  //
+  //     const zibeiData = await zibeiRepo.getData()
+  //     setZibeiList(zibeiData)
+  //
+  //     const member = await memberRepo.getChiefMember()
+  //     setHeadman(member)
+  //   }
+  //
+  //   void load()
+  // }, [familyData, zibeiList, headman])
   useEffect(() => {
     const load = async () => {
       const data = await repo.getData()
-      if (!data) return
-
       setFamilyData({
         ...data,
         col_7: '',
@@ -205,15 +224,13 @@ const Family = () => {
         col_9: '',
       })
 
-      const zibeiData = await zibeiRepo.getData()
-      setZibeiList(zibeiData)
-
-      const member = await memberRepo.getChiefMember()
-      setHeadman(member)
+      setZibeiList(await zibeiRepo.getData())
+      setHeadman(await memberRepo.getChiefMember())
     }
 
     void load()
-  }, [familyData, zibeiList, headman])
+  }, []) // 🔥 CHỈ CHẠY 1 LẦN
+
 
   const suggestedLevel = useMemo(() => {
     if (zibeiList.length === 0) return '1'
@@ -324,6 +341,36 @@ const Family = () => {
     // EN: Yeanlan · Clan of Dinh
     return `${place} · ${clan}`
   }
+
+  const OFFICIAL_TITLE_OPTIONS = useMemo(
+    () =>
+      Object.entries(t.official_title).map(([key, label]) => ({
+        key,
+        label,
+      })),
+    [t.official_title]
+  )
+
+  const FIEF_LEVEL_OPTIONS = useMemo(
+    () =>
+      Object.entries(t.fief_level).map(([value, label]) => ({
+        value: Number(value),
+        label,
+      })),
+    [t.fief_level]
+  )
+
+  const FIEF_CITY_OPTIONS = useMemo(
+    () =>
+      Object.entries(t.fief_name)
+        .filter(([k]) => k !== '0')
+        .map(([value, label]) => ({
+          value: Number(value),
+          label,
+        })),
+    [t.fief_name]
+  )
+
 
   const updateName = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value
@@ -557,19 +604,107 @@ const Family = () => {
               </CCol>
             </CRow>
             {/* FENDI_TITLE */}
+            {/*<CRow className="align-items-center mb-2">*/}
+            {/*  <CCol xs={5}>*/}
+            {/*    <label className="form-label mb-0">*/}
+            {/*      {t.family.headman.fengdiTitle}*/}
+            {/*    </label>*/}
+            {/*  </CCol>*/}
+            {/*  <CCol xs={7}>*/}
+            {/*    {headman?.titleFengdi*/}
+            {/*      ? getFengdiLabel(t, headman.titleFengdi, lang)*/}
+            {/*      : t.fief_level['0']}*/}
+            {/*    /!*{headman?.titleFengdi?.level ?? ''}@{headman?.titleFengdi?.prefectureId ?? ''}*!/*/}
+            {/*  </CCol>*/}
+            {/*</CRow>*/}
+            {/* FENGDI LEVEL */}
             <CRow className="align-items-center mb-2">
               <CCol xs={5}>
                 <label className="form-label mb-0">
                   {t.family.headman.fengdiTitle}
                 </label>
               </CCol>
+
               <CCol xs={7}>
-                {headman?.titleFengdi
-                  ? getFengdiLabel(t, headman.titleFengdi, lang)
-                  : t.fief_level['0']}
-                {/*{headman?.titleFengdi?.level ?? ''}@{headman?.titleFengdi?.prefectureId ?? ''}*/}
+                <CDropdown style={{paddingRight: '0.5rem'}}>
+                  <CDropdownToggle size="sm" color="secondary">
+                    {t.fief_name[
+                      String(headman?.titleFengdi?.prefectureId ?? 0)
+                      ]}
+                  </CDropdownToggle>
+
+                  <CDropdownMenu style={{ maxHeight: 240, overflowY: 'auto' }}>
+                    {FIEF_CITY_OPTIONS.map(opt => (
+                      <CDropdownItem
+                        key={opt.value}
+                        onClick={() => {
+                          if (!headman?.titleFengdi) return
+
+                          const level = headman.titleFengdi.level
+                          const prefectureId = opt.value
+
+                          void (async () => {
+                            await memberRepo.updateTitleFengdi(level, prefectureId)
+                            setHeadman(await memberRepo.getChiefMember())
+                          })()
+                        }}
+                      >
+                        {opt.label}
+                      </CDropdownItem>
+                    ))}
+                  </CDropdownMenu>
+                </CDropdown>
+                <CDropdown>
+                  <CDropdownToggle size="sm" color="secondary">
+                    {t.fief_level[String(headman?.titleFengdi?.level ?? 0)]}
+                  </CDropdownToggle>
+
+                  <CDropdownMenu>
+                    {FIEF_LEVEL_OPTIONS.map(opt => (
+                      <CDropdownItem
+                        key={opt.value}
+                        onClick={() => {
+                          if (!headman?.titleFengdi) return
+
+                          const level = opt.value
+                          const prefectureId = headman.titleFengdi.prefectureId
+
+                          void (async () => {
+                            await memberRepo.updateTitleFengdi(level, prefectureId)
+                            setHeadman(await memberRepo.getChiefMember())
+                          })()
+                        }}
+                      >
+                        {opt.label}
+                      </CDropdownItem>
+                    ))}
+                  </CDropdownMenu>
+                </CDropdown>
               </CCol>
             </CRow>
+            {/* FENGDI CITY */}
+            <CRow className="align-items-center mb-2">
+              <CCol xs={5} />
+
+              <CCol xs={7}>
+
+
+              </CCol>
+            </CRow>
+
+            {/* OFFICIAL_TITLE */}
+            {/*<CRow className="align-items-center mb-2">*/}
+            {/*  <CCol xs={5}>*/}
+            {/*    <label className="form-label mb-0">*/}
+            {/*      {t.family.headman.officialTitle}*/}
+            {/*    </label>*/}
+            {/*  </CCol>*/}
+            {/*  <CCol xs={7}>*/}
+            {/*    {t.official_title[*/}
+            {/*    headman?.officialTitle?.i18nKey ?? '0@0@0'*/}
+            {/*      ]}*/}
+            {/*  </CCol>*/}
+            {/*</CRow>*/}
             {/* OFFICIAL_TITLE */}
             <CRow className="align-items-center mb-2">
               <CCol xs={5}>
@@ -577,12 +712,45 @@ const Family = () => {
                   {t.family.headman.officialTitle}
                 </label>
               </CCol>
+
               <CCol xs={7}>
-                {t.official_title[
-                headman?.officialTitle?.i18nKey ?? '0@0@0'
-                  ]}
+                <CDropdown>
+                  <CDropdownToggle size="sm" color="secondary">
+                    {t.official_title[
+                    headman?.officialTitle?.i18nKey ?? '0@0@0'
+                      ]}
+                  </CDropdownToggle>
+
+                  <CDropdownMenu style={{ maxHeight: 240, overflowY: 'auto' }}>
+                    {OFFICIAL_TITLE_OPTIONS.map(opt => (
+                      <CDropdownItem
+                        key={opt.key}
+                        onClick={() => {
+                          // opt.key MUST be "a@b@c"
+                          const abcKey = opt.key
+
+                          // HARD GUARD
+                          if (!/^\d+@\d+@\d+$/.test(abcKey)) {
+                            console.error('Invalid official title key:', abcKey)
+                            return
+                          }
+
+                          void (async () => {
+                            await memberRepo.updateOfficialTitle(abcKey)
+                            setHeadman(await memberRepo.getChiefMember())
+                          })()
+                        }}
+
+                      >
+                        {opt.label}
+                      </CDropdownItem>
+                    ))}
+                  </CDropdownMenu>
+                </CDropdown>
+
               </CCol>
             </CRow>
+
           </CCardBody>
         </CCard>
       </CCol>
@@ -941,7 +1109,6 @@ const Family = () => {
             </CTable>
           </CCardBody>
         </CCard>
-
       </CCol>
     </CRow>
   );

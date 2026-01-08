@@ -44,7 +44,7 @@
     "headman": {
       "title": "Tộc Trưởng",
       "name": "Tên",
-      "officialTitle": "Chức Vị",
+      "officialTitle": "Chức Vụ",
       "fengdiTitle": "Tước Vị"
     },
     "otherFamily": {
@@ -63,7 +63,8 @@
     "army": {
       "privateArmy": "Tư Binh",
       "militaryPower": "Chiến Lực"
-    }
+    },
+    "members": "Tộc Nhân"
   },
   "member": {
     "title": "Quản lý thành viên",
@@ -1027,15 +1028,15 @@
   ],
   "official_title": {
     "0@0@0": "Không Có",
-    "5@0@0": "Chưa Có Chức Vị",
+    "5@0@0": "Chưa Có Chức Vụ",
     "5@0@1": "Phó Huyện Lệnh",
     "5@0@2": "Huyện Úy",
     "5@0@3": "Nghĩa Hội Quan",
-    "5@1@0": "Chưa Có Chức Vị",
+    "5@1@0": "Chưa Có Chức Vụ",
     "5@1@1": "Huyện Lệnh",
     "5@1@2": "Quy Đức Quan",
-    "5@2@0": "Chưa Có Chức Vị",
-    "5@3@0": "Chưa Có Chức Vị",
+    "5@2@0": "Chưa Có Chức Vụ",
+    "5@3@0": "Chưa Có Chức Vụ",
     "5@3@1": "Thứ Sử",
     "5@3@3": "Tả Dực Vệ Tướng Quân",
     "5@3@4": "Hữu Dực Vệ Tướng Quân",
@@ -1049,7 +1050,7 @@
     "5@3@12": "Hữu Hậu Vệ Tướng Quân",
     "5@3@13": "Tả Ngự Vệ Tướng Quân",
     "5@3@14": "Hữu Ngự Vệ Tướng Quân",
-    "5@4@0": "Chưa Có Chức Vị",
+    "5@4@0": "Chưa Có Chức Vụ",
     "5@4@1": "Hình Bộ Thượng Thư",
     "5@4@2": "Lại Bộ Thượng Thư",
     "5@4@3": "Hộ Bộ Thượng Thư",
@@ -1060,10 +1061,10 @@
     "5@4@8": "Ngự Sử",
     "5@4@9": "Ngự Sử",
     "5@4@10": "Ngự Sử",
-    "5@5@0": "Chưa Có Chức Vị",
+    "5@5@0": "Chưa Có Chức Vụ",
     "5@5@1": "Thượng Thư Lệnh",
     "5@5@2": "Ngự Sử Đại Phu",
-    "5@6@0": "Chưa Có Chức Vị",
+    "5@6@0": "Chưa Có Chức Vụ",
     "5@6@1": "Thừa Tướng"
   },
   "merits_title": {

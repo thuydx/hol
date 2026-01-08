@@ -58,7 +58,8 @@
     "army": {
       "privateArmy": "私军",
       "militaryPower": "军力"
-    }
+    },
+    "members": "成员"
   },
   "member": {
     "title": "成员管理",

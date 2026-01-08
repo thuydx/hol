@@ -3,7 +3,7 @@ import {
   serializeAll, deserializeAll,
   MemberColumn,
   MemberParsed,
-  MemberRawRow,
+  MemberRawRow, MemberTitleFengdi, MemberOfficialTitle, serializeOfficialTitle, serializeTitleFengdi,
 } from '@/models/members'
 
 /**
@@ -143,6 +143,75 @@ export class MemberNowRepository extends BaseRepository {
       }
     }
     return undefined
+  }
+
+  async updateTitleFengdi(
+    level: number,
+    prefectureId: number
+  ): Promise<void> {
+    const index = await this.findChiefIndex()
+    if (index === null) return
+
+    const serialized = `${level}|${prefectureId}`
+
+    await this.updateColumnByIndex(
+      index,
+      MemberColumn.TITLE_FENGDI,
+      serialized
+    )
+  }
+
+  async updateOfficialTitle(abcKey: string): Promise<void> {
+    const index = await this.findChiefIndex()
+    if (index === null) return
+
+    // 🔥 VALIDATE
+    if (!/^\d+@\d+@\d+$/.test(abcKey)) {
+      console.error('Invalid abcKey:', abcKey)
+      return
+    }
+
+    const [a, b, c] = abcKey.split('@').map(v => Number(v))
+
+    if ([a, b, c].some(n => Number.isNaN(n))) {
+      console.error('NaN official title:', abcKey)
+      return
+    }
+
+    const rows = await this.getRows<MemberRawRow[]>()
+    const parsed = deserializeAll(rows[index])
+
+    const next: MemberOfficialTitle = {
+      identity: a,
+      rank: b,
+      position: c,
+      prefectureId: parsed.officialTitle?.prefectureId ?? -1,
+      countyId: parsed.officialTitle?.countyId ?? -1,
+      politicalAchievement:
+        parsed.officialTitle?.politicalAchievement ?? 0,
+      i18nKey: `${a}@${b}@${c}`,
+    }
+
+    const serialized = serializeOfficialTitle(next)
+
+    await this.updateColumnByIndex(
+      index,
+      MemberColumn.OFFICIAL_TITLE,
+      serialized
+    )
+  }
+
+  private async findChiefIndex(): Promise<number | null> {
+    const rows = await this.getRows<MemberRawRow[]>()
+
+    for (let i = 0; i < rows.length; i++) {
+      const parsed = deserializeAll(rows[i])
+      if (parsed.isHeadOfFamily) {
+        return i
+      }
+    }
+
+    return null
   }
 
 }

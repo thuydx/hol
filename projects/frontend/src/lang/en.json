@@ -58,7 +58,8 @@
     "army": {
       "privateArmy": "Private Army",
       "militaryPower": "Military Power"
-    }
+    },
+    "members": "Members"
   },
   "member": {
     "title": "Member Management",

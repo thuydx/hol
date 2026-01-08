@@ -3,7 +3,7 @@ type InputCellProps<T> = {
   type?: 'text' | 'number'
   onChange: (value: any) => void
   onBlur?: () => void
-  disabled: boolean
+  disabled?: boolean
 }
 
 export function InputCell<T>({

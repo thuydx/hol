@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 import {
   CCard,
   CCardHeader,
@@ -22,6 +22,7 @@ import { useI18nClient } from '@/lib/i18nClient'
 import { OtherFamilyColumn } from '@/columns/otherFamily'
 import { INHERITANCE_OPTIONS } from '@/constants/options'
 import type { OtherFamilyParsed } from '@/types/otherFamily'
+import {countTotalClanMembers} from "@/lib/services/otherFamilyMemberCount";
 
 /* ========================
  * helpers
@@ -41,16 +42,15 @@ function buildFamilyTitle(
 /* ========================
  * Row component (CoreUI)
  * ======================== */
-
 function OtherFamilyRow({
-                          index,
                           family,
                           t,
+                          memberCount,
                           updateColumn,
                           updateSubColumn,
-                        }: {
-  index: number
+                        }: Readonly<{
   family: OtherFamilyParsed
+  memberCount: number
   t: any
   updateColumn: (
     rowIndex: number,
@@ -63,13 +63,8 @@ function OtherFamilyRow({
     subKey: string,
     value: string,
   ) => Promise<void>
-}) {
+}>) {
   const [row, setRow] = useState(family)
-
-  // chỉ sync khi đổi record (không rollback khi edit)
-  useEffect(() => {
-    setRow(family)
-  }, [family.id])
 
   return (
     <CTableRow>
@@ -80,7 +75,10 @@ function OtherFamilyRow({
       <CTableDataCell>
         {buildFamilyTitle(row.coordinates, row.name, t)}
       </CTableDataCell>
-
+      {/* COORDINATES (read-only) */}
+      <CTableDataCell>{row.coordinates}</CTableDataCell>
+      {/* MEMBERS (Tộc nhân) */}
+      <CTableDataCell>{memberCount}</CTableDataCell>
       {/* LEVEL */}
       <CTableDataCell>
         <InputCell
@@ -116,9 +114,6 @@ function OtherFamilyRow({
           }
         />
       </CTableDataCell>
-
-      {/* COORDINATES (read-only) */}
-      <CTableDataCell>{row.coordinates}</CTableDataCell>
 
       {/* INHERITANCE */}
       <CTableDataCell>
@@ -221,6 +216,23 @@ export default function OtherFamilyPage() {
   } = useOtherFamilies()
 
   const { t } = useI18nClient<any>()
+  const [memberCount, setMemberCount] = useState<Record<number, number>>({})
+
+  useEffect(() => {
+    const load = async () => {
+      const result: Record<number, number> = {}
+
+      for (const family of data) {
+        result[family.id] = await countTotalClanMembers(
+          family.id,
+        )
+      }
+
+      setMemberCount(result)
+    }
+
+    void load()
+  }, [data])
 
   if (loading) return <div>Loading…</div>
 
@@ -240,14 +252,17 @@ export default function OtherFamilyPage() {
                 <CTableHeaderCell>
                   {t.otherFamily.title}
                 </CTableHeaderCell>
+                <CTableHeaderCell style={{ width: 90 }}>
+                  {t.otherFamily.coordinates}
+                </CTableHeaderCell>
+                <CTableHeaderCell>
+                  {t.otherFamily.members}
+                </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 80 }}>
                   {t.otherFamily.level}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 140 }}>
                   {t.otherFamily.relationshipIndex}
-                </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 90 }}>
-                  {t.otherFamily.coordinates}
                 </CTableHeaderCell>
                 <CTableHeaderCell style={{ width: 180 }}>
                   {t.otherFamily.inheritance}
@@ -268,8 +283,8 @@ export default function OtherFamilyPage() {
               {data.map((family, index) => (
                 <OtherFamilyRow
                   key={family.id}
-                  index={index}
                   family={family}
+                  memberCount={memberCount[family.id] ?? 0}
                   t={t}
                   updateColumn={updateColumn}
                   updateSubColumn={updateSubColumn}
