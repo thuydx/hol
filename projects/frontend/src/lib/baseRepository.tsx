@@ -2,6 +2,10 @@ import {getRows, getRowsLevel2, updateCell, updateCellByIndex, updateSubCell} fr
 import type { GameData } from './gameData.model'
 const STORAGE_KEY = 'uploadedJson'
 
+export interface MemberRepository<T> {
+  findMemberById(memberId: string): Promise<T | null>
+}
+
 async function readAll(): Promise<any> {
   if (typeof window === 'undefined') {
     throw new Error('Client only')
@@ -152,33 +156,6 @@ export abstract class BaseRepository {
   async allLevel2(): Promise<string[][]> {
     return getRowsLevel2(this.sectionKey)
   }
-
- /* =======================
- * READ / WRITE – SECTION VALUE
- * ======================= */
-
-  /**
-   * Get raw value of section
-   * Example: JunYing_now.value
-   */
-  // protected async getValue(): Promise<any[]> {
-  //   const data = await readAll()
-  //   return data?.[this.sectionKey]?.value ?? []
-  // }
-
-  /**
-   * Replace whole value of section
-   */
-  // protected async setValue(value: any[]): Promise<void> {
-  //   const data = await readAll()
-  //
-  //   if (!data[this.sectionKey]) {
-  //     data[this.sectionKey] = {}
-  //   }
-  //
-  //   data[this.sectionKey].value = value
-  //   await writeAll(data)
-  // }
 
   /* =======================
  * READ / WRITE – RAW DATA

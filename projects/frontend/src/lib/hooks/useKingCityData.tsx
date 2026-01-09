@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ShiJiaKingParsed } from '@/types/ShiJiaKing'
-import { ShiJiaKingRepository } from '@/repositories/ShiJiaKing'
+import { KingCityDataParsed } from '@/types/KingCityData'
+import { KingCityDataRepository } from '@/repositories/KingCityData'
 
-const repo = new ShiJiaKingRepository()
+const repo = new KingCityDataRepository()
 
-export function useShiJiaKing() {
-  const [data, setData] = useState<ShiJiaKingParsed | null>(null)
+export function useKingCityData() {
+  const [data, setData] = useState<KingCityDataParsed | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function useShiJiaKing() {
   }, [])
 
   const update = async (
-    updater: (m: ShiJiaKingParsed) => ShiJiaKingParsed,
+    updater: (m: KingCityDataParsed) => KingCityDataParsed,
   ) => {
     if (!data) return
     const next = updater(data)

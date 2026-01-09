@@ -6,7 +6,7 @@ import { ShiJiaNowRepository } from '@/repositories/ShiJiaNow'
 
 const repo = new ShiJiaNowRepository()
 
-export function useOtherFamilies() {
+export function useShiJiaNow() {
   const [data, setData] = useState<ShiJiaNowParsed[]>([])
   const [loading, setLoading] = useState(true)
 

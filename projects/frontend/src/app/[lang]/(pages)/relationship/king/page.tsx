@@ -1,137 +1,199 @@
 'use client'
 
-import {useEffect, useState} from 'react'
 import {
   CCard,
-  CCardHeader,
   CCardBody,
+  CCardHeader,
+  CCol,
+  CRow,
   CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CTableRow,
 } from '@coreui/react-pro'
 
-import { InputCell } from '@/components/table/InputCell'
-import { DropdownCell } from '@/components/table/DropdownCell'
-// import { ShiJiaNowRelationMatrix } from '@/components/table/ShiJiaNowRelationMatrix'
-
-// import { useOtherFamilies } from '@/hooks/useOtherFamilies'
-import { useI18nClient } from '@/lib/i18nClient'
-import { ShiJiaKingColumn } from '@/columns/ShiJiaKing'
-import type { ShiJiaKingParsed } from '@/types/ShiJiaKing'
-import {countTotalClanMembers} from "@/lib/services/shiJiaKingMemberCount";
-import {useShiJiaKing} from "@/hooks/useShiJiaKing";
-
-
-/* ========================
- * Page
- * ======================== */
+import {InputCell} from '@/components/table/InputCell'
+import {useShiJiaKing} from '@/hooks/useShiJiaKing'
+import {useI18nClient} from '@/lib/i18nClient'
+import {ShiJiaKingRelationTable} from '@/components/table/ShiJiaKingRelationTable'
+import {useShiJiaNow} from '@/hooks/useShiJiaNow'
+import {useKingCityData} from '@/hooks/useKingCityData'
+import {buildFamilyTitle} from '@/services/buildTitle'
+import {resolveMemberByRef} from '@/services/memberResolver'
 
 export default function ShiJiaKingPage() {
-  const {
-    data,
-    loading,
-    updateColumn,
-    updateSubColumn,
-  } = useShiJiaKing()
+  const {data: kingData} = useKingCityData()
+  const {data, loading, update} = useShiJiaKing()
+  const {t} = useI18nClient<any>()
+  const {data: otherFamilies} = useShiJiaNow()
 
-  const { t } = useI18nClient<any>()
-  const [memberCount, setMemberCount] = useState<number>()
-
-  useEffect(() => {
-    const load = async () => {
-      const result = await countTotalClanMembers()
-      setMemberCount(result)
-    }
-
-    void load()
-  }, [data])
-
-  if (loading) return <div>Loading…</div>
+  if (loading || !data) return <div>Loading…</div>
 
   return (
     <>
-      <CCard>
-        <CCardHeader>
-          <strong>{t.menu.shiJiaNow}</strong>
-        </CCardHeader>
-        <CCardBody style={{ overflowX: 'auto' }}>
-          <CTable striped small hover>
-            <CTableHead>
-              <CTableRow>
-                <CTableHeaderCell style={{ width: 60 }}>
-                  ID
-                </CTableHeaderCell>
-                <CTableHeaderCell>
-                  {t.shiJiaNow.title}
-                </CTableHeaderCell>
-                {/*<CTableHeaderCell>*/}
-                {/*  {t.shiJiaNow.members}*/}
-                {/*</CTableHeaderCell>*/}
-                <CTableHeaderCell style={{ width: 80 }}>
-                  {t.shiJiaNow.level}
-                </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 140 }}>
-                  {t.shiJiaNow.relationshipIndex}
-                </CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
+      <CRow className="mb-3">
+        <CCol md={7}>
+          <CCard>
+            <CCardHeader>
+              <strong>{t.shiJiaKing.title}</strong>
+            </CCardHeader>
+            <CCardBody>
+              <CTable striped small hover>
+                <CTableBody>
+                  {/* NAME */}
+                  <CTableRow>
+                    <CTableDataCell style={{width: 220}}>
+                      {t.shiJiaKing.name}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {data.name}
+                    </CTableDataCell>
+                  </CTableRow>
+                  {/* LEVEL */}
+                  <CTableRow>
+                    <CTableDataCell>
+                      {t.shiJiaKing.level}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      <InputCell
+                        type="number"
+                        value={data.level}
+                        onChange={v =>
+                          update(m => ({
+                            ...m,
+                            level: Number(v),
+                          }))
+                        }
+                      />
+                    </CTableDataCell>
+                  </CTableRow>
+                  {/* RELATIONSHIP INDEX */}
+                  <CTableRow>
+                    <CTableDataCell>
+                      {t.shiJiaKing.relationshipIndex}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      <InputCell
+                        type="number"
+                        value={data.relationshipIndex}
+                        onChange={v =>
+                          update(m => ({
+                            ...m,
+                            relationshipIndex: Number(v),
+                          }))
+                        }
+                      />
+                    </CTableDataCell>
+                  </CTableRow>
+                  {/* TROOP */}
+                  <CTableRow>
+                    <CTableDataCell style={{width: 220}}>
+                      {t.shiJiaKing.troop}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {kingData?.capital.troop}
+                    </CTableDataCell>
+                  </CTableRow>
 
-            <CTableBody>
-              <CTableRow>
-                {/* TITLE */}
-                <CTableDataCell>
-                  {data.name}
-                </CTableDataCell>
-                {/* MEMBERS (Tộc nhân) */}
-                <CTableDataCell>{memberCount}</CTableDataCell>
-                {/* LEVEL */}
-                <CTableDataCell>
-                  <InputCell
-                    type="number"
-                    value={data.level}
-                    disabled={false}
-                    onChange={v => data.level}
-                    // onBlur={() =>
-                    //   updateColumn(
-                    //
-                    //     ShiJiaKingColumn.LEVEL,
-                    //     String(row.level),
-                    //   )
-                    // }
-                  />
-                </CTableDataCell>
+                  {/* LOYALTY */}
+                  <CTableRow>
+                    <CTableDataCell>
+                      {t.shiJiaKing.loyalty}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {kingData?.capital.loyalty}
+                    </CTableDataCell>
+                  </CTableRow>
 
-                {/* RELATIONSHIP INDEX */}
-                <CTableDataCell>
-                  <InputCell
-                    type="number"
-                    value={data.relationshipIndex}
-                    disabled={false}
-                    onChange={v => data.relationshipIndex}
-                    // onBlur={() =>
-                    //   updateColumn(
-                    //     ShiJiaKingColumn.RELATIONSHIP_INDEX,
-                    //     String(row.relationshipIndex),
-                    //   )
-                    // }
-                  />
-                </CTableDataCell>
-              </CTableRow>
-                {/*<ShiJiaKingRow*/}
-                {/*  // key={index}*/}
-                {/*  family={data}*/}
-                {/*  memberCount={memberCount?? 0}*/}
-                {/*  t={t}*/}
-                {/*  updateColumn={updateColumn}*/}
-                {/*  updateSubColumn={updateSubColumn}*/}
-                {/*/>*/}
-            </CTableBody>
-          </CTable>
-        </CCardBody>
-      </CCard>
+                  {/* TREASURY */}
+                  <CTableRow>
+                    <CTableDataCell>
+                      {t.shiJiaKing.treasury}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {kingData?.treasury}
+                    </CTableDataCell>
+                  </CTableRow>
+                  {/* RELATIONS */}
+                  <CTableRow>
+                    <CTableDataCell>
+                      {t.shiJiaKing.relations}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      <ShiJiaKingRelationTable
+                        relations={data.relations}
+                        otherFamilies={otherFamilies}
+                        t={t}
+                      />
+                    </CTableDataCell>
+                  </CTableRow>
+                </CTableBody>
+              </CTable>
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol md={5}>
+          <CCard>
+            <CCardHeader>
+              <strong>{t.shiJiaKing.fengdi}</strong>
+            </CCardHeader>
+
+            <CCardBody>
+              <CTable striped small hover>
+                <CTableBody>
+                  {kingData?.fengdi.map(f => {
+                    const stateLabel =
+                      f.state === -2
+                        ? t.shiJiaKing.fengdi_state.empty
+                        : f.state === -1
+                          ? t.shiJiaKing.fengdi_state.external
+                          : t.shiJiaKing.fengdi_state.internal
+                    // const shiJia = shiJiaNow[f.index]
+                    // const fengdiTitle = buildFamilyTitle(
+                    //   shiJia?.coordinates,
+                    //   f.name,
+                    //   t,
+                    // )
+                    const member = f.memberRef
+                      ? resolveMemberByRef(f.memberRef)
+                      : null
+                    // console.log(member)
+                    return (
+                      <CTableRow key={f.index}>
+                        {/* STATE */}
+                        { stateLabel != '' && (
+                        <CTableDataCell style={{width: 140}}>
+                          {stateLabel}
+                        </CTableDataCell>
+                        )}
+
+                        {/* FENGDI TITLE + LEVEL */}
+
+                        <CTableDataCell>
+                          {/*{fengdiTitle}*/}
+                          {/*            {member?.level != null && (*/}
+                          {/*              <span className="ms-2 text-muted">*/}
+                          {/*  (Lv.{member?.level})*/}
+                          {/*</span>*/}
+                          {/*            )}*/}
+                        </CTableDataCell>
+
+                        {/* MEMBER NAME */}
+                        {/*<CTableDataCell style={{width: 220}}>*/}
+                          {/*{member?.name ?? '—'}*/}
+                        {/*</CTableDataCell>*/}
+                      </CTableRow>
+                    )
+                  })}
+
+                </CTableBody>
+              </CTable>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+
+
     </>
   )
 }

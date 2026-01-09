@@ -66,6 +66,22 @@
     },
     "members": "Tộc Nhân"
   },
+  "shiJiaKing": {
+    "title": "Hoàng tộc",
+    "name": "Tên hoàng tộc",
+    "level": "Cấp bậc",
+    "relationshipIndex": "Chỉ số quan hệ",
+    "relations": "Quan hệ",
+    "troop": "Quân lực",
+    "loyalty": "Trung thành",
+    "treasury": "Quốc khố",
+    "fengdi": "Phong địa",
+    "fengdi_state": {
+      "empty": "Chưa phong",
+      "external": "Ngoại tộc",
+      "internal": "Nội tộc"
+    }
+  },
   "member": {
     "title": "Quản lý thành viên",
     "basic": "Thông tin cơ bản",

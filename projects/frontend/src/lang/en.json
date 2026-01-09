@@ -61,6 +61,13 @@
     },
     "members": "Members"
   },
+  "shiJiaKing": {
+    "title": "Imperial Clan",
+    "name": "Clan Name",
+    "level": "Level",
+    "relationshipIndex": "Relationship to owner",
+    "relations": "Relations"
+  },
   "member": {
     "title": "Member Management",
     "basic": "Basic Information",

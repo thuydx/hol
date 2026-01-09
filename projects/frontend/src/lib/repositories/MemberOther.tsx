@@ -1,6 +1,6 @@
-import {BaseRepository} from "@/lib/baseRepository";
-
-export class MemberOtherRepository extends BaseRepository {
+import {BaseRepository, MemberRepository} from "@/lib/baseRepository";
+import {deserializeMemberOther, MemberOtherParsed, MemberOtherRawRow} from "@/models/memberOther"
+export class MemberOtherRepository extends BaseRepository implements MemberRepository<MemberOtherParsed>{
   protected sectionKey = 'Member_other'
 
   /**
@@ -16,4 +16,20 @@ export class MemberOtherRepository extends BaseRepository {
 
     return data[familyIndex].length
   }
+
+  async findMemberById(memberId: string): Promise<MemberOtherParsed | null> {
+    const families = await this.getRows<MemberOtherRawRow[][]>()
+    if (!Array.isArray(families)) return null
+
+    for (const familyRows of families) {
+      for (const row of familyRows) {
+        const parsed = deserializeMemberOther(row)
+        if (parsed.id === memberId) {
+          return parsed
+        }
+      }
+    }
+    return null
+  }
+
 }

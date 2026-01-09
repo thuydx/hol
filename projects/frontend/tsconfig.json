@@ -64,6 +64,9 @@
       ],
       "@/constants/*": [
         "./src/lib/constants/*"
+      ],
+      "@/services/*": [
+        "./src/lib/services/*"
       ]
     }
   },

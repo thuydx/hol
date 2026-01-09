@@ -7,6 +7,8 @@ export enum ShiJiaKingColumn {
   OTHER_RELATIONS = 5,
 }
 
+export const SHIJIA_KING_COLUMN_COUNT = 6
+
 /**
  *  "value": [
  *       "Khổng",
@@ -18,4 +20,3 @@ export enum ShiJiaKingColumn {
  *     ]
  */
 
-export const SHIJIA_KING_COLUMN_COUNT = 6

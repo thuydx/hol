@@ -61,6 +61,13 @@
     },
     "members": "成员"
   },
+  "shiJiaKing": {
+    "title": "皇族",
+    "name": "家族名称",
+    "level": "等级",
+    "relationshipIndex": "关系指数",
+    "relations": "关系"
+  },
   "member": {
     "title": "成员管理",
     "basic": "基本信息",

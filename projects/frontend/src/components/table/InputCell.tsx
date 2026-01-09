@@ -1,8 +1,8 @@
 type InputCellProps<T> = {
-  value: any
+  value: T
   type?: 'text' | 'number'
-  onChange: (value: any) => void
-  onBlur?: () => void
+  onChange?: (value: T) => void
+  onBlur?: (value: T) => void
   disabled?: boolean
 }
 
@@ -16,16 +16,10 @@ export function InputCell<T>({
   return (
     <input
       type={type ?? 'text'}
-      value={value ?? ''}
+      value={value as any}
       disabled={disabled}
-      onChange={e =>
-        onChange(
-          type === 'number'
-            ? Number(e.target.value)
-            : e.target.value,
-        )
-      }
-      onBlur={onBlur}
+      onChange={e => onChange?.(e.target.value as any)}
+      onBlur={e => onBlur?.(e.target.value as any)}
       style={{width: '100%'}}
     />
   )

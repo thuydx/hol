@@ -17,27 +17,13 @@ import { InputCell } from '@/components/table/InputCell'
 import { DropdownCell } from '@/components/table/DropdownCell'
 import { ShiJiaNowRelationMatrix } from '@/components/table/ShiJiaNowRelationMatrix'
 
-import { useOtherFamilies } from '@/hooks/useOtherFamilies'
+import { useShiJiaNow } from '@/hooks/useShiJiaNow'
 import { useI18nClient } from '@/lib/i18nClient'
 import { ShiJiaNowColumn } from '@/columns/ShiJiaNow'
 import { INHERITANCE_OPTIONS } from '@/constants/options'
 import type { ShiJiaNowParsed } from '@/types/ShiJiaNow'
 import {countTotalClanMembers} from "@/lib/services/shiJiaNowMemberCount";
-
-/* ========================
- * helpers
- * ======================== */
-
-function buildFamilyTitle(
-  coordinates: string | undefined,
-  name: string,
-  t: any,
-) {
-  if (!coordinates) return name
-  const place = t.place_name?.[coordinates] ?? ''
-  const clan = t.clan_name.replace('{name}', name)
-  return place ? `${place} ${clan}` : clan
-}
+import {buildFamilyTitle} from "@/lib/services/buildTitle";
 
 /* ========================
  * Row component (CoreUI)
@@ -213,7 +199,7 @@ export default function ShiJiaNowPage() {
     loading,
     updateColumn,
     updateSubColumn,
-  } = useOtherFamilies()
+  } = useShiJiaNow()
 
   const { t } = useI18nClient<any>()
   const [memberCount, setMemberCount] = useState<Record<number, number>>({})
