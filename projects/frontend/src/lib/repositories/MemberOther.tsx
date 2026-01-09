@@ -10,7 +10,7 @@ export class MemberOtherRepository extends BaseRepository implements MemberRepos
   async countByFamilyIndex(
     familyIndex: number,
   ): Promise<number> {
-    const data = await this.getValue<any[][]>()
+    const data = await this.getValue<MemberOtherRawRow[][]>()
 
     if (!Array.isArray(data)) return 0
     if (!Array.isArray(data[familyIndex])) return 0
