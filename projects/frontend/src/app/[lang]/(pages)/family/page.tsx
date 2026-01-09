@@ -633,7 +633,7 @@ const Family = () => {
                       ]}
                   </CDropdownToggle>
 
-                  <CDropdownMenu style={{ maxHeight: 240, overflowY: 'auto' }}>
+                  <CDropdownMenu style={{maxHeight: 240, overflowY: 'auto'}}>
                     {FIEF_CITY_OPTIONS.map(opt => (
                       <CDropdownItem
                         key={opt.value}
@@ -684,7 +684,7 @@ const Family = () => {
             </CRow>
             {/* FENGDI CITY */}
             <CRow className="align-items-center mb-2">
-              <CCol xs={5} />
+              <CCol xs={5}/>
 
               <CCol xs={7}>
 
@@ -721,7 +721,7 @@ const Family = () => {
                       ]}
                   </CDropdownToggle>
 
-                  <CDropdownMenu style={{ maxHeight: 240, overflowY: 'auto' }}>
+                  <CDropdownMenu style={{maxHeight: 240, overflowY: 'auto'}}>
                     {OFFICIAL_TITLE_OPTIONS.map(opt => (
                       <CDropdownItem
                         key={opt.key}

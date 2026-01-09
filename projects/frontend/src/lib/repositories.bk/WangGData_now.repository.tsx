@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export class WangGData_nowRepository extends BaseRepository {
   protected sectionKey = 'WangGData_now'

@@ -201,7 +201,7 @@ const toNull = (v: string) => (v === 'null' ? null : v)
 export function parseAppearance(raw: string): MemberQuAppearance {
   const [backHair, body, face, frontHair] = raw.split('|').map(Number)
 
-  return { backHair, body, face, frontHair }
+  return {backHair, body, face, frontHair}
 }
 
 export function serializeAppearance(a: MemberQuAppearance): string {
@@ -447,32 +447,32 @@ export function serializeRow(parsed: MemberQuParsed, baseRow?: MemberQuRawRow): 
     ? [...baseRow]
     : new Array(28).fill('0')
 
-    row[MemberQuColumn.ID] = parsed.id
-    row[MemberQuColumn.APPEARANCE] = serializeAppearance(parsed.appearance)
-    row[MemberQuColumn.PERSON_DATA] = serializePersonData(parsed.personData)
-    row[MemberQuColumn.CHILDREN] = parsed.children
-    row[MemberQuColumn.HOUSING] = serializeHousing(parsed.housing)
-    row[MemberQuColumn.AGE] = String(parsed.age)
-    row[MemberQuColumn.MARTIAL] = String(parsed.martial)
-    row[MemberQuColumn.LITERARY] = String(parsed.literary)
-    row[MemberQuColumn.BUSINESS] = String(parsed.business)
-    row[MemberQuColumn.ART] = String(parsed.art)
-    row[MemberQuColumn.MOOD] = String(parsed.mood)
-    row[MemberQuColumn.MERITS] = String(parsed.merits)
-    row[MemberQuColumn.REPUTATION] = String(parsed.reputation)
-    row[MemberQuColumn.MARITAL_STATUS] = String(parsed.maritalStatus)
-    row[MemberQuColumn.EQUIPMENT] = parsed.equipment
-    row[MemberQuColumn.CHARM] = String(parsed.charm)
-    row[MemberQuColumn.HEALTH] = String(parsed.health)
-    row[MemberQuColumn.PREGNANCY_MONTH] = String(parsed.pregnancyMonth)
-    row[MemberQuColumn.PREGNANCY_STATUS] = String(parsed.pregnancyStatus)
-    row[MemberQuColumn.STRATEGY] = String(parsed.strategy)
-    row[MemberQuColumn.STAMINA] = String(parsed.stamina)
-    row[MemberQuColumn.MONTHLY_INCREMENT] = serializeMonthlyIncrement(parsed.monthlyIncrement)
-    row[MemberQuColumn.GROWTH_BONUS] = serializeGrowthBonus(parsed.growthBonus)
-    row[MemberQuColumn.SKILL_POINT] = String(parsed.skillPoint)
-    row[MemberQuColumn.WORK_PLACE] = parsed.workPlace
-    row[MemberQuColumn.TASK] = parsed.task
+  row[MemberQuColumn.ID] = parsed.id
+  row[MemberQuColumn.APPEARANCE] = serializeAppearance(parsed.appearance)
+  row[MemberQuColumn.PERSON_DATA] = serializePersonData(parsed.personData)
+  row[MemberQuColumn.CHILDREN] = parsed.children
+  row[MemberQuColumn.HOUSING] = serializeHousing(parsed.housing)
+  row[MemberQuColumn.AGE] = String(parsed.age)
+  row[MemberQuColumn.MARTIAL] = String(parsed.martial)
+  row[MemberQuColumn.LITERARY] = String(parsed.literary)
+  row[MemberQuColumn.BUSINESS] = String(parsed.business)
+  row[MemberQuColumn.ART] = String(parsed.art)
+  row[MemberQuColumn.MOOD] = String(parsed.mood)
+  row[MemberQuColumn.MERITS] = String(parsed.merits)
+  row[MemberQuColumn.REPUTATION] = String(parsed.reputation)
+  row[MemberQuColumn.MARITAL_STATUS] = String(parsed.maritalStatus)
+  row[MemberQuColumn.EQUIPMENT] = parsed.equipment
+  row[MemberQuColumn.CHARM] = String(parsed.charm)
+  row[MemberQuColumn.HEALTH] = String(parsed.health)
+  row[MemberQuColumn.PREGNANCY_MONTH] = String(parsed.pregnancyMonth)
+  row[MemberQuColumn.PREGNANCY_STATUS] = String(parsed.pregnancyStatus)
+  row[MemberQuColumn.STRATEGY] = String(parsed.strategy)
+  row[MemberQuColumn.STAMINA] = String(parsed.stamina)
+  row[MemberQuColumn.MONTHLY_INCREMENT] = serializeMonthlyIncrement(parsed.monthlyIncrement)
+  row[MemberQuColumn.GROWTH_BONUS] = serializeGrowthBonus(parsed.growthBonus)
+  row[MemberQuColumn.SKILL_POINT] = String(parsed.skillPoint)
+  row[MemberQuColumn.WORK_PLACE] = parsed.workPlace
+  row[MemberQuColumn.TASK] = parsed.task
 
-    return row
+  return row
 }

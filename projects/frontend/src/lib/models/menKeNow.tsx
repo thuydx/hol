@@ -120,7 +120,7 @@ export const MenKeNowColumnMap: Record<keyof MenKeNowParsed, MenKeNowColumn> = {
 
 export function parseAppearance(v: string): AppearanceCompound {
   const [b, body, f, fr] = v.split('|').map(Number)
-  return { backHair: b, body, faceShape: f, frontHair: fr }
+  return {backHair: b, body, faceShape: f, frontHair: fr}
 }
 
 export function serializeAppearance(a: AppearanceCompound): string {

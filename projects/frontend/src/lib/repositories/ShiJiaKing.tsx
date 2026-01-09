@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 import {ShiJiaKingParsed} from "@/types/ShiJiaKing";
 import {ShiJiaKingModel} from "@/models/shiJiaKing";
 

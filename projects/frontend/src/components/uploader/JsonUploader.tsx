@@ -1,16 +1,8 @@
 'use client'
 
-import React, { useRef, useState, DragEvent } from 'react'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CForm,
-  CToast,
-  CToastBody,
-  CToastHeader,
-} from '@coreui/react-pro'
-import { useI18nClient } from '@/lib/i18nClient'
+import React, {DragEvent, useRef, useState} from 'react'
+import {CButton, CCard, CCardBody, CForm, CToast, CToastBody, CToastHeader,} from '@coreui/react-pro'
+import {useI18nClient} from '@/lib/i18nClient'
 
 type JsonUploaderProps = {
   storageKey: string
@@ -27,7 +19,7 @@ export default function JsonUploader({
                                        allowedExtensions = ['json', 'es3'],
                                        onUploadAction,
                                      }: JsonUploaderProps) {
-  const { t } = useI18nClient<{ uploader: Record<string, string> }>()
+  const {t} = useI18nClient<{ uploader: Record<string, string> }>()
 
   const fileRef = useRef<HTMLInputElement>(null)
 
@@ -82,10 +74,10 @@ export default function JsonUploader({
 
     try {
       const msg = await validateAndSave(selectedFile)
-      setToast({ message: msg, color: 'success' })
+      setToast({message: msg, color: 'success'})
       setSelectedFile(null)
     } catch (err) {
-      setToast({ message: String(err), color: 'danger' })
+      setToast({message: String(err), color: 'danger'})
     }
   }
 
@@ -126,10 +118,10 @@ export default function JsonUploader({
             className={`border rounded p-4 text-center mb-3 ${
               isDragging ? 'border-primary bg-body-secondary' : ''
             }`}
-            style={{ cursor: 'pointer' }}
+            style={{cursor: 'pointer'}}
           >
             <strong>{t.uploader.dropHere}</strong>
-            <br />
+            <br/>
             <small className="text-muted">
               Accept: {acceptHint}
             </small>
@@ -164,7 +156,7 @@ export default function JsonUploader({
       </CCard>
 
       {toast && (
-        <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 9999 }}>
+        <div style={{position: 'fixed', top: 16, right: 16, zIndex: 9999}}>
           <CToast
             visible
             autohide

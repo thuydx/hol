@@ -18,7 +18,6 @@ import {useI18nClient} from '@/lib/i18nClient'
 import {ShiJiaKingRelationTable} from '@/components/table/ShiJiaKingRelationTable'
 import {useShiJiaNow} from '@/hooks/useShiJiaNow'
 import {useKingCityData} from '@/hooks/useKingCityData'
-import {buildFamilyTitle} from '@/services/buildTitle'
 import {resolveMemberByRef} from '@/services/memberResolver'
 
 export default function ShiJiaKingPage() {
@@ -161,10 +160,10 @@ export default function ShiJiaKingPage() {
                     return (
                       <CTableRow key={f.index}>
                         {/* STATE */}
-                        { stateLabel != '' && (
-                        <CTableDataCell style={{width: 140}}>
-                          {stateLabel}
-                        </CTableDataCell>
+                        {stateLabel != '' && (
+                          <CTableDataCell style={{width: 140}}>
+                            {stateLabel}
+                          </CTableDataCell>
                         )}
 
                         {/* FENGDI TITLE + LEVEL */}
@@ -180,7 +179,7 @@ export default function ShiJiaKingPage() {
 
                         {/* MEMBER NAME */}
                         {/*<CTableDataCell style={{width: 220}}>*/}
-                          {/*{member?.name ?? '—'}*/}
+                        {/*{member?.name ?? '—'}*/}
                         {/*</CTableDataCell>*/}
                       </CTableRow>
                     )

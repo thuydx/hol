@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import {useCallback, useState} from 'react'
 
 type UseRowEditorOptions<T> = {
   /** index của row (do page quyết định) */

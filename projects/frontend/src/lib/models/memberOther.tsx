@@ -89,7 +89,7 @@ export interface MemberOtherAppearance {
 
 export const parseAppearance = (raw: string): MemberOtherAppearance => {
   const [backHair, body, face, frontHair] = raw.split('|').map(Number)
-  return { backHair, body, face, frontHair }
+  return {backHair, body, face, frontHair}
 }
 
 export const serializeAppearance = (a: MemberOtherAppearance): string =>

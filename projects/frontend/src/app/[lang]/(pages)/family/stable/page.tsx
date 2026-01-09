@@ -22,13 +22,10 @@ import {
   CToastHeader,
 } from '@coreui/react-pro'
 
-import { useI18nClient } from '@/lib/i18nClient'
-import { getRows } from '@/lib/gameData.model'
-import { useHorseHave } from '@/hooks/horseHave'
-import {
-  HorseHaveRow,
-  DEFAULT_HORSE_HAVE_ROW,
-} from '@/models/horseHave'
+import {useI18nClient} from '@/lib/i18nClient'
+import {getRows} from '@/lib/gameData.model'
+import {useHorseHave} from '@/hooks/horseHave'
+import {DEFAULT_HORSE_HAVE_ROW, HorseHaveRow,} from '@/models/horseHave'
 
 type I18nSchema = {
   stable: {
@@ -52,8 +49,8 @@ type I18nSchema = {
 }
 
 const StablePage = () => {
-  const { t } = useI18nClient<I18nSchema>()
-  const { rows, selected, add, removeSelected, updateCell, toggleRow } =
+  const {t} = useI18nClient<I18nSchema>()
+  const {rows, selected, add, removeSelected, updateCell, toggleRow} =
     useHorseHave()
 
   const [members, setMembers] = useState<any[][]>([])
@@ -109,7 +106,7 @@ const StablePage = () => {
   return (
     <>
       {toast && (
-        <div style={{ position: 'fixed', top: 16, right: 16 }}>
+        <div style={{position: 'fixed', top: 16, right: 16}}>
           <CToast visible autohide delay={3000} onClose={() => setToast(null)}>
             <CToastHeader closeButton>
               <strong>{t.uploader.toastTitle}</strong>
@@ -130,7 +127,7 @@ const StablePage = () => {
               <CTable striped hover small>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell />
+                    <CTableHeaderCell/>
                     {Object.values(t.stable.attribute).map(label => (
                       <CTableHeaderCell key={label}>{label}</CTableHeaderCell>
                     ))}

@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useMemo, useRef} from "react";
+import {useEffect, useMemo} from "react";
 import {CTableDataCell, CTableRow} from "@coreui/react-pro";
 import {useI18nClient} from '@/lib/i18nClient'
 import {MenKeNowParsed} from "@/models/menKeNow";
@@ -69,7 +69,7 @@ export default function RetainerPage() {
     () => buildMenKeNowColumns(t),
     [t]
   )
-  const { indexes, load, forceReload } = useMenKesNow()
+  const {indexes, load, forceReload} = useMenKesNow()
   // const rowReloaders = useRef(new Map<number, () => void>())
   useEffect(() => {
     void load()

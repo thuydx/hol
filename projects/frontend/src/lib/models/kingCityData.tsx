@@ -1,44 +1,11 @@
-import {
-  KingCityDataParsed,
-  FengdiCompound,
-  FengdiState,
-} from '@/types/KingCityData'
-import {
-  KingCityDataColumn,
-  KING_CITY_COLUMN_COUNT,
-} from '@/columns/KingCityData'
+import {FengdiCompound, FengdiState, KingCityDataParsed,} from '@/types/KingCityData'
+import {KING_CITY_COLUMN_COUNT, KingCityDataColumn,} from '@/columns/KingCityData'
+
 // import { fiefNameMap } from '@/config/fiefName'
 
 
 export class KingCityDataModel {
   /* ---------- helpers ---------- */
-
-  private static parseCapital(value: string) {
-    const [troop, loyalty] = value.split('|')
-    return {
-      troop: Number(troop),
-      loyalty: Number(loyalty),
-    }
-  }
-
-  private static parseFengdi(
-    raw: string,
-    index: number,
-  ): FengdiCompound {
-    const [stateRaw, memberRaw] = raw.split('|')
-
-    return {
-      index,
-      state: Number(stateRaw) as FengdiState,
-      memberRef: memberRaw === 'null' ? null : memberRaw,
-    }
-  }
-
-  private static serializeFengdi(f: FengdiCompound): string {
-    return `${f.state}|${f.memberRef ?? 'null'}`
-  }
-
-  /* ---------- public ---------- */
 
   static deserialize(row: string[]): KingCityDataParsed {
     const fengdi: FengdiCompound[] = []
@@ -78,7 +45,7 @@ export class KingCityDataModel {
 
     data.fengdi.forEach(f => {
       row[
-      KingCityDataColumn.FENGDI_START
+        KingCityDataColumn.FENGDI_START
         ] = this.serializeFengdi(f)
     })
 
@@ -92,5 +59,32 @@ export class KingCityDataModel {
       String(data.unknown15)
 
     return row
+  }
+
+  private static parseCapital(value: string) {
+    const [troop, loyalty] = value.split('|')
+    return {
+      troop: Number(troop),
+      loyalty: Number(loyalty),
+    }
+  }
+
+  /* ---------- public ---------- */
+
+  private static parseFengdi(
+    raw: string,
+    index: number,
+  ): FengdiCompound {
+    const [stateRaw, memberRaw] = raw.split('|')
+
+    return {
+      index,
+      state: Number(stateRaw) as FengdiState,
+      memberRef: memberRaw === 'null' ? null : memberRaw,
+    }
+  }
+
+  private static serializeFengdi(f: FengdiCompound): string {
+    return `${f.state}|${f.memberRef ?? 'null'}`
   }
 }

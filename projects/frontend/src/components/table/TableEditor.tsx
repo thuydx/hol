@@ -2,20 +2,20 @@
 
 import {
   CCard,
-  CCardHeader,
   CCardBody,
-  CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
-  CTableBody,
-  CRow,
+  CCardHeader,
   CCol,
+  CRow,
+  CTable,
+  CTableBody,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
 } from '@coreui/react-pro'
 
-import { ColumnDef } from '@/lib/types/table'
-import { ReactNode } from 'react'
-import { useRowReloadRegistry } from '@/lib/hooks/useRowReloadRegistry'
+import {ColumnDef} from '@/lib/types/table'
+import {ReactNode} from 'react'
+import {useRowReloadRegistry} from '@/lib/hooks/useRowReloadRegistry'
 
 type TableEditorProps<T> = {
   showIdColumn?: boolean
@@ -59,12 +59,12 @@ export function TableEditor<T>({
             )}
           </CCardHeader>
 
-          <CCardBody style={{ overflowX: 'auto' }}>
+          <CCardBody style={{overflowX: 'auto'}}>
             <CTable striped hover small>
               <CTableHead>
                 <CTableRow>
                   {showIdColumn && (
-                    <CTableHeaderCell style={{ width: 60 }}>
+                    <CTableHeaderCell style={{width: 60}}>
                       ID
                     </CTableHeaderCell>
                   )}
@@ -74,7 +74,7 @@ export function TableEditor<T>({
                       key={col.key}
                       style={
                         col.width
-                          ? { width: col.width }
+                          ? {width: col.width}
                           : undefined
                       }
                     >

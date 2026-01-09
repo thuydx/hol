@@ -1,5 +1,5 @@
-import { ShiJiaNowParsed, ShiJiaNowRelation } from '@/types/ShiJiaNow'
-import { ShiJiaNowColumn } from '@/columns/ShiJiaNow'
+import {ShiJiaNowParsed, ShiJiaNowRelation} from '@/types/ShiJiaNow'
+import {ShiJiaNowColumn} from '@/columns/ShiJiaNow'
 
 export class ShiJiaNowModel {
   static deserialize(row: string[], id: number): ShiJiaNowParsed {

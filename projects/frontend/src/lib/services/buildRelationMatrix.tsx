@@ -1,4 +1,4 @@
-import { buildRelationMap } from './shiJiaNowRelationship'
+import {buildRelationMap} from './shiJiaNowRelationship'
 import {ShiJiaNowParsed} from "@/types/ShiJiaNow";
 
 export const RELATION_NA = -1

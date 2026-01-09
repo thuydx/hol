@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import {useCallback, useMemo, useState} from 'react'
 
 type UseTableEditorOptions = {
   /**
@@ -25,7 +25,7 @@ export function useTableEditor({
    * INDEXES
    * ======================= */
   const indexes = useMemo(
-    () => Array.from({ length: count }, (_, i) => i),
+    () => Array.from({length: count}, (_, i) => i),
     [count],
   )
 

@@ -1,4 +1,3 @@
-import {ColumnDef} from "@/types/table";
 import {buildBaseColumns, ColumnSchema} from "@/columns/buildBaseColumns";
 import {MemberParsed} from "@/models/members";
 import {HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";

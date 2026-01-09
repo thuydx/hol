@@ -1,9 +1,12 @@
 import {BaseRepository, MemberRepository} from '@/lib/baseRepository'
 import {
-  serializeAll, deserializeAll,
+  deserializeAll,
   MemberColumn,
+  MemberOfficialTitle,
   MemberParsed,
-  MemberRawRow, MemberTitleFengdi, MemberOfficialTitle, serializeOfficialTitle, serializeTitleFengdi,
+  MemberRawRow,
+  serializeAll,
+  serializeOfficialTitle,
 } from '@/models/members'
 
 /**
@@ -23,6 +26,7 @@ import {
  */
 export class MemberNowRepository extends BaseRepository implements MemberRepository<MemberParsed> {
   protected sectionKey = 'Member_now'
+
   async findMemberById(memberId: string): Promise<MemberParsed | null> {
     const members = await this.getParsedAll()
     for (const member of members) {

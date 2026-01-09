@@ -1,4 +1,4 @@
-import { updateValueByIndex, getRows } from '@/lib/gameData.model'
+import {getRows, updateValueByIndex} from '@/lib/gameData.model'
 
 export class CGNumRepository {
   private sectionKey = 'CGNum'

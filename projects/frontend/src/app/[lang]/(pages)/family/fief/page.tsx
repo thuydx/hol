@@ -1,40 +1,38 @@
 'use client'
 
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
-  CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
-  CTableBody,
-  CTableDataCell,
   CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
   CDropdownItem,
-  CRow,
-  CCol,
+  CDropdownMenu,
+  CDropdownToggle,
+  CFormInput,
+  CFormSelect,
   CModal,
-  CModalHeader,
-  CModalTitle,
   CModalBody,
   CModalFooter,
-  CButton,
-  CFormInput,
-  CFormSelect
+  CModalHeader,
+  CModalTitle,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow
 } from '@coreui/react-pro'
 
-import { useI18nClient } from '@/lib/i18nClient'
-import { MemberNowRepository } from '@/repositories/MemberNow'
-import { CunNowRepository } from '@/repositories/CunNow'
-import { ZhenNowRepository } from '@/repositories/ZhenNow'
-import { JunYingNowRepository } from '@/repositories/JunYingNow'
-import { TerritoryMoveService } from '@/lib/services/TerritoryMoveService'
+import {useI18nClient} from '@/lib/i18nClient'
+import {MemberNowRepository} from '@/repositories/MemberNow'
+import {CunNowRepository} from '@/repositories/CunNow'
+import {ZhenNowRepository} from '@/repositories/ZhenNow'
+import {JunYingNowRepository} from '@/repositories/JunYingNow'
+import {TerritoryMoveService} from '@/lib/services/TerritoryMoveService'
 
-import { useEffect, useState } from 'react'
-import type { MemberParsed } from '@/models/members'
+import {useEffect, useState} from 'react'
+import type {MemberParsed} from '@/models/members'
 
 /* ======================================================
  * CONSTANTS
@@ -56,31 +54,31 @@ type Row = string[]
  * COLUMN DEFINITIONS
  * ====================================================*/
 const CUN_ZHEN_COLUMNS = [
-  { key: 'coordinates', index: 0, type: 'readonly' },
-  { key: 'area', index: 1, type: 'area' },
-  { key: 'population', index: 2, type: 'population' },
-  { key: 'happy', index: 3, type: 'percent' },
-  { key: 'business', index: 4, type: 'percent' },
-  { key: 'agriculture', index: 5, type: 'percent' }
+  {key: 'coordinates', index: 0, type: 'readonly'},
+  {key: 'area', index: 1, type: 'area'},
+  {key: 'population', index: 2, type: 'population'},
+  {key: 'happy', index: 3, type: 'percent'},
+  {key: 'business', index: 4, type: 'percent'},
+  {key: 'agriculture', index: 5, type: 'percent'}
 ]
 
 const JUNYING_COLUMNS = [
-  { key: 'coordinates', index: 0, type: 'readonly' },
-  { key: 'area', index: 1, type: 'area' },
-  { key: 'soldiers', index: 2, type: 'population' },
-  { key: 'combat', index: 3, type: 'percent' },
-  { key: 'loyalty', index: 4, type: 'percent' },
-  { key: 'lowEquip', index: 5, type: 'percent' },
-  { key: 'highEquip', index: 6, type: 'percent' },
-  { key: 'campName', index: 7, type: 'text' },
-  { key: 'salary', index: 8, type: 'salary' }
+  {key: 'coordinates', index: 0, type: 'readonly'},
+  {key: 'area', index: 1, type: 'area'},
+  {key: 'soldiers', index: 2, type: 'population'},
+  {key: 'combat', index: 3, type: 'percent'},
+  {key: 'loyalty', index: 4, type: 'percent'},
+  {key: 'lowEquip', index: 5, type: 'percent'},
+  {key: 'highEquip', index: 6, type: 'percent'},
+  {key: 'campName', index: 7, type: 'text'},
+  {key: 'salary', index: 8, type: 'salary'}
 ]
 
 /* ======================================================
  * PAGE
  * ====================================================*/
 export default function FiefPage() {
-  const { t } = useI18nClient<any>()
+  const {t} = useI18nClient<any>()
 
   const [fengdiIndex, setFengdiIndex] = useState<number>()
   const [cunRows, setCunRows] = useState<Row[]>([])
@@ -196,7 +194,7 @@ export default function FiefPage() {
     key: string
   ) => {
     if (to === 'junying' && from !== 'junying') {
-      setPendingMove({ from, key })
+      setPendingMove({from, key})
       setCampName('')
       setShowModal(true)
       return

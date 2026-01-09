@@ -1,29 +1,29 @@
 import {
   CCard,
-  CCardHeader,
   CCardBody,
+  CCardHeader,
   CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
 } from '@coreui/react-pro'
-import { buildRelationMatrix, RELATION_NA } from '@/lib/services/buildRelationMatrix'
-import type { ShiJiaNowParsed } from '@/types/ShiJiaNow'
+import {buildRelationMatrix, RELATION_NA} from '@/lib/services/buildRelationMatrix'
+import type {ShiJiaNowParsed} from '@/types/ShiJiaNow'
 
 type Props = {
   families: ShiJiaNowParsed[]
 }
 
-export function ShiJiaNowRelationMatrix({ families }: Props) {
+export function ShiJiaNowRelationMatrix({families}: Props) {
   const matrix = buildRelationMatrix(families)
 
   return (
     <CCard className="mt-4">
       <CCardHeader>Ma trận quan hệ gia tộc</CCardHeader>
 
-      <CCardBody style={{ overflowX: 'auto' }}>
+      <CCardBody style={{overflowX: 'auto'}}>
         <CTable small bordered>
           <CTableHead>
             <CTableRow>

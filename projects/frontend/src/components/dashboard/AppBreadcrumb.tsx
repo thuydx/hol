@@ -48,7 +48,7 @@ export default function AppBreadcrumb() {
       return
     }
 
-    const blob = new Blob([raw], { type: 'application/json;charset=utf-8' })
+    const blob = new Blob([raw], {type: 'application/json;charset=utf-8'})
     const url = URL.createObjectURL(blob)
 
     const a = document.createElement('a')
@@ -70,7 +70,7 @@ export default function AppBreadcrumb() {
         {breadcrumbs.map((b, index) => (
           <CBreadcrumbItem
             key={index}
-            {...(b.active ? { active: true } : { href: b.href })}
+            {...(b.active ? {active: true} : {href: b.href})}
           >
             {b.name}
           </CBreadcrumbItem>

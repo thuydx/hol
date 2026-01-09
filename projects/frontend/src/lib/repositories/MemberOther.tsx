@@ -1,6 +1,7 @@
 import {BaseRepository, MemberRepository} from "@/lib/baseRepository";
 import {deserializeMemberOther, MemberOtherParsed, MemberOtherRawRow} from "@/models/memberOther"
-export class MemberOtherRepository extends BaseRepository implements MemberRepository<MemberOtherParsed>{
+
+export class MemberOtherRepository extends BaseRepository implements MemberRepository<MemberOtherParsed> {
   protected sectionKey = 'Member_other'
 
   /**

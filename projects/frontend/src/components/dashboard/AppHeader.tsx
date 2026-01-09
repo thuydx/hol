@@ -13,21 +13,12 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CForm,
-  CFormInput,
   CHeader,
-  CHeaderNav,
-  CHeaderToggler,
-  CInputGroup,
-  CInputGroupText
+  CHeaderNav
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import {cilApplicationsSettings, cilMenu, cilSearch} from '@coreui/icons'
 
 import {useTypedSelector} from '@/store'
-
-import {AppHeaderDropdown,} from './header/'
-import classNames from "classnames";
 
 const AppHeader = (): JSX.Element => {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -111,23 +102,23 @@ const AppHeader = (): JSX.Element => {
         {/*</CHeaderNav>*/}
         {/* Search */}
         {/*<CHeaderNav className="ms-auto">*/}
-          {/*<CForm className="d-none d-sm-flex">*/}
-          {/*  <CInputGroup>*/}
-          {/*    <CInputGroupText id="search-addon" className="border-0 px-1">*/}
-          {/*      <CIcon icon={cilSearch} size="lg" className="my-1 mx-2"/>*/}
-          {/*    </CInputGroupText>*/}
-          {/*    <CFormInput*/}
-          {/*      id="searchInput"*/}
-          {/*      placeholder={t.search}*/}
-          {/*      aria-label={t.search}*/}
-          {/*      aria-describedby="search-addon"*/}
-          {/*      className="bg-body-secondary border-0"*/}
-          {/*    />*/}
-          {/*  </CInputGroup>*/}
-          {/*</CForm>*/}
-          {/*<AppHeaderDropdownNotif />*/}
-          {/*<AppHeaderDropdownTasks />*/}
-          {/*<AppHeaderDropdownMssg />*/}
+        {/*<CForm className="d-none d-sm-flex">*/}
+        {/*  <CInputGroup>*/}
+        {/*    <CInputGroupText id="search-addon" className="border-0 px-1">*/}
+        {/*      <CIcon icon={cilSearch} size="lg" className="my-1 mx-2"/>*/}
+        {/*    </CInputGroupText>*/}
+        {/*    <CFormInput*/}
+        {/*      id="searchInput"*/}
+        {/*      placeholder={t.search}*/}
+        {/*      aria-label={t.search}*/}
+        {/*      aria-describedby="search-addon"*/}
+        {/*      className="bg-body-secondary border-0"*/}
+        {/*    />*/}
+        {/*  </CInputGroup>*/}
+        {/*</CForm>*/}
+        {/*<AppHeaderDropdownNotif />*/}
+        {/*<AppHeaderDropdownTasks />*/}
+        {/*<AppHeaderDropdownMssg />*/}
         {/*</CHeaderNav>*/}
         {/* Language Switcher */}
         <CHeaderNav className="ms-auto">

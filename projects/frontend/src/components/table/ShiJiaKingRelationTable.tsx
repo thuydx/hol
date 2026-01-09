@@ -1,12 +1,7 @@
-import {
-  CTable,
-  CTableBody,
-  CTableRow,
-  CTableDataCell,
-} from '@coreui/react-pro'
+import {CTable, CTableBody, CTableDataCell, CTableRow,} from '@coreui/react-pro'
 
-import { ShiJiaKingRelation } from '@/types/ShiJiaKing'
-import { buildFamilyTitle } from '@/lib/services/buildTitle'
+import {ShiJiaKingRelation} from '@/types/ShiJiaKing'
+import {buildFamilyTitle} from '@/lib/services/buildTitle'
 
 type Props = {
   relations: ShiJiaKingRelation[]
@@ -39,7 +34,7 @@ export function ShiJiaKingRelationTable({
               <CTableDataCell width={30}>
                 {title}
               </CTableDataCell>
-              <CTableDataCell style={{ width: 80 }}>
+              <CTableDataCell style={{width: 80}}>
                 {r.value}%
               </CTableDataCell>
             </CTableRow>

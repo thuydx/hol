@@ -1,4 +1,3 @@
-
 const STORAGE_KEY = 'uploadedJson'
 
 async function readAll(): Promise<any> {
@@ -32,7 +31,7 @@ export class NuLiNumRepository {
     const data = await readAll()
 
     if (!data[this.sectionKey]) {
-      data[this.sectionKey] = { __type: 'System.Int32,mscorlib' }
+      data[this.sectionKey] = {__type: 'System.Int32,mscorlib'}
     }
 
     data[this.sectionKey].value = value

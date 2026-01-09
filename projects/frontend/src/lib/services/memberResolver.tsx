@@ -1,8 +1,6 @@
-import { MemberNowRepository } from '@/repositories/MemberNow'
-import { MemberOtherRepository } from '@/repositories/MemberOther'
-import { MemberKingRepository } from '@/repositories/MemberKing'
-import { parseTitleFengdi } from './fengdiHelper'
-import { useI18nClient } from '@/lib/i18nClient'
+import {MemberNowRepository} from '@/repositories/MemberNow'
+import {MemberOtherRepository} from '@/repositories/MemberOther'
+import {MemberKingRepository} from '@/repositories/MemberKing'
 
 export type ResolvedMemberFengdi = {
   name: string
@@ -12,10 +10,10 @@ export type ResolvedMemberFengdi = {
 
 function buildResult(member: any, t: any) {
   const name = member.personalData?.[0] ?? ''
-console.log(member)
+  console.log(member)
   const titleFengdi = member.titleFengdi
   if (!titleFengdi) {
-    return { name, fengdi: '', fengdiTitle: '' }
+    return {name, fengdi: '', fengdiTitle: ''}
   }
 
   const [levelRaw, prefectureRaw] = titleFengdi.split('|')

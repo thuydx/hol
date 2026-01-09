@@ -1,10 +1,5 @@
-import { BaseRepository } from '@/lib/baseRepository'
-import {
-  serializeAll, deserializeAll,
-  MemberColumn,
-  MemberParsed,
-  MemberRawRow,
-} from '@/lib/models/members'
+import {BaseRepository} from '@/lib/baseRepository'
+import {deserializeAll, MemberColumn, MemberParsed, MemberRawRow, serializeAll,} from '@/lib/models/members'
 
 /**
  * HOW TO USE

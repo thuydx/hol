@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 import {FarmRawRow} from "@/models/farms";
 
 export class NongZNowRepository extends BaseRepository {

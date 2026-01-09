@@ -1,17 +1,17 @@
 'use client'
 
 import {useEffect, useMemo, useRef} from 'react'
-import { useI18nClient } from '@/lib/i18nClient'
+import {useI18nClient} from '@/lib/i18nClient'
 
-import { TableEditor } from '@/components/table/TableEditor'
-import { InputCell } from '@/components/table/InputCell'
-import { MaxAttributeButton } from '@//components/button/MaxAttributeButton'
+import {TableEditor} from '@/components/table/TableEditor'
+import {InputCell} from '@/components/table/InputCell'
+import {MaxAttributeButton} from '@//components/button/MaxAttributeButton'
 
-import { buildMemberQuColumns } from '@/columns/memberQu'
-import { useMemberQu, useMembersQu } from '@/lib/hooks/memberQu'
+import {buildMemberQuColumns} from '@/columns/memberQu'
+import {useMemberQu, useMembersQu} from '@/lib/hooks/memberQu'
 
-import { MemberQuRepository } from '@/lib/repositories/MemberQu'
-import { MemberQuParsed } from '@/lib/models/memberQu'
+import {MemberQuRepository} from '@/lib/repositories/MemberQu'
+import {MemberQuParsed} from '@/lib/models/memberQu'
 import {CTableDataCell, CTableRow} from "@coreui/react-pro";
 import {ColumnSchema} from "@/columns/buildBaseColumns";
 
@@ -24,8 +24,8 @@ function MemberQuRow({index, registerReload, unregisterReload,}: Readonly<{
   registerReload: (index: number, fn: () => void) => void
   unregisterReload: (index: number) => void
 }>) {
-  const { t } = useI18nClient<any>()
-  const { row: member, update, load, loading } = useMemberQu(index)
+  const {t} = useI18nClient<any>()
+  const {row: member, update, load, loading} = useMemberQu(index)
   const columns = useMemo(() => buildMemberQuColumns(t), [t])
 
   /* register reload */
@@ -69,13 +69,13 @@ function MemberQuRow({index, registerReload, unregisterReload,}: Readonly<{
  * Page
  * ========================================================= */
 export default function MemberQuPage() {
-  const { t } = useI18nClient<any>()
+  const {t} = useI18nClient<any>()
   const repo = useMemo(() => new MemberQuRepository(), [])
   const columns = useMemo<ColumnSchema<MemberQuParsed>>(
     () => buildMemberQuColumns(t),
     [t],
   )
-  const { indexes, load, forceReload } = useMembersQu()
+  const {indexes, load, forceReload} = useMembersQu()
   const rowReloaders = useRef(new Map<number, () => void>())
   useEffect(() => {
     void load()

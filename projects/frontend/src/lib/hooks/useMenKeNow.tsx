@@ -1,8 +1,8 @@
 import {useCallback, useMemo} from "react";
 import {useTableEditor} from "@/hooks/useTableEditor";
 import {useRowEditor} from "@/hooks/useRowEditor";
-import { MenKeNowParsed } from '@/lib/models/menKeNow'
-import { MenKeNowRepository } from '@/repositories/MenKeNow'
+import {MenKeNowParsed} from '@/lib/models/menKeNow'
+import {MenKeNowRepository} from '@/repositories/MenKeNow'
 
 /* =======================
  * ROW (1 MENKE NOW)

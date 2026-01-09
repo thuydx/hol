@@ -1,4 +1,4 @@
-import { CButton } from '@coreui/react-pro'
+import {CButton} from '@coreui/react-pro'
 
 type MaxAttributeButtonProps = {
   label: string

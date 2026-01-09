@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export class Kong_nowRepository extends BaseRepository {
   protected sectionKey = 'Kong_now'

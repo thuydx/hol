@@ -1,5 +1,6 @@
 import {getRows, getRowsLevel2, updateCell, updateCellByIndex, updateSubCell} from '@/lib/gameData.model'
-import type { GameData } from './gameData.model'
+import type {GameData} from './gameData.model'
+
 const STORAGE_KEY = 'uploadedJson'
 
 export interface MemberRepository<T> {
@@ -25,10 +26,6 @@ async function writeAll(data: any): Promise<void> {
 
 export abstract class BaseRepository {
   protected abstract sectionKey: string
-
-  protected async getRows<T = any[]>(): Promise<T> {
-    return await this.getValue<T>()
-  }
 
   /* =======================
    * READ
@@ -76,7 +73,6 @@ export abstract class BaseRepository {
     )
   }
 
-
   /* =======================
    * CREATE (ROW LEVEL)
    * ======================= */
@@ -111,6 +107,14 @@ export abstract class BaseRepository {
     )
 
     await writeAll(data)
+  }
+
+  async allLevel2(): Promise<string[][]> {
+    return getRowsLevel2(this.sectionKey)
+  }
+
+  protected async getRows<T = any[]>(): Promise<T> {
+    return await this.getValue<T>()
   }
 
   /* =======================
@@ -153,10 +157,6 @@ export abstract class BaseRepository {
     await writeAll(data)
   }
 
-  async allLevel2(): Promise<string[][]> {
-    return getRowsLevel2(this.sectionKey)
-  }
-
   /* =======================
  * READ / WRITE – RAW DATA
  * ======================= */
@@ -178,7 +178,7 @@ export abstract class BaseRepository {
     const data = await this.getAllData()
 
     if (!data[this.sectionKey]) {
-      data[this.sectionKey] = { value }
+      data[this.sectionKey] = {value}
     } else {
       data[this.sectionKey].value = value
     }

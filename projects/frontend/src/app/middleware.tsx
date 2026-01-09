@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from 'next/server'
-import {defaultLang, isValidLang, langs} from '@/lib/i18n'
+import {defaultLang, isValidLang} from '@/lib/i18n'
 //
 // export function middleware(req: NextRequest) {
 //   const { pathname } = req.nextUrl

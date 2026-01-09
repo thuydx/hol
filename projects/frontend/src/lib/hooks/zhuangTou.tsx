@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { ZhuangTouNowRepository } from '@/repositories/ZhuangTouNow'
-import { ZhuangTouParsed } from '@/models/zhuangTou'
+import {useEffect, useState} from 'react'
+import {ZhuangTouNowRepository} from '@/repositories/ZhuangTouNow'
+import {ZhuangTouParsed} from '@/models/zhuangTou'
 
 const repo = new ZhuangTouNowRepository()
 

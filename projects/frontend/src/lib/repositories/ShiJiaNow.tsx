@@ -1,6 +1,6 @@
-import { BaseRepository } from '@/lib/baseRepository'
-import { ShiJiaNowParsed } from '@/types/ShiJiaNow'
-import { ShiJiaNowModel } from '@/models/shiJiaNow'
+import {BaseRepository} from '@/lib/baseRepository'
+import {ShiJiaNowParsed} from '@/types/ShiJiaNow'
+import {ShiJiaNowModel} from '@/models/shiJiaNow'
 
 export class ShiJiaNowRepository extends BaseRepository {
   protected sectionKey = 'ShiJia_Now'

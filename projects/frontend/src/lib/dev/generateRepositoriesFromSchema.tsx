@@ -46,7 +46,7 @@ export async function downloadRepositoriesZip(schema: any) {
     zip.file(name, content)
   })
 
-  const blob = await zip.generateAsync({ type: 'blob' })
+  const blob = await zip.generateAsync({type: 'blob'})
   const a = document.createElement('a')
   a.href = URL.createObjectURL(blob)
   a.download = 'repositories.zip'

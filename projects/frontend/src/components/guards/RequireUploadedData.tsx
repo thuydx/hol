@@ -1,21 +1,14 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
-import {
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CModalFooter,
-  CButton,
-} from '@coreui/react-pro'
-import { useEffect, useState } from 'react'
+import {usePathname, useRouter} from 'next/navigation'
+import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle,} from '@coreui/react-pro'
+import {useEffect, useState} from 'react'
 
 type Props = {
   children: React.ReactNode
 }
 
-export default function RequireUploadedData({ children }: Props) {
+export default function RequireUploadedData({children}: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

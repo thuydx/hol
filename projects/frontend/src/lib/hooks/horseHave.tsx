@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { getRows } from '@/lib/gameData.model'
-import { HorseHaveRepository } from '@/repositories/HorseHave'
-import {
-  HorseHaveRow,
-  DEFAULT_HORSE_HAVE_ROW,
-} from '@/models/horseHave'
+import {useCallback, useEffect, useMemo, useState} from 'react'
+import {getRows} from '@/lib/gameData.model'
+import {HorseHaveRepository} from '@/repositories/HorseHave'
+import {DEFAULT_HORSE_HAVE_ROW, HorseHaveRow,} from '@/models/horseHave'
 
 const repo = new HorseHaveRepository()
 

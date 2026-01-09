@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { KingCityDataParsed } from '@/types/KingCityData'
-import { KingCityDataRepository } from '@/repositories/KingCityData'
+import {useEffect, useState} from 'react'
+import {KingCityDataParsed} from '@/types/KingCityData'
+import {KingCityDataRepository} from '@/repositories/KingCityData'
 
 const repo = new KingCityDataRepository()
 

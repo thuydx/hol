@@ -26,7 +26,6 @@ const Tools = () => {
   }
 
 
-
   const handleDownloadColumnMapsZip = () => {
     try {
       setError(null)
@@ -66,10 +65,16 @@ const Tools = () => {
             <CCardTitle as="h3" className="text-body-secondary text-truncate">Dev tools</CCardTitle>
             <CCardBody className="d-flex flex-wrap p-0">
               <CButton onClick={handleGenerate} color="primary" className="me-2">Generate Column Maps</CButton>
-              {result && (<CButton onClick={handleGenerateRepositoriesFromSchema} color="primary" className="me-2">Generate Repositories</CButton>)}
-              {result && (<CButton onClick={handleDownloadRepositoriesZip} color="success" className="me-2">Download Repositories (ZIP)</CButton>)}
-              {result && (<CButton onClick={handleDownloadColumnMapsZip} color="success" className="me-2">Download ALL Column Maps (ZIP)</CButton>)}
-              {data && (<CButton onClick={() => localStorage.clear()} color="d" className="me-2 btn-danger">Clear Local Storage</CButton>)}
+              {result && (<CButton onClick={handleGenerateRepositoriesFromSchema} color="primary" className="me-2">Generate
+                Repositories</CButton>)}
+              {result && (
+                <CButton onClick={handleDownloadRepositoriesZip} color="success" className="me-2">Download Repositories
+                  (ZIP)</CButton>)}
+              {result && (
+                <CButton onClick={handleDownloadColumnMapsZip} color="success" className="me-2">Download ALL Column Maps
+                  (ZIP)</CButton>)}
+              {data && (<CButton onClick={() => localStorage.clear()} color="d" className="me-2 btn-danger">Clear Local
+                Storage</CButton>)}
             </CCardBody>
           </CCard>
 

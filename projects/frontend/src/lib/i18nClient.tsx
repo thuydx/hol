@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'next/navigation'
-import { defaultLang, Lang, getDict } from '@/lib/i18n'
+import {useEffect, useMemo, useState} from 'react'
+import {useParams} from 'next/navigation'
+import {defaultLang, getDict, Lang} from '@/lib/i18n'
 import viDict from '@/lang/vi.json'
 
 export function useI18nClient<T = any>() {
@@ -23,7 +23,7 @@ export function useI18nClient<T = any>() {
       setDictMap((prev) => {
         // already loaded → no state update
         if (prev[lang]) return prev
-        return { ...prev, [lang]: dict as T }
+        return {...prev, [lang]: dict as T}
       })
     })
 
@@ -37,7 +37,7 @@ export function useI18nClient<T = any>() {
     return dictMap[lang] ?? (viDict as T) // fallback while loading
   }, [lang, dictMap])
 
-  return { t, lang }
+  return {t, lang}
 }
 
 

@@ -1,4 +1,4 @@
-import type { ShiJiaNowRelation } from '@/types/ShiJiaNow'
+import type {ShiJiaNowRelation} from '@/types/ShiJiaNow'
 
 export type RelationMap = Record<number, number>
 

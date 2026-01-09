@@ -1,4 +1,3 @@
-
 export const enum MemberColumn {
   ID = 0,
   APPEARANCE = 1,
@@ -493,7 +492,7 @@ const toNull = (v: string) => (v === 'null' ? null : v)
 export function parseAppearance(raw: string): MemberAppearance {
   const [backHair, body, face, frontHair] = raw.split('|').map(Number)
 
-  return { backHair, body, face, frontHair }
+  return {backHair, body, face, frontHair}
 }
 
 export function serializeAppearance(a: MemberAppearance): string {
@@ -643,7 +642,7 @@ export function serializeOfficialTitle(
  */
 export function parseTitleFengdi(raw: string): MemberTitleFengdi {
   if (!raw || raw === 'null') {
-    return { level: 0, prefectureId: 0 }
+    return {level: 0, prefectureId: 0}
   }
 
   const [level, prefectureId] = raw.split('|')

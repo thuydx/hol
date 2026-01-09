@@ -1,8 +1,6 @@
-import { ColumnDef } from '@/types/table'
-import { MenKeNowParsed } from '@/models/menKeNow'
+import {MenKeNowParsed} from '@/models/menKeNow'
 import {buildBaseColumns, ColumnSchema} from "@/columns/buildBaseColumns";
 import {DropdownCell} from "@/components/table/DropdownCell";
-import {MemberQuParsed} from "@/models/memberQu";
 import {SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
 
 export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
@@ -14,7 +12,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       get: m => m.person.name,
       set: (m, v) => ({
         ...m,
-        person: { ...m.person, name: v },
+        person: {...m.person, name: v},
       }),
     },
     {
@@ -23,7 +21,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       width: '40px',
       input: 'text',
       get: m => m.age,
-      set: (m, v) => ({ ...m, age: Number(v) }),
+      set: (m, v) => ({...m, age: Number(v)}),
       maxValue: 20
     },
     {
@@ -32,7 +30,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       width: '40px',
       input: 'text',
       get: m => m.literary,
-      set: (m, v) => ({ ...m, literary: Number(v) }),
+      set: (m, v) => ({...m, literary: Number(v)}),
       maxValue: 100
     },
     {
@@ -41,7 +39,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       width: '40px',
       input: 'text',
       get: m => m.martial,
-      set: (m, v) => ({ ...m, martial: Number(v) }),
+      set: (m, v) => ({...m, martial: Number(v)}),
       maxValue: 100
     },
     {
@@ -80,7 +78,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       width: '40px',
       input: 'text',
       get: m => m.mood,
-      set: (m, v) => ({ ...m, mood: Number(v) }),
+      set: (m, v) => ({...m, mood: Number(v)}),
       maxValue: 100
     },
     {
@@ -135,7 +133,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       get: m => m.person.skill,
       set: (m, v) => ({
         ...m,
-        person: { ...m.person, skill: Number(v) },
+        person: {...m.person, skill: Number(v)},
       }),
       render: (member, update, t) => (
         <DropdownCell
@@ -145,7 +143,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
           onChange={v =>
             update(m => ({
               ...m,
-              person: { ...m.person, skill: v },
+              person: {...m.person, skill: v},
             }))
           }
         />
@@ -202,7 +200,7 @@ export function buildMenKeNowColumns(t: any): ColumnSchema<MenKeNowParsed> {
       width: '60px',
       input: 'text',
       get: m => m.salary,
-      set: (m, v) => ({ ...m, salary: Number(v) }),
+      set: (m, v) => ({...m, salary: Number(v)}),
       maxValue: 0
     },
   ])

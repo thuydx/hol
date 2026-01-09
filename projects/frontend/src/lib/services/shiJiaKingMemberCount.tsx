@@ -1,5 +1,5 @@
-import { MemberKingRepository } from '@/repositories/MemberKing'
-import { MemberKingQuRepository } from '@/repositories/MemberKingQu'
+import {MemberKingRepository} from '@/repositories/MemberKing'
+import {MemberKingQuRepository} from '@/repositories/MemberKingQu'
 
 const memberKingRepo = new MemberKingRepository()
 const memberKingQuRepo = new MemberKingQuRepository()

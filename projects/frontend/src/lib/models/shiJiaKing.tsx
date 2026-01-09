@@ -1,4 +1,4 @@
-import { ShiJiaKingParsed} from '@/types/ShiJiaKing'
+import {ShiJiaKingParsed} from '@/types/ShiJiaKing'
 import {SHIJIA_KING_COLUMN_COUNT, ShiJiaKingColumn} from '@/columns/ShiJiaKing'
 
 export class ShiJiaKingModel {

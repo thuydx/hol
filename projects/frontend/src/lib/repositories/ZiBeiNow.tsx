@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export type ZiBeiItem = {
   name: string
@@ -21,29 +21,9 @@ export class ZiBeiNowRepository extends BaseRepository {
     // value: string[]
     return (value as string[]).map((row) => {
       const [name = '', level = '', position = ''] = row.split('|')
-      return { name, level, position }
+      return {name, level, position}
     })
   }
-
-
-  private async saveAt(
-    index: number,
-    item: ZiBeiItem
-  ): Promise<void> {
-    const raw = localStorage.getItem('uploadedJson')
-    if (!raw) return
-
-    const json = JSON.parse(raw)
-    const value = json?.[this.sectionKey]?.value
-
-    if (!Array.isArray(value)) return
-
-    value[index] = `${item.name}|${item.level}|${item.position}`
-
-    json[this.sectionKey].value = value
-    localStorage.setItem('uploadedJson', JSON.stringify(json))
-  }
-
 
   async updateZibei(index: number, value: string) {
     const rows = await this.getData()
@@ -91,6 +71,24 @@ export class ZiBeiNowRepository extends BaseRepository {
     const json = JSON.parse(raw)
     json[this.sectionKey].value.splice(index, 1)
 
+    localStorage.setItem('uploadedJson', JSON.stringify(json))
+  }
+
+  private async saveAt(
+    index: number,
+    item: ZiBeiItem
+  ): Promise<void> {
+    const raw = localStorage.getItem('uploadedJson')
+    if (!raw) return
+
+    const json = JSON.parse(raw)
+    const value = json?.[this.sectionKey]?.value
+
+    if (!Array.isArray(value)) return
+
+    value[index] = `${item.name}|${item.level}|${item.position}`
+
+    json[this.sectionKey].value = value
     localStorage.setItem('uploadedJson', JSON.stringify(json))
   }
 }

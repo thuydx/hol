@@ -1,7 +1,7 @@
 import {MemberQuParsed} from "@/models/memberQu";
 import {buildBaseColumns, ColumnSchema} from "@/columns/buildBaseColumns";
 import {DropdownCell} from "@/components/table/DropdownCell";
-import {GENDER_OPTIONS, HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
+import {HOBBY_OPTIONS, SKILL_OPTIONS, TALENT_OPTIONS} from "@/constants/options";
 import {InputCell} from "@/components/table/InputCell";
 
 export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
@@ -117,7 +117,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       width: '40px',
       input: 'text',
       get: m => m.mood,
-      set: (m, v) => ({ ...m, mood: Number(v) }),
+      set: (m, v) => ({...m, mood: Number(v)}),
       maxValue: 100
     },
     {
@@ -173,7 +173,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       get: m => m.personData.skills,
       set: (m, v) => ({
         ...m,
-        personData: { ...m.personData, skills: Number(v) },
+        personData: {...m.personData, skills: Number(v)},
       }),
       render: (member, update, t) => (
         <DropdownCell
@@ -183,7 +183,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
           onChange={v =>
             update(m => ({
               ...m,
-              personData: { ...m.personData, skills: v },
+              personData: {...m.personData, skills: v},
             }))
           }
         />
@@ -240,7 +240,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       width: '40px',
       input: 'number',
       get: m => m.pregnancyStatus,
-      set: (m, v) => ({ ...m, pregnancyStatus: Number(v) }),
+      set: (m, v) => ({...m, pregnancyStatus: Number(v)}),
       render: (member, update) => {
         const disabled = isMale(member)
 
@@ -263,7 +263,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
       width: '50px',
       input: 'number',
       get: m => m.pregnancyMonth,
-      set: (m, v) => ({ ...m, pregnancyMonth: Number(v) }),
+      set: (m, v) => ({...m, pregnancyMonth: Number(v)}),
       render: (member, update) => {
         const disabled = isMale(member)
 
@@ -274,7 +274,7 @@ export function buildMemberQuColumns(t: any): ColumnSchema<MemberQuParsed> {
             disabled={disabled}
             onChange={v => {
               if (disabled) return
-              update(m => ({ ...m, pregnancyMonth: Number(v) }))
+              update(m => ({...m, pregnancyMonth: Number(v)}))
             }}
           />
         )

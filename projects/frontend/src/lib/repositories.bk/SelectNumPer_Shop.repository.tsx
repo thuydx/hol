@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export class SelectNumPer_ShopRepository extends BaseRepository {
   protected sectionKey = 'SelectNumPer_Shop'

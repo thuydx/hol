@@ -1,15 +1,9 @@
-import { BaseRepository, MemberRepository } from '@/lib/baseRepository'
-import {
-  MemberParsed,
-  deserializeAll,
-  serializeAll,
-  MemberRawRow,
-} from '@/models/members'
+import {BaseRepository, MemberRepository} from '@/lib/baseRepository'
+import {deserializeAll, MemberParsed, MemberRawRow, serializeAll,} from '@/models/members'
 
 export class MemberKingRepository
   extends BaseRepository
-  implements MemberRepository<MemberParsed>
-{
+  implements MemberRepository<MemberParsed> {
   protected sectionKey = 'Member_king'
 
   async findMemberById(memberId: string): Promise<MemberParsed | null> {

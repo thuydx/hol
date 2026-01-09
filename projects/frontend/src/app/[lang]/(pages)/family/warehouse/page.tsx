@@ -2,19 +2,35 @@
 
 import {
   CButton,
-  CCard, CCardBody, CCardHeader, CCardText, CCardTitle,
-  CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCardText,
+  CCardTitle,
+  CCol,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
   CFormInput,
-  CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow,
-  CToast, CToastBody, CToastHeader
+  CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+  CToast,
+  CToastBody,
+  CToastHeader
 } from '@coreui/react-pro'
-import { useMemo, useState } from 'react'
-import { useI18nClient } from '@/lib/i18nClient'
-import { useWarehouse } from '@/lib/hooks/warehouse'
-import { ALL_KEY } from '@/lib/models/warehouse'
+import {useState} from 'react'
+import {useI18nClient} from '@/lib/i18nClient'
+import {useWarehouse} from '@/lib/hooks/warehouse'
+import {ALL_KEY} from '@/lib/models/warehouse'
 
 const WarehousePage = () => {
-  const { t } = useI18nClient<any>()
+  const {t} = useI18nClient<any>()
   const [toast, setToast] = useState<string | null>(null)
 
   const items = t.items ?? {}
@@ -62,11 +78,11 @@ const WarehousePage = () => {
       {/* TOAST */}
       {toast && (
         <CToast visible autohide delay={3000} color="success" onClose={() => setToast(null)}>
-            <CToastHeader closeButton>
-              <strong className="me-auto">
-                {t.uploader.toastTitle}
-              </strong>
-            </CToastHeader>
+          <CToastHeader closeButton>
+            <strong className="me-auto">
+              {t.uploader.toastTitle}
+            </strong>
+          </CToastHeader>
           <CToastBody>{toast}</CToastBody>
         </CToast>
       )}

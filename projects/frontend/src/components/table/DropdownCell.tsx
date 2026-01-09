@@ -1,9 +1,4 @@
-import {
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
-} from '@coreui/react-pro'
+import {CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle,} from '@coreui/react-pro'
 
 type DropdownCellProps = {
   value: number
@@ -32,11 +27,11 @@ export function DropdownCell({
   const widthPx = Math.max(60, maxLabelLength * 8 + 24)
 
   return (
-    <CDropdown style={{ width: widthPx }}>
+    <CDropdown style={{width: widthPx}}>
       <CDropdownToggle color="light" size="sm">
         {currentLabel}
       </CDropdownToggle>
-      <CDropdownMenu style={{ minWidth: widthPx }}>
+      <CDropdownMenu style={{minWidth: widthPx}}>
         {Object.entries(options).map(([num, key]) => (
           <CDropdownItem
             key={num}

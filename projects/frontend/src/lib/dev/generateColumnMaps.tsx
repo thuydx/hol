@@ -256,7 +256,7 @@ export function downloadColumnMaps() {
     // 🔒 Even empty objects get a file
     const blob = new Blob(
       [content || 'export const Empty = {} as const\n'],
-      { type: 'text/plain' }
+      {type: 'text/plain'}
     )
 
     const url = URL.createObjectURL(blob)
@@ -280,7 +280,7 @@ export async function downloadColumnMapsZip() {
     zip.file(filename, content)
   })
 
-  const blob = await zip.generateAsync({ type: 'blob' })
+  const blob = await zip.generateAsync({type: 'blob'})
 
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')

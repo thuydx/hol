@@ -1,9 +1,5 @@
-import { BaseRepository } from '@/lib/baseRepository'
-import {
-  ZhuangTouRawRow,
-  ZhuangTouParsed,
-  parseZhuangTou,
-} from '@/models/zhuangTou'
+import {BaseRepository} from '@/lib/baseRepository'
+import {parseZhuangTou, ZhuangTouParsed, ZhuangTouRawRow,} from '@/models/zhuangTou'
 
 export class ZhuangTouNowRepository extends BaseRepository {
   protected sectionKey = 'ZhuangTou_now'

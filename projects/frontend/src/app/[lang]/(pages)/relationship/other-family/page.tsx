@@ -3,25 +3,25 @@
 import {useEffect, useState} from 'react'
 import {
   CCard,
-  CCardHeader,
   CCardBody,
+  CCardHeader,
   CTable,
-  CTableHead,
-  CTableRow,
-  CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
 } from '@coreui/react-pro'
 
-import { InputCell } from '@/components/table/InputCell'
-import { DropdownCell } from '@/components/table/DropdownCell'
-import { ShiJiaNowRelationMatrix } from '@/components/table/ShiJiaNowRelationMatrix'
+import {InputCell} from '@/components/table/InputCell'
+import {DropdownCell} from '@/components/table/DropdownCell'
+import {ShiJiaNowRelationMatrix} from '@/components/table/ShiJiaNowRelationMatrix'
 
-import { useShiJiaNow } from '@/hooks/useShiJiaNow'
-import { useI18nClient } from '@/lib/i18nClient'
-import { ShiJiaNowColumn } from '@/columns/ShiJiaNow'
-import { INHERITANCE_OPTIONS } from '@/constants/options'
-import type { ShiJiaNowParsed } from '@/types/ShiJiaNow'
+import {useShiJiaNow} from '@/hooks/useShiJiaNow'
+import {useI18nClient} from '@/lib/i18nClient'
+import {ShiJiaNowColumn} from '@/columns/ShiJiaNow'
+import {INHERITANCE_OPTIONS} from '@/constants/options'
+import type {ShiJiaNowParsed} from '@/types/ShiJiaNow'
 import {countTotalClanMembers} from "@/lib/services/shiJiaNowMemberCount";
 import {buildFamilyTitle} from "@/lib/services/buildTitle";
 
@@ -29,12 +29,12 @@ import {buildFamilyTitle} from "@/lib/services/buildTitle";
  * Row component (CoreUI)
  * ======================== */
 function ShiJiaNowRow({
-                          family,
-                          t,
-                          memberCount,
-                          updateColumn,
-                          updateSubColumn,
-                        }: Readonly<{
+                        family,
+                        t,
+                        memberCount,
+                        updateColumn,
+                        updateSubColumn,
+                      }: Readonly<{
   family: ShiJiaNowParsed
   memberCount: number
   t: any
@@ -71,7 +71,7 @@ function ShiJiaNowRow({
           type="number"
           value={row.level}
           disabled={false}
-          onChange={v => setRow({ ...row, level: v })}
+          onChange={v => setRow({...row, level: v})}
           onBlur={() =>
             updateColumn(
               row.id,
@@ -89,7 +89,7 @@ function ShiJiaNowRow({
           value={row.relationshipIndex}
           disabled={false}
           onChange={v =>
-            setRow({ ...row, relationshipIndex: v })
+            setRow({...row, relationshipIndex: v})
           }
           onBlur={() =>
             updateColumn(
@@ -108,7 +108,7 @@ function ShiJiaNowRow({
           options={INHERITANCE_OPTIONS}
           labels={t.inheritance_option}
           onChange={v => {
-            setRow({ ...row, inheritance: v })
+            setRow({...row, inheritance: v})
             updateColumn(
               row.id,
               ShiJiaNowColumn.INHERITANCE,
@@ -125,7 +125,7 @@ function ShiJiaNowRow({
           value={row.royalInfluence}
           disabled={false}
           onChange={v =>
-            setRow({ ...row, royalInfluence: v })
+            setRow({...row, royalInfluence: v})
           }
           onBlur={() =>
             updateColumn(
@@ -146,7 +146,7 @@ function ShiJiaNowRow({
           onChange={v =>
             setRow({
               ...row,
-              army: { ...row.army, privateArmy: v },
+              army: {...row.army, privateArmy: v},
             })
           }
           onBlur={() =>
@@ -201,7 +201,7 @@ export default function ShiJiaNowPage() {
     updateSubColumn,
   } = useShiJiaNow()
 
-  const { t } = useI18nClient<any>()
+  const {t} = useI18nClient<any>()
   const [memberCount, setMemberCount] = useState<Record<number, number>>({})
 
   useEffect(() => {
@@ -228,38 +228,38 @@ export default function ShiJiaNowPage() {
         <CCardHeader>
           <strong>{t.menu.shiJiaNow}</strong>
         </CCardHeader>
-        <CCardBody style={{ overflowX: 'auto' }}>
+        <CCardBody style={{overflowX: 'auto'}}>
           <CTable striped small hover>
             <CTableHead>
               <CTableRow>
-                <CTableHeaderCell style={{ width: 60 }}>
+                <CTableHeaderCell style={{width: 60}}>
                   ID
                 </CTableHeaderCell>
                 <CTableHeaderCell>
                   {t.shiJiaNow.title}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 90 }}>
+                <CTableHeaderCell style={{width: 90}}>
                   {t.shiJiaNow.coordinates}
                 </CTableHeaderCell>
                 <CTableHeaderCell>
                   {t.shiJiaNow.members}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 80 }}>
+                <CTableHeaderCell style={{width: 80}}>
                   {t.shiJiaNow.level}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 140 }}>
+                <CTableHeaderCell style={{width: 140}}>
                   {t.shiJiaNow.relationshipIndex}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 180 }}>
+                <CTableHeaderCell style={{width: 180}}>
                   {t.shiJiaNow.inheritance}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 160 }}>
+                <CTableHeaderCell style={{width: 160}}>
                   {t.shiJiaNow.royalInfluence}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 110 }}>
+                <CTableHeaderCell style={{width: 110}}>
                   {t.shiJiaNow.army.privateArmy}
                 </CTableHeaderCell>
-                <CTableHeaderCell style={{ width: 110 }}>
+                <CTableHeaderCell style={{width: 110}}>
                   {t.shiJiaNow.army.militaryPower}
                 </CTableHeaderCell>
               </CTableRow>
@@ -282,7 +282,7 @@ export default function ShiJiaNowPage() {
       </CCard>
 
       {/* RELATIONSHIP MATRIX */}
-      <ShiJiaNowRelationMatrix families={data} />
+      <ShiJiaNowRelationMatrix families={data}/>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export class Trade_PlayershopRepository extends BaseRepository {
   protected sectionKey = 'Trade_Playershop'

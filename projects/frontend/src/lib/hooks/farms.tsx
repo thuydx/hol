@@ -1,13 +1,8 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { NongZNowRepository } from '@/repositories/NongZNow'
-import {
-  FarmRawRow,
-  FarmParsed,
-  parseFarm,
-  serializeFarm,
-} from '@/models/farms'
+import {useCallback, useEffect, useState} from 'react'
+import {NongZNowRepository} from '@/repositories/NongZNow'
+import {FarmParsed, FarmRawRow, parseFarm, serializeFarm,} from '@/models/farms'
 
 const repo = new NongZNowRepository()
 
@@ -68,7 +63,7 @@ export function useFarm() {
 }
 
 export function useFarmRow(index: number) {
-  const { farms, updateFarm, loading } = useFarm()
+  const {farms, updateFarm, loading} = useFarm()
 
   const farm = farms[index]
 

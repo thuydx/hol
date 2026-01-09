@@ -1,8 +1,8 @@
 import {useCallback, useMemo} from 'react'
-import { MemberQuRepository } from '@/lib/repositories/MemberQu'
-import { MemberQuParsed } from '@/lib/models/memberQu'
-import { useRowEditor } from '@/lib/hooks/useRowEditor'
-import { useTableEditor } from '@/lib/hooks/useTableEditor'
+import {MemberQuRepository} from '@/lib/repositories/MemberQu'
+import {MemberQuParsed} from '@/lib/models/memberQu'
+import {useRowEditor} from '@/lib/hooks/useRowEditor'
+import {useTableEditor} from '@/lib/hooks/useTableEditor'
 
 /* =======================
  * ROW (1 MEMBER QU)

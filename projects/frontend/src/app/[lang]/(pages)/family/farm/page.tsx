@@ -9,6 +9,7 @@ import {
   CCardTitle,
   CCol,
   CFormInput,
+  CFormSelect,
   CRow,
   CTable,
   CTableBody,
@@ -16,14 +17,13 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CFormSelect,
 } from '@coreui/react-pro'
 
-import { useI18nClient } from '@/lib/i18nClient'
+import {useI18nClient} from '@/lib/i18nClient'
 
-import { useFarm } from '@/hooks/farms'
-import { useZhuangTou } from '@/hooks/zhuangTou'
-import { FarmParsed } from '@/models/farms'
+import {useFarm} from '@/hooks/farms'
+import {useZhuangTou} from '@/hooks/zhuangTou'
+import {FarmParsed} from '@/models/farms'
 
 /* =============================
  * COLUMN CONFIG (UI ONLY)
@@ -36,26 +36,26 @@ type Column =
   | { key: 'farmHeadId'; type: 'farm-head'; width?: number }
 
 const COLUMNS: Column[] = [
-  { key: 'farmName', type: 'text', width: 160 },
-  { key: 'area', type: 'select', options: ['4', '9', '16', '25'], width: 90 },
-  { key: 'maxFarmers', type: 'number', width: 80 },
-  { key: 'environment', type: 'number', width: 100 },
-  { key: 'security', type: 'number', width: 90 },
-  { key: 'convenience', type: 'number', width: 90 },
-  { key: 'farmHeadId', type: 'farm-head', width: 220 },
-  { key: 'farmerCount', type: 'compound', sub: 3 },
-  { key: 'farmerRatio', type: 'compound', sub: 3 },
-  { key: 'belongToClan', type: 'status', width: 110 },
+  {key: 'farmName', type: 'text', width: 160},
+  {key: 'area', type: 'select', options: ['4', '9', '16', '25'], width: 90},
+  {key: 'maxFarmers', type: 'number', width: 80},
+  {key: 'environment', type: 'number', width: 100},
+  {key: 'security', type: 'number', width: 90},
+  {key: 'convenience', type: 'number', width: 90},
+  {key: 'farmHeadId', type: 'farm-head', width: 220},
+  {key: 'farmerCount', type: 'compound', sub: 3},
+  {key: 'farmerRatio', type: 'compound', sub: 3},
+  {key: 'belongToClan', type: 'status', width: 110},
 ]
 
 /* =============================
  * PAGE
  * ============================= */
 export default function FarmPage() {
-  const { farms, updateFarm, loading } = useFarm()
-  const { groups: zhuangTouGroups } = useZhuangTou()
+  const {farms, updateFarm, loading} = useFarm()
+  const {groups: zhuangTouGroups} = useZhuangTou()
 
-  const { t } = useI18nClient<{
+  const {t} = useI18nClient<{
     farm: {
       title: string
       instruction: string
@@ -83,7 +83,7 @@ export default function FarmPage() {
       type={type}
       value={String(farm[key] ?? '')}
       onChange={e =>
-        updateFarm(rowIndex, { [key]: e.target.value } as any)
+        updateFarm(rowIndex, {[key]: e.target.value} as any)
       }
     />
   )
@@ -98,7 +98,7 @@ export default function FarmPage() {
       size="sm"
       value={String(farm[key] ?? '')}
       onChange={e =>
-        updateFarm(rowIndex, { [key]: e.target.value } as any)
+        updateFarm(rowIndex, {[key]: e.target.value} as any)
       }
     >
       <option value="">—</option>
@@ -120,19 +120,19 @@ export default function FarmPage() {
 
     return (
       <div className="d-flex gap-1">
-        {Array.from({ length: sub }).map((_, i) => (
+        {Array.from({length: sub}).map((_, i) => (
           <CFormInput
             key={i}
             size="sm"
             type="text"
-            style={{ width: '60px', textAlign: 'center' }}
+            style={{width: '60px', textAlign: 'center'}}
             value={values[i] ?? '0'}
             onChange={e => {
               const next = [...values] as any
               next[i] = String(
                 Math.max(0, Math.min(10000, Number(e.target.value || 0)))
               )
-              updateFarm(rowIndex, { [key]: next } as any)
+              updateFarm(rowIndex, {[key]: next} as any)
             }}
           />
         ))}
@@ -151,7 +151,7 @@ export default function FarmPage() {
         size="sm"
         value={farm.farmHeadId ?? ''}
         onChange={e =>
-          updateFarm(rowIndex, { farmHeadId: e.target.value })
+          updateFarm(rowIndex, {farmHeadId: e.target.value})
         }
       >
         <option value="">—</option>
@@ -172,7 +172,7 @@ export default function FarmPage() {
 
     if (value > 0) {
       return (
-        <CButton style={{width:'100px'}} size="sm" color="secondary" disabled>
+        <CButton style={{width: '100px'}} size="sm" color="secondary" disabled>
           {t.farm.actions.OCCUPIED}
         </CButton>
       )
@@ -181,11 +181,11 @@ export default function FarmPage() {
     if (value === -1) {
       return (
         <CButton
-          style={{width:'100px'}}
+          style={{width: '100px'}}
           size="sm"
           color="danger"
           onClick={() =>
-            updateFarm(rowIndex, { belongToClan: '0' })
+            updateFarm(rowIndex, {belongToClan: '0'})
           }
         >
           {t.farm.actions.OWNER}
@@ -195,11 +195,11 @@ export default function FarmPage() {
 
     return (
       <CButton
-        style={{width:'100px'}}
+        style={{width: '100px'}}
         size="sm"
         color="success"
         onClick={() =>
-          updateFarm(rowIndex, { belongToClan: '-1' })
+          updateFarm(rowIndex, {belongToClan: '-1'})
         }
       >
         {t.farm.actions.ABANDONED}
@@ -231,7 +231,7 @@ export default function FarmPage() {
                       key={col.key}
                       style={
                         col.width
-                          ? { width: `${col.width}px` }
+                          ? {width: `${col.width}px`}
                           : undefined
                       }
                     >

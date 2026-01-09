@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { useI18nClient } from '@/lib/i18nClient'
+import {useMemo, useState} from 'react'
+import {useI18nClient} from '@/lib/i18nClient'
 import {
   CCard,
   CCardBody,
@@ -36,7 +36,7 @@ type I18nSchema = {
 const ALL_KEY = '__ALL__'
 
 const Items = () => {
-  const { t } = useI18nClient<I18nSchema>()
+  const {t} = useI18nClient<I18nSchema>()
   const [selectedGroup, setSelectedGroup] = useState<string>(ALL_KEY)
 
   // Extract to simple expressions so Hook deps are valid/stable
@@ -83,7 +83,7 @@ const Items = () => {
                   }}
                 >
 
-                {/* ALL OPTION */}
+                  {/* ALL OPTION */}
                   <CDropdownItem
                     active={selectedGroup === ALL_KEY}
                     onClick={() => setSelectedGroup(ALL_KEY)}
@@ -108,7 +108,7 @@ const Items = () => {
               <CTable striped hover small>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell style={{ width: '30%' }}>
+                    <CTableHeaderCell style={{width: '30%'}}>
                       ID
                     </CTableHeaderCell>
                     <CTableHeaderCell>

@@ -1,10 +1,5 @@
-import { BaseRepository } from '@/lib/baseRepository'
-import {
-  deserializeMenKeNow,
-  serializeMenKeNow,
-  MenKeNowParsed,
-  MenKeNowRawRow,
-} from '@/models/menKeNow'
+import {BaseRepository} from '@/lib/baseRepository'
+import {deserializeMenKeNow, MenKeNowParsed, MenKeNowRawRow, serializeMenKeNow,} from '@/models/menKeNow'
 
 export class MenKeNowRepository extends BaseRepository {
   protected sectionKey = 'MenKe_Now'
@@ -18,14 +13,6 @@ export class MenKeNowRepository extends BaseRepository {
     return deserializeMenKeNow(rows[index])
   }
 
-  protected parseRow(row: MenKeNowRawRow): MenKeNowParsed {
-    return deserializeMenKeNow(row)
-  }
-
-  /* =======================
-   * UPDATE – SINGLE RECORD
-   * ======================= */
-
   async updateParsed(
     index: number,
     updater: (m: MenKeNowParsed) => MenKeNowParsed,
@@ -38,6 +25,10 @@ export class MenKeNowRepository extends BaseRepository {
 
     await this.setValue(rows)
   }
+
+  /* =======================
+   * UPDATE – SINGLE RECORD
+   * ======================= */
 
   /* =======================
    * UPDATE – MULTI RECORDS
@@ -62,5 +53,9 @@ export class MenKeNowRepository extends BaseRepository {
     if (changed) {
       await this.setValue(rows)
     }
+  }
+
+  protected parseRow(row: MenKeNowRawRow): MenKeNowParsed {
+    return deserializeMenKeNow(row)
   }
 }

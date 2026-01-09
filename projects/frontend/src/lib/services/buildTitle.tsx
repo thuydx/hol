@@ -1,4 +1,3 @@
-
 export function buildFamilyTitle(
   coordinates: string | undefined,
   name: string,

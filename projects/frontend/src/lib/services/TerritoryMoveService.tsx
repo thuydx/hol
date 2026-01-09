@@ -1,6 +1,6 @@
-import { CunNowRepository } from '@/repositories/CunNow'
-import { ZhenNowRepository } from '@/repositories/ZhenNow'
-import { JunYingNowRepository } from '@/repositories/JunYingNow'
+import {CunNowRepository} from '@/repositories/CunNow'
+import {ZhenNowRepository} from '@/repositories/ZhenNow'
+import {JunYingNowRepository} from '@/repositories/JunYingNow'
 
 export type TerritoryType = 'cun' | 'zhen' | 'junying'
 
@@ -104,7 +104,7 @@ export class TerritoryMoveService {
     key: string
     campName?: string
   }): Promise<void> {
-    const { from, to, fengdiIndex, key, campName } = opts
+    const {from, to, fengdiIndex, key, campName} = opts
 
     if (from === to) return
 
@@ -141,6 +141,7 @@ export class TerritoryMoveService {
     )
   }
 }
+
 //
 // /**
 //  * TerritoryMoveService

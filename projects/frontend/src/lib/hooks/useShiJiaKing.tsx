@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { ShiJiaKingParsed } from '@/types/ShiJiaKing'
-import { ShiJiaKingRepository } from '@/repositories/ShiJiaKing'
+import {useEffect, useState} from 'react'
+import {ShiJiaKingParsed} from '@/types/ShiJiaKing'
+import {ShiJiaKingRepository} from '@/repositories/ShiJiaKing'
 
 const repo = new ShiJiaKingRepository()
 

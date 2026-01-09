@@ -24,8 +24,8 @@ function MemberNowRow({index, registerReload,}: Readonly<{
   registerReload: (index: number, fn: () => void) => void
   unregisterReload: (index: number) => void
 }>) {
-  const { t } = useI18nClient<any>()
-  const { row: member, update, load, loading } = useMember(index)
+  const {t} = useI18nClient<any>()
+  const {row: member, update, load, loading} = useMember(index)
   const columns = useMemo(() => buildMemberNowColumns(t), [t])
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function MemberNowRow({index, registerReload,}: Readonly<{
     <CTableRow>
       <CTableDataCell>{member.id}</CTableDataCell>
       {columns.map(col => (
-          <CTableDataCell key={col.key} style={col.width ? { width: col.width } : undefined}>
+        <CTableDataCell key={col.key} style={col.width ? {width: col.width} : undefined}>
           {col.render ? (
             col.render(member, update, t)
           ) : (
@@ -54,7 +54,7 @@ function MemberNowRow({index, registerReload,}: Readonly<{
               onChange={v => update(m => col.set(m, v))}
             />
           )}
-          </CTableDataCell>
+        </CTableDataCell>
       ))}
     </CTableRow>
   )
@@ -65,13 +65,13 @@ function MemberNowRow({index, registerReload,}: Readonly<{
  * ========================================================= */
 
 export default function MemberNowPage() {
-  const { t } = useI18nClient<any>()
+  const {t} = useI18nClient<any>()
   const repo = useMemo(() => new MemberNowRepository(), [])
   const columns = useMemo<ColumnSchema<MemberParsed>>(
     () => buildMemberNowColumns(t),
     [t],
   )
-  const { indexes, load, forceReload } = useMembers()
+  const {indexes, load, forceReload} = useMembers()
 
   const rowReloaders = useRef(new Map<number, () => void>())
 
@@ -97,12 +97,12 @@ export default function MemberNowPage() {
         />
       )}
       renderRowAction={(index, helpers) => (
-          <MemberNowRow
-            key={index}
-            index={index}
-            registerReload={helpers.registerReload}
-            unregisterReload={helpers.unregisterReload}
-          />
+        <MemberNowRow
+          key={index}
+          index={index}
+          registerReload={helpers.registerReload}
+          unregisterReload={helpers.unregisterReload}
+        />
       )}
     />
   )

@@ -1,4 +1,4 @@
-import { BaseRepository } from '@/lib/baseRepository'
+import {BaseRepository} from '@/lib/baseRepository'
 
 export class CangShuGeData_NowRepository extends BaseRepository {
   protected sectionKey = 'CangShuGeData_Now'

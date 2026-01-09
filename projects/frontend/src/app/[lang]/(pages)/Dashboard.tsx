@@ -185,7 +185,7 @@ const Dashboard = () => {
             </CCol>
           </CRow>
         </>
-      ): (
+      ) : (
         <></>
       )}
       {/*{data ? (*/}

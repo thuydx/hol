@@ -1,6 +1,6 @@
-import { BaseRepository } from '@/lib/baseRepository'
-import { KingCityDataParsed } from '@/types/KingCityData'
-import { KingCityDataModel } from '@/models/kingCityData'
+import {BaseRepository} from '@/lib/baseRepository'
+import {KingCityDataParsed} from '@/types/KingCityData'
+import {KingCityDataModel} from '@/models/kingCityData'
 
 export class KingCityDataRepository extends BaseRepository {
   protected sectionKey = 'KingCityData_now'
