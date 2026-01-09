@@ -36,4 +36,15 @@ export class MemberKingRepository
     rows[rowIndex] = serializeAll(next, rows[rowIndex])
     await this.setValue(rows)
   }
+
+  /**
+   * Đếm tổng số thành viên nội tộc theo family index
+   */
+  async countByFamilyIndex(): Promise<number> {
+    const data = await this.getValue<any[]>()
+
+    if (!Array.isArray(data)) return 0
+
+    return data.length
+  }
 }
