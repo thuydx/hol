@@ -8,17 +8,17 @@ import {
   CRow,
   CTable,
   CTableBody,
-  CTableDataCell,
+  CTableDataCell, CTableHead, CTableHeaderCell,
   CTableRow,
 } from '@coreui/react-pro'
 
 import {InputCell} from '@/components/table/InputCell'
+import {FengdiRowMemberInfo} from '@/components/table/FengdiRowMemberInfoRow'
 import {useShiJiaKing} from '@/hooks/useShiJiaKing'
 import {useI18nClient} from '@/lib/i18nClient'
 import {ShiJiaKingRelationTable} from '@/components/table/ShiJiaKingRelationTable'
 import {useShiJiaNow} from '@/hooks/useShiJiaNow'
 import {useKingCityData} from '@/hooks/useKingCityData'
-import {resolveMemberByRef} from '@/services/memberResolver'
 
 export default function ShiJiaKingPage() {
   const {data: kingData} = useKingCityData()
@@ -29,7 +29,6 @@ export default function ShiJiaKingPage() {
   if (loading || !data) return <div>Loading…</div>
 
   return (
-    <>
       <CRow className="mb-3">
         <CCol md={7}>
           <CCard>
@@ -139,48 +138,33 @@ export default function ShiJiaKingPage() {
 
             <CCardBody>
               <CTable striped small hover>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell style={{width: "160px"}}>
+                      {t.shiJiaKing.fengdiName}
+                    </CTableHeaderCell>
+                    <CTableDataCell style={{width: "100px"}}>
+                      {t.shiJiaKing.fengdiTitle}
+                    </CTableDataCell>
+                    <CTableDataCell style={{width: "180px"}}>
+                      {t.shiJiaKing.name}
+                    </CTableDataCell>
+                    <CTableDataCell style={{width: "100px"}}>
+                      {t.shiJiaKing.fengdiStatus}
+                    </CTableDataCell>
+                  </CTableRow>
+                </CTableHead>
                 <CTableBody>
                   {kingData?.fengdi.map(f => {
-                    const stateLabel =
-                      f.state === -2
-                        ? t.shiJiaKing.fengdi_state.empty
-                        : f.state === -1
-                          ? t.shiJiaKing.fengdi_state.external
-                          : t.shiJiaKing.fengdi_state.internal
-                    // const shiJia = shiJiaNow[f.index]
-                    // const fengdiTitle = buildFamilyTitle(
-                    //   shiJia?.coordinates,
-                    //   f.name,
-                    //   t,
-                    // )
-                    const member = f.memberRef
-                      ? resolveMemberByRef(f.memberRef)
-                      : null
-                    // console.log(member)
                     return (
                       <CTableRow key={f.index}>
-                        {/* STATE */}
-                        {stateLabel != '' && (
-                          <CTableDataCell style={{width: 140}}>
-                            {stateLabel}
-                          </CTableDataCell>
-                        )}
-
                         {/* FENGDI TITLE + LEVEL */}
-
-                        <CTableDataCell>
-                          {/*{fengdiTitle}*/}
-                          {/*            {member?.level != null && (*/}
-                          {/*              <span className="ms-2 text-muted">*/}
-                          {/*  (Lv.{member?.level})*/}
-                          {/*</span>*/}
-                          {/*            )}*/}
-                        </CTableDataCell>
-
-                        {/* MEMBER NAME */}
-                        {/*<CTableDataCell style={{width: 220}}>*/}
-                        {/*{member?.name ?? '—'}*/}
-                        {/*</CTableDataCell>*/}
+                        <FengdiRowMemberInfo
+                          index = {f.index}
+                          state = {f.state}
+                          memberRef={f.memberRef}
+                          t={t}
+                        />
                       </CTableRow>
                     )
                   })}
@@ -191,8 +175,5 @@ export default function ShiJiaKingPage() {
           </CCard>
         </CCol>
       </CRow>
-
-
-    </>
   )
 }

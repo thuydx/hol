@@ -1,20 +1,21 @@
 import {BaseRepository, MemberRepository} from '@/lib/baseRepository'
 import {deserializeAll, MemberParsed, MemberRawRow, serializeAll,} from '@/models/members'
+import {deserializeMemberKing, MemberKingParsed} from "@/models/memberKing";
 
 export class MemberKingRepository
   extends BaseRepository
-  implements MemberRepository<MemberParsed> {
-  protected sectionKey = 'Member_king'
+  implements MemberRepository<MemberKingParsed> {
+  protected sectionKey = 'Member_King'
 
-  async findMemberById(memberId: string): Promise<MemberParsed | null> {
+  async findMemberById(memberId: string): Promise<MemberKingParsed | null> {
     const members = await this.getParsedAll()
     return members.find(m => m.id === memberId) ?? null
   }
 
-  async getParsedAll(): Promise<MemberParsed[]> {
-    const rows = await this.getRows<MemberRawRow[]>()
-    if (!Array.isArray(rows)) return []
-    return rows.map(row => deserializeAll(row))
+  async getParsedAll(): Promise<MemberKingParsed[]> {
+    const data = await this.getValue<{ value?: string[] }>()
+    if (!Array.isArray(data)) return []
+    return data.map(row => deserializeMemberKing(row))
   }
 
   async updateParsed(

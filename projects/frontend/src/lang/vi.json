@@ -80,7 +80,10 @@
       "empty": "Chưa phong",
       "external": "Ngoại tộc",
       "internal": "Nội tộc"
-    }
+    },
+    "fengdiTitle": "Tước Vị",
+    "fengdiName": "Tên Phong Địa",
+    "fengdiStatus": "Trạng Thái"
   },
   "member": {
     "title": "Quản lý thành viên",
@@ -1096,18 +1099,18 @@
     "9": "Trạng Nguyên"
   },
   "city_name": {
-    "1": "Nam Quận",
-    "2": "Tam Xuyên",
-    "3": "Ba Thục",
-    "4": "Đan Dương",
-    "5": "Trần Lưu",
-    "6": "Trường Sa",
-    "7": "Kuaiji",
-    "8": "Quảng Lĩnh",
-    "9": "Thái Nguyên",
-    "10": "Ích Châu",
-    "11": "Nam Hải",
-    "12": "Vân Nam"
+    "0": "Nam Quận",
+    "1": "Tam Xuyên",
+    "2": "Ba Thục",
+    "3": "Đan Dương",
+    "4": "Trần Lưu",
+    "5": "Trường Sa",
+    "6": "Hội Kê",
+    "7": "Quảng Lăng",
+    "8": "Thái Nguyên",
+    "9": "Ích Châu",
+    "10": "Nam Hải",
+    "11": "Vân Nam"
   },
   "fief_name": {
     "0": "",
